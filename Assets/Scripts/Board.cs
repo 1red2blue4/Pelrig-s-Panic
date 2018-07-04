@@ -6,27 +6,31 @@ public class Board : MonoBehaviour {
 
     [SerializeField] private GameObject tilePiece;
     public static Piece[] possibleMoveableChars;
-    public static GameObject[] gamePieceObjects;
     public static float pieceDistance;
+    public static int universalTileWidth;
+    public static int universalTileHeight;
 
     // Use this for initialization
     void Start ()
     {
+        universalTileWidth = 16;
+        universalTileHeight = 10;
         //allocate arrays
         possibleMoveableChars = new Piece[4];
-        gamePieceObjects = new GameObject[4];
         //retrieve pieces from the gameObject with this board
         possibleMoveableChars = gameObject.GetComponents<Piece>();
         //set up board
         pieceDistance = 1.06f;
-        CreateBoard(16, 10, 0.0f, 0.0f);
+        CreateBoard(universalTileWidth, universalTileHeight, 0.0f, 0.0f);
+        MovementManager.directionLineup = new MovementManager.Direction[100];
+        MovementManager.SetStartDirectionLineup();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-		
-	}
+        Debug.Log(MovementManager.directionLineup[0]);
+    }
 
     private void CreateBoard(int tileWidth, int tileHeight, float midX, float midY)
     {
@@ -91,7 +95,7 @@ public class Board : MonoBehaviour {
             GameObject piece = Instantiate(possibleMoveableChars[i].GetPiece(), placement, Quaternion.identity);
             possibleMoveableChars[i].SetName(possibleMoveableChars[i].GetPiece().name);
             piece.name = possibleMoveableChars[i].GetName();
-            gamePieceObjects[i] = piece;
+            possibleMoveableChars[i].thePiece = piece;
         }
     }
 }

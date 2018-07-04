@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour {
 
-    private int rowPosition;
-    private int colPosition;
+    public int rowPosition;
+    public int colPosition;
     [SerializeField] private string name;
     private PieceType type;
-    [SerializeField] private GameObject thePiece;
+    [SerializeField] public GameObject thePiece;
 
 	// Use this for initialization
 	void Start ()

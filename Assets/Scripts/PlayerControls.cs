@@ -35,9 +35,9 @@ public class PlayerControls : MonoBehaviour {
             if (hit.collider != null)
             {
                 Transform objectHit = hit.transform;
-                for (int i = 0; i < Board.gamePieceObjects.Length; i++)
+                for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
                 {
-                    if (objectHit == Board.gamePieceObjects[i].transform)
+                    if (objectHit == Board.possibleMoveableChars[i].thePiece.transform)
                     {
                         MovementManager.Move(Board.possibleMoveableChars[i]);
                     }

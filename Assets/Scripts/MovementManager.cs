@@ -11,10 +11,90 @@ public static class MovementManager {
 
     public static void Move(Piece character)
     {
-        if (directionLineup[0] == Direction.Up)
+        if (directionLineup[0] == Direction.Up && character.rowPosition > 0)
         {
-            character.transform.position += new Vector3(0.0f, 0.0f, 0.0f);
+            bool inWay = false;
+            for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+            {
+                if (Board.possibleMoveableChars[i] == character)
+                {
+                    continue;
+                }
+                if (Board.possibleMoveableChars[i].rowPosition == character.rowPosition - 1 && Board.possibleMoveableChars[i].colPosition == character.colPosition)
+                {
+                    inWay = true;
+                }
+            }
+            if (!inWay)
+            {
+                character.GetPiece().transform.position += new Vector3(0.0f, Board.pieceDistance, 0.0f);
+                character.SetRowAndCol(character.rowPosition - 1, character.colPosition);
+            }
         }
+        else if (directionLineup[0] == Direction.Right && character.colPosition < Board.universalTileWidth - 1)
+        {
+            bool inWay = false;
+            for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+            {
+                if (Board.possibleMoveableChars[i] == character)
+                {
+                    continue;
+                }
+                if (Board.possibleMoveableChars[i].colPosition == character.colPosition + 1 && Board.possibleMoveableChars[i].rowPosition == character.rowPosition)
+                {
+                    inWay = true;
+                }
+            }
+            if (!inWay)
+            {
+                character.GetPiece().transform.position += new Vector3(Board.pieceDistance, 0.0f, 0.0f);
+                character.SetRowAndCol(character.rowPosition, character.colPosition + 1);
+            }
+        }
+        else if (directionLineup[0] == Direction.Down && character.rowPosition < Board.universalTileHeight - 1)
+        {
+            bool inWay = false;
+            for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+            {
+                if (Board.possibleMoveableChars[i] == character)
+                {
+                    continue;
+                }
+                if (Board.possibleMoveableChars[i].rowPosition == character.rowPosition + 1 && Board.possibleMoveableChars[i].colPosition == character.colPosition)
+                {
+                    inWay = true;
+                }
+            }
+            if (!inWay)
+            {
+                character.GetPiece().transform.position += new Vector3(0.0f, -Board.pieceDistance, 0.0f);
+                character.SetRowAndCol(character.rowPosition + 1, character.colPosition);
+            }
+        }
+        else if (directionLineup[0] == Direction.Left && character.colPosition > 0)
+        {
+            bool inWay = false;
+            for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+            {
+                if (Board.possibleMoveableChars[i] == character)
+                {
+                    continue;
+                }
+                if (Board.possibleMoveableChars[i].colPosition == character.colPosition - 1 && Board.possibleMoveableChars[i].rowPosition == character.rowPosition)
+                {
+                    inWay = true;
+                }
+            }
+            if (!inWay)
+            {
+                character.GetPiece().transform.position += new Vector3(-Board.pieceDistance, 0.0f, 0.0f);
+                character.SetRowAndCol(character.rowPosition, character.colPosition - 1);
+            }
+        }
+
+        Debug.Log(character.GetPiece().transform.position);
+
+        FillOneSpotInLineup();
     }
 
     public static void SetStartDirectionLineup()
