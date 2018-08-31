@@ -317,6 +317,8 @@
     <Compile Include="Assets\Scripts\Piece.cs" />
     <Compile Include="Assets\Scripts\PieceType.cs" />
     <Compile Include="Assets\Scripts\PlayerControls.cs" />
+    <Compile Include="Assets\Scripts\UIController.cs" />
+    <Compile Include="Assets\Scripts\UIData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="C:\Users\Mark\AppData\Local\Unity\cache\packages\packages.unity.com\com.unity.package-manager-ui@1.8.8\Editor\Resources\Styles\Main_Dark.uss" />

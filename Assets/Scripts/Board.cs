@@ -29,7 +29,7 @@ public class Board : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        Debug.Log(MovementManager.directionLineup[0]);
+
     }
 
     private void CreateBoard(int tileWidth, int tileHeight, float midX, float midY)

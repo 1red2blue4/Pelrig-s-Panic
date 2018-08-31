@@ -92,8 +92,6 @@ public static class MovementManager {
             }
         }
 
-        Debug.Log(character.GetPiece().transform.position);
-
         FillOneSpotInLineup();
     }
 
