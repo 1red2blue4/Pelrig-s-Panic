@@ -25,8 +25,6 @@ public class UIController : MonoBehaviour {
                 if (tempObjects[j].GetComponent<UIData>().arrowID == i)
                 {
                     nextInSequence[i] = tempObjects[j];
-                    Debug.Log(nextInSequence[i]);
-                    Debug.Log(tempObjects[j]);
                     break;
                 }
             }
@@ -61,9 +59,5 @@ public class UIController : MonoBehaviour {
                     break;
             }
         }
-        Debug.Log("stuff!");
-        Debug.Log(nextInSequence[0].GetComponent<Image>().sprite);
-
-
 	}
 }

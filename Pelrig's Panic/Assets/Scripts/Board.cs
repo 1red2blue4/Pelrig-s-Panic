@@ -9,10 +9,20 @@ public class Board : MonoBehaviour {
     public static float pieceDistance;
     public static int universalTileWidth;
     public static int universalTileHeight;
+    public static float timer;
+    public static float coinResetTimer;
+    public static int currentNumCoins;
+    public const float approxGoldenRatio = 1.618f;
+    public static float timeToWait;
 
     // Use this for initialization
     void Start ()
     {
+        Time.maximumDeltaTime = 0.1f;
+        timer = 0.0f;
+        coinResetTimer = 0.0f;
+        timeToWait = 1.0f;
+        currentNumCoins = 0;
         universalTileWidth = 16;
         universalTileHeight = 10;
         //allocate arrays
@@ -29,7 +39,9 @@ public class Board : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-
+        CoinSpawn(currentNumCoins);
+        timer += Time.deltaTime;
+        coinResetTimer += Time.deltaTime;
     }
 
     private void CreateBoard(int tileWidth, int tileHeight, float midX, float midY)
@@ -96,6 +108,20 @@ public class Board : MonoBehaviour {
             possibleMoveableChars[i].SetName(possibleMoveableChars[i].GetPiece().name);
             piece.name = possibleMoveableChars[i].GetName();
             possibleMoveableChars[i].thePiece = piece;
+        }
+    }
+
+    private void CoinSpawn(int numCoins)
+    {
+        Debug.Log("Timer: " + coinResetTimer);
+        Debug.Log("Time To Wait: " + timeToWait);
+        if (coinResetTimer >= timeToWait)
+        {
+            //every situation where currentNumCoins increases or decreases, adjust the timeToWait
+            currentNumCoins++;
+            timeToWait *= approxGoldenRatio;
+            coinResetTimer = 0.0f;
+            Debug.Log("Num Coins: " + currentNumCoins);
         }
     }
 }

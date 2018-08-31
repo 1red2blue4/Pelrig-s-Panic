@@ -10,18 +10,6 @@ public class Piece : MonoBehaviour {
     private PieceType type;
     [SerializeField] public GameObject thePiece;
 
-	// Use this for initialization
-	void Start ()
-    {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
-
     public void SetRowAndCol(int row, int col)
     {
         rowPosition = row;
