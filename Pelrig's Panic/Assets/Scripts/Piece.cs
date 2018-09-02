@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour {
 
+    public string id;
     public int rowPosition;
     public int colPosition;
     [SerializeField] private string name;

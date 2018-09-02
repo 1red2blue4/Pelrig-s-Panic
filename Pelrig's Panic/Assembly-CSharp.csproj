@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\Board.cs" />
     <Compile Include="Assets\Scripts\MovementManager.cs" />
     <Compile Include="Assets\Scripts\Piece.cs" />
+    <Compile Include="Assets\Scripts\PieceHolder.cs" />
     <Compile Include="Assets\Scripts\PieceType.cs" />
     <Compile Include="Assets\Scripts\PlayerControls.cs" />
     <Compile Include="Assets\Scripts\UIController.cs" />
