@@ -48,26 +48,6 @@ public class Board : MonoBehaviour {
         //retrieve pieces from the gameObject with this board
         possibleMoveableChars = gameObject.GetComponents<Piece>();
 
-        /*
-        //find the piece holder
-        GameObject pieceHolder = GameObject.FindGameObjectWithTag("PieceHolder");
-        Piece[] allPieces = pieceHolder.GetComponents<Piece>();
-        //find the sought Coin piece; use a hero as a backup piece in case it doesn't find anything
-        Piece soughtPiece = gameObject.GetComponent<Piece>();
-        for (int i = 0; i < allPieces.Length; i++)
-        {
-            if (allPieces[i].id == "Coin")
-            {
-                soughtPiece = allPieces[i];
-            }
-        }
-        //set all coins to be that coin piece
-        for (int i = 0; i < allCoins.Length; i++)
-        {
-            allCoins[i] = soughtPiece;
-        }
-        */
-
         //set up board
         pieceDistance = 1.06f;
         CreateBoard(universalTileWidth, universalTileHeight, midBoardX, midBoardY);
@@ -203,7 +183,7 @@ public class Board : MonoBehaviour {
             float finalYPos = halfHeight - (float)row * pieceDistance - midY;
             Vector3 placement = new Vector3(finalXPos, finalYPos, 0.0f);
             GameObject piece = Instantiate(allCoins[currentNumCoins].GetPiece(), placement, Quaternion.identity);
-            allCoins[currentNumCoins].SetName(allCoins[currentNumCoins].GetPiece().name + currentNumCoins);
+            allCoins[currentNumCoins].SetName("Coin " + currentNumCoins);
             piece.name = allCoins[currentNumCoins].GetName();
             allCoins[currentNumCoins].thePiece = piece;
             allCoins[currentNumCoins].SetRowAndCol(row, col);
@@ -212,12 +192,6 @@ public class Board : MonoBehaviour {
             currentNumCoins++;
             timeToWait *= approxGoldenRatio;
             coinResetTimer = 0.0f;
-
-            for (int i = 0; i < currentNumCoins; i++)
-            {
-                Debug.Log("Row: " + allCoins[i].rowPosition);
-                Debug.Log("Col: " + allCoins[i].colPosition);
-            }
         }
     }
 
@@ -236,7 +210,6 @@ public class Board : MonoBehaviour {
 
     private void PlaceObject(float tlWdth, float tlHght, int rw, int cl, float pcDistnc, float mdX, float mdY, Piece pieceToPlace, int number, bool isNumbered)
     {
-        Debug.Log(pieceToPlace.id);
         //place the coin
         float halfWidth = (float)tlWdth / 2.0f;
         float halfHeight = (float)tlHght / 2.0f;

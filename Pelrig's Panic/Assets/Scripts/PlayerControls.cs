@@ -95,17 +95,18 @@ public class PlayerControls : MonoBehaviour {
                 //check for a hit
                 if (Board.possibleMoveableChars[i].rowPosition == Board.allCoins[j].rowPosition && Board.possibleMoveableChars[i].colPosition == Board.allCoins[j].colPosition)
                 {
-                    Debug.Log("That's a hit!");
-                    /*
-                    //if it's a hit, make all other coins fill the space and reduce the number of coins by 1
-                    for (int k = j; k < Board.currentNumCoins - 2; k++)
+                    Board.allCoins[j].GetPiece().transform.position = new Vector3(10000, 10000, 0.0f);
+                    Board.allCoins[j].rowPosition = -5;
+                    Board.allCoins[j].colPosition = -5;
+                    for (int k = j; k < Board.allCoins.Length - 2; k++)
                     {
                         Board.allCoins[k] = Board.allCoins[k + 1];
                     }
                     //in every situation where the number of coins increases or decreases, adjust the timeToWait
                     Board.currentNumCoins--;
                     Board.timeToWait /= Board.approxGoldenRatio;
-                    */
+                    Board.numCoinsCollected++;
+                    Debug.Log(Board.numCoinsCollected);
                 }
             }
         }
