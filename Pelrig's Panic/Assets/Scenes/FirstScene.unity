@@ -537,6 +537,51 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cf1b22fb686eca4085a7bb3aede28b3, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &680498722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 680498724}
+  - component: {fileID: 680498723}
+  m_Layer: 0
+  m_Name: PieceHolder
+  m_TagString: PieceHolder
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &680498723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 680498722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7188ea8d8931041819aa344fe62074, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: Coin
+  rowPosition: 0
+  colPosition: 0
+  name: 
+  thePiece: {fileID: 1164183193104502, guid: 44c03ae576243d8409e3f182728c6b85, type: 2}
+--- !u!4 &680498724
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 680498722}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.927696, y: -0.46636778, z: -4.3399744}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &824527441 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1370087797098358, guid: 4cf1b22fb686eca4085a7bb3aede28b3,
@@ -613,6 +658,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePiece: {fileID: 1615018820969726, guid: e0283f1e0facd814fa1d9281d4760552, type: 2}
+  coinPiece: {fileID: 1164183193104502, guid: 44c03ae576243d8409e3f182728c6b85, type: 2}
 --- !u!4 &1203437211
 Transform:
   m_ObjectHideFlags: 0
@@ -637,6 +683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e7188ea8d8931041819aa344fe62074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 
   rowPosition: 0
   colPosition: 0
   name: 
@@ -652,6 +699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e7188ea8d8931041819aa344fe62074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 
   rowPosition: 0
   colPosition: 0
   name: 
@@ -667,6 +715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e7188ea8d8931041819aa344fe62074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 
   rowPosition: 0
   colPosition: 0
   name: 
@@ -682,6 +731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e7188ea8d8931041819aa344fe62074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 
   rowPosition: 0
   colPosition: 0
   name: 

@@ -10,6 +10,7 @@ public class PlayerControls : MonoBehaviour {
     private float cameraMinZoom;
     private int clickedRow;
     private int clickedColumn;
+    //in place in case this script is attached to another object that is not a camera
     private Camera thisCamera;
     
 	void Start ()
@@ -29,6 +30,7 @@ public class PlayerControls : MonoBehaviour {
     {
         CheckClick();
         MoveCamera();
+        CheckCoinCollect();
 	}
 
 
@@ -79,6 +81,33 @@ public class PlayerControls : MonoBehaviour {
         else if (Input.GetAxis("Mouse ScrollWheel") < 0 && gameObject.GetComponent<Camera>().orthographicSize < cameraMaxZoom)
         {
             gameObject.GetComponent<Camera>().orthographicSize += cameraScrollSpeed * Time.deltaTime;
+        }
+    }
+
+    private void CheckCoinCollect()
+    {
+        //for all the heroes and coins...
+        for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+        {
+            
+            for (int j = 0; j < Board.currentNumCoins; j++)
+            {
+                //check for a hit
+                if (Board.possibleMoveableChars[i].rowPosition == Board.allCoins[j].rowPosition && Board.possibleMoveableChars[i].colPosition == Board.allCoins[j].colPosition)
+                {
+                    Debug.Log("That's a hit!");
+                    /*
+                    //if it's a hit, make all other coins fill the space and reduce the number of coins by 1
+                    for (int k = j; k < Board.currentNumCoins - 2; k++)
+                    {
+                        Board.allCoins[k] = Board.allCoins[k + 1];
+                    }
+                    //in every situation where the number of coins increases or decreases, adjust the timeToWait
+                    Board.currentNumCoins--;
+                    Board.timeToWait /= Board.approxGoldenRatio;
+                    */
+                }
+            }
         }
     }
 }
