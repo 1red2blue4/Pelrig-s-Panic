@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class Board : MonoBehaviour {
 
+    
+
     [SerializeField] private GameObject tilePiece;
+    [SerializeField] private GameObject tilePieceDead;
     public const int MAXCOINNUM = 50;
     public static Piece[] possibleMoveableChars;
     public static Piece[] allCoins;
+
+    public static int numNonTraversableChunks = 0;
+    public static field[] nonTraversableChunks;
 
     public static float midBoardX;
     public static float midBoardY;
@@ -23,7 +29,21 @@ public class Board : MonoBehaviour {
     public static int currentNumCoins = 0;
     public static int numCoinsCollected = 0;
     public const float approxGoldenRatio = 1.618f;
-    
+
+    public struct point
+    {
+        public int x;
+        public int y;
+    }
+
+    //start is the top left; end is the bottom right
+    public struct field
+    {
+        public point start;
+        public point end;
+        public bool inUse;
+    }
+
 
     // Use this for initialization
     void Start ()
@@ -37,6 +57,7 @@ public class Board : MonoBehaviour {
         universalTileWidth = 16;
         universalTileHeight = 10;
         //allocate arrays
+        nonTraversableChunks = new field[20];
         possibleMoveableChars = new Piece[4];
         allCoins = new Piece[MAXCOINNUM];
         GameObject[] allCoinObjects = new GameObject[MAXCOINNUM];
@@ -48,9 +69,25 @@ public class Board : MonoBehaviour {
         //retrieve pieces from the gameObject with this board
         possibleMoveableChars = gameObject.GetComponents<Piece>();
 
+        //set non-=traversable spaces
+        for (int i = 0; i < nonTraversableChunks.Length; i++)
+        {
+            nonTraversableChunks[i].inUse = false;
+        }
+
+        //set some values as a test
+        nonTraversableChunks[0].inUse = true;
+        nonTraversableChunks[0].start = new point();
+        nonTraversableChunks[0].end = new point();
+        nonTraversableChunks[0].start.x = 1;
+        nonTraversableChunks[0].end.x = 2;
+        nonTraversableChunks[0].start.y = 1;
+        nonTraversableChunks[0].end.y = 2;
+
+
         //set up board
         pieceDistance = 1.06f;
-        CreateBoard(universalTileWidth, universalTileHeight, midBoardX, midBoardY);
+        CreateBoard(universalTileWidth, universalTileHeight, midBoardX, midBoardY, nonTraversableChunks);
         MovementManager.directionLineup = new MovementManager.Direction[25];
         MovementManager.SetStartDirectionLineup();
 	}
@@ -63,7 +100,7 @@ public class Board : MonoBehaviour {
         coinResetTimer += Time.deltaTime;
     }
 
-    private void CreateBoard(int tileWidth, int tileHeight, float midX, float midY)
+    private void CreateBoard(int tileWidth, int tileHeight, float midX, float midY, field[] deadFields)
     {
         float halfWidth = (float)tileWidth / 2.0f;
         float halfHeight = (float)tileHeight / 2.0f;
@@ -73,9 +110,32 @@ public class Board : MonoBehaviour {
         {
             for (int j = 0; j < tileWidth; j++)
             {
-                Vector3 placement = new Vector3(-halfWidth + (float)j*pieceDistance + midX, halfHeight - (float)i*pieceDistance - midY, 0.0f);
-                GameObject piece = Instantiate(tilePiece, placement, Quaternion.identity);
-                piece.name = "gridRow" + i + "Column" + j;
+                Vector3 placement;
+                GameObject piece;
+                bool shouldPlace = true;
+
+                for (int k = 0; k < deadFields.Length; k++)
+                {
+                    //once you find all the used deadFields, break out of the loop
+                    if (!deadFields[k].inUse)
+                    {
+                        break;
+                    }
+                    //for every dead field, note the space as dead and do not place a regular tile there
+                    if (deadFields[k].start.x <= j && deadFields[k].end.x >= j && deadFields[k].start.y <= i && deadFields[k].end.y >= i)
+                    {
+                        placement = new Vector3(-halfWidth + (float)j * pieceDistance + midX, halfHeight - (float)i * pieceDistance - midY, 0.0f);
+                        piece = Instantiate(tilePieceDead, placement, Quaternion.identity);
+                        piece.name = "gridRow" + i + "Column" + j;
+                        shouldPlace = false;
+                    }
+                }
+                if (shouldPlace)
+                {
+                    placement = new Vector3(-halfWidth + (float)j * pieceDistance + midX, halfHeight - (float)i * pieceDistance - midY, 0.0f);
+                    piece = Instantiate(tilePiece, placement, Quaternion.identity);
+                    piece.name = "gridRow" + i + "Column" + j;
+                }
             }
         }
 

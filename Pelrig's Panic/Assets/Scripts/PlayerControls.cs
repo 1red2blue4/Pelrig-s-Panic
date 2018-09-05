@@ -38,18 +38,21 @@ public class PlayerControls : MonoBehaviour {
     public void CheckClick()
     {
 
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-
         if (Input.GetMouseButtonDown(0))
         {
-            if (hit.collider != null)
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity)) 
             {
-                Transform objectHit = hit.transform;
-                for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+                if (hit.collider != null)
                 {
-                    if (objectHit == Board.possibleMoveableChars[i].thePiece.transform)
+                    Transform objectHit = hit.transform;
+                    for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
                     {
-                        MovementManager.Move(Board.possibleMoveableChars[i]);
+                        if (objectHit == Board.possibleMoveableChars[i].thePiece.transform)
+                        {
+                            MovementManager.Move(Board.possibleMoveableChars[i]);
+                        }
                     }
                 }
             }
@@ -106,7 +109,6 @@ public class PlayerControls : MonoBehaviour {
                     Board.currentNumCoins--;
                     Board.timeToWait /= Board.approxGoldenRatio;
                     Board.numCoinsCollected++;
-                    Debug.Log(Board.numCoinsCollected);
                 }
             }
         }
