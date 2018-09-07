@@ -12,8 +12,9 @@ public class Board : MonoBehaviour {
     public static Piece[] possibleMoveableChars;
     public static Piece[] allCoins;
 
-    public static int numNonTraversableChunks = 0;
-    public static field[] nonTraversableChunks;
+    public static int[,] spaceFieldType;
+    public static int numDeadSpaces;
+    public static point[] deadPoints;
 
     public static float midBoardX;
     public static float midBoardY;
@@ -34,6 +35,12 @@ public class Board : MonoBehaviour {
     {
         public int x;
         public int y;
+
+        public point(int ex, int why)
+        {
+            x = ex;
+            y = why;
+        }
     }
 
     //start is the top left; end is the bottom right
@@ -57,7 +64,6 @@ public class Board : MonoBehaviour {
         universalTileWidth = 16;
         universalTileHeight = 10;
         //allocate arrays
-        nonTraversableChunks = new field[20];
         possibleMoveableChars = new Piece[4];
         allCoins = new Piece[MAXCOINNUM];
         GameObject[] allCoinObjects = new GameObject[MAXCOINNUM];
@@ -69,25 +75,31 @@ public class Board : MonoBehaviour {
         //retrieve pieces from the gameObject with this board
         possibleMoveableChars = gameObject.GetComponents<Piece>();
 
-        //set non-=traversable spaces
-        for (int i = 0; i < nonTraversableChunks.Length; i++)
+        //set up non-traversable spaces
+        numDeadSpaces = 0;
+        spaceFieldType = new int[universalTileWidth, universalTileHeight];
+        deadPoints = new point[universalTileHeight*universalTileWidth];
+
+        for (int i = 0; i < universalTileHeight; i++)
         {
-            nonTraversableChunks[i].inUse = false;
+            for (int j = 0; j < universalTileWidth; j++)
+            {
+                if (i >= 1 && i <= 6 && j >= 1 && j <= 9)
+                {
+                    spaceFieldType[j, i] = 0;
+                    deadPoints[numDeadSpaces] = new point(j, i);
+                    numDeadSpaces++;
+                }
+                else
+                {
+                    spaceFieldType[j, i] = 1;
+                }
+            }
         }
-
-        //set some values as a test
-        nonTraversableChunks[0].inUse = true;
-        nonTraversableChunks[0].start = new point();
-        nonTraversableChunks[0].end = new point();
-        nonTraversableChunks[0].start.x = 1;
-        nonTraversableChunks[0].end.x = 2;
-        nonTraversableChunks[0].start.y = 1;
-        nonTraversableChunks[0].end.y = 2;
-
 
         //set up board
         pieceDistance = 1.06f;
-        CreateBoard(universalTileWidth, universalTileHeight, midBoardX, midBoardY, nonTraversableChunks);
+        CreateBoard(universalTileWidth, universalTileHeight, midBoardX, midBoardY, spaceFieldType);
         MovementManager.directionLineup = new MovementManager.Direction[25];
         MovementManager.SetStartDirectionLineup();
 	}
@@ -100,7 +112,7 @@ public class Board : MonoBehaviour {
         coinResetTimer += Time.deltaTime;
     }
 
-    private void CreateBoard(int tileWidth, int tileHeight, float midX, float midY, field[] deadFields)
+    private void CreateBoard(int tileWidth, int tileHeight, float midX, float midY, int[,] deadSpaces)
     {
         float halfWidth = (float)tileWidth / 2.0f;
         float halfHeight = (float)tileHeight / 2.0f;
@@ -112,25 +124,14 @@ public class Board : MonoBehaviour {
             {
                 Vector3 placement;
                 GameObject piece;
-                bool shouldPlace = true;
-
-                for (int k = 0; k < deadFields.Length; k++)
+                //for every dead field, note the space as dead and do not place a regular tile there
+                if (deadSpaces[j, i] == 0)
                 {
-                    //once you find all the used deadFields, break out of the loop
-                    if (!deadFields[k].inUse)
-                    {
-                        break;
-                    }
-                    //for every dead field, note the space as dead and do not place a regular tile there
-                    if (deadFields[k].start.x <= j && deadFields[k].end.x >= j && deadFields[k].start.y <= i && deadFields[k].end.y >= i)
-                    {
-                        placement = new Vector3(-halfWidth + (float)j * pieceDistance + midX, halfHeight - (float)i * pieceDistance - midY, 0.0f);
-                        piece = Instantiate(tilePieceDead, placement, Quaternion.identity);
-                        piece.name = "gridRow" + i + "Column" + j;
-                        shouldPlace = false;
-                    }
+                    placement = new Vector3(-halfWidth + (float)j * pieceDistance + midX, halfHeight - (float)i * pieceDistance - midY, 0.0f);
+                    piece = Instantiate(tilePieceDead, placement, Quaternion.identity);
+                    piece.name = "gridRow" + i + "Column" + j + " Dead Space";
                 }
-                if (shouldPlace)
+                else
                 {
                     placement = new Vector3(-halfWidth + (float)j * pieceDistance + midX, halfHeight - (float)i * pieceDistance - midY, 0.0f);
                     piece = Instantiate(tilePiece, placement, Quaternion.identity);
@@ -160,14 +161,23 @@ public class Board : MonoBehaviour {
 
             possibleMoveableChars[i].SetRowAndCol(randRow, randCol);
 
-            //check if in the same spot as another hero
+            //check if in the same spot as another thing
             tempRows[i] = randRow;
             tempCols[i] = randCol;
             bool shouldReset = false;
 
+            //same spot as another hero
             for (int j = i - 1; j >= 0; j--)
             {
                 if (randRow == tempRows[j] && randCol == tempCols[j])
+                {
+                    shouldReset = true;
+                }
+            }
+            //same spot as a dead space
+            for (int j = 0; j < numDeadSpaces; j++)
+            {
+                if (randRow == deadPoints[j].y && randCol == deadPoints[j].x)
                 {
                     shouldReset = true;
                 }
@@ -201,19 +211,27 @@ public class Board : MonoBehaviour {
             
             //find a location for the coin
             //check for the spots where the coin may not be placed
-            int[] disallowedRows = new int[possibleMoveableChars.Length + currentNumCoins];
-            int[] disallowedCols = new int[possibleMoveableChars.Length + currentNumCoins];
-            for (int i = 0; i < possibleMoveableChars.Length + currentNumCoins; i++)
+            int[] disallowedRows = new int[possibleMoveableChars.Length + currentNumCoins + numDeadSpaces];
+            int[] disallowedCols = new int[possibleMoveableChars.Length + currentNumCoins + numDeadSpaces];
+            for (int i = 0; i < possibleMoveableChars.Length + currentNumCoins + numDeadSpaces; i++)
             {
+                //do not get the same space as a hero
                 if (i < possibleMoveableChars.Length)
                 {
                     disallowedRows[i] = possibleMoveableChars[i].rowPosition;
                     disallowedCols[i] = possibleMoveableChars[i].colPosition;
                 }
-                else
+                //do not get the same space as another coin
+                else if (i >= possibleMoveableChars.Length && i < possibleMoveableChars.Length + currentNumCoins)
                 {
                     disallowedRows[i] = allCoins[i - possibleMoveableChars.Length].rowPosition;
                     disallowedCols[i] = allCoins[i - possibleMoveableChars.Length].colPosition;
+                }
+                //do not get a dead space
+                else
+                {
+                    disallowedRows[i] = deadPoints[i - possibleMoveableChars.Length - currentNumCoins].y;
+                    disallowedCols[i] = deadPoints[i - possibleMoveableChars.Length - currentNumCoins].x;
                 }
             }
             //by default, cannot place a coin until you find a space that is allowed
@@ -258,7 +276,7 @@ public class Board : MonoBehaviour {
     private bool CheckIfCanPlace(int checkedRw, int checkedCl, int[] disallowedRws, int[] disallowedCls)
     {
         //if the selected space is already covered by any piece, return false; otherwise, return true
-        for (int i = 0; i < possibleMoveableChars.Length; i++)
+        for (int i = 0; i < disallowedRws.Length; i++)
         {
             if (checkedRw == disallowedRws[i] && checkedCl == disallowedCls[i])
             {

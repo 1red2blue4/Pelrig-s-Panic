@@ -14,6 +14,7 @@ public static class MovementManager {
         if (directionLineup[0] == Direction.Up && character.rowPosition > 0)
         {
             bool inWay = false;
+            //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
             {
                 if (Board.possibleMoveableChars[i] == character)
@@ -21,6 +22,14 @@ public static class MovementManager {
                     continue;
                 }
                 if (Board.possibleMoveableChars[i].rowPosition == character.rowPosition - 1 && Board.possibleMoveableChars[i].colPosition == character.colPosition)
+                {
+                    inWay = true;
+                }
+            }
+            //check for dead spaces in the way
+            for (int i = 0; i < Board.numDeadSpaces; i++)
+            {
+                if (Board.deadPoints[i].y == character.rowPosition - 1 && Board.deadPoints[i].x == character.colPosition)
                 {
                     inWay = true;
                 }
@@ -34,6 +43,7 @@ public static class MovementManager {
         else if (directionLineup[0] == Direction.Right && character.colPosition < Board.universalTileWidth - 1)
         {
             bool inWay = false;
+            //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
             {
                 if (Board.possibleMoveableChars[i] == character)
@@ -41,6 +51,14 @@ public static class MovementManager {
                     continue;
                 }
                 if (Board.possibleMoveableChars[i].colPosition == character.colPosition + 1 && Board.possibleMoveableChars[i].rowPosition == character.rowPosition)
+                {
+                    inWay = true;
+                }
+            }
+            //check for dead spaces in the way
+            for (int i = 0; i < Board.numDeadSpaces; i++)
+            {
+                if (Board.deadPoints[i].x == character.colPosition + 1 && Board.deadPoints[i].y == character.rowPosition)
                 {
                     inWay = true;
                 }
@@ -54,6 +72,7 @@ public static class MovementManager {
         else if (directionLineup[0] == Direction.Down && character.rowPosition < Board.universalTileHeight - 1)
         {
             bool inWay = false;
+            //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
             {
                 if (Board.possibleMoveableChars[i] == character)
@@ -61,6 +80,14 @@ public static class MovementManager {
                     continue;
                 }
                 if (Board.possibleMoveableChars[i].rowPosition == character.rowPosition + 1 && Board.possibleMoveableChars[i].colPosition == character.colPosition)
+                {
+                    inWay = true;
+                }
+            }
+            //check for dead spaces in the way
+            for (int i = 0; i < Board.numDeadSpaces; i++)
+            {
+                if (Board.deadPoints[i].y == character.rowPosition + 1 && Board.deadPoints[i].x == character.colPosition)
                 {
                     inWay = true;
                 }
@@ -74,6 +101,7 @@ public static class MovementManager {
         else if (directionLineup[0] == Direction.Left && character.colPosition > 0)
         {
             bool inWay = false;
+            //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
             {
                 if (Board.possibleMoveableChars[i] == character)
@@ -81,6 +109,14 @@ public static class MovementManager {
                     continue;
                 }
                 if (Board.possibleMoveableChars[i].colPosition == character.colPosition - 1 && Board.possibleMoveableChars[i].rowPosition == character.rowPosition)
+                {
+                    inWay = true;
+                }
+            }
+            //check for dead spaces in the way
+            for (int i = 0; i < Board.numDeadSpaces; i++)
+            {
+                if (Board.deadPoints[i].x == character.colPosition - 1 && Board.deadPoints[i].y == character.rowPosition)
                 {
                     inWay = true;
                 }
