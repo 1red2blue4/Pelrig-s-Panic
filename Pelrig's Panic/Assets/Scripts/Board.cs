@@ -8,7 +8,7 @@ public class Board : MonoBehaviour {
 
     [SerializeField] private GameObject tilePiece;
     [SerializeField] private GameObject tilePieceDead;
-    public const int MAXCOINNUM = 50;
+    public const int MAXCOINNUM = 100;
     public static Piece[] possibleMoveableChars;
     public static Piece[] allCoins;
 
