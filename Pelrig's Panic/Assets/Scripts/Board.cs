@@ -8,9 +8,12 @@ public class Board : MonoBehaviour {
 
     [SerializeField] private GameObject tilePiece;
     [SerializeField] private GameObject tilePieceDead;
+    [SerializeField] private GameObject enemy;
+
     public const int MAXCOINNUM = 100;
     public static Piece[] possibleMoveableChars;
     public static Piece[] allCoins;
+    public static Piece[] spawnedEnemies;
 
     public static int[,] spaceFieldType;
     public static int numDeadSpaces;
@@ -30,6 +33,10 @@ public class Board : MonoBehaviour {
     public static int currentNumCoins = 0;
     public static int numCoinsCollected = 0;
     public const float approxGoldenRatio = 1.618f;
+
+
+    private float time;
+    private int numberOfEnemies;
 
     public struct point
     {
@@ -55,6 +62,19 @@ public class Board : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        //Keeping track of time. Keeping initial time as 280.0f as it is used for spawning enemies.
+        //Let the first enemy be spawned after the first minute.
+        time = 280.0f;
+        numberOfEnemies = 0;
+
+        spawnedEnemies = new Piece[5];
+        GameObject[] spawnedEnemyObjects = new GameObject[5]; //5 for now
+        for (int i=0; i < spawnedEnemies.Length; i++)
+        {
+            spawnedEnemyObjects[i] = Instantiate(enemy, new Vector3(10000.0f, 10000.0f, 0.0f), Quaternion.identity);
+            spawnedEnemies[i] = spawnedEnemyObjects[i].GetComponent<Piece>();
+        }
+
         midBoardX = 0.0f;
         midBoardY = 0.0f;
         Time.maximumDeltaTime = 0.1f;
@@ -65,6 +85,7 @@ public class Board : MonoBehaviour {
         universalTileHeight = 10;
         //allocate arrays
         possibleMoveableChars = new Piece[4];
+        
         allCoins = new Piece[MAXCOINNUM];
         GameObject[] allCoinObjects = new GameObject[MAXCOINNUM];
         for (int i = 0; i < allCoinObjects.Length; i++)
@@ -107,6 +128,13 @@ public class Board : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        //Spawn enemies after every 5 mins
+        time += Time.deltaTime;
+        if (time >= 300.0f)
+        {
+            time = 0.0f;
+            SpawnEnemy();
+        }
         CoinSpawn(currentNumCoins, universalTileWidth, universalTileHeight, midBoardX, midBoardY);
         timer += Time.deltaTime;
         coinResetTimer += Time.deltaTime;
@@ -208,12 +236,11 @@ public class Board : MonoBehaviour {
         //if the time elapsed is enough to create a coin, make a coin
         if (coinResetTimer >= timeToWait)
         {
-            
             //find a location for the coin
             //check for the spots where the coin may not be placed
-            int[] disallowedRows = new int[possibleMoveableChars.Length + currentNumCoins + numDeadSpaces];
-            int[] disallowedCols = new int[possibleMoveableChars.Length + currentNumCoins + numDeadSpaces];
-            for (int i = 0; i < possibleMoveableChars.Length + currentNumCoins + numDeadSpaces; i++)
+            int[] disallowedRows = new int[possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Length];
+            int[] disallowedCols = new int[possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Length];
+            for (int i = 0; i < possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Length; i++)
             {
                 //do not get the same space as a hero
                 if (i < possibleMoveableChars.Length)
@@ -221,17 +248,23 @@ public class Board : MonoBehaviour {
                     disallowedRows[i] = possibleMoveableChars[i].rowPosition;
                     disallowedCols[i] = possibleMoveableChars[i].colPosition;
                 }
-                //do not get the same space as another coin
-                else if (i >= possibleMoveableChars.Length && i < possibleMoveableChars.Length + currentNumCoins)
+                //do not get the same space as another enemy
+                else if (i >= possibleMoveableChars.Length && i < possibleMoveableChars.Length + spawnedEnemies.Length)
                 {
                     disallowedRows[i] = allCoins[i - possibleMoveableChars.Length].rowPosition;
                     disallowedCols[i] = allCoins[i - possibleMoveableChars.Length].colPosition;
                 }
+                //do not get the same space a coin
+                else if (i >= possibleMoveableChars.Length + spawnedEnemies.Length && i < possibleMoveableChars.Length + spawnedEnemies.Length + currentNumCoins)
+                {
+                    disallowedRows[i] = allCoins[i - possibleMoveableChars.Length - spawnedEnemies.Length].rowPosition;
+                    disallowedCols[i] = allCoins[i - possibleMoveableChars.Length - spawnedEnemies.Length].colPosition;
+                }
                 //do not get a dead space
                 else
                 {
-                    disallowedRows[i] = deadPoints[i - possibleMoveableChars.Length - currentNumCoins].y;
-                    disallowedCols[i] = deadPoints[i - possibleMoveableChars.Length - currentNumCoins].x;
+                    disallowedRows[i] = deadPoints[i - possibleMoveableChars.Length - currentNumCoins - spawnedEnemies.Length].y;
+                    disallowedCols[i] = deadPoints[i - possibleMoveableChars.Length - currentNumCoins - spawnedEnemies.Length].x;
                 }
             }
             //by default, cannot place a coin until you find a space that is allowed
@@ -306,5 +339,75 @@ public class Board : MonoBehaviour {
         
         piece.name = pieceToPlace.GetName();
         pieceToPlace.thePiece = piece;
+    }
+
+    //Public function as EnemyAI needs the access locations
+    public void SpawnEnemy()
+    {
+        //find a location for the coin
+        //check for the spots where the coin may not be placed
+        int[] disallowedRows = new int[possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Length];
+        int[] disallowedCols = new int[possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Length];
+        for (int i = 0; i < possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Length; i++)
+        {
+            //do not get the same space as a hero
+            if (i < possibleMoveableChars.Length)
+            {
+                disallowedRows[i] = possibleMoveableChars[i].rowPosition;
+                disallowedCols[i] = possibleMoveableChars[i].colPosition;
+            }
+            //do not get the same space as another enemy
+            else if (i >= possibleMoveableChars.Length && i < possibleMoveableChars.Length + spawnedEnemies.Length)
+            {
+                disallowedRows[i] = allCoins[i - possibleMoveableChars.Length].rowPosition;
+                disallowedCols[i] = allCoins[i - possibleMoveableChars.Length].colPosition;
+            }
+            //do not get the same space a coin
+            else if (i >= possibleMoveableChars.Length + spawnedEnemies.Length && i < possibleMoveableChars.Length + spawnedEnemies.Length + currentNumCoins)
+            {
+                disallowedRows[i] = allCoins[i - possibleMoveableChars.Length - spawnedEnemies.Length].rowPosition;
+                disallowedCols[i] = allCoins[i - possibleMoveableChars.Length - spawnedEnemies.Length].colPosition;
+            }
+            //do not get a dead space
+            else
+            {
+                disallowedRows[i] = deadPoints[i - possibleMoveableChars.Length - currentNumCoins - spawnedEnemies.Length].y;
+                disallowedCols[i] = deadPoints[i - possibleMoveableChars.Length - currentNumCoins - spawnedEnemies.Length].x;
+            }
+        }
+        //by default, cannot place a coin until you find a space that is allowed
+        bool canPlace = false;
+        int debugCount = 0;
+        int row = 0;
+        int col = 0;
+        while (!canPlace)
+        {
+            //select an arbitrary row and column to place the coin
+            row = (int)Mathf.Floor(Random.value * universalTileHeight);
+            col = (int)Mathf.Floor(Random.value * universalTileWidth);
+            canPlace = CheckIfCanPlace(row, col, disallowedRows, disallowedCols);
+            //just in case every space is invalid, throw it at (0, 0) after 100 checks
+            debugCount++;
+            if (debugCount >= 100)
+            {
+                canPlace = true;
+            }
+        }
+
+        //place the coin
+        //PlaceObject(tileWidth, tileHeight, row, col, pieceDistance, midX, midY, allCoins[currentNumCoins], currentNumCoins, true);
+        float halfWidth = (float)universalTileWidth / 2.0f;
+        float halfHeight = (float)universalTileHeight / 2.0f;
+        float finalXPos = -halfWidth + (float)col * pieceDistance + midBoardX;
+        float finalYPos = halfHeight - (float)row * pieceDistance - midBoardY;
+        Vector3 placement = new Vector3(finalXPos, finalYPos, 0.0f);
+        GameObject piece = Instantiate(spawnedEnemies[numberOfEnemies].GetPiece(), placement, Quaternion.identity);
+        spawnedEnemies[numberOfEnemies].SetName("Enemy " + numberOfEnemies);
+        piece.name = spawnedEnemies[numberOfEnemies].GetName();
+        spawnedEnemies[numberOfEnemies].thePiece = piece;
+        spawnedEnemies[numberOfEnemies].SetRowAndCol(row, col);
+
+        //every situation where currentNumCoins increases or decreases, adjust the timeToWait
+        numberOfEnemies++;
     }
 }
