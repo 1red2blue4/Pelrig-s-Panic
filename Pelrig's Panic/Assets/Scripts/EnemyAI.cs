@@ -51,35 +51,134 @@ public class EnemyAI : MonoBehaviour {
         int targetRowPosition = 0;
         int currentRowPosition = transform.GetComponent<Piece>().rowPosition;
         int targetColumnPosition = 0;
+        int hi = 0;
         int currentColumnPosition = transform.GetComponent<Piece>().colPosition;
-        for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
-        {
-            int distance = Mathf.Abs((Board.possibleMoveableChars[i].rowPosition - currentRowPosition) +
-                (Board.possibleMoveableChars[i].colPosition - currentColumnPosition));
-            if (distance < shortestDistance)
-            {
-                shortestDistance = distance;
-                targetRowPosition = Board.possibleMoveableChars[i].rowPosition;
-                targetColumnPosition = Board.possibleMoveableChars[i].colPosition;
-            }
-        }
-        //Attack
-        if (shortestDistance == 1)
-        {
-            //Attack()
-        }
-        //Move
-        else
-        {
-            //Move in the row
-            if (Mathf.Abs(targetRowPosition - currentRowPosition) > Mathf.Abs(targetColumnPosition - currentColumnPosition))
-            {
 
+        //See if they in play
+        if (currentColumnPosition != 10000 && currentRowPosition != 10000)
+        {
+            for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+            {
+                int distance = Mathf.Abs((Board.possibleMoveableChars[i].rowPosition - currentRowPosition) +
+                    (Board.possibleMoveableChars[i].colPosition - currentColumnPosition));
+                if (distance < shortestDistance)
+                {
+                    shortestDistance = distance;
+                    targetRowPosition = Board.possibleMoveableChars[i].rowPosition;
+                    targetColumnPosition = Board.possibleMoveableChars[i].colPosition;
+                    hi = i;
+                }
             }
-            //Move in the column
+            //Attack
+            if (shortestDistance == 1)
+            {
+                //Attack()
+            }
+            //Move
             else
             {
+                //int[] disallowedRows = new int[Board.possibleMoveableChars.Length + Board.numDeadSpaces + Board.spawnedEnemies.Length];
+                //int[] disallowedCols = new int[Board.possibleMoveableChars.Length + Board.numDeadSpaces + Board.spawnedEnemies.Length];
+                bool canMoveLeft = true;
+                bool canMoveRight = true;
+                bool canMoveUp = true;
+                bool canMoveDown = true;
+                bool didMove = false;
+                //check for dead spaces in the way
+                for (int i = 0; i < Board.numDeadSpaces; i++)
+                {
+                    if (Board.deadPoints[i].x == currentColumnPosition + 1 && Board.deadPoints[i].y == currentRowPosition)
+                    {
+                        canMoveUp = false;
+                    }
+                    if (Board.deadPoints[i].x == currentColumnPosition && Board.deadPoints[i].y == currentRowPosition + 1)
+                    {
+                        canMoveRight = false;
+                    }
+                    if (Board.deadPoints[i].x == currentColumnPosition - 1 && Board.deadPoints[i].y == currentRowPosition)
+                    {
+                        canMoveDown = false;
+                    }
+                    if (Board.deadPoints[i].x == currentColumnPosition && Board.deadPoints[i].y == currentRowPosition - 1)
+                    {
+                        canMoveLeft = false;
+                    }
+                }
 
+
+                //Move in the row
+                if (Mathf.Abs(targetRowPosition - currentRowPosition) > Mathf.Abs(targetColumnPosition - currentColumnPosition))
+                {
+                    //Move right
+                    if (targetRowPosition > currentRowPosition)
+                    {
+                        if (canMoveRight)
+                        {
+                            didMove = true;
+                            transform.position += new Vector3(0.0f, Board.pieceDistance, 0.0f);
+                            transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition + 1, currentColumnPosition);
+                        }
+                    }
+                    else
+                    {
+                        if (canMoveLeft)
+                        {
+                            didMove = true;
+                            transform.position += new Vector3(0.0f, -Board.pieceDistance, 0.0f);
+                            transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition - 1, currentColumnPosition);
+                        }
+                    }
+                }
+                //Move in the column
+                else
+                {
+                    //Move right
+                    if (targetColumnPosition > currentColumnPosition)
+                    {
+                        if (canMoveUp)
+                        {
+                            didMove = true;
+                            transform.position += new Vector3(Board.pieceDistance, 0.0f, 0.0f);
+                            transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition, currentColumnPosition + 1);
+                        }
+                    }
+                    else
+                    {
+                        if (canMoveDown)
+                        {
+                            didMove = true;
+                            transform.position += new Vector3(-Board.pieceDistance, 0.0f, 0.0f);
+                            transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition, currentColumnPosition - 1);
+                        }
+                    }
+                }
+                if (!didMove)
+                {
+                    if (canMoveRight)
+                    {
+                        didMove = true;
+                        transform.position += new Vector3(Board.pieceDistance, 0.0f, 0.0f);
+                        transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition + 1, currentColumnPosition);
+                    }
+                    else if (canMoveLeft)
+                    {
+                        didMove = true;
+                        transform.position += new Vector3(-Board.pieceDistance, 0.0f, 0.0f);
+                        transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition - 1, currentColumnPosition);
+                    }
+                    else if (canMoveUp)
+                    {
+                        didMove = true;
+                        transform.position += new Vector3(0.0f, Board.pieceDistance, 0.0f);
+                        transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition, currentColumnPosition + 1);
+                    }
+                    else if (canMoveDown)
+                    {
+                        didMove = true;
+                        transform.position += new Vector3(0.0f, -Board.pieceDistance, 0.0f);
+                        transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition, currentColumnPosition - 1);
+                    }
+                }
             }
         }
 

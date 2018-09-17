@@ -29,6 +29,13 @@ public static class MovementManager {
                     inWay = true;
                 }
             }
+            for (int i = 0; i < Board.spawnedEnemies.Length; i++)
+            {
+                if (Board.spawnedEnemies[i].rowPosition == character.rowPosition - 1 && Board.spawnedEnemies[i].colPosition == character.colPosition)
+                {
+                    inWay = true;
+                }
+            }
             //check for dead spaces in the way
             for (int i = 0; i < Board.numDeadSpaces; i++)
             {
@@ -54,6 +61,13 @@ public static class MovementManager {
                     continue;
                 }
                 if (Board.possibleMoveableChars[i].colPosition == character.colPosition + 1 && Board.possibleMoveableChars[i].rowPosition == character.rowPosition)
+                {
+                    inWay = true;
+                }
+            }
+            for (int i = 0; i < Board.spawnedEnemies.Length; i++)
+            {
+                if (Board.spawnedEnemies[i].colPosition == character.colPosition + 1 && Board.spawnedEnemies[i].rowPosition == character.rowPosition)
                 {
                     inWay = true;
                 }
@@ -87,6 +101,13 @@ public static class MovementManager {
                     inWay = true;
                 }
             }
+            for (int i = 0; i < Board.spawnedEnemies.Length; i++)
+            {
+                if (Board.spawnedEnemies[i].rowPosition == character.rowPosition + 1 && Board.spawnedEnemies[i].colPosition == character.colPosition)
+                {
+                    inWay = true;
+                }
+            }
             //check for dead spaces in the way
             for (int i = 0; i < Board.numDeadSpaces; i++)
             {
@@ -112,6 +133,13 @@ public static class MovementManager {
                     continue;
                 }
                 if (Board.possibleMoveableChars[i].colPosition == character.colPosition - 1 && Board.possibleMoveableChars[i].rowPosition == character.rowPosition)
+                {
+                    inWay = true;
+                }
+            }
+            for (int i = 0; i < Board.spawnedEnemies.Length; i++)
+            {
+                if (Board.spawnedEnemies[i].colPosition == character.colPosition - 1 && Board.spawnedEnemies[i].rowPosition == character.rowPosition)
                 {
                     inWay = true;
                 }

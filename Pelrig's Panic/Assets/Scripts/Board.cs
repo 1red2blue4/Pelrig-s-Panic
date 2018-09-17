@@ -75,6 +75,7 @@ public class Board : MonoBehaviour {
         {
             spawnedEnemyObjects[i] = Instantiate(enemy, new Vector3(10000.0f, 10000.0f, 0.0f), Quaternion.identity);
             spawnedEnemies[i] = spawnedEnemyObjects[i].GetComponent<Piece>();
+            spawnedEnemies[i].SetRowAndCol(10000, 10000);
         }
 
         midBoardX = 0.0f;
@@ -418,10 +419,9 @@ public class Board : MonoBehaviour {
         float finalXPos = -halfWidth + (float)col * pieceDistance + midBoardX;
         float finalYPos = halfHeight - (float)row * pieceDistance - midBoardY;
         Vector3 placement = new Vector3(finalXPos, finalYPos, 0.0f);
-        GameObject piece = Instantiate(spawnedEnemies[numberOfEnemies].GetPiece(), placement, Quaternion.identity);
+        spawnedEnemies[numberOfEnemies].transform.position = placement;
+        //GameObject piece = Instantiate(spawnedEnemies[numberOfEnemies].GetPiece(), placement, Quaternion.identity);
         spawnedEnemies[numberOfEnemies].SetName("Enemy " + numberOfEnemies);
-        piece.name = spawnedEnemies[numberOfEnemies].GetName();
-        spawnedEnemies[numberOfEnemies].thePiece = piece;
         spawnedEnemies[numberOfEnemies].SetRowAndCol(row, col);
 
         //every situation where currentNumCoins increases or decreases, adjust the timeToWait
