@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Board : MonoBehaviour {
 
+    
     [SerializeField] private GameObject tilePiece;
     [SerializeField] private GameObject tilePieceDead;
     [SerializeField] private GameObject enemy;
@@ -12,6 +13,8 @@ public class Board : MonoBehaviour {
     public static Piece[] possibleMoveableChars;
     public static Piece[] allCoins;
     public static Piece[] spawnedEnemies;
+
+    public static Wall[] allWalls;
 
     public static int[,] spaceFieldType;
     public static int numDeadSpaces;
@@ -79,8 +82,8 @@ public class Board : MonoBehaviour {
         timer = 0.0f;
         coinResetTimer = 0.0f;
         timeToWait = 1.0f;
-        universalTileWidth = 16;
-        universalTileHeight = 10;
+        universalTileWidth = 30;
+        universalTileHeight = 30;
         //allocate arrays
         possibleMoveableChars = new Piece[4];
         
@@ -94,27 +97,13 @@ public class Board : MonoBehaviour {
         //retrieve pieces from the gameObject with this board
         possibleMoveableChars = gameObject.GetComponents<Piece>();
 
+        //find walls
+        allWalls = (Wall[])FindObjectsOfType(typeof(Wall));
+
         //set up non-traversable spaces
         numDeadSpaces = 0;
         spaceFieldType = new int[universalTileWidth, universalTileHeight];
         deadPoints = new point[universalTileHeight*universalTileWidth];
-
-        for (int i = 0; i < universalTileHeight; i++)
-        {
-            for (int j = 0; j < universalTileWidth; j++)
-            {
-                if (i >= 1 && i <= 6 && j >= 1 && j <= 9)
-                {
-                    spaceFieldType[j, i] = 0;
-                    deadPoints[numDeadSpaces] = new point(j, i);
-                    numDeadSpaces++;
-                }
-                else
-                {
-                    spaceFieldType[j, i] = 1;
-                }
-            }
-        }
 
         //set up board
         pieceDistance = 1.06f;
@@ -140,6 +129,16 @@ public class Board : MonoBehaviour {
 
     private void CreateBoard(int tileWidth, int tileHeight, float midX, float midY, int[,] deadSpaces)
     {
+
+        //set dead spaces
+        for (int i = 0; i < tileHeight; i++)
+        {
+            for (int j = 0; j < tileWidth; j++)
+            {
+                
+            }
+        }
+
         float halfWidth = (float)tileWidth / 2.0f;
         float halfHeight = (float)tileHeight / 2.0f;
 
@@ -148,18 +147,38 @@ public class Board : MonoBehaviour {
         {
             for (int j = 0; j < tileWidth; j++)
             {
+                //look for the location
                 Vector3 placement;
                 GameObject piece;
+                placement = new Vector3(-halfWidth + (float)j * pieceDistance + midX, halfHeight - (float)i * pieceDistance - midY, 0.0f);
+                //check if it is a dead space
+                bool deadSpace = false;
+                for (int k = 0; k < allWalls.Length; k++)
+                {
+                    if (allWalls[k].CalcIfOutside(placement))
+                    {
+                        deadSpace = true;
+                    }
+                }
+                //label if it is a dead space or not
+                if (deadSpace == true)
+                {
+                    spaceFieldType[j, i] = 0;
+                    deadPoints[numDeadSpaces] = new point(j, i);
+                    numDeadSpaces++;
+                }
+                else
+                {
+                    spaceFieldType[j, i] = 1;
+                }
                 //for every dead field, note the space as dead and do not place a regular tile there
                 if (deadSpaces[j, i] == 0)
                 {
-                    placement = new Vector3(-halfWidth + (float)j * pieceDistance + midX, halfHeight - (float)i * pieceDistance - midY, 0.0f);
                     piece = Instantiate(tilePieceDead, placement, Quaternion.identity);
                     piece.name = "gridRow" + i + "Column" + j + " Dead Space";
                 }
                 else
                 {
-                    placement = new Vector3(-halfWidth + (float)j * pieceDistance + midX, halfHeight - (float)i * pieceDistance - midY, 0.0f);
                     piece = Instantiate(tilePiece, placement, Quaternion.identity);
                     piece.name = "gridRow" + i + "Column" + j;
                 }
