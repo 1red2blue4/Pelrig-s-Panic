@@ -6,6 +6,7 @@ TagManager:
   tags:
   - arrows
   - PieceHolder
+  - ColumnHighlight
   layers:
   - Default
   - TransparentFX

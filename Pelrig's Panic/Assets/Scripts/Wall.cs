@@ -44,28 +44,28 @@ public class Wall : MonoBehaviour {
     {
         if (wall.deadDirection == MovementManager.Direction.Up)
         {
-            if (objLocation.y > wall.gameObject.transform.position.y)
+            if (objLocation.y > wall.gameObject.transform.position.y - 0.9f)
             {
                 return true;
             }
         }
         else if (wall.deadDirection == MovementManager.Direction.Right)
         {
-            if (objLocation.x > wall.gameObject.transform.position.x)
+            if (objLocation.x > wall.gameObject.transform.position.x - 0.9f)
             {
                 return true;
             }
         }
         else if (wall.deadDirection == MovementManager.Direction.Down)
         {
-            if (objLocation.y < wall.gameObject.transform.position.y)
+            if (objLocation.y < wall.gameObject.transform.position.y + 0.9f)
             {
                 return true;
             }
         }
         else if (wall.deadDirection == MovementManager.Direction.Left)
         {
-            if (objLocation.x < wall.gameObject.transform.position.x)
+            if (objLocation.x < wall.gameObject.transform.position.x + 0.9f)
             {
                 return true;
             }

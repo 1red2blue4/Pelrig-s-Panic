@@ -40,7 +40,7 @@ public class TextManager : MonoBehaviour {
         //increment the timer
         if (currentCharacter < textSets[currentTextSet].Length)
         {
-            if (Input.GetKeyDown("space"))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 currentCharacter = textSets[currentTextSet].Length - 1;
                 wentToEndOfText = true;
@@ -50,7 +50,7 @@ public class TextManager : MonoBehaviour {
         //look for dismissing the text box
         else
         {
-            if (Input.GetKeyDown("space") && totalTextSets > currentTextSet - 1 && textSets[currentTextSet + 1] != null && wentToEndOfText == false)
+            if (Input.GetKeyDown(KeyCode.Space) && totalTextSets > currentTextSet - 1 && textSets[currentTextSet + 1] != null && wentToEndOfText == false)
             {
                 currentCharacter = 0;
                 currentTextSet++;

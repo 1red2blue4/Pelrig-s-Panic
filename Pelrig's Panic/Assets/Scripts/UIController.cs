@@ -9,23 +9,29 @@ public class UIController : MonoBehaviour {
     [SerializeField] private GameObject leftArrow;
     [SerializeField] private GameObject rightArrow;
     [SerializeField] private GameObject upArrow;
-    private GameObject[] nextInSequence;
+    private int numVisibleInSequence;
+    private GameObject[,] nextInSequence;
 
     // Use this for initialization
     void Start ()
     {
-        nextInSequence = new GameObject[4];
+        MovementManager.Setup();
+        numVisibleInSequence = 4;
+        nextInSequence = new GameObject[numVisibleInSequence, MovementManager.numDirectionLineups];
         GameObject[] tempObjects = GameObject.FindGameObjectsWithTag("arrows");
 
         //make sure the objects are in the correct order
-        for (int i = 0; i < nextInSequence.Length; i++)
+        for (int k = 0; k < MovementManager.numDirectionLineups; k++)
         {
-            for (int j = 0; j < tempObjects.Length; j++)
+            for (int i = 0; i < numVisibleInSequence; i++)
             {
-                if (tempObjects[j].GetComponent<UIData>().arrowID == i)
+                for (int j = 0; j < tempObjects.Length; j++)
                 {
-                    nextInSequence[i] = tempObjects[j];
-                    break;
+                    if (tempObjects[j].GetComponent<UIData>().arrowID == i + numVisibleInSequence*k)
+                    {
+                        nextInSequence[i, k] = tempObjects[j];
+                        break;
+                    }
                 }
             }
         }
@@ -34,29 +40,32 @@ public class UIController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		for (int i = 0; i < nextInSequence.Length; i++)
+		for (int i = 0; i < numVisibleInSequence; i++)
         {
-            switch(MovementManager.directionLineup[i])
+            for (int j = 0; j < MovementManager.numDirectionLineups; j++)
             {
-                case MovementManager.Direction.Down:
-                    nextInSequence[i].GetComponent<Image>().sprite = downArrow.GetComponent<Image>().sprite;
-                    break;
+                switch (MovementManager.directionLineups[i, j])
+                {
+                    case MovementManager.Direction.Down:
+                        nextInSequence[i, j].GetComponent<Image>().sprite = downArrow.GetComponent<Image>().sprite;
+                        break;
 
-                case MovementManager.Direction.Left:
-                    nextInSequence[i].GetComponent<Image>().sprite = leftArrow.GetComponent<Image>().sprite;
-                    break;
+                    case MovementManager.Direction.Left:
+                        nextInSequence[i, j].GetComponent<Image>().sprite = leftArrow.GetComponent<Image>().sprite;
+                        break;
 
-                case MovementManager.Direction.Right:
-                    nextInSequence[i].GetComponent<Image>().sprite = rightArrow.GetComponent<Image>().sprite;
-                    break;
+                    case MovementManager.Direction.Right:
+                        nextInSequence[i, j].GetComponent<Image>().sprite = rightArrow.GetComponent<Image>().sprite;
+                        break;
 
-                case MovementManager.Direction.Up:
-                    nextInSequence[i].GetComponent<Image>().sprite = upArrow.GetComponent<Image>().sprite;
-                    break;
+                    case MovementManager.Direction.Up:
+                        nextInSequence[i, j].GetComponent<Image>().sprite = upArrow.GetComponent<Image>().sprite;
+                        break;
 
-                default:
-                    nextInSequence[i].GetComponent<Image>().sprite = upArrow.GetComponent<Image>().sprite;
-                    break;
+                    default:
+                        nextInSequence[i, j].GetComponent<Image>().sprite = upArrow.GetComponent<Image>().sprite;
+                        break;
+                }
             }
         }
 	}
