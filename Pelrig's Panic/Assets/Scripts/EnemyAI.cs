@@ -16,7 +16,7 @@ public class EnemyAI : MonoBehaviour {
 		if (time > 3.0f)
         {
             time = 0.0f;
-            //Move
+            MoveAndCheckUnitCollision();
             //For now, heuristic movement to closest unit
             CheckCoinDestroy();
         }
@@ -43,5 +43,45 @@ public class EnemyAI : MonoBehaviour {
                 Board.timeToWait /= Board.approxGoldenRatio;
             }
         }
+    }
+
+    private void MoveAndCheckUnitCollision()
+    {
+        int shortestDistance = 10000;
+        int targetRowPosition = 0;
+        int currentRowPosition = transform.GetComponent<Piece>().rowPosition;
+        int targetColumnPosition = 0;
+        int currentColumnPosition = transform.GetComponent<Piece>().colPosition;
+        for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+        {
+            int distance = Mathf.Abs((Board.possibleMoveableChars[i].rowPosition - currentRowPosition) +
+                (Board.possibleMoveableChars[i].colPosition - currentColumnPosition));
+            if (distance < shortestDistance)
+            {
+                shortestDistance = distance;
+                targetRowPosition = Board.possibleMoveableChars[i].rowPosition;
+                targetColumnPosition = Board.possibleMoveableChars[i].colPosition;
+            }
+        }
+        //Attack
+        if (shortestDistance == 1)
+        {
+            //Attack()
+        }
+        //Move
+        else
+        {
+            //Move in the row
+            if (Mathf.Abs(targetRowPosition - currentRowPosition) > Mathf.Abs(targetColumnPosition - currentColumnPosition))
+            {
+
+            }
+            //Move in the column
+            else
+            {
+
+            }
+        }
+
     }
 }
