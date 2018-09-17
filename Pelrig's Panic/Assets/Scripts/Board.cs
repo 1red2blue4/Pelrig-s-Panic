@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Board : MonoBehaviour {
 
-    
-
     [SerializeField] private GameObject tilePiece;
     [SerializeField] private GameObject tilePieceDead;
     [SerializeField] private GameObject enemy;
