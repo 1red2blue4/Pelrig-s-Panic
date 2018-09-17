@@ -6,12 +6,15 @@ public static class MovementManager {
     
     public enum Direction: int { Up = 0, Right = 1, Down = 2, Left = 3 };
 
-    public static Direction[] directionLineup;
+    public static Direction[,] directionLineups;
+    public static int numDirectionsInLineup;
+    public static int numDirectionLineups;
+    public static int currentDirectionLineup;
     public static Direction nextDirection;
 
     public static void Move(Piece character)
     {
-        if (directionLineup[0] == Direction.Up && character.rowPosition > 0)
+        if (directionLineups[0, currentDirectionLineup] == Direction.Up && character.rowPosition > 0)
         {
             bool inWay = false;
             //check for other characters in the way
@@ -40,7 +43,7 @@ public static class MovementManager {
                 character.SetRowAndCol(character.rowPosition - 1, character.colPosition);
             }
         }
-        else if (directionLineup[0] == Direction.Right && character.colPosition < Board.universalTileWidth - 1)
+        else if (directionLineups[0, currentDirectionLineup] == Direction.Right && character.colPosition < Board.universalTileWidth - 1)
         {
             bool inWay = false;
             //check for other characters in the way
@@ -69,7 +72,7 @@ public static class MovementManager {
                 character.SetRowAndCol(character.rowPosition, character.colPosition + 1);
             }
         }
-        else if (directionLineup[0] == Direction.Down && character.rowPosition < Board.universalTileHeight - 1)
+        else if (directionLineups[0, currentDirectionLineup] == Direction.Down && character.rowPosition < Board.universalTileHeight - 1)
         {
             bool inWay = false;
             //check for other characters in the way
@@ -98,7 +101,7 @@ public static class MovementManager {
                 character.SetRowAndCol(character.rowPosition + 1, character.colPosition);
             }
         }
-        else if (directionLineup[0] == Direction.Left && character.colPosition > 0)
+        else if (directionLineups[0, currentDirectionLineup] == Direction.Left && character.colPosition > 0)
         {
             bool inWay = false;
             //check for other characters in the way
@@ -133,51 +136,54 @@ public static class MovementManager {
 
     public static void SetStartDirectionLineup()
     {
-        //set the lineup of directions
-        for (int i = 0; i < directionLineup.Length; i++)
+        for (int j = 0; j < numDirectionLineups; j++)
         {
-            //get one of the directions
-            int numDirections = 4;
-            int randNum = (int)Mathf.Floor(Random.value * (float)numDirections);
-            //on the off chance it rolls exactly 1, pick the largest value instead of overflowing
-            if (randNum == numDirections)
+            //set the lineup of directions
+            for (int i = 0; i < numDirectionsInLineup; i++)
             {
-                randNum = numDirections - 1;
-            }
-            //set the direction
-            Direction setDirection = Direction.Up;
-            switch (randNum)
-            {
-                case 0:
-                    setDirection = Direction.Up;
-                    break;
-                case 1:
-                    setDirection = Direction.Right;
-                    break;
-                case 2:
-                    setDirection = Direction.Down;
-                    break;
-                case 3:
-                    setDirection = Direction.Left;
-                    break;
-                default:
-                    setDirection = Direction.Up;
-                    break;
+                //get one of the directions
+                int numDirections = 4;
+                int randNum = (int)Mathf.Floor(Random.value * (float)numDirections);
+                //on the off chance it rolls exactly 1, pick the largest value instead of overflowing
+                if (randNum == numDirections)
+                {
+                    randNum = numDirections - 1;
+                }
+                //set the direction
+                Direction setDirection = Direction.Up;
+                switch (randNum)
+                {
+                    case 0:
+                        setDirection = Direction.Up;
+                        break;
+                    case 1:
+                        setDirection = Direction.Right;
+                        break;
+                    case 2:
+                        setDirection = Direction.Down;
+                        break;
+                    case 3:
+                        setDirection = Direction.Left;
+                        break;
+                    default:
+                        setDirection = Direction.Up;
+                        break;
 
+                }
+                directionLineups[i, j] = setDirection;
             }
-            directionLineup[i] = setDirection;
         }
     }
 
     public static void FillOneSpotInLineup()
     {
         //set the lineup of directions
-        for (int i = 0; i < directionLineup.Length; i++)
+        for (int i = 0; i < numDirectionsInLineup; i++)
         {
 
-            if (i != directionLineup.Length - 1)
+            if (i != numDirectionsInLineup - 1)
             {
-                directionLineup[i] = directionLineup[i + 1];
+                directionLineups[i, currentDirectionLineup] = directionLineups[i + 1, currentDirectionLineup];
             }
             else
             {
@@ -210,8 +216,49 @@ public static class MovementManager {
                         break;
 
                 }
-                directionLineup[i] = setDirection;
+                directionLineups[i, currentDirectionLineup] = setDirection;
             }
         }
+    }
+
+    public static void SwitchDirectionLineup(Direction wayToMove, GameObject columnHighlight)
+    {
+        if (wayToMove == Direction.Right)
+        {
+            currentDirectionLineup++;
+
+            Vector3 rectPos = columnHighlight.GetComponent<RectTransform>().position;
+            columnHighlight.GetComponent<RectTransform>().position = new Vector3(rectPos.x + 75, rectPos.y, rectPos.z);
+            rectPos = columnHighlight.GetComponent<RectTransform>().position;
+
+            if (currentDirectionLineup >= numDirectionLineups)
+            {
+                currentDirectionLineup = 0;
+                columnHighlight.GetComponent<RectTransform>().position = new Vector3(rectPos.x - 75*numDirectionLineups, rectPos.y, rectPos.z);
+            }
+        }
+        else if (wayToMove == Direction.Left)
+        {
+            currentDirectionLineup--;
+
+            Vector3 rectPos = columnHighlight.GetComponent<RectTransform>().position;
+            columnHighlight.GetComponent<RectTransform>().position = new Vector3(rectPos.x - 75, rectPos.y, rectPos.z);
+            rectPos = columnHighlight.GetComponent<RectTransform>().position;
+
+            if (currentDirectionLineup < 0)
+            {
+                currentDirectionLineup = numDirectionLineups - 1;
+                columnHighlight.GetComponent<RectTransform>().position = new Vector3(rectPos.x + 75 * numDirectionLineups, rectPos.y, rectPos.z);
+            }
+        }
+    }
+
+    public static void Setup()
+    {
+        MovementManager.currentDirectionLineup = 0;
+        MovementManager.numDirectionsInLineup = 25;
+        MovementManager.numDirectionLineups = 2;
+        MovementManager.directionLineups = new MovementManager.Direction[MovementManager.numDirectionsInLineup, MovementManager.numDirectionLineups];
+        MovementManager.SetStartDirectionLineup();
     }
 }

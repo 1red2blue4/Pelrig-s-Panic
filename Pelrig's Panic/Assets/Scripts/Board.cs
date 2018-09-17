@@ -31,6 +31,7 @@ public class Board : MonoBehaviour {
     public static float coinResetTimer;
     public static float timeToWait;
     //initialize here instead since we don't want it to set to 0 every time a board script is instantiated
+    public static int numPossibleMoveableCharacters = 5;
     public static int currentNumCoins = 0;
     public static int numCoinsCollected = 0;
     public const float approxGoldenRatio = 1.618f;
@@ -68,7 +69,7 @@ public class Board : MonoBehaviour {
         time = 280.0f;
         numberOfEnemies = 0;
 
-        spawnedEnemies = new Piece[5];
+        spawnedEnemies = new Piece[numPossibleMoveableCharacters];
         GameObject[] spawnedEnemyObjects = new GameObject[5]; //5 for now
         for (int i=0; i < spawnedEnemies.Length; i++)
         {
@@ -85,7 +86,7 @@ public class Board : MonoBehaviour {
         universalTileWidth = 30;
         universalTileHeight = 30;
         //allocate arrays
-        possibleMoveableChars = new Piece[4];
+        possibleMoveableChars = new Piece[5];
         
         allCoins = new Piece[MAXCOINNUM];
         GameObject[] allCoinObjects = new GameObject[MAXCOINNUM];
@@ -108,8 +109,7 @@ public class Board : MonoBehaviour {
         //set up board
         pieceDistance = 1.06f;
         CreateBoard(universalTileWidth, universalTileHeight, midBoardX, midBoardY, spaceFieldType);
-        MovementManager.directionLineup = new MovementManager.Direction[25];
-        MovementManager.SetStartDirectionLineup();
+        
 	}
 	
 	// Update is called once per frame

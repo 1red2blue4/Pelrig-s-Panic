@@ -10,6 +10,7 @@ public class PlayerControls : MonoBehaviour {
     private float cameraMinZoom;
     private int clickedRow;
     private int clickedColumn;
+    private GameObject columnHighlight;
     //in place in case this script is attached to another object that is not a camera
     private Camera thisCamera;
     
@@ -20,8 +21,8 @@ public class PlayerControls : MonoBehaviour {
         cameraMaxZoom = 11.0f;
         cameraMinZoom = 3.0f;
         thisCamera = gameObject.GetComponent<Camera>();
-        MovementManager.directionLineup = new MovementManager.Direction[50];
-        MovementManager.SetStartDirectionLineup();
+        columnHighlight = GameObject.FindGameObjectWithTag("ColumnHighlight");
+        MovementManager.Setup();
         
 	}
 	
@@ -31,6 +32,7 @@ public class PlayerControls : MonoBehaviour {
         CheckClick();
         MoveCamera();
         CheckCoinCollect();
+        CheckForLineupSwap();
 	}
 
 
@@ -111,6 +113,18 @@ public class PlayerControls : MonoBehaviour {
                     Board.numCoinsCollected++;
                 }
             }
+        }
+    }
+
+    private void CheckForLineupSwap()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            MovementManager.SwitchDirectionLineup(MovementManager.Direction.Left, columnHighlight);
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            MovementManager.SwitchDirectionLineup(MovementManager.Direction.Right, columnHighlight);
         }
     }
 }
