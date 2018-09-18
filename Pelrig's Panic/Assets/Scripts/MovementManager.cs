@@ -37,6 +37,15 @@ public static class MovementManager {
                     inWay = true;
                 }
             }
+            //check for cannons in the way
+            for (int i = 0; i < Board.numCannons; i++)
+            {
+                if (Board.cannonPoints[i].y == character.rowPosition - 1 && Board.cannonPoints[i].x == character.colPosition)
+                {
+                    inWay = true;
+                    Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
+                }
+            }
             if (!inWay)
             {
                 character.GetPiece().transform.position += new Vector3(0.0f, Board.pieceDistance, 0.0f);
@@ -64,6 +73,15 @@ public static class MovementManager {
                 if (Board.deadPoints[i].x == character.colPosition + 1 && Board.deadPoints[i].y == character.rowPosition)
                 {
                     inWay = true;
+                }
+            }
+            //check for cannons in the way
+            for (int i = 0; i < Board.numCannons; i++)
+            {
+                if (Board.cannonPoints[i].x == character.colPosition + 1 && Board.cannonPoints[i].y == character.rowPosition)
+                {
+                    inWay = true;
+                    Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
             if (!inWay)
@@ -95,6 +113,15 @@ public static class MovementManager {
                     inWay = true;
                 }
             }
+            //check for cannons in the way
+            for (int i = 0; i < Board.numCannons; i++)
+            {
+                if (Board.cannonPoints[i].y == character.rowPosition + 1 && Board.cannonPoints[i].x == character.colPosition)
+                {
+                    inWay = true;
+                    Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
+                }
+            }
             if (!inWay)
             {
                 character.GetPiece().transform.position += new Vector3(0.0f, -Board.pieceDistance, 0.0f);
@@ -122,6 +149,15 @@ public static class MovementManager {
                 if (Board.deadPoints[i].x == character.colPosition - 1 && Board.deadPoints[i].y == character.rowPosition)
                 {
                     inWay = true;
+                }
+            }
+            //check for cannons in the way
+            for (int i = 0; i < Board.numCannons; i++)
+            {
+                if (Board.cannonPoints[i].x == character.colPosition - 1 && Board.cannonPoints[i].y == character.rowPosition)
+                {
+                    inWay = true;
+                    Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
             if (!inWay)

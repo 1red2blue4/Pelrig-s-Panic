@@ -8,17 +8,23 @@ public class Board : MonoBehaviour {
     [SerializeField] private GameObject tilePiece;
     [SerializeField] private GameObject tilePieceDead;
     [SerializeField] private GameObject enemy;
+    [SerializeField] private GameObject[] cannons;
 
     public const int MAXCOINNUM = 100;
     public static Piece[] possibleMoveableChars;
     public static Piece[] allCoins;
     public static Piece[] spawnedEnemies;
+    public static Cannon[] allCannons;
+
+    public static int numCannons;
+    public static int currentCannon;
 
     public static Wall[] allWalls;
 
     public static int[,] spaceFieldType;
     public static int numDeadSpaces;
     public static point[] deadPoints;
+    public static point[] cannonPoints;
 
     public static float midBoardX;
     public static float midBoardY;
@@ -38,7 +44,7 @@ public class Board : MonoBehaviour {
 
 
     private float time;
-    private int numberOfEnemies;
+    public static int numberOfEnemies;
 
     public struct point
     {
@@ -64,9 +70,32 @@ public class Board : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+
+        midBoardX = 0.0f;
+        midBoardY = 0.0f;
+        Time.maximumDeltaTime = 0.1f;
+        timer = 0.0f;
+        coinResetTimer = 0.0f;
+        timeToWait = 1.0f;
+        universalTileWidth = 30;
+        universalTileHeight = 30;
+
         //Keeping track of time. Keeping initial time as 280.0f as it is used for spawning enemies.
         //Let the first enemy be spawned after the first minute.
         time = 280.0f;
+
+        numCannons = 3;
+        currentCannon = 0;
+        allCannons = new Cannon[numCannons];
+        GameObject[] allCannonObjects = new GameObject[numCannons]; //5 for now
+
+        for (int i = 0; i < numCannons; i++)
+        {
+            allCannonObjects[i] = Instantiate(cannons[i], new Vector3(10000.0f, 10000.0f, 0.0f), Quaternion.identity);
+            allCannons[i] = allCannonObjects[i].GetComponent<Cannon>();
+            allCannons[i].cannonID = i;
+        }
+
         numberOfEnemies = 0;
 
         spawnedEnemies = new Piece[numPossibleMoveableCharacters];
@@ -77,14 +106,7 @@ public class Board : MonoBehaviour {
             spawnedEnemies[i] = spawnedEnemyObjects[i].GetComponent<Piece>();
         }
 
-        midBoardX = 0.0f;
-        midBoardY = 0.0f;
-        Time.maximumDeltaTime = 0.1f;
-        timer = 0.0f;
-        coinResetTimer = 0.0f;
-        timeToWait = 1.0f;
-        universalTileWidth = 30;
-        universalTileHeight = 30;
+        
         //allocate arrays
         possibleMoveableChars = new Piece[5];
         
@@ -105,6 +127,7 @@ public class Board : MonoBehaviour {
         numDeadSpaces = 0;
         spaceFieldType = new int[universalTileWidth, universalTileHeight];
         deadPoints = new point[universalTileHeight*universalTileWidth];
+        cannonPoints = new point[universalTileHeight * universalTileWidth];
 
         //set up board
         pieceDistance = 1.06f;
@@ -129,16 +152,6 @@ public class Board : MonoBehaviour {
 
     private void CreateBoard(int tileWidth, int tileHeight, float midX, float midY, int[,] deadSpaces)
     {
-
-        //set dead spaces
-        for (int i = 0; i < tileHeight; i++)
-        {
-            for (int j = 0; j < tileWidth; j++)
-            {
-                
-            }
-        }
-
         float halfWidth = (float)tileWidth / 2.0f;
         float halfHeight = (float)tileHeight / 2.0f;
 
@@ -169,7 +182,24 @@ public class Board : MonoBehaviour {
                 }
                 else
                 {
-                    spaceFieldType[j, i] = 1;
+                    bool hasCannon = false;
+                    for (int k = 0; k < allCannons.Length; k++)
+                    {
+                        if (allCannons[k].cannon.rowPosition == i && allCannons[k].cannon.colPosition == j)
+                        {
+                            hasCannon = true;
+                        }
+                    }
+                    if (hasCannon == true)
+                    {
+                        spaceFieldType[j, i] = 2;
+                        cannonPoints[currentCannon] = new point(j, i);
+                        currentCannon++;
+                    }
+                    else
+                    {
+                        spaceFieldType[j, i] = 1;
+                    }
                 }
                 //for every dead field, note the space as dead and do not place a regular tile there
                 if (deadSpaces[j, i] == 0)
@@ -177,10 +207,23 @@ public class Board : MonoBehaviour {
                     piece = Instantiate(tilePieceDead, placement, Quaternion.identity);
                     piece.name = "gridRow" + i + "Column" + j + " Dead Space";
                 }
-                else
+                else if (deadSpaces[j, i] == 1)
                 {
                     piece = Instantiate(tilePiece, placement, Quaternion.identity);
                     piece.name = "gridRow" + i + "Column" + j;
+                }
+                else if (deadSpaces[j, i] == 2)
+                {
+                    Cannon myCannon = allCannons[currentCannon-1];
+                    for (int k = 0; k < numCannons; k++)
+                    {
+                        if (allCannons[currentCannon - 1].cannonID == k)
+                        {
+                            myCannon = allCannons[k];
+                        }
+                    }
+                    piece = Instantiate(myCannon.cannon.thePiece, placement, Quaternion.identity);
+                    piece.name = "gridRow" + i + "Column" + j + "WithCannon";
                 }
             }
         }
@@ -379,7 +422,7 @@ public class Board : MonoBehaviour {
                 disallowedRows[i] = allCoins[i - possibleMoveableChars.Length].rowPosition;
                 disallowedCols[i] = allCoins[i - possibleMoveableChars.Length].colPosition;
             }
-            //do not get the same space a coin
+            //do not get the same space as a coin
             else if (i >= possibleMoveableChars.Length + spawnedEnemies.Length && i < possibleMoveableChars.Length + spawnedEnemies.Length + currentNumCoins)
             {
                 disallowedRows[i] = allCoins[i - possibleMoveableChars.Length - spawnedEnemies.Length].rowPosition;
