@@ -13,7 +13,7 @@ public class EnemyAI : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         time += Time.deltaTime;
-		if (time > 3.0f)
+		if (time > 10.0f)
         {
             time = 0.0f;
             MoveAndCheckUnitCollision();
@@ -85,19 +85,19 @@ public class EnemyAI : MonoBehaviour {
                 //check for dead spaces in the way
                 for (int i = 0; i < Board.numDeadSpaces; i++)
                 {
-                    if (Board.deadPoints[i].x == currentColumnPosition + 1 && Board.deadPoints[i].y == currentRowPosition)
+                    if (Board.deadPoints[i].x == currentColumnPosition && Board.deadPoints[i].y == currentRowPosition - 1)
                     {
                         canMoveUp = false;
                     }
-                    if (Board.deadPoints[i].x == currentColumnPosition && Board.deadPoints[i].y == currentRowPosition + 1)
+                    if (Board.deadPoints[i].x == currentColumnPosition + 1 && Board.deadPoints[i].y == currentRowPosition)
                     {
                         canMoveRight = false;
                     }
-                    if (Board.deadPoints[i].x == currentColumnPosition - 1 && Board.deadPoints[i].y == currentRowPosition)
+                    if (Board.deadPoints[i].x == currentColumnPosition && Board.deadPoints[i].y == currentRowPosition + 1)
                     {
                         canMoveDown = false;
                     }
-                    if (Board.deadPoints[i].x == currentColumnPosition && Board.deadPoints[i].y == currentRowPosition - 1)
+                    if (Board.deadPoints[i].x == currentColumnPosition - 1 && Board.deadPoints[i].y == currentRowPosition)
                     {
                         canMoveLeft = false;
                     }
@@ -105,35 +105,12 @@ public class EnemyAI : MonoBehaviour {
 
 
                 //Move in the row
-                if (Mathf.Abs(targetRowPosition - currentRowPosition) > Mathf.Abs(targetColumnPosition - currentColumnPosition))
-                {
-                    //Move right
-                    if (targetRowPosition > currentRowPosition)
-                    {
-                        if (canMoveRight)
-                        {
-                            didMove = true;
-                            transform.GetComponent<Piece>().transform.position += new Vector3(0.0f, Board.pieceDistance, 0.0f);
-                            transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition + 1, currentColumnPosition);
-                        }
-                    }
-                    else
-                    {
-                        if (canMoveLeft)
-                        {
-                            didMove = true;
-                            transform.GetComponent<Piece>().transform.position += new Vector3(0.0f, -Board.pieceDistance, 0.0f);
-                            transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition - 1, currentColumnPosition);
-                        }
-                    }
-                }
-                //Move in the column
-                else
+                if (Mathf.Abs(targetRowPosition - currentRowPosition) < Mathf.Abs(targetColumnPosition - currentColumnPosition))
                 {
                     //Move right
                     if (targetColumnPosition > currentColumnPosition)
                     {
-                        if (canMoveUp)
+                        if (canMoveRight)
                         {
                             didMove = true;
                             transform.GetComponent<Piece>().transform.position += new Vector3(Board.pieceDistance, 0.0f, 0.0f);
@@ -142,11 +119,34 @@ public class EnemyAI : MonoBehaviour {
                     }
                     else
                     {
-                        if (canMoveDown)
+                        if (canMoveLeft)
                         {
                             didMove = true;
                             transform.GetComponent<Piece>().transform.position += new Vector3(-Board.pieceDistance, 0.0f, 0.0f);
                             transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition, currentColumnPosition - 1);
+                        }
+                    }
+                }
+                //Move in the column
+                else
+                {
+                    //Move right
+                    if (targetRowPosition < currentRowPosition) 
+                    {
+                        if (canMoveUp)
+                        {
+                            didMove = true;
+                            transform.GetComponent<Piece>().transform.position += new Vector3(0.0f, Board.pieceDistance, 0.0f);
+                            transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition - 1, currentColumnPosition);
+                        }
+                    }
+                    else
+                    {
+                        if (canMoveDown)
+                        {
+                            didMove = true;
+                            transform.GetComponent<Piece>().transform.position += new Vector3(0.0f, -Board.pieceDistance, 0.0f);
+                            transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition + 1, currentColumnPosition);
                         }
                     }
                 }
@@ -155,26 +155,26 @@ public class EnemyAI : MonoBehaviour {
                     if (canMoveRight)
                     {
                         didMove = true;
-                        transform.position += new Vector3(Board.pieceDistance, 0.0f, 0.0f);
-                        transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition + 1, currentColumnPosition);
+                        transform.GetComponent<Piece>().transform.position += new Vector3(Board.pieceDistance, 0.0f, 0.0f);
+                        transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition, currentColumnPosition + 1);
                     }
                     else if (canMoveLeft)
                     {
                         didMove = true;
-                        transform.position += new Vector3(-Board.pieceDistance, 0.0f, 0.0f);
-                        transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition - 1, currentColumnPosition);
+                        transform.GetComponent<Piece>().transform.position += new Vector3(-Board.pieceDistance, 0.0f, 0.0f);
+                        transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition, currentColumnPosition - 1);
                     }
                     else if (canMoveUp)
                     {
                         didMove = true;
-                        transform.position += new Vector3(0.0f, Board.pieceDistance, 0.0f);
-                        transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition, currentColumnPosition + 1);
+                        transform.GetComponent<Piece>().transform.position += new Vector3(0.0f, Board.pieceDistance, 0.0f);
+                        transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition - 1, currentColumnPosition);
                     }
                     else if (canMoveDown)
                     {
                         didMove = true;
-                        transform.position += new Vector3(0.0f, -Board.pieceDistance, 0.0f);
-                        transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition, currentColumnPosition - 1);
+                        transform.GetComponent<Piece>().transform.position += new Vector3(0.0f, -Board.pieceDistance, 0.0f);
+                        transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition + 1, currentColumnPosition);
                     }
                 }
             }
