@@ -59,8 +59,8 @@ public class EnemyAI : MonoBehaviour {
         {
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
             {
-                int distance = Mathf.Abs((Board.possibleMoveableChars[i].rowPosition - currentRowPosition) +
-                    (Board.possibleMoveableChars[i].colPosition - currentColumnPosition));
+                int distance = Mathf.Abs(Board.possibleMoveableChars[i].rowPosition - currentRowPosition) +
+                    Mathf.Abs(Board.possibleMoveableChars[i].colPosition - currentColumnPosition);
                 if (distance < shortestDistance)
                 {
                     shortestDistance = distance;
@@ -74,11 +74,9 @@ public class EnemyAI : MonoBehaviour {
             {
                 //Attack()
             }
-            //Move
+            //Move. Terrible system, must find a better way for later
             else
             {
-                //int[] disallowedRows = new int[Board.possibleMoveableChars.Length + Board.numDeadSpaces + Board.spawnedEnemies.Length];
-                //int[] disallowedCols = new int[Board.possibleMoveableChars.Length + Board.numDeadSpaces + Board.spawnedEnemies.Length];
                 bool canMoveLeft = true;
                 bool canMoveRight = true;
                 bool canMoveUp = true;
@@ -115,7 +113,7 @@ public class EnemyAI : MonoBehaviour {
                         if (canMoveRight)
                         {
                             didMove = true;
-                            transform.position += new Vector3(0.0f, Board.pieceDistance, 0.0f);
+                            transform.GetComponent<Piece>().transform.position += new Vector3(0.0f, Board.pieceDistance, 0.0f);
                             transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition + 1, currentColumnPosition);
                         }
                     }
@@ -124,7 +122,7 @@ public class EnemyAI : MonoBehaviour {
                         if (canMoveLeft)
                         {
                             didMove = true;
-                            transform.position += new Vector3(0.0f, -Board.pieceDistance, 0.0f);
+                            transform.GetComponent<Piece>().transform.position += new Vector3(0.0f, -Board.pieceDistance, 0.0f);
                             transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition - 1, currentColumnPosition);
                         }
                     }
@@ -138,7 +136,7 @@ public class EnemyAI : MonoBehaviour {
                         if (canMoveUp)
                         {
                             didMove = true;
-                            transform.position += new Vector3(Board.pieceDistance, 0.0f, 0.0f);
+                            transform.GetComponent<Piece>().transform.position += new Vector3(Board.pieceDistance, 0.0f, 0.0f);
                             transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition, currentColumnPosition + 1);
                         }
                     }
@@ -147,7 +145,7 @@ public class EnemyAI : MonoBehaviour {
                         if (canMoveDown)
                         {
                             didMove = true;
-                            transform.position += new Vector3(-Board.pieceDistance, 0.0f, 0.0f);
+                            transform.GetComponent<Piece>().transform.position += new Vector3(-Board.pieceDistance, 0.0f, 0.0f);
                             transform.GetComponent<Piece>().SetRowAndCol(currentRowPosition, currentColumnPosition - 1);
                         }
                     }
