@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/PelrigsPanicTest.unity
+- path: Assets/Scenes/PirateShip.unity
   isLoaded: 1
   isActive: 1
