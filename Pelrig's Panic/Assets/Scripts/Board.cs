@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Board : MonoBehaviour {
 
-    
+    [SerializeField] private int enteredUniversalTileWidth;
+    [SerializeField] private int enteredUniversalTileHeight;
     [SerializeField] private GameObject tilePiece;
     [SerializeField] private GameObject tilePieceDead;
     [SerializeField] private GameObject enemy;
     [SerializeField] private GameObject[] cannons;
+    [SerializeField] private int enteredNumCannons;
 
     public const int MAXCOINNUM = 100;
     public static Piece[] possibleMoveableChars;
@@ -77,24 +79,29 @@ public class Board : MonoBehaviour {
         timer = 0.0f;
         coinResetTimer = 0.0f;
         timeToWait = 1.0f;
-        universalTileWidth = 30;
-        universalTileHeight = 30;
+        universalTileWidth = enteredUniversalTileWidth;
+        universalTileHeight = enteredUniversalTileHeight;
 
         //Keeping track of time. Keeping initial time as 280.0f as it is used for spawning enemies.
         //Let the first enemy be spawned after the first minute.
         time = 280.0f;
 
-        numCannons = 3;
+        numCannons = enteredNumCannons;
         currentCannon = 0;
-        allCannons = new Cannon[numCannons];
-        GameObject[] allCannonObjects = new GameObject[numCannons]; //5 for now
-
-        for (int i = 0; i < numCannons; i++)
+        if (numCannons > 0)
         {
-            allCannonObjects[i] = Instantiate(cannons[i], new Vector3(10000.0f, 10000.0f, 0.0f), Quaternion.identity);
-            allCannons[i] = allCannonObjects[i].GetComponent<Cannon>();
-            allCannons[i].cannonID = i;
+            allCannons = new Cannon[numCannons];
+            GameObject[] allCannonObjects = new GameObject[numCannons]; //5 for now
+
+            for (int i = 0; i < numCannons; i++)
+            {
+                allCannonObjects[i] = Instantiate(cannons[i], new Vector3(10000.0f, 10000.0f, 0.0f), Quaternion.identity);
+                allCannons[i] = allCannonObjects[i].GetComponent<Cannon>();
+                allCannons[i].cannonID = i;
+            }
         }
+
+        
 
         numberOfEnemies = 0;
 
@@ -184,18 +191,21 @@ public class Board : MonoBehaviour {
                 else
                 {
                     bool hasCannon = false;
-                    for (int k = 0; k < allCannons.Length; k++)
+                    if (numCannons > 0)
                     {
-                        if (allCannons[k].cannon.rowPosition == i && allCannons[k].cannon.colPosition == j)
+                        for (int k = 0; k < allCannons.Length; k++)
                         {
-                            hasCannon = true;
+                            if (allCannons[k].cannon.rowPosition == i && allCannons[k].cannon.colPosition == j)
+                            {
+                                hasCannon = true;
+                            }
                         }
-                    }
-                    if (hasCannon == true)
-                    {
-                        spaceFieldType[j, i] = 2;
-                        cannonPoints[currentCannon] = new point(j, i);
-                        currentCannon++;
+                        if (hasCannon == true)
+                        {
+                            spaceFieldType[j, i] = 2;
+                            cannonPoints[currentCannon] = new point(j, i);
+                            currentCannon++;
+                        }
                     }
                     else
                     {
