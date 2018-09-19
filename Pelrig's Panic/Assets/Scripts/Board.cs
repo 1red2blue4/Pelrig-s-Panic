@@ -207,7 +207,7 @@ public class Board : MonoBehaviour {
                             currentCannon++;
                         }
                     }
-                    else
+                    if (!hasCannon)
                     {
                         spaceFieldType[j, i] = 1;
                     }
