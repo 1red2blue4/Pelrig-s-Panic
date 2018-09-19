@@ -8,8 +8,6 @@ public class PlayerControls : MonoBehaviour {
     private float cameraScrollSpeed;
     private float cameraMaxZoom;
     private float cameraMinZoom;
-    private int clickedRow;
-    private int clickedColumn;
     private GameObject columnHighlight;
     //in place in case this script is attached to another object that is not a camera
     private Camera thisCamera;
@@ -83,6 +81,11 @@ public class PlayerControls : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.O))
         {
             MovementManager.Move(Board.possibleMoveableChars[3]);
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            MovementManager.Move(Board.possibleMoveableChars[4]);
         }
     }
 

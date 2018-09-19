@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class PieceType : MonoBehaviour {
 
-    public enum UnitType { Soldier = 0, Rogue = 1, Archer = 2, Wizard = 3 };
+    public enum UnitType { Kent = 0, Jade = 1, Meda = 2, Hally = 3, Ed = 4 };
 }

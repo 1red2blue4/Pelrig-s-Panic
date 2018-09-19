@@ -4,4 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/PlayGround.unity
+    guid: 8984ee92281ea5b478b70176aa5520a6
+  - enabled: 1
+    path: Assets/Scenes/PirateShipWithBoard.unity
+    guid: 78bd8e9b1b3345d4ba679d183d9c78c2
+  m_configObjects: {}
