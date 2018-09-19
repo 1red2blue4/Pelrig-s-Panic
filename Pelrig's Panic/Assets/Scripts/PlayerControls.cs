@@ -33,6 +33,7 @@ public class PlayerControls : MonoBehaviour {
         MoveCamera();
         CheckCoinCollect();
         CheckForLineupSwap();
+        SelectCharacter();
 	}
 
 
@@ -58,6 +59,30 @@ public class PlayerControls : MonoBehaviour {
                     }
                 }
             }
+        }
+    }
+
+    public void SelectCharacter()
+    {
+        
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            MovementManager.Move(Board.possibleMoveableChars[0]);
+        }
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            MovementManager.Move(Board.possibleMoveableChars[1]);
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            MovementManager.Move(Board.possibleMoveableChars[2]);
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            MovementManager.Move(Board.possibleMoveableChars[3]);
         }
     }
 
