@@ -2,27 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ScreenWipeAnimation : MonoBehaviour {
 
-    private float alpha;
+    public float alpha;
     private Color savedSecondColor;
     private bool colorSwapped;
     private float distBetweenColors;
+    private bool choseFirstColor;
+    private float timer;
+    private bool sceneLoaded;
 
 	// Use this for initialization
 	void Start ()
     {
-        alpha = 0.0001f;
+        sceneLoaded = false;
+        timer = 0.0f;
+        choseFirstColor = false;
+        alpha = 0.0f;
         savedSecondColor = new Color();
         colorSwapped = false;
         distBetweenColors = 0.0f;
-	}
+        Color spriteColor = gameObject.GetComponent<MeshRenderer>().materials[0].color;
+        gameObject.GetComponent<MeshRenderer>().materials[0].color = new Color(spriteColor.r, spriteColor.g, spriteColor.b, alpha);
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        WipeScreen(0.006f);
+        if (timer >= 10.0f && !sceneLoaded)
+        {
+            sceneLoaded = true;
+            LoadScene("PlayGround");
+        }
+        timer += Time.deltaTime;
 	}
 
     public void WipeScreen(float rate)
@@ -30,6 +44,11 @@ public class ScreenWipeAnimation : MonoBehaviour {
         Color secondColor = new Color();
         Color emptyColor = new Color();
         Color spriteColor = gameObject.GetComponent<MeshRenderer>().materials[0].color;
+        if (!choseFirstColor)
+        {
+            spriteColor = new Color(Random.value, Random.value, Random.value, alpha);
+            choseFirstColor = true;
+        }
         if (alpha < 1.0f)
         {
             gameObject.GetComponent<MeshRenderer>().materials[0].color = new Color(spriteColor.r, spriteColor.g, spriteColor.b, alpha);
@@ -101,5 +120,43 @@ public class ScreenWipeAnimation : MonoBehaviour {
         }
 
         return new Color(redResult, blueResult, greenResult, 1.0f);
+    }
+
+    public void LoadScene(int sceneIndex)
+    {
+        StartCoroutine(LoadAsynchronously(sceneIndex));
+    }
+
+    public void LoadScene(string sceneName)
+    {
+        StartCoroutine(LoadAsynchronously(sceneName));
+    }
+
+    IEnumerator LoadAsynchronously(int sceneIndex)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+
+        while (operation.progress < 1.0f)
+        {
+            Debug.Log(operation.progress);
+
+            WipeScreen(0.006f);
+
+            yield return null;
+        }
+    }
+
+    IEnumerator LoadAsynchronously(string sceneName)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+
+        while (operation.progress < 1.0f)
+        {
+            Debug.Log(operation.progress);
+
+            WipeScreen(0.006f);
+
+            yield return null;
+        }
     }
 }

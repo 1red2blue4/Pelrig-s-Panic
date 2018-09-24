@@ -13,6 +13,7 @@ public class Board : MonoBehaviour {
     [SerializeField] private int enteredNumCannons;
 
     public const int MAXCOINNUM = 100;
+    public static GameObject[] allTiles;
     public static Piece[] possibleMoveableChars;
     public static Piece[] allCoins;
     public static Piece[] spawnedEnemies;
@@ -117,6 +118,7 @@ public class Board : MonoBehaviour {
         
         //allocate arrays
         possibleMoveableChars = new Piece[5];
+        allTiles = new GameObject[universalTileHeight * universalTileWidth];
         
         allCoins = new Piece[MAXCOINNUM];
         GameObject[] allCoinObjects = new GameObject[MAXCOINNUM];
@@ -153,6 +155,7 @@ public class Board : MonoBehaviour {
             time = 0.0f;
             SpawnEnemy();
         }
+        SendEverythingDown();
         CoinSpawn(currentNumCoins, universalTileWidth, universalTileHeight, midBoardX, midBoardY);
         timer += Time.deltaTime;
         coinResetTimer += Time.deltaTime;
@@ -222,6 +225,8 @@ public class Board : MonoBehaviour {
                 {
                     piece = Instantiate(tilePiece, placement, Quaternion.identity);
                     piece.name = "gridRow" + i + "Column" + j;
+                    GridPositioner sinkDown = piece.GetComponent<GridPositioner>();
+                    sinkDown.CheckWhatsBeneath();
                 }
                 else if (deadSpaces[j, i] == 2)
                 {
@@ -236,6 +241,11 @@ public class Board : MonoBehaviour {
                     piece = Instantiate(myCannon.cannon.thePiece, placement, Quaternion.identity);
                     piece.name = "gridRow" + i + "Column" + j + "WithCannon";
                 }
+                else
+                {
+                    piece = new GameObject();
+                }
+                allTiles[i * tileWidth + j] = piece;
             }
         }
 
@@ -299,6 +309,8 @@ public class Board : MonoBehaviour {
             possibleMoveableChars[i].SetName(possibleMoveableChars[i].GetPiece().name);
             piece.name = possibleMoveableChars[i].GetName();
             possibleMoveableChars[i].thePiece = piece;
+            GridPositioner bringDown = piece.GetComponent<GridPositioner>();
+            bringDown.CheckWhatsBeneath();
         }
     }
 
@@ -369,11 +381,37 @@ public class Board : MonoBehaviour {
             piece.name = allCoins[currentNumCoins].GetName();
             allCoins[currentNumCoins].thePiece = piece;
             allCoins[currentNumCoins].SetRowAndCol(row, col);
+            GridPositioner bringDown = piece.GetComponent<GridPositioner>();
+            bringDown.CheckWhatsBeneath();
 
             //every situation where currentNumCoins increases or decreases, adjust the timeToWait
             currentNumCoins++;
             timeToWait *= approxGoldenRatio;
             coinResetTimer = 0.0f;
+        }
+    }
+
+    private void SendEverythingDown()
+    {
+        for (int i = 0; i < allTiles.Length; i++)
+        {
+            GridPositioner sendDown = allTiles[i].GetComponent<GridPositioner>();
+            sendDown.GuideToObjectBeneath(0.1f);
+        }
+        for (int i = 0; i < possibleMoveableChars.Length; i++)
+        {
+            GridPositioner sendDown = possibleMoveableChars[i].thePiece.GetComponent<GridPositioner>();
+            sendDown.GuideToObjectBeneath(0.1f);
+        }
+        for (int i = 0; i < allCoins.Length; i++)
+        {
+            GridPositioner sendDown = allCoins[i].thePiece.GetComponent<GridPositioner>();
+            sendDown.GuideToObjectBeneath(0.1f);
+        }
+        for (int i = 0; i < spawnedEnemies.Length; i++)
+        {
+            GridPositioner sendDown = spawnedEnemies[i].thePiece.GetComponent<GridPositioner>();
+            sendDown.GuideToObjectBeneath(0.1f);
         }
     }
 
@@ -476,6 +514,8 @@ public class Board : MonoBehaviour {
         //GameObject piece = Instantiate(spawnedEnemies[numberOfEnemies].GetPiece(), placement, Quaternion.identity);
         spawnedEnemies[numberOfEnemies].SetName("Enemy " + numberOfEnemies);
         spawnedEnemies[numberOfEnemies].SetRowAndCol(row, col);
+        GridPositioner bringDown = spawnedEnemies[numberOfEnemies].GetComponent<GridPositioner>();
+        bringDown.CheckWhatsBeneath();
 
         //every situation where currentNumCoins increases or decreases, adjust the timeToWait
         numberOfEnemies++;

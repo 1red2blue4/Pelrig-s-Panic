@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/PlayGround.unity
-    guid: 8984ee92281ea5b478b70176aa5520a6
+    path: Assets/Scenes/PirateShip.unity
+    guid: dc09eb2f19570cf4f9a39f043641565e
   - enabled: 1
     path: Assets/Scenes/PirateShipWithBoard.unity
     guid: 78bd8e9b1b3345d4ba679d183d9c78c2
+  - enabled: 1
+    path: Assets/Scenes/PlayGround.unity
+    guid: 8984ee92281ea5b478b70176aa5520a6
   m_configObjects: {}

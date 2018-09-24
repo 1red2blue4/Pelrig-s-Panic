@@ -55,8 +55,8 @@ public static class MovementManager {
             }
             if (!inWay)
             {
-                character.GetPiece().transform.position += new Vector3(0.0f, Board.pieceDistance, 0.0f);
                 character.SetRowAndCol(character.rowPosition - 1, character.colPosition);
+                character.GetPiece().transform.position = Board.allTiles[character.rowPosition * Board.universalTileWidth + character.colPosition].transform.position;
             }
         }
         else if (directionLineups[0, currentDirectionLineup] == Direction.Right && character.colPosition < Board.universalTileWidth - 1)
@@ -100,8 +100,8 @@ public static class MovementManager {
             }
             if (!inWay)
             {
-                character.GetPiece().transform.position += new Vector3(Board.pieceDistance, 0.0f, 0.0f);
                 character.SetRowAndCol(character.rowPosition, character.colPosition + 1);
+                character.GetPiece().transform.position = Board.allTiles[character.rowPosition * Board.universalTileWidth + character.colPosition].transform.position;
             }
         }
         else if (directionLineups[0, currentDirectionLineup] == Direction.Down && character.rowPosition < Board.universalTileHeight - 1)
@@ -145,8 +145,8 @@ public static class MovementManager {
             }
             if (!inWay)
             {
-                character.GetPiece().transform.position += new Vector3(0.0f, -Board.pieceDistance, 0.0f);
                 character.SetRowAndCol(character.rowPosition + 1, character.colPosition);
+                character.GetPiece().transform.position = Board.allTiles[character.rowPosition * Board.universalTileWidth + character.colPosition].transform.position;
             }
         }
         else if (directionLineups[0, currentDirectionLineup] == Direction.Left && character.colPosition > 0)
@@ -190,8 +190,8 @@ public static class MovementManager {
             }
             if (!inWay)
             {
-                character.GetPiece().transform.position += new Vector3(-Board.pieceDistance, 0.0f, 0.0f);
                 character.SetRowAndCol(character.rowPosition, character.colPosition - 1);
+                character.GetPiece().transform.position = Board.allTiles[character.rowPosition * Board.universalTileWidth + character.colPosition].transform.position;
             }
         }
 

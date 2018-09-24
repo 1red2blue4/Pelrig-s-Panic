@@ -8,12 +8,6 @@ public class Wall : MonoBehaviour {
     [SerializeField] public MovementManager.Direction deadDirection;
     [SerializeField] public Wall[] wallDependencies;
 
-	// Use this for initialization
-	void Start ()
-    {
-		
-	}
-
     public bool CalcIfOutside(Vector3 objLocation)
     {
         if (dependent)

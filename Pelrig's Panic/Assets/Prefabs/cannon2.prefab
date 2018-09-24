@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 212368710233865232}
   - component: {fileID: 114107714231149122}
   - component: {fileID: 114103057389611826}
+  - component: {fileID: 114555510499411776}
   m_Layer: 0
   m_Name: cannon2
   m_TagString: Untagged
@@ -146,6 +147,17 @@ MonoBehaviour:
   charges: 2
   cannon: {fileID: 114103057389611826}
   cannonID: 0
+--- !u!114 &114555510499411776
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1426108273335980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6be32e54e2e73a439ac1ae8d6895b87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136149274353910246
 CapsuleCollider:
   m_ObjectHideFlags: 1
