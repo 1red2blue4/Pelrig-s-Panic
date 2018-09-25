@@ -1085,6 +1085,10 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1521122484241558, guid: f161c7590f3d61c4593591f33332dae0, type: 2}
+      propertyPath: m_TagString
+      value: MainMast
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114542967646595974, guid: f161c7590f3d61c4593591f33332dae0, type: 2}
     - {fileID: 114839289401058962, guid: f161c7590f3d61c4593591f33332dae0, type: 2}
