@@ -4,21 +4,25 @@ using UnityEngine;
 
 public class MainMastMove : MonoBehaviour {
 
-    GameObject mainMast;
-   
+    public GameObject mainMast;
 
-	// Use this for initialization
-	void Start () {
-        mainMast = GameObject.FindWithTag("MainMast");
+    public float speed = 1.0f;
+    public float amount = 1.0f;
+
+    Transform shake = mainMast.transform;
+    // Use this for initialization
+    void Start () {
+        //mainMast = GameObject.FindWithTag("MainMast");
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
+        
+         shake.position.x = Mathf.Sin(Time.time * speed) * amount;
 	}
 
-    public void MoveMastWhenHit()
+    /*public void MoveMastWhenHit()
     {
 
-    }
+    }*/
 }
