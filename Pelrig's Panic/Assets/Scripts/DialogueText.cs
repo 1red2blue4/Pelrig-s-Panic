@@ -18,10 +18,26 @@ public class DialogueText : MonoBehaviour {
 	void Update ()
     {
         visibleText = "";
-        for (int i = 0; i <= TextManager.currentCharacter; i++)
+        for (int i = 0; i < TextManager.currentCharacter; i++)
         {
             visibleText += TextManager.textSets[TextManager.currentTextSet][i];
+            if (i == TextManager.currentCharacter - 1)
+            {
+                PlayLetterSound(TextManager.textSets[TextManager.currentTextSet][i], i % TextManager.allSoundListeners.Length);
+            }
         }
         thisText.text = visibleText;
 	}
+
+    public void PlayLetterSound(char letter, int audioSourceNum)
+    {
+        for (int i = 0; i < TextManager.allLetters.Length; i++)
+        {
+            if (TextManager.allLetters[i].name[0] == letter)
+            {
+                TextManager.allSoundListeners[audioSourceNum].clip = TextManager.allLetters[i];
+                TextManager.allSoundListeners[audioSourceNum].Play();
+            }
+        }
+    }
 }

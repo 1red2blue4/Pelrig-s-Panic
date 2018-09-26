@@ -6,6 +6,8 @@ public class TextManager : MonoBehaviour {
 
 
     public static string[] textSets;
+    public static AudioSource[] allSoundListeners;
+    public static AudioClip[] allLetters;
     public static int currentCharacter;
     public static int currentTextSet;
     public static int totalTextSets;
@@ -14,6 +16,10 @@ public class TextManager : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        GameObject audioSourceHolder = GameObject.FindGameObjectWithTag("LettersHolder");
+        allSoundListeners = audioSourceHolder.GetComponents<AudioSource>();
+        allLetters = audioSourceHolder.GetComponent<AudioClipHolder>().audioClips;
+        
         timer = 0.0f;
         currentCharacter = 0;
         currentTextSet = 0;
