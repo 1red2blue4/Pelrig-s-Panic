@@ -5,7 +5,7 @@ using UnityEngine;
 public class RealWorldCamera : MonoBehaviour {
 
     GameObject selectedUnit;
-    float cameraSpeed;
+    [SerializeField] public float cameraSpeed;
     private Vector3 front;
     private Vector3 right;
 
@@ -20,7 +20,6 @@ public class RealWorldCamera : MonoBehaviour {
         front = GetComponent<Camera>().transform.forward;
         front.y = 0;
         front = Vector3.Normalize(front);
-        cameraSpeed = 5.0f;
         // To get the right and left directional sense
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * front;
         selectedUnit = null;
@@ -49,16 +48,24 @@ public class RealWorldCamera : MonoBehaviour {
         if (Input.GetAxis("Mouse ScrollWheel") != 0)
         {
             GetComponent<Camera>().orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime;
+            if (GetComponent<Camera>().orthographicSize < 2.0f)
+            {
+                GetComponent<Camera>().orthographicSize = 2.0f;
+            }
+            else if (GetComponent<Camera>().orthographicSize > 20.0f)
+            {
+                GetComponent<Camera>().orthographicSize = 20.0f;
+            }
         }
 
         //Move camera with WASD when not selected any character
         if (selectedUnit == null)
         {
             //Camera movement across the map
-            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+            if (Input.GetAxis("HorizontalCamera") != 0 || Input.GetAxis("VerticalCamera") != 0)
             {
-                Vector3 horizontalMovement = right * cameraSpeed * Time.deltaTime * Input.GetAxis("Horizontal");
-                Vector3 verticalMovement = front * cameraSpeed * Time.deltaTime * Input.GetAxis("Vertical");
+                Vector3 horizontalMovement = right * cameraSpeed * Time.deltaTime * Input.GetAxis("HorizontalCamera");
+                Vector3 verticalMovement = front * cameraSpeed * Time.deltaTime * Input.GetAxis("VerticalCamera");
 
                 transform.position += (horizontalMovement + verticalMovement);
             }
