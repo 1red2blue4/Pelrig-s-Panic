@@ -24,11 +24,10 @@ public class RealWorldMovement : MonoBehaviour {
         {
             if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
             {
-                float movement = Input.GetAxis("Vertical") * Time.deltaTime * movementSpeed;
-                float rotation = Input.GetAxis("Horizontal") * Time.deltaTime * rotationSpeed;
+                float vertical = Input.GetAxis("Vertical") * Time.deltaTime * movementSpeed;
+                float horizontal = Input.GetAxis("Horizontal") * Time.deltaTime * movementSpeed;
 
-                transform.Rotate(0, rotation, 0);
-                transform.Translate(0, 0, movement);
+                transform.position += new Vector3(horizontal, 0.0f, vertical);
             }
         }
     }
