@@ -334,3 +334,4 @@ Z:\IGMProfile\Documents\Pelric's Panic\Pelrig's Panic\obj\Debug\Assembly-CSharp.
 Z:\IGMProfile\Documents\Pelric's Panic\Pelrig's Panic\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 Z:\IGMProfile\Documents\Pelric's Panic\Pelrig's Panic\obj\Debug\Assembly-CSharp.dll
 Z:\IGMProfile\Documents\Pelric's Panic\Pelrig's Panic\obj\Debug\Assembly-CSharp.pdb
+Z:\IGMProfile\Documents\Pelric's Panic\Pelrig's Panic\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb

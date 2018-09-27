@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RealWorldCamera : MonoBehaviour {
 
+    //For focus
     GameObject selectedUnit;
     [SerializeField] public float cameraSpeed;
     private Vector3 front;
@@ -15,7 +16,7 @@ public class RealWorldCamera : MonoBehaviour {
     Camera cam;
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
         //Forward with respect to the camera and not the scene
         front = GetComponent<Camera>().transform.forward;
         front.y = 0;
@@ -47,36 +48,34 @@ public class RealWorldCamera : MonoBehaviour {
         //Zoom in and out
         if (Input.GetAxis("Mouse ScrollWheel") != 0)
         {
-            GetComponent<Camera>().orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime;
-            if (GetComponent<Camera>().orthographicSize < 2.0f)
-            {
-                GetComponent<Camera>().orthographicSize = 2.0f;
-            }
-            else if (GetComponent<Camera>().orthographicSize > 20.0f)
-            {
-                GetComponent<Camera>().orthographicSize = 20.0f;
-            }
+            float cameraOrthoSize = GetComponent<Camera>().orthographicSize - Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime;
+            cameraOrthoSize = (cameraOrthoSize > 20.0f ? 20.0f : cameraOrthoSize);
+            cameraOrthoSize = (cameraOrthoSize < 2.5f ? 2.5f : cameraOrthoSize);
+            GetComponent<Camera>().orthographicSize = cameraOrthoSize;
         }
 
-        //Move camera with WASD when not selected any character
-        if (selectedUnit == null)
+        //Move camera with Arrow keys
+
+        //Camera movement across the map
+        if (Input.GetAxis("HorizontalCamera") != 0 || Input.GetAxis("VerticalCamera") != 0)
         {
-            //Camera movement across the map
-            if (Input.GetAxis("HorizontalCamera") != 0 || Input.GetAxis("VerticalCamera") != 0)
-            {
-                Vector3 horizontalMovement = right * cameraSpeed * Time.deltaTime * Input.GetAxis("HorizontalCamera");
-                Vector3 verticalMovement = front * cameraSpeed * Time.deltaTime * Input.GetAxis("VerticalCamera");
+            Vector3 horizontalMovement = right * cameraSpeed * Time.deltaTime * Input.GetAxis("HorizontalCamera");
+            Vector3 verticalMovement = front * cameraSpeed * Time.deltaTime * Input.GetAxis("VerticalCamera");
+        
+            transform.position += (horizontalMovement + verticalMovement);
 
-                transform.position += (horizontalMovement + verticalMovement);
-            }
+            //unselect the unit as camera is not locked
+            selectedUnit = null;
         }
-        //Make camera follow the selected unit
-        else
+
+        //Lock camera
+        if (selectedUnit != null)
         {
             // Center whatever position is clicked
             transform.position = Vector3.SmoothDamp(cam.transform.position, selectedUnit.transform.position + groundCamOffset, ref camSmoothDampV, 0.4f);
         }
-        //Select the character to control
+
+        //Select the character to lcok on to
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -85,13 +84,7 @@ public class RealWorldCamera : MonoBehaviour {
             {
                 if (hit.transform.tag == "Player")
                 {
-                    //Change selected target, and switch their control scheme
-                    if (selectedUnit != null)
-                    {
-                        selectedUnit.GetComponent<RealWorldMovement>().isSelected = false;
-                    }
                     selectedUnit = hit.collider.gameObject;
-                    selectedUnit.GetComponent<RealWorldMovement>().isSelected = true;
                     print(selectedUnit.name);
 
                     float mouseX = Input.mousePosition.x / cam.pixelWidth;
@@ -100,17 +93,5 @@ public class RealWorldCamera : MonoBehaviour {
                 }
             }
         }
-
-        //Unselect a selected camera
-        else if (Input.GetMouseButtonDown(1))
-        {
-            if (selectedUnit != null)
-            {
-                selectedUnit.GetComponent<RealWorldMovement>().isSelected = false;
-                print("Nothing");
-                selectedUnit = null;
-            }
-        }
-                
     }
 }
