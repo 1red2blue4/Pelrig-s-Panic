@@ -72,7 +72,7 @@ public class RealWorldCamera : MonoBehaviour {
         if (selectedUnit != null)
         {
             // Center whatever position is clicked
-            transform.position = Vector3.SmoothDamp(cam.transform.position, selectedUnit.transform.position + groundCamOffset, ref camSmoothDampV, 0.4f);
+            transform.position = Vector3.SmoothDamp(cam.transform.position, selectedUnit.transform.position + groundCamOffset, ref camSmoothDampV, 0.2f);
         }
 
         //Select the character to lcok on to
