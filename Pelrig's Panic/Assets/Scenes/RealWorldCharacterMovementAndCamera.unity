@@ -153,11 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b39925f7237e1d942a1e7ea03eb53d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllaleCharacters: []
-  characterSlected: 0
   characterMovement: 15
-  front: {x: 0, y: 0, z: 0}
-  right: {x: 0, y: 0, z: 0}
 --- !u!1 &92689150
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,7 +199,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: b4b5bbaeaf7180e45851da8760213863, type: 2}
+  - {fileID: 2100000, guid: e3156b97c04fff74cb57c8f4ed045b20, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -474,7 +470,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: b4b5bbaeaf7180e45851da8760213863, type: 2}
+  - {fileID: 2100000, guid: e3156b97c04fff74cb57c8f4ed045b20, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
