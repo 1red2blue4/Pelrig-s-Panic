@@ -1,8 +1,4 @@
 sceneSetups:
-<<<<<<< HEAD
-- path: Assets/Scenes/LoadingScene.unity
-=======
 - path: Assets/Scenes/RealWorldCharacterMovementAndCamera.unity
->>>>>>> f6a967e99a61e8b3b00f13d02a117bf60a938946
   isLoaded: 1
   isActive: 1
