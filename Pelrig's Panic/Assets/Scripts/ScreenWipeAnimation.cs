@@ -17,13 +17,13 @@ public class ScreenWipeAnimation : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        sceneLoaded = false;
-        timer = 0.0f;
-        choseFirstColor = false;
         alpha = 0.0f;
         savedSecondColor = new Color();
         colorSwapped = false;
         distBetweenColors = 0.0f;
+        choseFirstColor = false;
+        timer = 0.0f;
+        sceneLoaded = false;
         Color spriteColor = gameObject.GetComponent<MeshRenderer>().materials[0].color;
         gameObject.GetComponent<MeshRenderer>().materials[0].color = new Color(spriteColor.r, spriteColor.g, spriteColor.b, alpha);
     }
@@ -31,7 +31,11 @@ public class ScreenWipeAnimation : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (timer >= 10.0f && !sceneLoaded)
+        if (timer < 5.0f)
+        {
+            WipeScreen(0.01f);
+        }
+        else if (timer >= 5.0f && !sceneLoaded)
         {
             sceneLoaded = true;
             LoadScene("PlayGround");
@@ -154,7 +158,7 @@ public class ScreenWipeAnimation : MonoBehaviour {
         {
             Debug.Log(operation.progress);
 
-            WipeScreen(0.006f);
+            WipeScreen(0.01f);
 
             yield return null;
         }
