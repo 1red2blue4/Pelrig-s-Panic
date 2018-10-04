@@ -5,7 +5,7 @@ using UnityEngine;
 public class RealWorldCamera : MonoBehaviour {
 
     //For focus
-    GameObject selectedUnit;
+    public GameObject selectedUnit;
     [SerializeField] public float cameraSpeed;
     private Vector3 front;
     private Vector3 right;
@@ -28,7 +28,6 @@ public class RealWorldCamera : MonoBehaviour {
         //Camera offsetting for focusing on the selected unit
         cam = GetComponent<Camera>();
         Vector3 groundPos = GetWorldPosAtViewportPoint(0.5f, 0.5f);
-        Debug.Log("groundPos: " + groundPos);
         groundCamOffset = cam.transform.position - groundPos;
         camTarget = cam.transform.position;
     }
@@ -55,7 +54,6 @@ public class RealWorldCamera : MonoBehaviour {
         }
 
         //Move camera with Arrow keys
-
         //Camera movement across the map
         if (Input.GetAxis("HorizontalCamera") != 0 || Input.GetAxis("VerticalCamera") != 0)
         {
@@ -73,25 +71,6 @@ public class RealWorldCamera : MonoBehaviour {
         {
             // Center whatever position is clicked
             transform.position = Vector3.SmoothDamp(cam.transform.position, selectedUnit.transform.position + groundCamOffset, ref camSmoothDampV, 0.2f);
-        }
-
-        //Select the character to lcok on to
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-            {
-                if (hit.transform.tag == "Player")
-                {
-                    selectedUnit = hit.collider.gameObject;
-                    print(selectedUnit.name);
-
-                    float mouseX = Input.mousePosition.x / cam.pixelWidth;
-                    float mouseY = Input.mousePosition.y / cam.pixelHeight;
-                    Vector3 clickPt = GetWorldPosAtViewportPoint(mouseX, mouseY);
-                }
-            }
         }
     }
 }
