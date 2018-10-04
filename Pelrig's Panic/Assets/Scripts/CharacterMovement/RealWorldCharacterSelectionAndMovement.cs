@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RealWorldCharacterSelectionAndMovement : MonoBehaviour {
 
-    GameObject[] controllaleCharacters;
+    GameObject[] controllableCharacters;
     int characterSlected;
 
     float characterMovement;
@@ -17,12 +17,17 @@ public class RealWorldCharacterSelectionAndMovement : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        controllaleCharacters = GameObject.FindGameObjectsWithTag("Player");
-        controllaleCharacters[0].GetComponent<MeshRenderer>().material = glowingMaterial;
-        characterSlected = 0;
         characterMovement = 7.0f;
+
+        controllableCharacters = GameObject.FindGameObjectsWithTag("Player");
         cam = GetComponent<Camera>().GetComponent<RealWorldCamera>();
-        front = GameObject.FindGameObjectWithTag("MainCamera").transform.forward;
+        front = GetComponent<Camera>().transform.forward;
+
+        controllableCharacters[0].GetComponent<MeshRenderer>().material = glowingMaterial;
+
+        characterSlected = 0;
+        cam.selectedUnit = controllableCharacters[0];
+        
         front.y = 0;
         front = Vector3.Normalize(front);
         // To get the right and left directional sense
@@ -40,17 +45,11 @@ public class RealWorldCharacterSelectionAndMovement : MonoBehaviour {
             {
                 if (hit.transform.tag == "Player")
                 {
-                    for (int i = 0; i < controllaleCharacters.Length; i++)
+                    for (int i = 0; i < controllableCharacters.Length; i++)
                     {
-                        if (controllaleCharacters[i] == hit.transform.gameObject)
+                        if (controllableCharacters[i] == hit.transform.gameObject)
                         {
-                            if (i != characterSlected)
-                            {
-                                controllaleCharacters[characterSlected].GetComponent<MeshRenderer>().material = normalMaterial;
-                                characterSlected = i;
-                                controllaleCharacters[characterSlected].GetComponent<MeshRenderer>().material = glowingMaterial;
-                            }
-                            cam.selectedUnit = controllaleCharacters[i];
+                            SelectCharacter(i);
                             break;
                         }
                     }
@@ -60,11 +59,9 @@ public class RealWorldCharacterSelectionAndMovement : MonoBehaviour {
         //Switch characters
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            controllaleCharacters[characterSlected].GetComponent<MeshRenderer>().material = normalMaterial;
-            characterSlected++;
-            characterSlected = characterSlected >= controllaleCharacters.Length ? 0 : characterSlected;
-            cam.selectedUnit = controllaleCharacters[characterSlected];
-            controllaleCharacters[characterSlected].GetComponent<MeshRenderer>().material = glowingMaterial;
+            int newSelectedCharacter = characterSlected + 1;
+            newSelectedCharacter = newSelectedCharacter >= controllableCharacters.Length ? 0 : newSelectedCharacter;
+            SelectCharacter(newSelectedCharacter);
         }
 
         //Movement of the characters
@@ -73,13 +70,30 @@ public class RealWorldCharacterSelectionAndMovement : MonoBehaviour {
             float speed = characterMovement;
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                speed *= 1.3f;
+                speed *= 1.2f;
             }
             Vector3 horizontalMovement = right * speed * Time.deltaTime * Input.GetAxis("Horizontal");
             Vector3 verticalMovement = front * speed * Time.deltaTime * Input.GetAxis("Vertical");
 
-            controllaleCharacters[characterSlected].GetComponent<CharacterController>().Move(horizontalMovement + verticalMovement);
-            //controllaleCharacters[characterSlected].GetComponent<Rigidbody>().AddForce(horizontalMovement + verticalMovement);
+            controllableCharacters[characterSlected].GetComponent<CharacterController>().Move(horizontalMovement + verticalMovement);
         }
+
+        //Tab switch between selectable characters
+        for (KeyCode i = KeyCode.F1; i < KeyCode.F1 + controllableCharacters.Length; i++)
+        {
+            if (Input.GetKeyDown(i))
+            {
+                SelectCharacter(i - KeyCode.F1);
+            }
+        }
+    }
+
+    //Removes the material from old character, also focuses new selected character
+    void SelectCharacter(int characterNumber)
+    {
+        controllableCharacters[characterSlected].GetComponent<MeshRenderer>().material = normalMaterial;
+        characterSlected = characterNumber;
+        cam.selectedUnit = controllableCharacters[characterSlected];
+        controllableCharacters[characterSlected].GetComponent<MeshRenderer>().material = glowingMaterial;
     }
 }
