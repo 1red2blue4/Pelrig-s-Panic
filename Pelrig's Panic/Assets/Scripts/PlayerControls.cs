@@ -11,8 +11,8 @@ public class PlayerControls : MonoBehaviour {
     private GameObject columnHighlight;
     //in place in case this script is attached to another object that is not a camera
     private Camera thisCamera;
-    
-	void Start ()
+
+    void Start()
     {
         cameraSpeed = 20.0f;
         cameraScrollSpeed = 20.0f;
@@ -21,18 +21,50 @@ public class PlayerControls : MonoBehaviour {
         thisCamera = gameObject.GetComponent<Camera>();
         columnHighlight = GameObject.FindGameObjectWithTag("ColumnHighlight");
         MovementManager.Setup();
-        
-	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    }
+
+    // Update is called once per frame
+    void Update()
     {
         CheckClick();
         MoveCamera();
         CheckCoinCollect();
         CheckForLineupSwap();
-	}
+        CheckPlayer();
+    }
 
+    void CheckPlayer()
+    {
+        
+        for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+        {
+            int enemiesAround = 0;
+            for (int j = 0; j < Board.spawnedEnemies.Length; j++)
+            {
+                bool a = false;
+                bool b = false;
+                if (Board.possibleMoveableChars[i].GetComponent<Piece>().rowPosition == Board.spawnedEnemies[j].GetComponent<Piece>().rowPosition - 1 || Board.possibleMoveableChars[i].GetComponent<Piece>().rowPosition == Board.spawnedEnemies[j].GetComponent<Piece>().rowPosition + 1)
+                {
+                    a = true;
+                }
+                if (Board.possibleMoveableChars[i].GetComponent<Piece>().colPosition == Board.spawnedEnemies[j].GetComponent<Piece>().colPosition - 1 || Board.possibleMoveableChars[i].GetComponent<Piece>().colPosition == Board.spawnedEnemies[j].GetComponent<Piece>().colPosition + 1)
+                {
+                    b = true;
+                }
+                if (a && b)
+                {
+                    enemiesAround += 1;
+                }
+            }
+
+            if (enemiesAround >= 2)
+            {
+                Board.possibleMoveableChars[i].SetRowAndCol(1000, 1000);
+                Board.possibleMoveableChars[i].GetPiece().transform.position = new Vector3(10000, 10000, 0);
+            }
+        }
+    }
 
 
     public void CheckClick()

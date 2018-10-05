@@ -56,7 +56,7 @@ public static class MovementManager {
             if (!inWay)
             {
                 character.SetRowAndCol(character.rowPosition - 1, character.colPosition);
-                character.GetPiece().transform.position = Board.allTiles[character.rowPosition * Board.universalTileWidth + character.colPosition].transform.position;
+                character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + character.colPosition).transform.position;
             }
         }
         else if (directionLineups[0, currentDirectionLineup] == Direction.Right && character.colPosition < Board.universalTileWidth - 1)
@@ -101,7 +101,7 @@ public static class MovementManager {
             if (!inWay)
             {
                 character.SetRowAndCol(character.rowPosition, character.colPosition + 1);
-                character.GetPiece().transform.position = Board.allTiles[character.rowPosition * Board.universalTileWidth + character.colPosition].transform.position;
+                character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
             }
         }
         else if (directionLineups[0, currentDirectionLineup] == Direction.Down && character.rowPosition < Board.universalTileHeight - 1)
@@ -146,7 +146,7 @@ public static class MovementManager {
             if (!inWay)
             {
                 character.SetRowAndCol(character.rowPosition + 1, character.colPosition);
-                character.GetPiece().transform.position = Board.allTiles[character.rowPosition * Board.universalTileWidth + character.colPosition].transform.position;
+                character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position; ;
             }
         }
         else if (directionLineups[0, currentDirectionLineup] == Direction.Left && character.colPosition > 0)
@@ -191,7 +191,7 @@ public static class MovementManager {
             if (!inWay)
             {
                 character.SetRowAndCol(character.rowPosition, character.colPosition - 1);
-                character.GetPiece().transform.position = Board.allTiles[character.rowPosition * Board.universalTileWidth + character.colPosition].transform.position;
+                character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
             }
         }
 

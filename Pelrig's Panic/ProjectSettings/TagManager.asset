@@ -8,6 +8,7 @@ TagManager:
   - PieceHolder
   - ColumnHighlight
   - LettersHolder
+  - Enemy
   layers:
   - Default
   - TransparentFX
