@@ -63,7 +63,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.0003
+  near clip plane: 0.003
   far clip plane: 1000
   field of view: 60
   orthographic: 1
@@ -101,6 +101,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050c2bff24d59a347ba0b62785352d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allCameras:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!124 &124357239068521034
 Behaviour:
   m_ObjectHideFlags: 1

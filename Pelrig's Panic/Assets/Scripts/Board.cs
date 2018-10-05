@@ -12,6 +12,8 @@ public class Board : MonoBehaviour {
     [SerializeField] private GameObject[] cannons;
     [SerializeField] private int enteredNumCannons;
 
+    public GameObject mainCamera;
+
     public const int MAXCOINNUM = 100;
     public static GameObject[] allTiles;
     public static Piece[] possibleMoveableChars;
@@ -73,7 +75,7 @@ public class Board : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         midBoardX = 0.0f;
         midBoardY = 0.0f;
         Time.maximumDeltaTime = 0.1f;
@@ -382,6 +384,7 @@ public class Board : MonoBehaviour {
             allCoins[currentNumCoins].thePiece = piece;
             allCoins[currentNumCoins].SetRowAndCol(row, col);
             GridPositioner bringDown = piece.GetComponent<GridPositioner>();
+            bringDown.mainCamera = mainCamera;
             bringDown.CheckWhatsBeneath();
 
             //every situation where currentNumCoins increases or decreases, adjust the timeToWait
@@ -407,6 +410,7 @@ public class Board : MonoBehaviour {
         {
             GridPositioner sendDown = allCoins[i].thePiece.GetComponent<GridPositioner>();
             sendDown.GuideToObjectBeneath(0.1f);
+            sendDown.AdjustToCamera();
         }
         for (int i = 0; i < spawnedEnemies.Length; i++)
         {

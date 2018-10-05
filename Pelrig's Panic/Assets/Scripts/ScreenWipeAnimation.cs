@@ -142,8 +142,6 @@ public class ScreenWipeAnimation : MonoBehaviour {
 
         while (operation.progress < 1.0f)
         {
-            Debug.Log(operation.progress);
-
             WipeScreen(0.006f);
 
             yield return null;
@@ -156,8 +154,6 @@ public class ScreenWipeAnimation : MonoBehaviour {
 
         while (operation.progress < 1.0f)
         {
-            Debug.Log(operation.progress);
-
             WipeScreen(0.01f);
 
             yield return null;

@@ -7,6 +7,7 @@ public class GridPositioner : MonoBehaviour {
     public Vector3 startPos;
     public float difference;
     public float speed;
+    public GameObject mainCamera;
 
     public void CheckWhatsBeneath()
     {
@@ -14,10 +15,8 @@ public class GridPositioner : MonoBehaviour {
         Ray rayResult = new Ray(transform.position, new Vector3(0.0f, 0.0f, 1.0f));
         if (Physics.Raycast(rayResult, out hit, Mathf.Infinity))
         {
-            Debug.Log(hit.collider.name);
             startPos = transform.position;
             float zChange = hit.collider.transform.position.z - transform.position.z;
-            Debug.Log(zChange);
             difference = zChange;
             speed = 0;
         }
@@ -38,5 +37,10 @@ public class GridPositioner : MonoBehaviour {
             transform.position += new Vector3(0.0f, 0.0f, difference);
             difference = 0;
         }
+    }
+
+    public void AdjustToCamera()
+    {
+        transform.rotation = mainCamera.transform.rotation;
     }
 }

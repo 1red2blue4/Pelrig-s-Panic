@@ -9,16 +9,14 @@ public class MainMastMove : MonoBehaviour {
     public float speed = 1.0f;
     public float amount = 1.0f;
 
-    Transform shake = mainMast.transform;
     // Use this for initialization
     void Start () {
-        //mainMast = GameObject.FindWithTag("MainMast");
     }
 	
 	// Update is called once per frame
 	void Update () {
         
-         shake.position.x = Mathf.Sin(Time.time * speed) * amount;
+         //shake.position.x = Mathf.Sin(Time.time * speed) * amount;
 	}
 
     /*public void MoveMastWhenHit()

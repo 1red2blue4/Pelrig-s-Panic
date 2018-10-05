@@ -4,21 +4,37 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour {
 
+    [SerializeField] public GameObject[] allCameras;
     private float cameraSpeed;
     private float cameraScrollSpeed;
     private float cameraMaxZoom;
     private float cameraMinZoom;
     private GameObject columnHighlight;
-    //in place in case this script is attached to another object that is not a camera
-    private Camera thisCamera;
+    //0: bottom left; 1: straight on; 2: bottom right
+    private int cameraRotPosition;
+    private int prevCameraRotPosition;
+    private int numCameraRotPositions;
+    private bool cameraRotPress;
+    private float cameraMovementBetween;
+    private bool movingCamera;
     
 	void Start ()
     {
+        movingCamera = false;
+        cameraMovementBetween = 0.0f;
+        numCameraRotPositions = 4;
+        allCameras[0] = gameObject;
+        for (int i = 1; i < numCameraRotPositions; i++)
+        {
+            allCameras[i] = GameObject.FindGameObjectWithTag("Camera" + i);
+        }
+        cameraRotPress = false;
+        cameraRotPosition = 1;
+        prevCameraRotPosition = cameraRotPosition;
         cameraSpeed = 20.0f;
         cameraScrollSpeed = 20.0f;
         cameraMaxZoom = 11.0f;
         cameraMinZoom = 3.0f;
-        thisCamera = gameObject.GetComponent<Camera>();
         columnHighlight = GameObject.FindGameObjectWithTag("ColumnHighlight");
         MovementManager.Setup();
         
@@ -29,6 +45,11 @@ public class PlayerControls : MonoBehaviour {
     {
         CheckClick();
         MoveCamera();
+        CheckRotateCamera();
+        if (movingCamera)
+        {
+            RepositionCamera(cameraRotPosition, prevCameraRotPosition, cameraMovementBetween);
+        }
         CheckCoinCollect();
         CheckForLineupSwap();
         SelectCharacter();
@@ -93,27 +114,99 @@ public class PlayerControls : MonoBehaviour {
     {
         if (Input.GetAxis("Horizontal") > 0)
         {
-            transform.position += new Vector3(cameraSpeed, 0.0f, 0.0f) * Time.deltaTime;
+            for (int i = 0; i < numCameraRotPositions; i++)
+            {
+                allCameras[i].transform.position += new Vector3(cameraSpeed, 0.0f, 0.0f) * Time.deltaTime;
+            }
         }
         else if (Input.GetAxis("Horizontal") < 0)
         {
-            transform.position -= new Vector3(cameraSpeed, 0.0f, 0.0f) * Time.deltaTime;
+            for (int i = 0; i < numCameraRotPositions; i++)
+            {
+                allCameras[i].transform.position -= new Vector3(cameraSpeed, 0.0f, 0.0f) * Time.deltaTime;
+            }
         }
         if (Input.GetAxis("Vertical") > 0)
         {
-            transform.position += new Vector3(0.0f, cameraSpeed, 0.0f) * Time.deltaTime;
+            for (int i = 0; i < numCameraRotPositions; i++)
+            {
+                allCameras[i].transform.position += new Vector3(0.0f, cameraSpeed, 0.0f) * Time.deltaTime;
+            }
         }
         else if (Input.GetAxis("Vertical") < 0)
         {
-            transform.position -= new Vector3(0.0f, cameraSpeed, 0.0f) * Time.deltaTime;
+            for (int i = 0; i < numCameraRotPositions; i++)
+            {
+                allCameras[i].transform.position -= new Vector3(0.0f, cameraSpeed, 0.0f) * Time.deltaTime;
+            }
         }
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && gameObject.GetComponent<Camera>().orthographicSize > cameraMinZoom)
         {
-            gameObject.GetComponent<Camera>().orthographicSize -= cameraScrollSpeed * Time.deltaTime;
+            for (int i = 0; i < numCameraRotPositions; i++)
+            {
+                allCameras[i].GetComponent<Camera>().orthographicSize -= cameraScrollSpeed * Time.deltaTime;
+            }
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0 && gameObject.GetComponent<Camera>().orthographicSize < cameraMaxZoom)
         {
-            gameObject.GetComponent<Camera>().orthographicSize += cameraScrollSpeed * Time.deltaTime;
+            for (int i = 0; i < numCameraRotPositions; i++)
+            {
+                allCameras[i].GetComponent<Camera>().orthographicSize += cameraScrollSpeed * Time.deltaTime;
+            }
+        }
+    }
+
+    public void CheckRotateCamera()
+    {
+        if (Input.GetAxis("ChangeCamera") != 0 && !cameraRotPress)
+        {
+            prevCameraRotPosition = cameraRotPosition;
+            float direction = Input.GetAxis("ChangeCamera");
+            cameraRotPress = true;
+            if (direction > 0)
+            {
+                cameraRotPosition++;
+                if (cameraRotPosition >= numCameraRotPositions)
+                {
+                    cameraRotPosition = 1;
+                }
+            }
+            else
+            {
+                cameraRotPosition--;
+                if (cameraRotPosition < 1)
+                {
+                    cameraRotPosition = numCameraRotPositions - 1;
+                }
+            }
+            SetCamera();
+        }
+        else if (Input.GetAxis("ChangeCamera") == 0)
+        {
+            cameraRotPress = false;
+        }
+    }
+
+    private void SetCamera()
+    {
+        cameraMovementBetween = 0.0f;
+        movingCamera = true;
+    }
+
+    private void RepositionCamera(int camPos, int prevPos, float timeToMove)
+    {
+        
+        transform.position = Vector3.Lerp(allCameras[prevPos].transform.position, allCameras[camPos].transform.position, timeToMove);
+        transform.rotation = Quaternion.Lerp(allCameras[prevPos].transform.rotation, allCameras[camPos].transform.rotation, timeToMove);
+        if (cameraMovementBetween < 1.0f)
+        {
+            cameraMovementBetween += 3.0f*Time.deltaTime;
+        }
+        else
+        {
+            Debug.Log("You finished setting the camera to " + camPos);
+            cameraMovementBetween = 1.0f;
+            movingCamera = false;
         }
     }
 

@@ -8,6 +8,9 @@ TagManager:
   - PieceHolder
   - ColumnHighlight
   - LettersHolder
+  - Camera2
+  - Camera1
+  - Camera3
   layers:
   - Default
   - TransparentFX
