@@ -204,7 +204,6 @@ public class PlayerControls : MonoBehaviour {
         }
         else
         {
-            Debug.Log("You finished setting the camera to " + camPos);
             cameraMovementBetween = 1.0f;
             movingCamera = false;
         }

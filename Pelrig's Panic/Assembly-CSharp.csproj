@@ -61,11 +61,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Ability.cs" />
     <Compile Include="Assets\Scripts\AudioClipHolder.cs" />
     <Compile Include="Assets\Scripts\AudioSourceHolder.cs" />
     <Compile Include="Assets\Scripts\Board.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\RealWorldCamera.cs" />
     <Compile Include="Assets\Scripts\Cannon.cs" />
+    <Compile Include="Assets\Scripts\CharacterData.cs" />
     <Compile Include="Assets\Scripts\CharacterMovement\RealWorldCharacterSelectionAndMovement.cs" />
     <Compile Include="Assets\Scripts\DialogueText.cs" />
     <Compile Include="Assets\Scripts\EnemyAI.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="Assets\Scripts\ScreenWipeAnimation.cs" />
     <Compile Include="Assets\Scripts\TextManager.cs" />
     <Compile Include="Assets\Scripts\UIController.cs" />
+    <Compile Include="Assets\Scripts\UIControllerRealWorld.cs" />
     <Compile Include="Assets\Scripts\UIData.cs" />
     <Compile Include="Assets\Scripts\Wall.cs" />
     <None Include="Assets\Shaders\Silhouetted Diffuse.shader" />
