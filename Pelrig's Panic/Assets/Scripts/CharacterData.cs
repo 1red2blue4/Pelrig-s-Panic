@@ -7,4 +7,6 @@ public class CharacterData : MonoBehaviour {
     [SerializeField] public Ability[] characterAbilities;
     public int numCharacterAbilities = 5;
     public int abilityCapNum = 3;
+    //2 for demo
+    public int numOwnedAbilities = 2;
 }

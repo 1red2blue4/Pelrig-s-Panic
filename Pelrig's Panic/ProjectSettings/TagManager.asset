@@ -11,6 +11,7 @@ TagManager:
   - Camera2
   - Camera1
   - Camera3
+  - Canvas
   layers:
   - Default
   - TransparentFX
