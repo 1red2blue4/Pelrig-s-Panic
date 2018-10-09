@@ -11,6 +11,12 @@ public class PlayerControls : MonoBehaviour {
     private GameObject columnHighlight;
     //in place in case this script is attached to another object that is not a camera
     private Camera thisCamera;
+    GameObject selectedUnit;
+
+    int[] moveValues;
+
+    [SerializeField] Material glowingMaterial;
+    Material normalMaterial;
 
     void Start()
     {
@@ -21,7 +27,39 @@ public class PlayerControls : MonoBehaviour {
         thisCamera = gameObject.GetComponent<Camera>();
         columnHighlight = GameObject.FindGameObjectWithTag("ColumnHighlight");
         MovementManager.Setup();
+        moveValues = new int[4];
+        selectedUnit = null;
+        GiveNumbers();
 
+    }
+
+    void GiveNumbers()
+    {
+        //Left - 0, up - 1, right - 2, down - 3
+        for (int i = 0; i < 4; i++)
+        {
+            int randomNumber = (int)Random.Range(0.0f, 9.99f);
+            if (randomNumber < 2)
+            {
+                moveValues[i] = 2;
+            }
+            else if (randomNumber < 5)
+            {
+                moveValues[i] = 3;
+            }
+            else if (randomNumber < 8)
+            {
+                moveValues[i] = 4;
+            }
+            else if (randomNumber < 9)
+            {
+                moveValues[i] = 5;
+            }
+            else
+            {
+                moveValues[i] = 6;
+            }
+        }
     }
 
     // Update is called once per frame
@@ -32,6 +70,37 @@ public class PlayerControls : MonoBehaviour {
         CheckCoinCollect();
         CheckForLineupSwap();
         CheckPlayer();
+        if (selectedUnit != null)
+        {
+            MovePlayer();
+        }
+    }
+
+    void MovePlayer()
+    {
+        int direction = -1;
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            direction = 1;
+        }
+
+        else if (Input.GetKey(KeyCode.DownArrow))
+        {
+            direction = 3;
+        }
+
+        else if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            direction = 0;
+        }
+
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            direction = 2;
+        }
+
+        if (direction != -1)
+            MovementManager.Move(selectedUnit.GetComponent<Piece>(), direction);
     }
 
     void CheckPlayer()
@@ -76,16 +145,39 @@ public class PlayerControls : MonoBehaviour {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, Mathf.Infinity)) 
             {
-                if (hit.collider != null)
+                if (hit.collider.tag == "Player")
                 {
-                    Transform objectHit = hit.transform;
+                    if (selectedUnit != null)
+                    {
+                        selectedUnit.GetComponent<MeshRenderer>().material = normalMaterial;
+                        selectedUnit = null;
+                    }
+
+                    for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+                    {
+                        if (hit.transform == Board.possibleMoveableChars[i].thePiece.transform)
+                        {
+                            selectedUnit = Board.possibleMoveableChars[i].thePiece;
+                            normalMaterial = selectedUnit.GetComponent<MeshRenderer>().material;
+                            glowingMaterial.color = normalMaterial.color;
+                            selectedUnit.GetComponent<MeshRenderer>().material = glowingMaterial;
+                            break;
+                        }
+                    }
+
+                    /*Transform objectHit = hit.transform;
                     for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
                     {
                         if (objectHit == Board.possibleMoveableChars[i].thePiece.transform)
                         {
                             MovementManager.Move(Board.possibleMoveableChars[i]);
                         }
-                    }
+                    }*/
+                }
+                else
+                {
+                    selectedUnit.GetComponent<MeshRenderer>().material = normalMaterial;
+                    selectedUnit = null;
                 }
             }
         }

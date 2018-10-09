@@ -12,9 +12,9 @@ public static class MovementManager {
     public static int currentDirectionLineup;
     public static Direction nextDirection;
 
-    public static void Move(Piece character)
+    public static bool Move(Piece character, int direction)
     {
-        if (directionLineups[0, currentDirectionLineup] == Direction.Up && character.rowPosition > 0)
+        if (direction ==  0)
         {
             bool inWay = false;
             //check for other characters in the way
@@ -57,9 +57,10 @@ public static class MovementManager {
             {
                 character.SetRowAndCol(character.rowPosition - 1, character.colPosition);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + character.colPosition).transform.position;
+                return true;
             }
         }
-        else if (directionLineups[0, currentDirectionLineup] == Direction.Right && character.colPosition < Board.universalTileWidth - 1)
+        else if (direction == 1)
         {
             bool inWay = false;
             //check for other characters in the way
@@ -102,9 +103,10 @@ public static class MovementManager {
             {
                 character.SetRowAndCol(character.rowPosition, character.colPosition + 1);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
+                return true;
             }
         }
-        else if (directionLineups[0, currentDirectionLineup] == Direction.Down && character.rowPosition < Board.universalTileHeight - 1)
+        else if (direction == 2)
         {
             bool inWay = false;
             //check for other characters in the way
@@ -146,10 +148,11 @@ public static class MovementManager {
             if (!inWay)
             {
                 character.SetRowAndCol(character.rowPosition + 1, character.colPosition);
-                character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position; ;
+                character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
+                return true;
             }
         }
-        else if (directionLineups[0, currentDirectionLineup] == Direction.Left && character.colPosition > 0)
+        else
         {
             bool inWay = false;
             //check for other characters in the way
@@ -192,10 +195,11 @@ public static class MovementManager {
             {
                 character.SetRowAndCol(character.rowPosition, character.colPosition - 1);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
+                return true;
             }
         }
 
-        FillOneSpotInLineup();
+        return false;
     }
 
     public static void SetStartDirectionLineup()
