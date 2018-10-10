@@ -15,7 +15,7 @@ public class EnemyAI : MonoBehaviour {
         if (transform.GetComponent<Piece>().rowPosition != 1000)
         {
             time += Time.deltaTime;
-            if (time > 15.0f)
+            if (time > 3.0f)
             {
                 time = 0.0f;
                 MoveAndCheckUnitCollision();
@@ -35,11 +35,11 @@ public class EnemyAI : MonoBehaviour {
 
             bool a = false;
             bool b = false;
-            if (transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].GetComponent<Piece>().rowPosition - 1 || transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].GetComponent<Piece>().rowPosition + 1 || transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].GetComponent<Piece>().rowPosition)
+            if (transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].rowPosition - 1 || transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].rowPosition + 1 || transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].rowPosition)
             {
                 a = true;
             }
-            if (transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].GetComponent<Piece>().colPosition - 1 || transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].GetComponent<Piece>().colPosition + 1 || transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].GetComponent<Piece>().colPosition)
+            if (transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].colPosition - 1 || transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].colPosition + 1 || transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].colPosition)
             {
                 b = true;
             }

@@ -12,9 +12,9 @@ public static class MovementManager {
     public static int currentDirectionLineup;
     public static Direction nextDirection;
 
-    public static bool Move(Piece character, int direction)
+    public static bool Move(Piece character, int direction, int cost)
     {
-        if (direction ==  0)
+        if (direction == 1)
         {
             bool inWay = false;
             //check for other characters in the way
@@ -53,14 +53,14 @@ public static class MovementManager {
                     Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
-            if (!inWay)
+            if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
                 character.SetRowAndCol(character.rowPosition - 1, character.colPosition);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + character.colPosition).transform.position;
                 return true;
             }
         }
-        else if (direction == 1)
+        else if (direction == 2)
         {
             bool inWay = false;
             //check for other characters in the way
@@ -99,14 +99,14 @@ public static class MovementManager {
                     Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
-            if (!inWay)
+            if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
                 character.SetRowAndCol(character.rowPosition, character.colPosition + 1);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 return true;
             }
         }
-        else if (direction == 2)
+        else if (direction == 3)
         {
             bool inWay = false;
             //check for other characters in the way
@@ -145,7 +145,7 @@ public static class MovementManager {
                     Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
-            if (!inWay)
+            if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
                 character.SetRowAndCol(character.rowPosition + 1, character.colPosition);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
@@ -191,7 +191,7 @@ public static class MovementManager {
                     Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
-            if (!inWay)
+            if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
                 character.SetRowAndCol(character.rowPosition, character.colPosition - 1);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
@@ -209,17 +209,9 @@ public static class MovementManager {
             //set the lineup of directions
             for (int i = 0; i < numDirectionsInLineup; i++)
             {
-                //get one of the directions
-                int numDirections = 4;
-                int randNum = (int)Mathf.Floor(Random.value * (float)numDirections);
-                //on the off chance it rolls exactly 1, pick the largest value instead of overflowing
-                if (randNum == numDirections)
-                {
-                    randNum = numDirections - 1;
-                }
                 //set the direction
                 Direction setDirection = Direction.Up;
-                switch (randNum)
+                switch (j)
                 {
                     case 0:
                         setDirection = Direction.Up;

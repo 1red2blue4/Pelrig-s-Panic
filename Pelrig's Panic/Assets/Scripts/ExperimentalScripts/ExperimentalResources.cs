@@ -5,7 +5,7 @@ using UnityEngine;
 public class ExperimentalResources : MonoBehaviour {
 
 
-    [SerializeField]static int resources = 1000;
+    [SerializeField]public static int resources = 1000;
 	// Use this for initialization
 	void Start () {
 		
@@ -13,9 +13,9 @@ public class ExperimentalResources : MonoBehaviour {
 
     public static bool ModifyResource(int amount)
     {
-        if (resources - amount > 0)
+        if (resources - amount >= 0)
         {
-            resources += amount;
+            resources -= amount;
             return true;
         }
         return false;

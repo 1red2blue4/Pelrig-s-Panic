@@ -12,14 +12,16 @@ public class PlayerControls : MonoBehaviour {
     //in place in case this script is attached to another object that is not a camera
     private Camera thisCamera;
     GameObject selectedUnit;
+    int theOne;
 
-    int[] moveValues;
+    public static int[] moveValues;
 
     [SerializeField] Material glowingMaterial;
     Material normalMaterial;
 
     void Start()
     {
+        theOne = 0;
         cameraSpeed = 20.0f;
         cameraScrollSpeed = 20.0f;
         cameraMaxZoom = 11.0f;
@@ -84,28 +86,30 @@ public class PlayerControls : MonoBehaviour {
             direction = 1;
         }
 
-        else if (Input.GetKey(KeyCode.DownArrow))
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             direction = 3;
         }
 
-        else if (Input.GetKey(KeyCode.LeftArrow))
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             direction = 0;
         }
 
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             direction = 2;
         }
 
         if (direction != -1)
-            MovementManager.Move(selectedUnit.GetComponent<Piece>(), direction);
+        {
+            if (MovementManager.Move(Board.possibleMoveableChars[theOne], direction, moveValues[direction]))
+                GiveNumbers();
+        }
     }
 
     void CheckPlayer()
-    {
-        
+    { 
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
             int enemiesAround = 0;
@@ -113,11 +117,15 @@ public class PlayerControls : MonoBehaviour {
             {
                 bool a = false;
                 bool b = false;
-                if (Board.possibleMoveableChars[i].GetComponent<Piece>().rowPosition == Board.spawnedEnemies[j].GetComponent<Piece>().rowPosition - 1 || Board.possibleMoveableChars[i].GetComponent<Piece>().rowPosition == Board.spawnedEnemies[j].GetComponent<Piece>().rowPosition + 1)
+                if (Board.possibleMoveableChars[i].GetComponent<Piece>().rowPosition == Board.spawnedEnemies[j].GetComponent<Piece>().rowPosition - 1 ||
+                    Board.possibleMoveableChars[i].GetComponent<Piece>().rowPosition == Board.spawnedEnemies[j].GetComponent<Piece>().rowPosition ||
+                    Board.possibleMoveableChars[i].GetComponent<Piece>().rowPosition == Board.spawnedEnemies[j].GetComponent<Piece>().rowPosition + 1)
                 {
                     a = true;
                 }
-                if (Board.possibleMoveableChars[i].GetComponent<Piece>().colPosition == Board.spawnedEnemies[j].GetComponent<Piece>().colPosition - 1 || Board.possibleMoveableChars[i].GetComponent<Piece>().colPosition == Board.spawnedEnemies[j].GetComponent<Piece>().colPosition + 1)
+                if (Board.possibleMoveableChars[i].GetComponent<Piece>().colPosition == Board.spawnedEnemies[j].GetComponent<Piece>().colPosition - 1 ||
+                    Board.possibleMoveableChars[i].GetComponent<Piece>().colPosition == Board.spawnedEnemies[j].GetComponent<Piece>().colPosition ||
+                    Board.possibleMoveableChars[i].GetComponent<Piece>().colPosition == Board.spawnedEnemies[j].GetComponent<Piece>().colPosition + 1)
                 {
                     b = true;
                 }
@@ -157,6 +165,7 @@ public class PlayerControls : MonoBehaviour {
                     {
                         if (hit.transform == Board.possibleMoveableChars[i].thePiece.transform)
                         {
+                            theOne = i;
                             selectedUnit = Board.possibleMoveableChars[i].thePiece;
                             normalMaterial = selectedUnit.GetComponent<MeshRenderer>().material;
                             glowingMaterial.color = normalMaterial.color;
@@ -164,15 +173,6 @@ public class PlayerControls : MonoBehaviour {
                             break;
                         }
                     }
-
-                    /*Transform objectHit = hit.transform;
-                    for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
-                    {
-                        if (objectHit == Board.possibleMoveableChars[i].thePiece.transform)
-                        {
-                            MovementManager.Move(Board.possibleMoveableChars[i]);
-                        }
-                    }*/
                 }
                 else
                 {
