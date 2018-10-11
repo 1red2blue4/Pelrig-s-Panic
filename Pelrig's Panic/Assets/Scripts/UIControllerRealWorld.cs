@@ -88,6 +88,7 @@ public class UIControllerRealWorld : MonoBehaviour {
         {
             MoveGrabbedObject();
         }
+        UpdatePortrait();
     }
 
     public void UpdatePosition()
@@ -281,5 +282,13 @@ public class UIControllerRealWorld : MonoBehaviour {
             heldObject = null;
             isMovingObject = false;
         }
+    }
+
+    public void UpdatePortrait()
+    {
+        selectedCharacter = gameObject.GetComponent<RealWorldCamera>().selectedUnit.GetComponent<CharacterData>();
+        Sprite resultingSprite = Sprite.Create(selectedCharacter.characterPortrait, new Rect(0.0f, 0.0f, 284.0f, 284.0f), new Vector2(0.0f, 0.0f));
+        Debug.Log(resultingSprite.texture);
+        uiCharacterImage.sprite = resultingSprite;
     }
 }

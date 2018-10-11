@@ -72,7 +72,6 @@
     <Compile Include="Assets\Scripts\DialogueText.cs" />
     <Compile Include="Assets\Scripts\EnemyAI.cs" />
     <Compile Include="Assets\Scripts\GridPositioner.cs" />
-    <Compile Include="Assets\Scripts\MainMastMove.cs" />
     <Compile Include="Assets\Scripts\MovementManager.cs" />
     <Compile Include="Assets\Scripts\Piece.cs" />
     <Compile Include="Assets\Scripts\PieceHolder.cs" />

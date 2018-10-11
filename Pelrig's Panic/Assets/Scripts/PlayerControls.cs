@@ -7,8 +7,8 @@ public class PlayerControls : MonoBehaviour {
     [SerializeField] public GameObject[] allCameras;
     private float cameraSpeed;
     private float cameraScrollSpeed;
-    private float cameraMaxZoom;
-    private float cameraMinZoom;
+    [SerializeField] private float cameraMaxZoom;
+    [SerializeField] private float cameraMinZoom;
     private GameObject columnHighlight;
     //0: bottom left; 1: straight on; 2: bottom right
     private int cameraRotPosition;
@@ -33,8 +33,6 @@ public class PlayerControls : MonoBehaviour {
         prevCameraRotPosition = cameraRotPosition;
         cameraSpeed = 20.0f;
         cameraScrollSpeed = 20.0f;
-        cameraMaxZoom = 11.0f;
-        cameraMinZoom = 3.0f;
         columnHighlight = GameObject.FindGameObjectWithTag("ColumnHighlight");
         MovementManager.Setup();
         

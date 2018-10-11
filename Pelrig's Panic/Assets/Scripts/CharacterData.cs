@@ -9,4 +9,5 @@ public class CharacterData : MonoBehaviour {
     public int abilityCapNum = 3;
     //2 for demo
     public int numOwnedAbilities = 2;
+    [SerializeField] public Texture2D characterPortrait; 
 }
