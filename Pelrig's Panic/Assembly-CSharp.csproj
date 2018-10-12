@@ -78,6 +78,8 @@
     <Compile Include="Assets\Scripts\PieceType.cs" />
     <Compile Include="Assets\Scripts\PlayerControls.cs" />
     <Compile Include="Assets\Scripts\PlayerControlsRealWorld.cs" />
+    <Compile Include="Assets\Scripts\RealWorldScripts\Conversation.cs" />
+    <Compile Include="Assets\Scripts\RealWorldScripts\SceneOfDialogueRealWorld.cs" />
     <Compile Include="Assets\Scripts\ScreenWipeAnimation.cs" />
     <Compile Include="Assets\Scripts\TextManager.cs" />
     <Compile Include="Assets\Scripts\UIController.cs" />

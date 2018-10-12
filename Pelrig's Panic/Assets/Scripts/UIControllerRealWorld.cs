@@ -161,7 +161,6 @@ public class UIControllerRealWorld : MonoBehaviour {
         }
         else
         {
-            Debug.Log(heldObject.transform.position);
             if (heldObject.transform.position.x > visibleGameObjs[0].transform.position.x - 40.0f && heldObject.transform.position.x < visibleGameObjs[0].transform.position.x + 40.0f)
             {
                 int numItemsBelow = 0;
@@ -288,7 +287,6 @@ public class UIControllerRealWorld : MonoBehaviour {
     {
         selectedCharacter = gameObject.GetComponent<RealWorldCamera>().selectedUnit.GetComponent<CharacterData>();
         Sprite resultingSprite = Sprite.Create(selectedCharacter.characterPortrait, new Rect(0.0f, 0.0f, 284.0f, 284.0f), new Vector2(0.0f, 0.0f));
-        Debug.Log(resultingSprite.texture);
         uiCharacterImage.sprite = resultingSprite;
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TextManager : MonoBehaviour {
+public static class TextManager {
 
 
     public static string[] textSets;
@@ -11,27 +11,39 @@ public class TextManager : MonoBehaviour {
     public static int currentCharacter;
     public static int currentTextSet;
     public static int totalTextSets;
-    private float timer;
+    private static float timer;
+    public static bool textViewEmptied;
+    public static bool preppingNewVoice;
 
-	// Use this for initialization
-	void Start ()
+    public static GameObject audioSourceHolderMeda;
+    public static GameObject audioSourceHolderKent;
+    public static GameObject audioSourceHolderJade;
+    public static GameObject audioSourceHolderEd;
+    public static GameObject audioSourceHolderHally;
+
+    // Use this for initialization
+    public static void Setup()
     {
-        GameObject audioSourceHolder = GameObject.FindGameObjectWithTag("LettersHolder");
-        allSoundListeners = audioSourceHolder.GetComponents<AudioSource>();
-        allLetters = audioSourceHolder.GetComponent<AudioClipHolder>().audioClips;
-        
-        timer = 0.0f;
-        currentCharacter = 0;
-        currentTextSet = 0;
+        audioSourceHolderMeda = GameObject.FindGameObjectWithTag("LettersHolderMeda");
+        audioSourceHolderKent = GameObject.FindGameObjectWithTag("LettersHolderKent");
+        audioSourceHolderJade = GameObject.FindGameObjectWithTag("LettersHolderJade");
+        audioSourceHolderEd = GameObject.FindGameObjectWithTag("LettersHolderEd");
+        audioSourceHolderHally = GameObject.FindGameObjectWithTag("LettersHolderHally");
+        allSoundListeners = audioSourceHolderEd.GetComponents<AudioSource>();
+        allLetters = audioSourceHolderEd.GetComponent<AudioClipHolder>().audioClips;
         totalTextSets = 5;
         textSets = new string[totalTextSets];
 
-        textSets[0] = "This text continues onward until it reaches the end of the line, at which point I need to determine what happens. Can I make a fourth line? It looks like I can.";
-        textSets[1] = "And so now we have a new set of lines making up text on the screen.  So here it is, my new text, which you are reading now. Isn't it nice?";
+        preppingNewVoice = false;
+        textViewEmptied = false;
+        timer = 0.0f;
+        currentCharacter = 0;
+        currentTextSet = 0;
+        
     }
 	
 	// Update is called once per frame
-	void Update ()
+	public static void RunText()
     {
         bool wentToEndOfText = false;
         //move to the next character if not at the end of the dialogue box yet
@@ -60,6 +72,12 @@ public class TextManager : MonoBehaviour {
             {
                 currentCharacter = 0;
                 currentTextSet++;
+                preppingNewVoice = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.Space) && (currentTextSet == textSets.Length - 1 || textSets[currentTextSet + 1] == null) && wentToEndOfText == false)
+            {
+                currentCharacter = 0;
+                textViewEmptied = true;
             }
         }
 	}
