@@ -87,6 +87,8 @@
     <Compile Include="Assets\Scripts\UIData.cs" />
     <Compile Include="Assets\Scripts\Wall.cs" />
     <None Include="Assets\Shaders\Silhouetted Diffuse.shader" />
+    <None Include="Assets\TSF\Shaders\TSFOutline.shader" />
+    <None Include="Assets\TSF\Shaders\TSF.shader" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>Z:/IGMProfile/Desktop/Capstone/Pelrig's Panic/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

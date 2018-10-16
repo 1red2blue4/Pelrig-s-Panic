@@ -122,6 +122,7 @@ public class SceneOfDialogueRealWorld : MonoBehaviour {
         convo1Words[0] = "This text continues onward until it reaches the end of the line, at which point I need to determine what happens. Can I make a fourth line? It looks like I can.";
         convo1Words[1] = "And so now we have a new set of lines making up text on the screen.  So here it is, my new text, which you are reading now. Isn't it nice?";
         Conversation convo1 = new Conversation(convo1Words, lengthConvo1, convo1CharData);
+
         int lengthConvo2 = 2;
         string[] convo2Words = new string[lengthConvo2];
         CharacterData[] convo2CharData = new CharacterData[lengthConvo2];
@@ -130,9 +131,11 @@ public class SceneOfDialogueRealWorld : MonoBehaviour {
         convo2Words[0] = "Here's some new text which is brand new and fresh. I hope that our viewers enjoy it.";
         convo2Words[1] = "Yes, indeed, Meda. I would completely agree with that sentiment.";
         Conversation convo2 = new Conversation(convo2Words, lengthConvo2, convo2CharData);
+
         Conversation[] multiConvo = new Conversation[2];
         multiConvo[0] = convo1;
         multiConvo[1] = convo2;
+
         return multiConvo;
     }
 }
