@@ -5,9 +5,11 @@ using UnityEngine;
 public class SceneOfDialogueRealWorld : MonoBehaviour {
 
     [SerializeField] public bool wonLastBattle;
+    private bool ranSecondDialogue;
     public Conversation[] allConversations;
+    public int currConversationNum;
     public string currLine;
-    public bool isDialogueBoxShowing;
+    private float timer;
     [SerializeField] public GameObject dialogueBox;
     [SerializeField] public GameObject meda;
     [SerializeField] public GameObject kent;
@@ -17,37 +19,60 @@ public class SceneOfDialogueRealWorld : MonoBehaviour {
 
     void Start()
     {
+        timer = 0.0f;
+        ranSecondDialogue = false;
         currLine = "";
-        isDialogueBoxShowing = true;
+        currConversationNum = 0;
         TextManager.Setup();
 
         allConversations = ProduceConversations();
 
-        for (int i = 0; i < allConversations[0].lines.Length; i++)
+        for (int i = 0; i < allConversations[currConversationNum].lines.Length; i++)
         {
-            TextManager.textSets[i] = allConversations[0].lines[i];
+            TextManager.textSets[i] = allConversations[currConversationNum].lines[i];
         }
-        currLine = TextManager.textSets[0];
+        currLine = TextManager.textSets[currConversationNum];
 
-        SetNewVoice(allConversations[0].characterData[TextManager.currentTextSet].characterIdNum);
+        SetNewVoice(allConversations[currConversationNum].characterData[TextManager.currentTextSet].characterIdNum);
 
     }
 
     void Update()
     {
         string prevLine = currLine;
-        if (isDialogueBoxShowing && !TextManager.textViewEmptied)
+        if (!TextManager.textViewEmptied)
         {
             TextManager.RunText();
             currLine = TextManager.textSets[TextManager.currentTextSet];
             if (prevLine != currLine)
             {
-                SetNewVoice(allConversations[0].characterData[TextManager.currentTextSet].characterIdNum);
+                SetNewVoice(allConversations[currConversationNum].characterData[TextManager.currentTextSet].characterIdNum);
             }
         }
         else
         {
             dialogueBox.SetActive(false);
+        }
+
+        //condition under which the conversation changes
+        if (timer >= 10.0f && !ranSecondDialogue)
+        {
+            currConversationNum = 1;
+            TextManager.textViewEmptied = false;
+            for (int i = 0; i < allConversations[currConversationNum].lines.Length; i++)
+            {
+                TextManager.textSets[i] = allConversations[currConversationNum].lines[i];
+            }
+            TextManager.currentTextSet = 0;
+
+            SetNewVoice(allConversations[currConversationNum].characterData[TextManager.currentTextSet].characterIdNum);
+            dialogueBox.SetActive(true);
+            timer = 0.0f;
+            ranSecondDialogue = true;
+        }
+        else
+        {
+            timer += Time.deltaTime;
         }
     }
 
