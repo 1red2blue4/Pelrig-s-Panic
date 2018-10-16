@@ -18,6 +18,7 @@ public class PlayerControls : MonoBehaviour {
 
     [SerializeField] Material glowingMaterial;
     Material normalMaterial;
+    public static bool isPlayerTurn;
 
     void Start()
     {
@@ -32,7 +33,7 @@ public class PlayerControls : MonoBehaviour {
         moveValues = new int[4];
         selectedUnit = null;
         GiveNumbers();
-
+        isPlayerTurn = true;
     }
 
     void GiveNumbers()
@@ -72,9 +73,14 @@ public class PlayerControls : MonoBehaviour {
         CheckCoinCollect();
         CheckForLineupSwap();
         CheckPlayer();
-        if (selectedUnit != null)
+        if (selectedUnit != null && isPlayerTurn)
         {
             MovePlayer();
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GiveNumbers();
+            isPlayerTurn = false;
         }
     }
 
@@ -104,12 +110,14 @@ public class PlayerControls : MonoBehaviour {
         if (direction != -1)
         {
             if (MovementManager.Move(Board.possibleMoveableChars[theOne], direction, moveValues[direction]))
-                GiveNumbers();
+            {
+
+            }
         }
     }
 
     void CheckPlayer()
-    { 
+    {
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
             int enemiesAround = 0;
@@ -146,7 +154,15 @@ public class PlayerControls : MonoBehaviour {
 
     public void CheckClick()
     {
-
+        if (!isPlayerTurn)
+        {
+            if (selectedUnit != null)
+            {
+                selectedUnit.GetComponent<MeshRenderer>().material = normalMaterial;
+                selectedUnit = null;
+            }
+            return;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
@@ -169,6 +185,7 @@ public class PlayerControls : MonoBehaviour {
                             selectedUnit = Board.possibleMoveableChars[i].thePiece;
                             normalMaterial = selectedUnit.GetComponent<MeshRenderer>().material;
                             glowingMaterial.color = normalMaterial.color;
+                            glowingMaterial.mainTexture = normalMaterial.mainTexture;
                             selectedUnit.GetComponent<MeshRenderer>().material = glowingMaterial;
                             break;
                         }
@@ -176,8 +193,11 @@ public class PlayerControls : MonoBehaviour {
                 }
                 else
                 {
-                    selectedUnit.GetComponent<MeshRenderer>().material = normalMaterial;
-                    selectedUnit = null;
+                    if (selectedUnit != null)
+                    {
+                        selectedUnit.GetComponent<MeshRenderer>().material = normalMaterial;
+                        selectedUnit = null;
+                    }
                 }
             }
         }

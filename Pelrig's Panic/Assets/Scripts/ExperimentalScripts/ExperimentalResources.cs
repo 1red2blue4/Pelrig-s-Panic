@@ -5,7 +5,8 @@ using UnityEngine;
 public class ExperimentalResources : MonoBehaviour {
 
 
-    [SerializeField]public static int resources = 1000;
+    [SerializeField]public static int resources = 60;
+
 	// Use this for initialization
 	void Start () {
 		

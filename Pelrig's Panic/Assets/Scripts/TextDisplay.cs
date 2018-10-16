@@ -11,6 +11,13 @@ public class TextDisplay : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.GetComponent<TMPro.TextMeshProUGUI>().text = ExperimentalResources.resources.ToString();
+        if (PlayerControls.isPlayerTurn)
+        {
+            transform.GetComponent<TMPro.TextMeshProUGUI>().text = ExperimentalResources.resources.ToString();
+        }
+        else
+        {
+            transform.GetComponent<TMPro.TextMeshProUGUI>().text = null;
+        }
 	}
 }

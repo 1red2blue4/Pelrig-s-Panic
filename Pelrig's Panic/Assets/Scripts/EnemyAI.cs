@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour {
 
     float time;
+    int countMove = 0;
 	// Use this for initialization
 	void Start () {
         time = 0.0f;
@@ -12,17 +13,27 @@ public class EnemyAI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (transform.GetComponent<Piece>().rowPosition != 1000)
+        if (transform.GetComponent<Piece>().rowPosition != 1000 && !PlayerControls.isPlayerTurn)
         {
             time += Time.deltaTime;
-            if (time > 3.0f)
+            if (time > 2.0f)
             {
                 time = 0.0f;
                 MoveAndCheckUnitCollision();
                 //For now, heuristic movement to closest unit
                 CheckCoinDestroy();
+                countMove++;
+                if (countMove > 4 )
+                {
+                    PlayerControls.isPlayerTurn = true;
+                    ExperimentalResources.resources = 60;
+                }
             }
             CheckPlayer();
+        }
+        else
+        {
+            countMove = 0;
         }
     }
 
@@ -31,15 +42,17 @@ public class EnemyAI : MonoBehaviour {
         int playersAround = 0;
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
-
-
             bool a = false;
             bool b = false;
-            if (transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].rowPosition - 1 || transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].rowPosition + 1 || transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].rowPosition)
+            if (transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].rowPosition - 1 || 
+                transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].rowPosition + 1 || 
+                transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].rowPosition)
             {
                 a = true;
             }
-            if (transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].colPosition - 1 || transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].colPosition + 1 || transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].colPosition)
+            if (transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].colPosition - 1 || 
+                transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].colPosition + 1 || 
+                transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].colPosition)
             {
                 b = true;
             }

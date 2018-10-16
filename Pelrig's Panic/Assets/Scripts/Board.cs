@@ -48,6 +48,8 @@ public class Board : MonoBehaviour {
     public int remainingEnemies = 4;
     public static int numberOfEnemies = 0;
 
+
+
     public struct point
     {
         public int x;
