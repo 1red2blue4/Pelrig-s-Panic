@@ -235,7 +235,6 @@ public class Board : MonoBehaviour {
         //set the hero pieces
         for (int i = 0; i < possibleMoveableChars.Length; i++)
         {
-
             //get one of the locations
             int randCol = 13;
             int randRow = units[i];

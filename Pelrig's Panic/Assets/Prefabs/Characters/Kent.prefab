@@ -128,3 +128,4 @@ MonoBehaviour:
   startPos: {x: 0, y: 0, z: 0}
   difference: 0
   speed: 0
+  mainCamera: {fileID: 0}

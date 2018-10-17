@@ -24,14 +24,16 @@ public static class MovementManager {
                 {
                     continue;
                 }
-                if (Board.possibleMoveableChars[i].rowPosition == character.rowPosition - 1 && Board.possibleMoveableChars[i].colPosition == character.colPosition)
+                if (Board.possibleMoveableChars[i].rowPosition == character.rowPosition - 1 &&
+                    Board.possibleMoveableChars[i].colPosition == character.colPosition)
                 {
                     inWay = true;
                 }
             }
             for (int i = 0; i < Board.spawnedEnemies.Length; i++)
             {
-                if (Board.spawnedEnemies[i].rowPosition == character.rowPosition - 1 && Board.spawnedEnemies[i].colPosition == character.colPosition)
+                if (Board.spawnedEnemies[i].rowPosition == character.rowPosition - 1 &&
+                    Board.spawnedEnemies[i].colPosition == character.colPosition)
                 {
                     inWay = true;
                 }
@@ -39,7 +41,8 @@ public static class MovementManager {
             //check for dead spaces in the way
             for (int i = 0; i < Board.numDeadSpaces; i++)
             {
-                if (Board.deadPoints[i].y == character.rowPosition - 1 && Board.deadPoints[i].x == character.colPosition)
+                if (Board.deadPoints[i].y == character.rowPosition - 1 &&
+                    Board.deadPoints[i].x == character.colPosition)
                 {
                     inWay = true;
                 }

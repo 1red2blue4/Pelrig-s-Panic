@@ -140,6 +140,10 @@ public class PlayerControls : MonoBehaviour {
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
             int enemiesAround = 0;
+            if (Board.numberOfEnemies <= 0)
+            {
+                return;
+            }
             for (int j = 0; j < Board.spawnedEnemies.Length; j++)
             {
                 bool a = false;
