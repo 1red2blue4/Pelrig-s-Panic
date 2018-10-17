@@ -10,8 +10,13 @@ public class PlayerControls : MonoBehaviour {
     [SerializeField] private float cameraMaxZoom;
     [SerializeField] private float cameraMinZoom;
     private GameObject columnHighlight;
-    //in place in case this script is attached to another object that is not a camera
-    private Camera thisCamera;
+    //0: bottom left; 1: straight on; 2: bottom right
+    private int cameraRotPosition;
+    private int prevCameraRotPosition;
+    private int numCameraRotPositions;
+    private bool cameraRotPress;
+    private float cameraMovementBetween;
+    private bool movingCamera;
     GameObject selectedUnit;
     int theOne;
 
@@ -214,35 +219,6 @@ public class PlayerControls : MonoBehaviour {
                     }
                 }
             }
-        }
-    }
-
-    public void SelectCharacter()
-    {
-        
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            MovementManager.Move(Board.possibleMoveableChars[0]);
-        }
-
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            MovementManager.Move(Board.possibleMoveableChars[1]);
-        }
-
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            MovementManager.Move(Board.possibleMoveableChars[2]);
-        }
-
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            MovementManager.Move(Board.possibleMoveableChars[3]);
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            MovementManager.Move(Board.possibleMoveableChars[4]);
         }
     }
 
