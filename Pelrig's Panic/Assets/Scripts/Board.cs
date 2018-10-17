@@ -11,6 +11,7 @@ public class Board : MonoBehaviour {
     [SerializeField] private GameObject enemy;
     [SerializeField] private GameObject[] cannons;
     [SerializeField] private int enteredNumCannons;
+    bool first = true;
 
     public GameObject mainCamera;
 
@@ -47,9 +48,10 @@ public class Board : MonoBehaviour {
     public static int numCoinsCollected = 0;
     public const float approxGoldenRatio = 1.618f;
 
+    public int remainingEnemies = 4;
+    public static int numberOfEnemies = 0;
 
-    private float time;
-    public static int numberOfEnemies;
+
 
     public struct point
     {
@@ -85,10 +87,6 @@ public class Board : MonoBehaviour {
         universalTileWidth = enteredUniversalTileWidth;
         universalTileHeight = enteredUniversalTileHeight;
 
-        //Keeping track of time. Keeping initial time as 280.0f as it is used for spawning enemies.
-        //Let the first enemy be spawned after the first minute.
-        time = 280.0f;
-
         numCannons = enteredNumCannons;
         currentCannon = 0;
         if (numCannons > 0)
@@ -102,22 +100,10 @@ public class Board : MonoBehaviour {
                 allCannons[i] = allCannonObjects[i].GetComponent<Cannon>();
                 allCannons[i].cannonID = i;
             }
-        }
+        } 
 
-        
 
-        numberOfEnemies = 0;
 
-        spawnedEnemies = new Piece[numPossibleMoveableCharacters];
-        GameObject[] spawnedEnemyObjects = new GameObject[5]; //5 for now
-        for (int i=0; i < spawnedEnemies.Length; i++)
-        {
-            spawnedEnemyObjects[i] = Instantiate(enemy, new Vector3(10000.0f, 10000.0f, 0.0f), Quaternion.identity);
-            spawnedEnemies[i] = spawnedEnemyObjects[i].GetComponent<Piece>();
-            spawnedEnemies[i].SetRowAndCol(10000, 10000);
-        }
-
-        
         //allocate arrays
         possibleMoveableChars = new Piece[5];
         allTiles = new GameObject[universalTileHeight * universalTileWidth];
@@ -144,21 +130,12 @@ public class Board : MonoBehaviour {
         //set up board
         pieceDistance = 1.06f;
         CreateBoard(universalTileWidth, universalTileHeight, midBoardX, midBoardY, spaceFieldType);
-        
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        //Spawn enemies after every 5 mins
-        time += Time.deltaTime;
-        if (time >= 300.0f)
-        {
-            time = 0.0f;
-            SpawnEnemy();
-        }
         SendEverythingDown();
-        CoinSpawn(currentNumCoins, universalTileWidth, universalTileHeight, midBoardX, midBoardY);
         timer += Time.deltaTime;
         coinResetTimer += Time.deltaTime;
     }
@@ -254,12 +231,14 @@ public class Board : MonoBehaviour {
         int[] tempRows = new int[possibleMoveableChars.Length];
         int[] tempCols = new int[possibleMoveableChars.Length];
 
+        int[] units = { 10, 9, 8, 7, 6 };
         //set the hero pieces
         for (int i = 0; i < possibleMoveableChars.Length; i++)
         {
+
             //get one of the locations
-            int randCol = (int)Mathf.Floor(Random.value * (float)tileWidth);
-            int randRow = (int)Mathf.Floor(Random.value * (float)tileHeight);
+            int randCol = 13;
+            int randRow = units[i];
             //on the off chance it rolls exactly 1, pick the largest value instead of overflowing
             if (randRow == tileWidth)
             {
@@ -396,15 +375,16 @@ public class Board : MonoBehaviour {
 
     private void SendEverythingDown()
     {
+        bool sendingDown = false;
         for (int i = 0; i < allTiles.Length; i++)
         {
             GridPositioner sendDown = allTiles[i].GetComponent<GridPositioner>();
-            sendDown.GuideToObjectBeneath(0.1f);
+            sendingDown = sendDown.GuideToObjectBeneath(0.1f);
         }
         for (int i = 0; i < possibleMoveableChars.Length; i++)
         {
             GridPositioner sendDown = possibleMoveableChars[i].thePiece.GetComponent<GridPositioner>();
-            sendDown.GuideToObjectBeneath(0.1f);
+            sendingDown = sendDown.GuideToObjectBeneath(0.1f);
         }
         for (int i = 0; i < allCoins.Length; i++)
         {
@@ -412,10 +392,46 @@ public class Board : MonoBehaviour {
             sendDown.GuideToObjectBeneath(0.1f);
             sendDown.AdjustToCamera();
         }
-        for (int i = 0; i < spawnedEnemies.Length; i++)
+        if (numberOfEnemies > 0)
         {
-            GridPositioner sendDown = spawnedEnemies[i].thePiece.GetComponent<GridPositioner>();
-            sendDown.GuideToObjectBeneath(0.1f);
+            for (int i = 0; i < spawnedEnemies.Length; i++)
+            {
+                GridPositioner sendDown = spawnedEnemies[i].thePiece.GetComponent<GridPositioner>();
+                sendingDown = sendDown.GuideToObjectBeneath(0.1f);
+            }
+        }
+        if (!sendingDown)
+        {
+            if (first)
+            {
+                numberOfEnemies = 4;
+
+                spawnedEnemies = new Piece[4];
+                int[] array = { 2, 9, 8, 11, 35, 5, 35, 11 };
+                GameObject[] spawnedEnemyObjects = new GameObject[4]; //5 for now
+                for (int i = 0; i < (2 * spawnedEnemies.Length); i += 2)
+                {
+                    float halfWidth = (float)universalTileWidth / 2.0f;
+                    float halfHeight = (float)universalTileHeight / 2.0f;
+                    float finalXPos = -halfWidth + (float)array[i] * pieceDistance + midBoardX;
+                    float finalYPos = halfHeight - (float)array[i + 1] * pieceDistance - midBoardY;
+                    Vector3 placement = new Vector3(finalXPos, finalYPos, 0.0f);
+                    spawnedEnemyObjects[i/2] = Instantiate(enemy, placement, Quaternion.identity);
+                    spawnedEnemies[i/2] = spawnedEnemyObjects[i/2].GetComponent<Piece>();
+                    spawnedEnemies[i/2].SetRowAndCol(array[i+1], array[i]);
+
+                    GridPositioner bringDown = spawnedEnemyObjects[i / 2].GetComponent<Piece>().GetComponent<GridPositioner>();
+                    bringDown.CheckWhatsBeneath();
+                }
+
+                first = false;
+            }
+            //Main loop
+            else
+            {
+                CoinSpawn(currentNumCoins, universalTileWidth, universalTileHeight, midBoardX, midBoardY);
+            }
+
         }
     }
 

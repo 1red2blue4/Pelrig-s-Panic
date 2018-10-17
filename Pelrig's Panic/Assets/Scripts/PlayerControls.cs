@@ -10,15 +10,18 @@ public class PlayerControls : MonoBehaviour {
     [SerializeField] private float cameraMaxZoom;
     [SerializeField] private float cameraMinZoom;
     private GameObject columnHighlight;
-    //0: bottom left; 1: straight on; 2: bottom right
-    private int cameraRotPosition;
-    private int prevCameraRotPosition;
-    private int numCameraRotPositions;
-    private bool cameraRotPress;
-    private float cameraMovementBetween;
-    private bool movingCamera;
-    
-	void Start ()
+    //in place in case this script is attached to another object that is not a camera
+    private Camera thisCamera;
+    GameObject selectedUnit;
+    int theOne;
+
+    public static int[] moveValues;
+
+    [SerializeField] Material glowingMaterial;
+    Material normalMaterial;
+    public static bool isPlayerTurn;
+
+    void Start()
     {
         movingCamera = false;
         cameraMovementBetween = 0.0f;
@@ -31,15 +34,48 @@ public class PlayerControls : MonoBehaviour {
         cameraRotPress = false;
         cameraRotPosition = 1;
         prevCameraRotPosition = cameraRotPosition;
+        theOne = 0;
         cameraSpeed = 20.0f;
         cameraScrollSpeed = 20.0f;
         columnHighlight = GameObject.FindGameObjectWithTag("ColumnHighlight");
         MovementManager.Setup();
-        
-	}
-	
-	// Update is called once per frame
-	void Update ()
+        moveValues = new int[4];
+        selectedUnit = null;
+        GiveNumbers();
+        isPlayerTurn = true;
+    }
+
+    void GiveNumbers()
+    {
+        //Left - 0, up - 1, right - 2, down - 3
+        for (int i = 0; i < 4; i++)
+        {
+            int randomNumber = (int)Random.Range(0.0f, 9.99f);
+            if (randomNumber < 2)
+            {
+                moveValues[i] = 2;
+            }
+            else if (randomNumber < 5)
+            {
+                moveValues[i] = 3;
+            }
+            else if (randomNumber < 8)
+            {
+                moveValues[i] = 4;
+            }
+            else if (randomNumber < 9)
+            {
+                moveValues[i] = 5;
+            }
+            else
+            {
+                moveValues[i] = 6;
+            }
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
     {
         CheckClick();
         MoveCamera();
@@ -50,29 +86,131 @@ public class PlayerControls : MonoBehaviour {
         }
         CheckCoinCollect();
         CheckForLineupSwap();
-        SelectCharacter();
-	}
+        CheckPlayer();
+        if (selectedUnit != null && isPlayerTurn)
+        {
+            MovePlayer();
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GiveNumbers();
+            isPlayerTurn = false;
+        }
+    }
 
+    void MovePlayer()
+    {
+        int direction = -1;
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            direction = 1;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            direction = 3;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            direction = 0;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            direction = 2;
+        }
+
+        if (direction != -1)
+        {
+            if (MovementManager.Move(Board.possibleMoveableChars[theOne], direction, moveValues[direction]))
+            {
+
+            }
+        }
+    }
+
+    void CheckPlayer()
+    {
+        for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+        {
+            int enemiesAround = 0;
+            for (int j = 0; j < Board.spawnedEnemies.Length; j++)
+            {
+                bool a = false;
+                bool b = false;
+                if (Board.possibleMoveableChars[i].GetComponent<Piece>().rowPosition == Board.spawnedEnemies[j].GetComponent<Piece>().rowPosition - 1 ||
+                    Board.possibleMoveableChars[i].GetComponent<Piece>().rowPosition == Board.spawnedEnemies[j].GetComponent<Piece>().rowPosition ||
+                    Board.possibleMoveableChars[i].GetComponent<Piece>().rowPosition == Board.spawnedEnemies[j].GetComponent<Piece>().rowPosition + 1)
+                {
+                    a = true;
+                }
+                if (Board.possibleMoveableChars[i].GetComponent<Piece>().colPosition == Board.spawnedEnemies[j].GetComponent<Piece>().colPosition - 1 ||
+                    Board.possibleMoveableChars[i].GetComponent<Piece>().colPosition == Board.spawnedEnemies[j].GetComponent<Piece>().colPosition ||
+                    Board.possibleMoveableChars[i].GetComponent<Piece>().colPosition == Board.spawnedEnemies[j].GetComponent<Piece>().colPosition + 1)
+                {
+                    b = true;
+                }
+                if (a && b)
+                {
+                    enemiesAround += 1;
+                }
+            }
+
+            if (enemiesAround >= 2)
+            {
+                Board.possibleMoveableChars[i].SetRowAndCol(1000, 1000);
+                Board.possibleMoveableChars[i].GetPiece().transform.position = new Vector3(10000, 10000, 0);
+            }
+        }
+    }
 
 
     public void CheckClick()
     {
-
+        if (!isPlayerTurn)
+        {
+            if (selectedUnit != null)
+            {
+                selectedUnit.GetComponent<MeshRenderer>().material = normalMaterial;
+                selectedUnit = null;
+            }
+            return;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, Mathf.Infinity)) 
             {
-                if (hit.collider != null)
+                if (hit.collider.tag == "Player")
                 {
-                    Transform objectHit = hit.transform;
+                    if (selectedUnit != null)
+                    {
+                        selectedUnit.GetComponent<MeshRenderer>().material = normalMaterial;
+                        selectedUnit = null;
+                    }
+
                     for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
                     {
-                        if (objectHit == Board.possibleMoveableChars[i].thePiece.transform)
+                        if (hit.transform == Board.possibleMoveableChars[i].thePiece.transform)
                         {
-                            MovementManager.Move(Board.possibleMoveableChars[i]);
+                            theOne = i;
+                            selectedUnit = Board.possibleMoveableChars[i].thePiece;
+                            normalMaterial = selectedUnit.GetComponent<MeshRenderer>().material;
+                            glowingMaterial.color = normalMaterial.color;
+                            glowingMaterial.mainTexture = normalMaterial.mainTexture;
+                            selectedUnit.GetComponent<MeshRenderer>().material = glowingMaterial;
+                            break;
                         }
+                    }
+                }
+                else
+                {
+                    if (selectedUnit != null)
+                    {
+                        selectedUnit.GetComponent<MeshRenderer>().material = normalMaterial;
+                        selectedUnit = null;
                     }
                 }
             }

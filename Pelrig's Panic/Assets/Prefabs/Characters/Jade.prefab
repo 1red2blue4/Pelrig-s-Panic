@@ -23,9 +23,10 @@ GameObject:
   - component: {fileID: 23447449386952952}
   - component: {fileID: 65874251446928338}
   - component: {fileID: 114369139518688704}
+  - component: {fileID: 114090887273773782}
   m_Layer: 0
   m_Name: Jade
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,6 +98,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114090887273773782
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1534850708101730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7188ea8d8931041819aa344fe62074, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+  rowPosition: 0
+  colPosition: 0
+  name: 
+  thePiece: {fileID: 1534850708101730}
 --- !u!114 &114369139518688704
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,4 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6be32e54e2e73a439ac1ae8d6895b87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startPos: {x: 0, y: 0, z: 0}
   difference: 0
+  speed: 0

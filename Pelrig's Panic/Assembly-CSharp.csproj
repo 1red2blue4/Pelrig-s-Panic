@@ -61,45 +61,149 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Ability.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\Code\CameraController.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\Code\GUIControls.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\Code\RPGCharacterControllerFREE.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\Code\RPGCharacterInputController.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\Code\RPGCharacterMovementController.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Scripts\Bloom.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Scripts\ImageEffectBase.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Scripts\ImageEffects.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Scripts\PostEffectsBase.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Scripts\PostEffectsHelper.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Scripts\Quads.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Scripts\ScreenOverlay.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Scripts\ScreenSpaceAmbientObscurance.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Scripts\ScreenSpaceAmbientOcclusion.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Scripts\Triangles.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\SuperCharacterController\Scripts\Gravity.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\SuperCharacterController\Scripts\SimpleStateMachine.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\SuperCharacterController\SuperCharacterController\Core\BruteForceMesh.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\SuperCharacterController\SuperCharacterController\Core\BSPTree.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\SuperCharacterController\SuperCharacterController\Core\SuperCharacterController.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\SuperCharacterController\SuperCharacterController\Core\SuperCollider.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\SuperCharacterController\SuperCharacterController\Core\SuperCollisionType.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\SuperCharacterController\SuperCharacterController\Core\SuperMath.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\SuperCharacterController\SuperCharacterController\Core\SuperStateMachine.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\SuperCharacterController\SuperCharacterController\DebugDraw.cs" />
+    <Compile Include="Assets\RPG Character Animation Pack FREE\SuperCharacterController\SuperCharacterController\Math3d.cs" />
     <Compile Include="Assets\Scripts\AudioClipHolder.cs" />
     <Compile Include="Assets\Scripts\AudioSourceHolder.cs" />
     <Compile Include="Assets\Scripts\Board.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\RealWorldCamera.cs" />
     <Compile Include="Assets\Scripts\Cannon.cs" />
-    <Compile Include="Assets\Scripts\CharacterData.cs" />
     <Compile Include="Assets\Scripts\CharacterMovement\RealWorldCharacterSelectionAndMovement.cs" />
     <Compile Include="Assets\Scripts\DialogueText.cs" />
     <Compile Include="Assets\Scripts\EnemyAI.cs" />
+    <Compile Include="Assets\Scripts\ExperimentalScripts\ExperimentalResources.cs" />
+    <Compile Include="Assets\Scripts\ExperimentalScripts\YouWin.cs" />
     <Compile Include="Assets\Scripts\GridPositioner.cs" />
     <Compile Include="Assets\Scripts\MovementManager.cs" />
     <Compile Include="Assets\Scripts\Piece.cs" />
     <Compile Include="Assets\Scripts\PieceHolder.cs" />
     <Compile Include="Assets\Scripts\PieceType.cs" />
+    <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerControls.cs" />
     <Compile Include="Assets\Scripts\PlayerControlsRealWorld.cs" />
-    <Compile Include="Assets\Scripts\RealWorldScripts\Conversation.cs" />
-    <Compile Include="Assets\Scripts\RealWorldScripts\SceneOfDialogueRealWorld.cs" />
     <Compile Include="Assets\Scripts\ScreenWipeAnimation.cs" />
+    <Compile Include="Assets\Scripts\TextDisplay.cs" />
     <Compile Include="Assets\Scripts\TextManager.cs" />
     <Compile Include="Assets\Scripts\UIController.cs" />
-    <Compile Include="Assets\Scripts\UIControllerRealWorld.cs" />
     <Compile Include="Assets\Scripts\UIData.cs" />
+    <Compile Include="Assets\Scripts\UIStuff.cs" />
     <Compile Include="Assets\Scripts\Wall.cs" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\ShowAlphaChannel.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\SunShaftsComposite.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\ColorCorrectionCurves.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\ScreenSpaceAmbientObscurance.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_Antialiasing\NFAA.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_DepthOfField\TiltShiftHdrLensBlur.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_BloomAndFlares\VignetteShader.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_DepthOfField\DepthOfFieldScatter.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\MotionBlur.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_BloomAndFlares\MobileBloom.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_Antialiasing\SSAA.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\RadialBlur.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_DepthOfField\DepthOfFieldDX11.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\ContrastComposite.shader" />
     <None Include="Assets\Shaders\Silhouetted Diffuse.shader" />
-    <None Include="Assets\TSF\Shaders\TSFOutline.shader" />
-    <None Include="Assets\TSF\Shaders\TSF.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_Antialiasing\FXAAPreset3.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\FisheyeShader.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\frag_ao.cginc" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_DepthOfField\DepthOfField34.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_BloomAndFlares\MobileBlur.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\SSAOShader.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\ConvertDepth.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\ColorCorrectionCurvesSimple.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\NoiseEffectShaderYUV.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\CreaseApply.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\ChromaticAberrationShader.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\GlobalFog.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\ColorCorrectionSelective.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_DepthOfField\Bokeh34.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\CameraMotionBlurDX11.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_BloomAndFlares\SeparableBlurPlus.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_BloomAndFlares\MultiPassHollywoodFlares.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\BlurEffectConeTaps.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\CameraMotionBlur.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_Antialiasing\DLAA.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\NoiseAndGrainDX11.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\SuperCharacterController\SuperCharacterController\README.txt" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_BloomAndFlares\BrightPassFilter2.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_DepthOfField\SeparableBlur.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\MotionBlurClear.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\ColorCorrectionEffect.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\GrayscaleEffect.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\SepiaToneEffect.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\TwirlEffect.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\VortexEffect.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\NoiseAndGrain.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\VignettingShader.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\Tonemapper.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_BloomAndFlares\BrightPassFilter.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_Antialiasing\FXAA2.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\ColorCorrection3DLut.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_BloomAndFlares\LensFlareCreate.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\EdgeDetectNormals.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\PrepareSunShaftsBlur.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_BloomAndFlares\Blend.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\BlendModesOverlay.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\SimpleClear.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_Antialiasing\FXAA3Console.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_Antialiasing\FXAAPreset2.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
+    <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_BloomAndFlares\BlendForBloom.shader" />
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>Z:/IGMProfile/Desktop/Capstone/Pelrig's Panic/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>Z:/IGMProfile/Desktop/Prototype/Pelrig-s-Panic/Pelrig's Panic/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>Z:/IGMProfile/Desktop/Capstone/Pelrig's Panic/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>Z:/IGMProfile/Desktop/Prototype/Pelrig-s-Panic/Pelrig's Panic/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>Z:/IGMProfile/Desktop/Capstone/Pelrig's Panic/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>Z:/IGMProfile/Desktop/Prototype/Pelrig-s-Panic/Pelrig's Panic/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>Z:/IGMProfile/Desktop/Capstone/Pelrig's Panic/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>Z:/IGMProfile/Desktop/Prototype/Pelrig-s-Panic/Pelrig's Panic/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -278,6 +382,9 @@
     <Reference Include="Unity.Locator">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Unity.Locator.dll</HintPath>
     </Reference>
+    <Reference Include="Facebook.Unity.Settings">
+      <HintPath>Z:/IGMProfile/Desktop/Prototype/Pelrig-s-Panic/Pelrig's Panic/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -297,10 +404,10 @@
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
-      <HintPath>D:/Profiles/mjo5501/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
+      <HintPath>D:/Profiles/bxb5733/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
-      <HintPath>D:/Profiles/mjo5501/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
+      <HintPath>D:/Profiles/bxb5733/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unity/mscorlib.dll</HintPath>
@@ -329,6 +436,12 @@
     <Reference Include="Boo.Lang">
       <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unity/Boo.Lang.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{02C5703C-36CB-385A-4CF2-65CB98F51F19}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

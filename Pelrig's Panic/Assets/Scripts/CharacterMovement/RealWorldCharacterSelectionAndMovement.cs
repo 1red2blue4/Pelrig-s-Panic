@@ -17,7 +17,7 @@ public class RealWorldCharacterSelectionAndMovement : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        characterMovement = 7.0f;
+        characterMovement = 6.0f;
 
         controllableCharacters = GameObject.FindGameObjectsWithTag("Player");
         cam = GetComponent<Camera>().GetComponent<RealWorldCamera>();
