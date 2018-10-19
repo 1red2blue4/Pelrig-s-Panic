@@ -27,6 +27,10 @@ public class DialogueText : MonoBehaviour {
             }
         }
         thisText.text = visibleText;
+        if (TextManager.textViewEmptied)
+        {
+            thisText.text = "";
+        }
 	}
 
     public void PlayLetterSound(char letter, int audioSourceNum)

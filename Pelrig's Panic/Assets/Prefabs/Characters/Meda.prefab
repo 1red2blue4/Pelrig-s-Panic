@@ -23,9 +23,10 @@ GameObject:
   - component: {fileID: 23783650186731084}
   - component: {fileID: 65568327392934726}
   - component: {fileID: 114364913743031608}
+  - component: {fileID: 114377320907872002}
   m_Layer: 0
   m_Name: Meda
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,4 +109,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6be32e54e2e73a439ac1ae8d6895b87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startPos: {x: 0, y: 0, z: 0}
   difference: 0
+  speed: 0
+  mainCamera: {fileID: 0}
+--- !u!114 &114377320907872002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1259231585111086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7188ea8d8931041819aa344fe62074, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+  rowPosition: 0
+  colPosition: 0
+  name: 
+  thePiece: {fileID: 1259231585111086}

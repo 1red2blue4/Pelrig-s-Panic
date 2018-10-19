@@ -23,9 +23,10 @@ GameObject:
   - component: {fileID: 23339774082890648}
   - component: {fileID: 65116648531226064}
   - component: {fileID: 114395024509398844}
+  - component: {fileID: 114760870129533998}
   m_Layer: 0
   m_Name: Hally
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,4 +109,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6be32e54e2e73a439ac1ae8d6895b87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startPos: {x: 0, y: 0, z: 0}
   difference: 0
+  speed: 0
+  mainCamera: {fileID: 0}
+--- !u!114 &114760870129533998
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1839362302340032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7188ea8d8931041819aa344fe62074, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+  rowPosition: 0
+  colPosition: 0
+  name: 
+  thePiece: {fileID: 1839362302340032}

@@ -7,10 +7,15 @@ TagManager:
   - arrows
   - PieceHolder
   - ColumnHighlight
-  - LettersHolder
   - Camera2
   - Camera1
   - Camera3
+  - Canvas
+  - LettersHolderMeda
+  - LettersHolderKent
+  - LettersHolderJade
+  - LettersHolderEd
+  - LettersHolderHally
   layers:
   - Default
   - TransparentFX

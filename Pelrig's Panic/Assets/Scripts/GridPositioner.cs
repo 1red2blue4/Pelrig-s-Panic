@@ -22,7 +22,7 @@ public class GridPositioner : MonoBehaviour {
         }
     }
 
-    public void GuideToObjectBeneath(float distanceToMove)
+    public bool GuideToObjectBeneath(float distanceToMove)
     {
         //if it's still falling, fall
         if (difference > 0)
@@ -30,12 +30,14 @@ public class GridPositioner : MonoBehaviour {
             transform.position += new Vector3(0.0f, 0.0f, distanceToMove + speed);
             difference -= distanceToMove + speed;
             speed += distanceToMove * 0.05f;
+            return true;
         }
         //if it's done falling, adjust its position to where it should land
         else
         {
             transform.position += new Vector3(0.0f, 0.0f, difference);
             difference = 0;
+            return false;
         }
     }
 
