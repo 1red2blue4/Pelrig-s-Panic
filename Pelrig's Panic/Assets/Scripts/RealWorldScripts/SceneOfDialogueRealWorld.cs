@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SceneOfDialogueRealWorld : MonoBehaviour {
 
     [SerializeField] public bool wonLastBattle;
     private bool ranSecondDialogue;
+    [SerializeField] private DialoguePortrait charPortrait;
+    public CharacterData talkingCharacter;
     public Conversation[] allConversations;
     public int currConversationNum;
     public string currLine;
@@ -42,12 +45,12 @@ public class SceneOfDialogueRealWorld : MonoBehaviour {
         string prevLine = currLine;
         if (!TextManager.textViewEmptied)
         {
-            TextManager.RunText();
             currLine = TextManager.textSets[TextManager.currentTextSet];
             if (prevLine != currLine)
             {
                 SetNewVoice(allConversations[currConversationNum].characterData[TextManager.currentTextSet].characterIdNum);
             }
+            TextManager.RunText();
         }
         else
         {
@@ -55,7 +58,10 @@ public class SceneOfDialogueRealWorld : MonoBehaviour {
         }
 
         //condition under which the conversation changes
-        if (timer >= 10.0f && !ranSecondDialogue)
+        talkingCharacter = allConversations[currConversationNum].characterData[TextManager.currentTextSet];
+        charPortrait.talkingCharacter = talkingCharacter;
+        charPortrait.UpdatePortrait();
+        if (TextManager.textViewEmptied && Input.GetAxis("RunConversation") > 0 && !ranSecondDialogue)
         {
             currConversationNum = 1;
             TextManager.textViewEmptied = false;
