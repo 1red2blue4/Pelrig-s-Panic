@@ -20,6 +20,9 @@ public class PlayerControls : MonoBehaviour {
     GameObject selectedUnit;
     int theOne;
 
+    private float cameraChangeVertical;
+    private float cameraChangeHorizontal;
+
     public static int[] moveValues;
 
     [SerializeField] Material glowingMaterial;
@@ -28,6 +31,8 @@ public class PlayerControls : MonoBehaviour {
 
     void Start()
     {
+        cameraChangeHorizontal = 0.0f;
+        cameraChangeVertical = 0.0f;
         movingCamera = false;
         cameraMovementBetween = 0.0f;
         numCameraRotPositions = 4;
@@ -90,7 +95,7 @@ public class PlayerControls : MonoBehaviour {
             RepositionCamera(cameraRotPosition, prevCameraRotPosition, cameraMovementBetween);
         }
         CheckCoinCollect();
-        CheckForLineupSwap();
+        //CheckForLineupSwap();
         CheckPlayer();
         if (selectedUnit != null && isPlayerTurn)
         {
@@ -228,32 +233,36 @@ public class PlayerControls : MonoBehaviour {
 
     public void MoveCamera()
     {
-        if (Input.GetAxis("Horizontal") > 0)
+        if (Input.GetAxis("Horizontal") > 0 && cameraChangeHorizontal < 200.0f)
         {
             for (int i = 0; i < numCameraRotPositions; i++)
             {
                 allCameras[i].transform.position += new Vector3(cameraSpeed, 0.0f, 0.0f) * Time.deltaTime;
+                cameraChangeHorizontal += cameraSpeed * Time.deltaTime;
             }
         }
-        else if (Input.GetAxis("Horizontal") < 0)
+        else if (Input.GetAxis("Horizontal") < 0 && cameraChangeHorizontal > -200.0f)
         {
             for (int i = 0; i < numCameraRotPositions; i++)
             {
                 allCameras[i].transform.position -= new Vector3(cameraSpeed, 0.0f, 0.0f) * Time.deltaTime;
+                cameraChangeHorizontal -= cameraSpeed * Time.deltaTime;
             }
         }
-        if (Input.GetAxis("Vertical") > 0)
+        if (Input.GetAxis("Vertical") > 0 && cameraChangeVertical < 200.0f)
         {
             for (int i = 0; i < numCameraRotPositions; i++)
             {
                 allCameras[i].transform.position += new Vector3(0.0f, cameraSpeed, 0.0f) * Time.deltaTime;
+                cameraChangeVertical += cameraSpeed * Time.deltaTime;
             }
         }
-        else if (Input.GetAxis("Vertical") < 0)
+        else if (Input.GetAxis("Vertical") < 0 && cameraChangeVertical > -200.0f)
         {
             for (int i = 0; i < numCameraRotPositions; i++)
             {
                 allCameras[i].transform.position -= new Vector3(0.0f, cameraSpeed, 0.0f) * Time.deltaTime;
+                cameraChangeVertical -= cameraSpeed * Time.deltaTime;
             }
         }
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && gameObject.GetComponent<Camera>().orthographicSize > cameraMinZoom)
