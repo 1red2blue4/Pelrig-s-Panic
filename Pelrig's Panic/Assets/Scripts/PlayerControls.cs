@@ -19,6 +19,7 @@ public class PlayerControls : MonoBehaviour {
     private bool movingCamera;
     GameObject selectedUnit;
     int theOne;
+    int roundCounter = 0;
 
     public static int[] moveValues;
 
@@ -55,20 +56,25 @@ public class PlayerControls : MonoBehaviour {
         //Left - 0, up - 1, right - 2, down - 3
         for (int i = 0; i < 4; i++)
         {
-            int randomNumber = (int)Random.Range(0.0f, 9.99f);
-            if (randomNumber < 2)
+            int randomNumber = (int)Random.Range(0.0f, 13.99f);
+            Debug.Log(randomNumber);
+            if (randomNumber < 1)
+            {
+                moveValues[i] = 1;
+            }
+            else if (randomNumber < 4)
             {
                 moveValues[i] = 2;
             }
-            else if (randomNumber < 5)
+            else if (randomNumber < 7)
             {
                 moveValues[i] = 3;
             }
-            else if (randomNumber < 8)
+            else if (randomNumber < 10)
             {
                 moveValues[i] = 4;
             }
-            else if (randomNumber < 9)
+            else if (randomNumber < 12)
             {
                 moveValues[i] = 5;
             }
@@ -92,15 +98,51 @@ public class PlayerControls : MonoBehaviour {
         CheckCoinCollect();
         CheckForLineupSwap();
         CheckPlayer();
-        if (selectedUnit != null && isPlayerTurn)
+        if (isPlayerTurn)
         {
-            MovePlayer();
+            if (selectedUnit != null)
+            {
+                MovePlayer();
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                GiveNumbers();
+                isPlayerTurn = false;
+                roundCounter++;
+                if (roundCounter >= 3)
+                {
+                    GameObject.Find("GridLevelStuff").GetComponentInChildren<Board>().SpawnEnemy((int)Random.Range(1.0f, 3.99f));
+                    roundCounter = 0;
+                }
+                EnemyTurnsActivate();
+            }
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        else if (EnemyMovesDone())
         {
-            GiveNumbers();
-            isPlayerTurn = false;
+
+            isPlayerTurn = true;
+            ExperimentalResources.ReInitializeResources();
         }
+    }
+
+    void EnemyTurnsActivate()
+    {
+        for (int i = 0; i < Board.spawnedEnemies.Count; i++)
+        {
+            Board.spawnedEnemies[i].GetComponent<EnemyAI>().isTurnActive = true;
+        }
+    }
+
+    bool EnemyMovesDone()
+    {
+        for (int i = 0; i < Board.spawnedEnemies.Count; i++)
+        {
+            if (Board.spawnedEnemies[i].GetComponent<EnemyAI>().isTurnActive == true)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     void MovePlayer()
@@ -140,11 +182,7 @@ public class PlayerControls : MonoBehaviour {
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
             int enemiesAround = 0;
-            if (Board.numberOfEnemies <= 0)
-            {
-                return;
-            }
-            for (int j = 0; j < Board.spawnedEnemies.Length; j++)
+            for (int j = 0; j < Board.spawnedEnemies.Count; j++)
             {
                 bool a = false;
                 bool b = false;
@@ -166,7 +204,7 @@ public class PlayerControls : MonoBehaviour {
                 }
             }
 
-            if (enemiesAround >= 2)
+            if (enemiesAround > 2)
             {
                 Board.possibleMoveableChars[i].SetRowAndCol(1000, 1000);
                 Board.possibleMoveableChars[i].GetPiece().transform.position = new Vector3(10000, 10000, 0);

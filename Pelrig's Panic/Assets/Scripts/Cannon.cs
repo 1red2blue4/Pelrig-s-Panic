@@ -8,11 +8,11 @@ public class Cannon : MonoBehaviour {
     [SerializeField] public Piece cannon;
     [SerializeField] public int cannonID;
 
-    public void UseCannon(Piece[] enemyList, int cannonRange)
+    public void UseCannon(List<Piece> enemyList, int cannonRange)
     {
         if (charges > 0)
         {
-            for (int i = 0; i < enemyList.Length; i++)
+            for (int i = 0; i < enemyList.Count; i++)
             {
                 //first check if the enemy has not been spawned
                 //then check if it's within range
@@ -22,17 +22,20 @@ public class Cannon : MonoBehaviour {
                     )
                 {
                     //if it is, kill the enemy
+                    /*
                     enemyList[i].SetRowAndCol(0, 0);
                     GameObject foundEnemy = enemyList[i].thePiece;
                     foundEnemy.transform.position = new Vector3(10000, 10000, 0.0f);
                     enemyList[i].rowPosition = -5;
                     enemyList[i].colPosition = -5;
-                    for (int j = i; j < Board.spawnedEnemies.Length - 2; j++)
+                    for (int j = i; j < Board.spawnedEnemies.Count - 2; j++)
                     {
                         Board.spawnedEnemies[j] = Board.spawnedEnemies[j + 1];
                     }
                     //in every situation where the number of coins increases or decreases, adjust the timeToWait
-                    Board.numberOfEnemies--;
+                    //Board.numberOfEnemies--;
+                    */
+                    enemyList.RemoveAt(i);
                     charges--;
                 }
             }

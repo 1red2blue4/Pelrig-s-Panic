@@ -6,6 +6,8 @@ public class EnemyAI : MonoBehaviour {
 
     float time;
     int countMove = 0;
+    public bool isTurnActive;
+
 	// Use this for initialization
 	void Start () {
         time = 0.0f;
@@ -16,25 +18,21 @@ public class EnemyAI : MonoBehaviour {
         if (transform.GetComponent<Piece>().rowPosition != 1000 && !PlayerControls.isPlayerTurn)
         {
             time += Time.deltaTime;
-            if (time > 2.0f)
+            if (time >= 1.5f)
             {
                 time = 0.0f;
                 MoveAndCheckUnitCollision();
                 //For now, heuristic movement to closest unit
-                CheckCoinDestroy();
+                //CheckCoinDestroy();
                 countMove++;
-                if (countMove > 4 )
+                if (countMove >= 3 )
                 {
-                    PlayerControls.isPlayerTurn = true;
-                    ExperimentalResources.resources = 60;
+                    isTurnActive = false;
+                    countMove = 0;
                 }
             }
-            CheckPlayer();
         }
-        else
-        {
-            countMove = 0;
-        }
+        CheckPlayer();
     }
 
     void CheckPlayer()
@@ -62,7 +60,7 @@ public class EnemyAI : MonoBehaviour {
             }
         }
 
-        if (playersAround >= 2)
+        if (playersAround > 2)
         {
             transform.GetComponent<Piece>().SetRowAndCol(1000, 1000);
             transform.GetComponent<Piece>().transform.position = new Vector3(10000, 10000, 0);

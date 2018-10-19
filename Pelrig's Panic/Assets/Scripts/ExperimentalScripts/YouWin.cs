@@ -19,20 +19,6 @@ public class YouWin : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (gameTime < 600.0f)
-        {
-            gameTime += Time.deltaTime;
-        }
-        else
-        {
-            youWon = true;
-        }
-
-        if (boardObject.remainingEnemies <= 0)
-        {
-            youWon = true;
-        }
-
 		if (youWon)
         {
             child.SetActive(true);

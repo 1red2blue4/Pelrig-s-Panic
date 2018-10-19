@@ -30,7 +30,7 @@ public static class MovementManager {
                     inWay = true;
                 }
             }
-            for (int i = 0; i < Board.spawnedEnemies.Length; i++)
+            for (int i = 0; i < Board.spawnedEnemies.Count; i++)
             {
                 if (Board.spawnedEnemies[i].rowPosition == character.rowPosition - 1 &&
                     Board.spawnedEnemies[i].colPosition == character.colPosition)
@@ -78,7 +78,7 @@ public static class MovementManager {
                     inWay = true;
                 }
             }
-            for (int i = 0; i < Board.spawnedEnemies.Length; i++)
+            for (int i = 0; i < Board.spawnedEnemies.Count; i++)
             {
                 if (Board.spawnedEnemies[i].colPosition == character.colPosition + 1 && Board.spawnedEnemies[i].rowPosition == character.rowPosition)
                 {
@@ -124,7 +124,7 @@ public static class MovementManager {
                     inWay = true;
                 }
             }
-            for (int i = 0; i < Board.spawnedEnemies.Length; i++)
+            for (int i = 0; i < Board.spawnedEnemies.Count; i++)
             {
                 if (Board.spawnedEnemies[i].rowPosition == character.rowPosition + 1 && Board.spawnedEnemies[i].colPosition == character.colPosition)
                 {
@@ -170,7 +170,7 @@ public static class MovementManager {
                     inWay = true;
                 }
             }
-            for (int i = 0; i < Board.spawnedEnemies.Length; i++)
+            for (int i = 0; i < Board.spawnedEnemies.Count; i++)
             {
                 if (Board.spawnedEnemies[i].colPosition == character.colPosition - 1 && Board.spawnedEnemies[i].rowPosition == character.rowPosition)
                 {
