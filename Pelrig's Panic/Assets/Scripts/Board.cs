@@ -236,7 +236,7 @@ public class Board : MonoBehaviour {
         for (int i = 0; i < possibleMoveableChars.Length; i++)
         {
             //get one of the locations
-            int randCol = 13;
+            int randCol = 8;
             int randRow = units[i];
             //on the off chance it rolls exactly 1, pick the largest value instead of overflowing
             if (randRow == tileWidth)
@@ -403,7 +403,7 @@ public class Board : MonoBehaviour {
         {
             if (first)
             {                
-                int[] array = { 2, 9, 8, 11, 35, 5, 35, 11 };
+                int[] array = { 29, 3, 29, 14, 35, 5, 35, 10 };
                 //GameObject[] spawnedEnemyObjects = new GameObject[4]; //5 for now
                 for (int i = 0; i < (8); i += 2)
                 {
