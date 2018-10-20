@@ -395,6 +395,12 @@ public class Board : MonoBehaviour {
         {
             for (int i = 0; i < spawnedEnemies.Count; i++)
             {
+                if (spawnedEnemies[i] == null)
+                {
+                    spawnedEnemies.RemoveAt(i);
+                    if (i >= spawnedEnemies.Count)
+                        break;
+                }
                 GridPositioner sendDown = spawnedEnemies[i].thePiece.GetComponent<GridPositioner>();
                 sendingDown = sendDown.GuideToObjectBeneath(0.1f);
             }

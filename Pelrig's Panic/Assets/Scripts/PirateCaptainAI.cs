@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAI : MonoBehaviour {
+public class PirateCaptainAI : MonoBehaviour {
 
     float time;
     int countMove = 0;
     public bool isTurnActive;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         time = 0.0f;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (transform.GetComponent<Piece>().rowPosition != 1000 && !PlayerControls.isPlayerTurn)
         {
             time += Time.deltaTime;
@@ -25,7 +27,7 @@ public class EnemyAI : MonoBehaviour {
                 //For now, heuristic movement to closest unit
                 //CheckCoinDestroy();
                 countMove++;
-                if (countMove >= 3 )
+                if (countMove >= 3)
                 {
                     isTurnActive = false;
                     countMove = 0;
@@ -40,18 +42,16 @@ public class EnemyAI : MonoBehaviour {
         int playersAround = 0;
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
-            if (Board.possibleMoveableChars[i].rowPosition == 1000)
-                continue;
             bool a = false;
             bool b = false;
-            if (transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].rowPosition - 1 || 
-                transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].rowPosition + 1 || 
+            if (transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].rowPosition - 1 ||
+                transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].rowPosition + 1 ||
                 transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].rowPosition)
             {
                 a = true;
             }
-            if (transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].colPosition - 1 || 
-                transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].colPosition + 1 || 
+            if (transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].colPosition - 1 ||
+                transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].colPosition + 1 ||
                 transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].colPosition)
             {
                 b = true;
@@ -62,9 +62,10 @@ public class EnemyAI : MonoBehaviour {
             }
         }
 
-        if (playersAround >= 3)
+        if (playersAround > 2)
         {
-            Destroy(gameObject);
+            transform.GetComponent<Piece>().SetRowAndCol(1000, 1000);
+            transform.GetComponent<Piece>().transform.position = new Vector3(10000, 10000, 0);
         }
     }
     //To verify
@@ -73,7 +74,7 @@ public class EnemyAI : MonoBehaviour {
         for (int i = 0; i < Board.currentNumCoins; i++)
         {
             //check for a hit
-            if (transform.GetComponent<Piece>().rowPosition == Board.allCoins[i].rowPosition && 
+            if (transform.GetComponent<Piece>().rowPosition == Board.allCoins[i].rowPosition &&
                 transform.GetComponent<Piece>().colPosition == Board.allCoins[i].colPosition)
             {
                 Board.allCoins[i].GetPiece().transform.position = new Vector3(10000, 10000, 0.0f);
@@ -94,11 +95,10 @@ public class EnemyAI : MonoBehaviour {
     {
         int shortestDistance = 10000;
         int targetRowPosition = 0;
-        
-        int targetColumnPosition = 0;
         int currentRowPosition = transform.GetComponent<Piece>().rowPosition;
+        int targetColumnPosition = 0;
+        int hi = 0;
         int currentColumnPosition = transform.GetComponent<Piece>().colPosition;
-        int targetPlayer = 0;
 
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
@@ -109,7 +109,7 @@ public class EnemyAI : MonoBehaviour {
                 shortestDistance = distance;
                 targetRowPosition = Board.possibleMoveableChars[i].rowPosition;
                 targetColumnPosition = Board.possibleMoveableChars[i].colPosition;
-                targetPlayer = i;
+                hi = i;
             }
         }
         //Attack
@@ -125,7 +125,7 @@ public class EnemyAI : MonoBehaviour {
             bool canMoveUp = true;
             bool canMoveDown = true;
             bool didMove = false;
-            //check for dead spaces and other enemies in the way
+            //check for dead spaces in the way
             for (int i = 0; i < Board.numDeadSpaces; i++)
             {
                 if (Board.deadPoints[i].x == currentColumnPosition && Board.deadPoints[i].y == currentRowPosition - 1)
@@ -145,25 +145,7 @@ public class EnemyAI : MonoBehaviour {
                     canMoveLeft = false;
                 }
             }
-            for (int i = 0; i < Board.spawnedEnemies.Count; i++)
-            {
-                if (Board.spawnedEnemies[i].colPosition == currentColumnPosition && Board.spawnedEnemies[i].rowPosition == currentRowPosition - 1)
-                {
-                    canMoveUp = false;
-                }
-                if (Board.spawnedEnemies[i].colPosition == currentColumnPosition + 1 && Board.spawnedEnemies[i].rowPosition == currentRowPosition)
-                {
-                    canMoveRight = false;
-                }
-                if (Board.spawnedEnemies[i].colPosition == currentColumnPosition && Board.spawnedEnemies[i].rowPosition == currentRowPosition + 1)
-                {
-                    canMoveDown = false;
-                }
-                if (Board.spawnedEnemies[i].colPosition == currentColumnPosition - 1 && Board.spawnedEnemies[i].rowPosition == currentRowPosition)
-                {
-                    canMoveLeft = false;
-                }
-            }
+
 
             //Move in the row
             if (Mathf.Abs(targetRowPosition - currentRowPosition) < Mathf.Abs(targetColumnPosition - currentColumnPosition))
@@ -213,7 +195,7 @@ public class EnemyAI : MonoBehaviour {
             }
             while (!didMove)
             {
-                
+
                 int randd = (int)Random.Range(0.0f, 3.99f);
                 if (randd == 0 && canMoveRight)
                 {

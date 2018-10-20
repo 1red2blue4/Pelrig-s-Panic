@@ -100,7 +100,7 @@ public class PlayerControls : MonoBehaviour {
         {
             RepositionCamera(cameraRotPosition, prevCameraRotPosition, cameraMovementBetween);
         }
-        CheckCoinCollect();
+        //CheckCoinCollect();
         //CheckForLineupSwap();
         CheckPlayer();
         if (isPlayerTurn)
@@ -124,7 +124,6 @@ public class PlayerControls : MonoBehaviour {
         }
         else if (EnemyMovesDone())
         {
-
             isPlayerTurn = true;
             ExperimentalResources.ReInitializeResources();
         }
@@ -186,31 +185,41 @@ public class PlayerControls : MonoBehaviour {
     {
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
+            if (Board.possibleMoveableChars[i].rowPosition == 1000)
+                continue;
             int enemiesAround = 0;
             for (int j = 0; j < Board.spawnedEnemies.Count; j++)
             {
                 bool a = false;
                 bool b = false;
-                if (Board.possibleMoveableChars[i].GetComponent<Piece>().rowPosition == Board.spawnedEnemies[j].GetComponent<Piece>().rowPosition - 1 ||
-                    Board.possibleMoveableChars[i].GetComponent<Piece>().rowPosition == Board.spawnedEnemies[j].GetComponent<Piece>().rowPosition ||
-                    Board.possibleMoveableChars[i].GetComponent<Piece>().rowPosition == Board.spawnedEnemies[j].GetComponent<Piece>().rowPosition + 1)
+                if (Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition - 1 ||
+                    Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition ||
+                    Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition + 1)
                 {
-                    a = true;
                 }
-                if (Board.possibleMoveableChars[i].GetComponent<Piece>().colPosition == Board.spawnedEnemies[j].GetComponent<Piece>().colPosition - 1 ||
-                    Board.possibleMoveableChars[i].GetComponent<Piece>().colPosition == Board.spawnedEnemies[j].GetComponent<Piece>().colPosition ||
-                    Board.possibleMoveableChars[i].GetComponent<Piece>().colPosition == Board.spawnedEnemies[j].GetComponent<Piece>().colPosition + 1)
+                else
+                { 
+                    continue;
+                }
+                if (Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition - 1 ||
+                    Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition ||
+                    Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition + 1)
                 {
-                    b = true;
                 }
-                if (a && b)
+                else
                 {
-                    enemiesAround += 1;
+                    continue;
                 }
+
+                enemiesAround += 1;
             }
 
-            if (enemiesAround > 2)
+            if (enemiesAround >= 3)
             {
+                if (selectedUnit == Board.possibleMoveableChars[i].GetPiece())
+                {
+                    selectedUnit = null;
+                }
                 Board.possibleMoveableChars[i].SetRowAndCol(1000, 1000);
                 Board.possibleMoveableChars[i].GetPiece().transform.position = new Vector3(10000, 10000, 0);
             }
