@@ -16,6 +16,7 @@ TagManager:
   - LettersHolderJade
   - LettersHolderEd
   - LettersHolderHally
+  - UIBox
   layers:
   - Default
   - TransparentFX
