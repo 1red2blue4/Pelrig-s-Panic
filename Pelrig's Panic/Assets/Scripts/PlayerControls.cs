@@ -109,8 +109,9 @@ public class PlayerControls : MonoBehaviour {
             {
                 MovePlayer();
             }
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) || EndTurnButtonScript.isButtonPressed)
             {
+                EndTurnButtonScript.isButtonPressed = false;
                 GiveNumbers();
                 isPlayerTurn = false;
                 roundCounter++;
