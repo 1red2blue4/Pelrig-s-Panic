@@ -6477,6 +6477,8 @@ MonoBehaviour:
   tilePieceDead: {fileID: 1655648640878062, guid: 31f798bf9b37f7944b534ca383fa2e1c,
     type: 2}
   enemy: {fileID: 1623708700212690, guid: 477f2fc0fdc3dd647887502cda3ef2ea, type: 2}
+  pirateBossObject: {fileID: 1250492934760982, guid: c9acbe220d170da4fbfe1b99b7fc108d,
+    type: 2}
   cannons: []
   enteredNumCannons: 0
   mainCamera: {fileID: 0}
