@@ -2,21 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAI : MonoBehaviour {
+public class PirateCaptainAI : MonoBehaviour {
 
     float time;
     int countMove = 0;
     public bool isTurnActive;
 
-	// Use this for initialization
-	void Start () {
-        time = 0.0f;
+    // Use this for initialization
+    void Start()
+    {
         isTurnActive = false;
-
+        time = 0.0f;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         if (transform.GetComponent<Piece>().rowPosition != 1000 && !PlayerControls.isPlayerTurn)
         {
             if (isTurnActive)
@@ -27,9 +28,8 @@ public class EnemyAI : MonoBehaviour {
                     time = 0.0f;
                     MoveAndCheckUnitCollision();
                     countMove++;
-                    if (countMove >= 3)
+                    if (countMove >= 5)
                     {
-
                         isTurnActive = false;
                         countMove = 0;
                         time = 0.0f;
@@ -52,14 +52,14 @@ public class EnemyAI : MonoBehaviour {
                 continue;
             bool a = false;
             bool b = false;
-            if (transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].rowPosition - 1 || 
-                transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].rowPosition + 1 || 
+            if (transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].rowPosition - 1 ||
+                transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].rowPosition + 1 ||
                 transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].rowPosition)
             {
                 a = true;
             }
-            if (transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].colPosition - 1 || 
-                transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].colPosition + 1 || 
+            if (transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].colPosition - 1 ||
+                transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].colPosition + 1 ||
                 transform.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[i].colPosition)
             {
                 b = true;
@@ -70,7 +70,7 @@ public class EnemyAI : MonoBehaviour {
             }
         }
 
-        if (playersAround >= 3)
+        if (playersAround >= 4)
         {
             Destroy(gameObject);
         }
@@ -81,7 +81,7 @@ public class EnemyAI : MonoBehaviour {
         for (int i = 0; i < Board.currentNumCoins; i++)
         {
             //check for a hit
-            if (transform.GetComponent<Piece>().rowPosition == Board.allCoins[i].rowPosition && 
+            if (transform.GetComponent<Piece>().rowPosition == Board.allCoins[i].rowPosition &&
                 transform.GetComponent<Piece>().colPosition == Board.allCoins[i].colPosition)
             {
                 Board.allCoins[i].GetPiece().transform.position = new Vector3(10000, 10000, 0.0f);
@@ -100,9 +100,10 @@ public class EnemyAI : MonoBehaviour {
 
     private void MoveAndCheckUnitCollision()
     {
-        int shortestDistance = 10000;
+        int random = (int)Random.Range(0.0f, 1.99f);
+        int shortestDistance = 11;
         int targetRowPosition = 0;
-        
+
         int targetColumnPosition = 0;
         int currentRowPosition = transform.GetComponent<Piece>().rowPosition;
         int currentColumnPosition = transform.GetComponent<Piece>().colPosition;
@@ -121,9 +122,22 @@ public class EnemyAI : MonoBehaviour {
             }
         }
         //Attack
+        if (shortestDistance <= 11)
+        {
+            targetRowPosition = 8;
+            targetColumnPosition = 37;
+            if (targetRowPosition == currentRowPosition &&
+                targetColumnPosition == currentColumnPosition)
+            {
+                countMove = 0;
+                isTurnActive = false;
+                return;
+            }
+
+        }
         if (shortestDistance == 1)
         {
-            //Attack()
+            //Attack();
         }
         //Move. Terrible system, must find a better way for later
         else
@@ -172,22 +186,7 @@ public class EnemyAI : MonoBehaviour {
                     canMoveLeft = false;
                 }
             }
-            if (Board.pirateBoss.colPosition == currentColumnPosition && Board.pirateBoss.rowPosition == currentRowPosition - 1)
-            {
-                canMoveUp = false;
-            }
-            if (Board.pirateBoss.colPosition == currentColumnPosition + 1 && Board.pirateBoss.rowPosition == currentRowPosition)
-            {
-                canMoveRight = false;
-            }
-            if (Board.pirateBoss.colPosition == currentColumnPosition && Board.pirateBoss.rowPosition == currentRowPosition + 1)
-            {
-                canMoveDown = false;
-            }
-            if (Board.pirateBoss.colPosition == currentColumnPosition - 1 && Board.pirateBoss.rowPosition == currentRowPosition)
-            {
-                canMoveLeft = false;
-            }
+
             //Move in the row
             if (Mathf.Abs(targetRowPosition - currentRowPosition) < Mathf.Abs(targetColumnPosition - currentColumnPosition))
             {
@@ -236,7 +235,7 @@ public class EnemyAI : MonoBehaviour {
             }
             while (!didMove)
             {
-                
+
                 int randd = (int)Random.Range(0.0f, 3.99f);
                 if (randd == 0 && canMoveRight)
                 {
@@ -265,4 +264,5 @@ public class EnemyAI : MonoBehaviour {
             }
         }
     }
+
 }
