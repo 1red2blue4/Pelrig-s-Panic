@@ -114,7 +114,7 @@ public class PlayerControls : MonoBehaviour {
                 GiveNumbers();
                 isPlayerTurn = false;
                 roundCounter++;
-                if (roundCounter >= 3)
+                if (roundCounter >= 4)
                 {
                     GameObject.Find("GridLevelStuff").GetComponentInChildren<Board>().SpawnEnemy((int)Random.Range(1.0f, 3.99f));
                     roundCounter = 0;
@@ -135,10 +135,15 @@ public class PlayerControls : MonoBehaviour {
         {
             Board.spawnedEnemies[i].GetComponent<EnemyAI>().isTurnActive = true;
         }
+        Board.pirateBoss.GetComponent<PirateCaptainAI>().isTurnActive = true;
     }
 
     bool EnemyMovesDone()
     {
+        if (Board.pirateBoss.GetComponent<PirateCaptainAI>().isTurnActive == true)
+        {
+            return false;
+        }
         for (int i = 0; i < Board.spawnedEnemies.Count; i++)
         {
             if (Board.spawnedEnemies[i].GetComponent<EnemyAI>().isTurnActive == true)
@@ -213,7 +218,17 @@ public class PlayerControls : MonoBehaviour {
 
                 enemiesAround += 1;
             }
-
+            if (Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition - 1 ||
+                Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition ||
+                Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition + 1)
+            {
+                if (Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition - 1 ||
+                    Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition ||
+                    Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition + 1)
+                {
+                    enemiesAround += 2;
+                }
+            }
             if (enemiesAround >= 3)
             {
                 if (selectedUnit == Board.possibleMoveableChars[i].GetPiece())

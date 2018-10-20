@@ -11,6 +11,7 @@ public class PirateCaptainAI : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        isTurnActive = false;
         time = 0.0f;
     }
 
@@ -19,19 +20,24 @@ public class PirateCaptainAI : MonoBehaviour {
     {
         if (transform.GetComponent<Piece>().rowPosition != 1000 && !PlayerControls.isPlayerTurn)
         {
-            time += Time.deltaTime;
-            if (time >= 1.5f)
+            if (isTurnActive)
             {
-                time = 0.0f;
-                MoveAndCheckUnitCollision();
+                time += Time.deltaTime;
+                if (time >= 1.5f)
+                {
+                    time = 0.0f;
+                    MoveAndCheckUnitCollision();
+                    countMove++;
+                    if (countMove >= 5)
+                    {
+                        isTurnActive = false;
+                        countMove = 0;
+                        time = 0.0f;
+                    }
+                }
                 //For now, heuristic movement to closest unit
                 //CheckCoinDestroy();
-                countMove++;
-                if (countMove >= 3)
-                {
-                    isTurnActive = false;
-                    countMove = 0;
-                }
+
             }
         }
         CheckPlayer();
@@ -42,6 +48,8 @@ public class PirateCaptainAI : MonoBehaviour {
         int playersAround = 0;
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
+            if (Board.possibleMoveableChars[i].rowPosition == 1000)
+                continue;
             bool a = false;
             bool b = false;
             if (transform.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[i].rowPosition - 1 ||
@@ -62,10 +70,9 @@ public class PirateCaptainAI : MonoBehaviour {
             }
         }
 
-        if (playersAround > 2)
+        if (playersAround >= 4)
         {
-            transform.GetComponent<Piece>().SetRowAndCol(1000, 1000);
-            transform.GetComponent<Piece>().transform.position = new Vector3(10000, 10000, 0);
+            Destroy(gameObject);
         }
     }
     //To verify
@@ -93,12 +100,14 @@ public class PirateCaptainAI : MonoBehaviour {
 
     private void MoveAndCheckUnitCollision()
     {
-        int shortestDistance = 10000;
+        int random = (int)Random.Range(0.0f, 1.99f);
+        int shortestDistance = 11;
         int targetRowPosition = 0;
-        int currentRowPosition = transform.GetComponent<Piece>().rowPosition;
+
         int targetColumnPosition = 0;
-        int hi = 0;
+        int currentRowPosition = transform.GetComponent<Piece>().rowPosition;
         int currentColumnPosition = transform.GetComponent<Piece>().colPosition;
+        int targetPlayer = 0;
 
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
@@ -109,13 +118,26 @@ public class PirateCaptainAI : MonoBehaviour {
                 shortestDistance = distance;
                 targetRowPosition = Board.possibleMoveableChars[i].rowPosition;
                 targetColumnPosition = Board.possibleMoveableChars[i].colPosition;
-                hi = i;
+                targetPlayer = i;
             }
         }
         //Attack
+        if (shortestDistance <= 11)
+        {
+            targetRowPosition = 8;
+            targetColumnPosition = 37;
+            if (targetRowPosition == currentRowPosition &&
+                targetColumnPosition == currentColumnPosition)
+            {
+                countMove = 0;
+                isTurnActive = false;
+                return;
+            }
+
+        }
         if (shortestDistance == 1)
         {
-            //Attack()
+            //Attack();
         }
         //Move. Terrible system, must find a better way for later
         else
@@ -125,7 +147,7 @@ public class PirateCaptainAI : MonoBehaviour {
             bool canMoveUp = true;
             bool canMoveDown = true;
             bool didMove = false;
-            //check for dead spaces in the way
+            //check for dead spaces and other enemies in the way
             for (int i = 0; i < Board.numDeadSpaces; i++)
             {
                 if (Board.deadPoints[i].x == currentColumnPosition && Board.deadPoints[i].y == currentRowPosition - 1)
@@ -145,7 +167,25 @@ public class PirateCaptainAI : MonoBehaviour {
                     canMoveLeft = false;
                 }
             }
-
+            for (int i = 0; i < Board.spawnedEnemies.Count; i++)
+            {
+                if (Board.spawnedEnemies[i].colPosition == currentColumnPosition && Board.spawnedEnemies[i].rowPosition == currentRowPosition - 1)
+                {
+                    canMoveUp = false;
+                }
+                if (Board.spawnedEnemies[i].colPosition == currentColumnPosition + 1 && Board.spawnedEnemies[i].rowPosition == currentRowPosition)
+                {
+                    canMoveRight = false;
+                }
+                if (Board.spawnedEnemies[i].colPosition == currentColumnPosition && Board.spawnedEnemies[i].rowPosition == currentRowPosition + 1)
+                {
+                    canMoveDown = false;
+                }
+                if (Board.spawnedEnemies[i].colPosition == currentColumnPosition - 1 && Board.spawnedEnemies[i].rowPosition == currentRowPosition)
+                {
+                    canMoveLeft = false;
+                }
+            }
 
             //Move in the row
             if (Mathf.Abs(targetRowPosition - currentRowPosition) < Mathf.Abs(targetColumnPosition - currentColumnPosition))
@@ -224,4 +264,5 @@ public class PirateCaptainAI : MonoBehaviour {
             }
         }
     }
+
 }

@@ -11,25 +11,33 @@ public class EnemyAI : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         time = 0.0f;
-	}
+        isTurnActive = false;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
         if (transform.GetComponent<Piece>().rowPosition != 1000 && !PlayerControls.isPlayerTurn)
         {
-            time += Time.deltaTime;
-            if (time >= 1.5f)
+            if (isTurnActive)
             {
-                time = 0.0f;
-                MoveAndCheckUnitCollision();
+                time += Time.deltaTime;
+                if (time >= 1.5f)
+                {
+                    time = 0.0f;
+                    MoveAndCheckUnitCollision();
+                    countMove++;
+                    if (countMove >= 3)
+                    {
+
+                        isTurnActive = false;
+                        countMove = 0;
+                        time = 0.0f;
+                    }
+                }
                 //For now, heuristic movement to closest unit
                 //CheckCoinDestroy();
-                countMove++;
-                if (countMove >= 3 )
-                {
-                    isTurnActive = false;
-                    countMove = 0;
-                }
+
             }
         }
         CheckPlayer();
@@ -164,7 +172,22 @@ public class EnemyAI : MonoBehaviour {
                     canMoveLeft = false;
                 }
             }
-
+            if (Board.pirateBoss.colPosition == currentColumnPosition && Board.pirateBoss.rowPosition == currentRowPosition - 1)
+            {
+                canMoveUp = false;
+            }
+            if (Board.pirateBoss.colPosition == currentColumnPosition + 1 && Board.pirateBoss.rowPosition == currentRowPosition)
+            {
+                canMoveRight = false;
+            }
+            if (Board.pirateBoss.colPosition == currentColumnPosition && Board.pirateBoss.rowPosition == currentRowPosition + 1)
+            {
+                canMoveDown = false;
+            }
+            if (Board.pirateBoss.colPosition == currentColumnPosition - 1 && Board.pirateBoss.rowPosition == currentRowPosition)
+            {
+                canMoveLeft = false;
+            }
             //Move in the row
             if (Mathf.Abs(targetRowPosition - currentRowPosition) < Mathf.Abs(targetColumnPosition - currentColumnPosition))
             {

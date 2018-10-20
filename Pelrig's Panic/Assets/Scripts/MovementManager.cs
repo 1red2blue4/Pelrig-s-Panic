@@ -56,6 +56,10 @@ public static class MovementManager {
                     Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
+            if (Board.pirateBoss.colPosition == character.colPosition && Board.pirateBoss.rowPosition == character.rowPosition - 1)
+            {
+                inWay = true;
+            }
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
                 character.SetRowAndCol(character.rowPosition - 1, character.colPosition);
@@ -102,6 +106,11 @@ public static class MovementManager {
                     Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
+            if (Board.pirateBoss.colPosition == character.colPosition + 1 && Board.pirateBoss.rowPosition == character.rowPosition)
+            {
+                inWay = true;
+            }
+
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
                 character.SetRowAndCol(character.rowPosition, character.colPosition + 1);
@@ -148,6 +157,10 @@ public static class MovementManager {
                     Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
+            if (Board.pirateBoss.colPosition == character.colPosition && Board.pirateBoss.rowPosition == character.rowPosition + 1)
+            {
+                inWay = true;
+            }
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
                 character.SetRowAndCol(character.rowPosition + 1, character.colPosition);
@@ -193,6 +206,10 @@ public static class MovementManager {
                     inWay = true;
                     Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
+            }
+            if (Board.pirateBoss.colPosition == character.colPosition - 1 && Board.pirateBoss.rowPosition == character.rowPosition)
+            {
+                inWay = true;
             }
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
