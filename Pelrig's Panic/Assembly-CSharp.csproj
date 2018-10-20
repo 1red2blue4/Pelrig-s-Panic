@@ -289,6 +289,9 @@
     <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_Antialiasing\FXAAPreset2.shader" />
     <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
     <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_BloomAndFlares\BlendForBloom.shader" />
+    <Reference Include="Unity.ProBuilder.AddOns.Editor">
+      <HintPath>Z:/IGMProfile/Desktop/Capstone/Pelrig-s-Panic/Pelrig's Panic/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>Z:/IGMProfile/Desktop/Capstone/Pelrig-s-Panic/Pelrig's Panic/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
@@ -300,9 +303,6 @@
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>Z:/IGMProfile/Desktop/Capstone/Pelrig-s-Panic/Pelrig's Panic/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.ProBuilder.AddOns.Editor">
-      <HintPath>Z:/IGMProfile/Desktop/Capstone/Pelrig-s-Panic/Pelrig's Panic/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
