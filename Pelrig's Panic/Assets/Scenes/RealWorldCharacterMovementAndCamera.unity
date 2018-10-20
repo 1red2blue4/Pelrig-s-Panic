@@ -714,7 +714,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   glowingMaterial: {fileID: 2100000, guid: e3156b97c04fff74cb57c8f4ed045b20, type: 2}
-  normalMaterial: {fileID: 2100000, guid: 77597105cdde585499f0d67a136a6c5a, type: 2}
 --- !u!114 &617879367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1225,10 +1224,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9bda5f8d474b3e42aacec4090a4c090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedCharacter: {fileID: 0}
+  talkingCharacter: {fileID: 0}
   uiCharacterImage: {fileID: 0}
   dummyUICharImage: {fileID: 1073663337}
-  realWorldCamera: {fileID: 617879365}
+  sceneOfDialogue: {fileID: 0}
 --- !u!1 &1111464050
 GameObject:
   m_ObjectHideFlags: 0
@@ -1457,7 +1456,7 @@ MonoBehaviour:
   numCharacterAbilities: 5
   abilityCapNum: 3
   numOwnedAbilities: 2
-  characterPortrait: {fileID: 2800000, guid: db1cff5135a4f2746a591e159dda1d2b, type: 3}
+  characterPortrait: {fileID: 2800000, guid: 0e7365abf8f49b944a529e561a2c19c2, type: 3}
   characterIdNum: 4
 --- !u!1 &1147947019
 GameObject:
