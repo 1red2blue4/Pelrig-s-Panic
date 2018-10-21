@@ -72,6 +72,7 @@ public class PirateCaptainAI : MonoBehaviour {
 
         if (playersAround >= 4)
         {
+            GameObject.Find("WinScreen").GetComponentInChildren<YouWin>().youWon = true;
             Destroy(gameObject);
         }
     }
@@ -101,7 +102,7 @@ public class PirateCaptainAI : MonoBehaviour {
     private void MoveAndCheckUnitCollision()
     {
         int random = (int)Random.Range(0.0f, 1.99f);
-        int shortestDistance = 11;
+        int shortestDistance = 15;
         int targetRowPosition = 0;
 
         int targetColumnPosition = 0;
@@ -122,7 +123,7 @@ public class PirateCaptainAI : MonoBehaviour {
             }
         }
         //Attack
-        if (shortestDistance <= 11)
+        if (shortestDistance >= 15)
         {
             targetRowPosition = 8;
             targetColumnPosition = 37;
