@@ -195,8 +195,6 @@ public class PlayerControls : MonoBehaviour {
             int enemiesAround = 0;
             for (int j = 0; j < Board.spawnedEnemies.Count; j++)
             {
-                bool a = false;
-                bool b = false;
                 if (Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition - 1 ||
                     Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition ||
                     Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition + 1)
