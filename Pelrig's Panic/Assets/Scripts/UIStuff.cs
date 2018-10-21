@@ -12,6 +12,13 @@ public class UIStuff : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.GetComponent<TMPro.TextMeshProUGUI>().text = PlayerControls.moveValues[theNumber].ToString();
+        if (PlayerControls.isPlayerTurn)
+        {
+            transform.GetComponent<TMPro.TextMeshProUGUI>().text = PlayerControls.moveValues[theNumber].ToString();
+        }
+        else
+        {
+            transform.GetComponent<TMPro.TextMeshProUGUI>().text = null;
+        }
     }
 }

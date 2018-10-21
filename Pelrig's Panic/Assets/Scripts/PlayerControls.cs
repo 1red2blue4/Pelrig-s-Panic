@@ -100,7 +100,7 @@ public class PlayerControls : MonoBehaviour {
         {
             RepositionCamera(cameraRotPosition, prevCameraRotPosition, cameraMovementBetween);
         }
-        CheckCoinCollect();
+        //CheckCoinCollect();
         //CheckForLineupSwap();
         CheckPlayer();
         if (isPlayerTurn)
@@ -109,12 +109,13 @@ public class PlayerControls : MonoBehaviour {
             {
                 MovePlayer();
             }
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) || EndTurnButtonScript.isButtonPressed)
             {
+                EndTurnButtonScript.isButtonPressed = false;
                 GiveNumbers();
                 isPlayerTurn = false;
                 roundCounter++;
-                if (roundCounter >= 3)
+                if (roundCounter >= 4)
                 {
                     GameObject.Find("GridLevelStuff").GetComponentInChildren<Board>().SpawnEnemy((int)Random.Range(1.0f, 3.99f));
                     roundCounter = 0;
@@ -124,7 +125,6 @@ public class PlayerControls : MonoBehaviour {
         }
         else if (EnemyMovesDone())
         {
-
             isPlayerTurn = true;
             ExperimentalResources.ReInitializeResources();
         }
@@ -132,14 +132,49 @@ public class PlayerControls : MonoBehaviour {
 
     void EnemyTurnsActivate()
     {
+        bool countRound = false;
+        for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+        {
+            if ((Board.possibleMoveableChars[i].rowPosition > 34 || Board.possibleMoveableChars[i].rowPosition < 38) &&
+                (Board.possibleMoveableChars[i].colPosition == 8 || Board.possibleMoveableChars[i].colPosition == 9))
+            {
+                countRound = true;
+                break;
+            }
+        }
+        if (countRound)
+        {
+            Piece pirateBoss = GameObject.FindGameObjectWithTag("PirateBoss").GetComponent<Piece>();
+            if (pirateBoss != null)
+            {
+                if ((pirateBoss.colPosition > 34 || Board.pirateBoss.rowPosition < 38) &&
+                   (pirateBoss.colPosition == 8 || pirateBoss.colPosition == 9))
+                {
+                    YouWin.roundCount = 0;
+                }
+            }
+            else
+            {
+                YouWin.roundCount++;
+            }
+        }
+        else
+        {
+            YouWin.roundCount = 0;
+        }
         for (int i = 0; i < Board.spawnedEnemies.Count; i++)
         {
             Board.spawnedEnemies[i].GetComponent<EnemyAI>().isTurnActive = true;
         }
+        Board.pirateBoss.GetComponent<PirateCaptainAI>().isTurnActive = true;
     }
 
     bool EnemyMovesDone()
     {
+        if (Board.pirateBoss.GetComponent<PirateCaptainAI>().isTurnActive == true)
+        {
+            return false;
+        }
         for (int i = 0; i < Board.spawnedEnemies.Count; i++)
         {
             if (Board.spawnedEnemies[i].GetComponent<EnemyAI>().isTurnActive == true)
@@ -184,36 +219,63 @@ public class PlayerControls : MonoBehaviour {
 
     void CheckPlayer()
     {
+        int count = 0;
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
+            if (Board.possibleMoveableChars[i].rowPosition == 1000)
+            {
+                count++;
+                continue;
+            }
+               
             int enemiesAround = 0;
             for (int j = 0; j < Board.spawnedEnemies.Count; j++)
             {
-                bool a = false;
-                bool b = false;
-                if (Board.possibleMoveableChars[i].GetComponent<Piece>().rowPosition == Board.spawnedEnemies[j].GetComponent<Piece>().rowPosition - 1 ||
-                    Board.possibleMoveableChars[i].GetComponent<Piece>().rowPosition == Board.spawnedEnemies[j].GetComponent<Piece>().rowPosition ||
-                    Board.possibleMoveableChars[i].GetComponent<Piece>().rowPosition == Board.spawnedEnemies[j].GetComponent<Piece>().rowPosition + 1)
+                if (Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition - 1 ||
+                    Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition ||
+                    Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition + 1)
                 {
-                    a = true;
                 }
-                if (Board.possibleMoveableChars[i].GetComponent<Piece>().colPosition == Board.spawnedEnemies[j].GetComponent<Piece>().colPosition - 1 ||
-                    Board.possibleMoveableChars[i].GetComponent<Piece>().colPosition == Board.spawnedEnemies[j].GetComponent<Piece>().colPosition ||
-                    Board.possibleMoveableChars[i].GetComponent<Piece>().colPosition == Board.spawnedEnemies[j].GetComponent<Piece>().colPosition + 1)
+                else
                 {
-                    b = true;
+                    continue;
                 }
-                if (a && b)
+                if (Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition - 1 ||
+                    Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition ||
+                    Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition + 1)
                 {
-                    enemiesAround += 1;
+                }
+                else
+                {
+                    continue;
+                }
+
+                enemiesAround += 1;
+            }
+            if (Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition - 1 ||
+                Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition ||
+                Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition + 1)
+            {
+                if (Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition - 1 ||
+                    Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition ||
+                    Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition + 1)
+                {
+                    enemiesAround += 2;
                 }
             }
-
-            if (enemiesAround > 2)
+            if (enemiesAround >= 4)
             {
+                if (selectedUnit == Board.possibleMoveableChars[i].GetPiece())
+                {
+                    selectedUnit = null;
+                }
                 Board.possibleMoveableChars[i].SetRowAndCol(1000, 1000);
                 Board.possibleMoveableChars[i].GetPiece().transform.position = new Vector3(10000, 10000, 0);
             }
+        }
+        if (count >= 2 && !Board.first)
+        {
+            GameObject.Find("WinScreen").GetComponentInChildren<YouWin>().youLose = true;
         }
     }
 

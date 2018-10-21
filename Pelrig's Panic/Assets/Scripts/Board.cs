@@ -9,9 +9,10 @@ public class Board : MonoBehaviour {
     [SerializeField] private GameObject tilePiece;
     [SerializeField] private GameObject tilePieceDead;
     [SerializeField] private GameObject enemy;
+    [SerializeField] private GameObject pirateBossObject;
     [SerializeField] private GameObject[] cannons;
     [SerializeField] private int enteredNumCannons;
-    bool first = true;
+    static public bool first = true;
 
     public GameObject mainCamera;
 
@@ -50,7 +51,8 @@ public class Board : MonoBehaviour {
     public const float approxGoldenRatio = 1.618f;
 
     public static bool spawnEnemies = false;
-
+    public static GameObject pirateBossSpawned;
+    public static Piece pirateBoss;
 
     public struct point
     {
@@ -388,13 +390,21 @@ public class Board : MonoBehaviour {
         for (int i = 0; i < allCoins.Length; i++)
         {
             GridPositioner sendDown = allCoins[i].thePiece.GetComponent<GridPositioner>();
-            sendDown.GuideToObjectBeneath(0.1f);
+            sendingDown = sendDown.GuideToObjectBeneath(0.1f);
             sendDown.AdjustToCamera();
         }
+        if (pirateBoss != null)
+            sendingDown = pirateBoss.thePiece.GetComponent<GridPositioner>().GuideToObjectBeneath(0.1f);
         if (spawnedEnemies.Count > 0)
         {
             for (int i = 0; i < spawnedEnemies.Count; i++)
             {
+                if (spawnedEnemies[i] == null)
+                {
+                    spawnedEnemies.RemoveAt(i);
+                    if (i >= spawnedEnemies.Count)
+                        break;
+                }
                 GridPositioner sendDown = spawnedEnemies[i].thePiece.GetComponent<GridPositioner>();
                 sendingDown = sendDown.GuideToObjectBeneath(0.1f);
             }
@@ -420,6 +430,17 @@ public class Board : MonoBehaviour {
                     GridPositioner bringDown = spawnedEnemyObject.GetComponent<Piece>().GetComponent<GridPositioner>();
                     bringDown.CheckWhatsBeneath();
                 }
+                //Put the pirate boss here
+                float halfWidth1 = (float)universalTileWidth / 2.0f;
+                float halfHeight1 = (float)universalTileHeight / 2.0f;
+                float finalXPos1 = -halfWidth1 + 38 * pieceDistance + midBoardX;
+                float finalYPos1 = halfHeight1 - 7 * pieceDistance - midBoardY;
+                Vector3 pos1 = new Vector3(finalXPos1, finalYPos1, 0.0f);
+                pirateBossSpawned = Instantiate(pirateBossObject, pos1, Quaternion.identity);
+                pirateBoss = pirateBossSpawned.GetComponent<Piece>();
+                pirateBoss.SetRowAndCol(7, 38);
+                GridPositioner bringDown1 = pirateBoss.thePiece.GetComponent<GridPositioner>();
+                bringDown1.CheckWhatsBeneath();
 
                 first = false;
             }
@@ -475,8 +496,8 @@ public class Board : MonoBehaviour {
         for (int j = 0; j < numberOfEnemies; j++)
         {
 
-            int[] disallowedRows = new int[possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Count];
-            int[] disallowedCols = new int[possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Count];
+            int[] disallowedRows = new int[possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Count + 1];
+            int[] disallowedCols = new int[possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Count + 1];
             for (int i = 0; i < possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Count; i++)
             {
                 //do not get the same space as a hero
@@ -504,6 +525,8 @@ public class Board : MonoBehaviour {
                     disallowedCols[i] = deadPoints[i - possibleMoveableChars.Length - currentNumCoins - spawnedEnemies.Count].x;
                 }
             }
+            disallowedRows[disallowedRows.Length - 1] = pirateBoss.rowPosition;
+            disallowedCols[disallowedCols.Length - 1] = pirateBoss.colPosition;
             //by default, cannot place a coin until you find a space that is allowed
             bool canPlace = false;
             int debugCount = 0;

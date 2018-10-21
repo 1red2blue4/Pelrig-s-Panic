@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 23173267053589014}
   - component: {fileID: 65998482593607490}
   - component: {fileID: 114653909414953950}
-  - component: {fileID: 114269152032454458}
   m_Layer: 0
   m_Name: Ed
   m_TagString: Player
@@ -98,22 +97,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114269152032454458
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1227574366094284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e7188ea8d8931041819aa344fe62074, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 
-  rowPosition: 0
-  colPosition: 0
-  name: 
-  thePiece: {fileID: 1227574366094284}
 --- !u!114 &114653909414953950
 MonoBehaviour:
   m_ObjectHideFlags: 1
