@@ -12,7 +12,7 @@ public class Board : MonoBehaviour {
     [SerializeField] private GameObject pirateBossObject;
     [SerializeField] private GameObject[] cannons;
     [SerializeField] private int enteredNumCannons;
-    bool first = true;
+    static public bool first = true;
 
     public GameObject mainCamera;
 
@@ -496,8 +496,8 @@ public class Board : MonoBehaviour {
         for (int j = 0; j < numberOfEnemies; j++)
         {
 
-            int[] disallowedRows = new int[possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Count];
-            int[] disallowedCols = new int[possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Count];
+            int[] disallowedRows = new int[possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Count + 1];
+            int[] disallowedCols = new int[possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Count + 1];
             for (int i = 0; i < possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Count; i++)
             {
                 //do not get the same space as a hero
@@ -525,6 +525,8 @@ public class Board : MonoBehaviour {
                     disallowedCols[i] = deadPoints[i - possibleMoveableChars.Length - currentNumCoins - spawnedEnemies.Count].x;
                 }
             }
+            disallowedRows[disallowedRows.Length - 1] = pirateBoss.rowPosition;
+            disallowedCols[disallowedCols.Length - 1] = pirateBoss.colPosition;
             //by default, cannot place a coin until you find a space that is allowed
             bool canPlace = false;
             int debugCount = 0;

@@ -132,6 +132,36 @@ public class PlayerControls : MonoBehaviour {
 
     void EnemyTurnsActivate()
     {
+        bool countRound = false;
+        for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+        {
+            if ((Board.possibleMoveableChars[i].rowPosition > 34 || Board.possibleMoveableChars[i].rowPosition < 38) &&
+                (Board.possibleMoveableChars[i].colPosition == 8 || Board.possibleMoveableChars[i].colPosition == 9))
+            {
+                countRound = true;
+                break;
+            }
+        }
+        if (countRound)
+        {
+            Piece pirateBoss = GameObject.FindGameObjectWithTag("PirateBoss").GetComponent<Piece>();
+            if (pirateBoss != null)
+            {
+                if ((pirateBoss.colPosition > 34 || Board.pirateBoss.rowPosition < 38) &&
+                   (pirateBoss.colPosition == 8 || pirateBoss.colPosition == 9))
+                {
+                    YouWin.roundCount = 0;
+                }
+            }
+            else
+            {
+                YouWin.roundCount++;
+            }
+        }
+        else
+        {
+            YouWin.roundCount = 0;
+        }
         for (int i = 0; i < Board.spawnedEnemies.Count; i++)
         {
             Board.spawnedEnemies[i].GetComponent<EnemyAI>().isTurnActive = true;
@@ -189,10 +219,15 @@ public class PlayerControls : MonoBehaviour {
 
     void CheckPlayer()
     {
+        int count = 0;
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
             if (Board.possibleMoveableChars[i].rowPosition == 1000)
+            {
+                count++;
                 continue;
+            }
+               
             int enemiesAround = 0;
             for (int j = 0; j < Board.spawnedEnemies.Count; j++)
             {
@@ -204,7 +239,7 @@ public class PlayerControls : MonoBehaviour {
                 {
                 }
                 else
-                { 
+                {
                     continue;
                 }
                 if (Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition - 1 ||
@@ -239,6 +274,10 @@ public class PlayerControls : MonoBehaviour {
                 Board.possibleMoveableChars[i].SetRowAndCol(1000, 1000);
                 Board.possibleMoveableChars[i].GetPiece().transform.position = new Vector3(10000, 10000, 0);
             }
+        }
+        if (count >= 2 && !Board.first)
+        {
+            GameObject.Find("WinScreen").GetComponentInChildren<YouWin>().youLose = true;
         }
     }
 

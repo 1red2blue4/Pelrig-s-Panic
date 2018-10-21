@@ -17,6 +17,7 @@ TagManager:
   - LettersHolderEd
   - LettersHolderHally
   - UIBox
+  - PirateBoss
   layers:
   - Default
   - TransparentFX
