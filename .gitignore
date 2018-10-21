@@ -57,3 +57,6 @@ ExportedObj/
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
 /Pelrig's Panic/Temp
+/Pelrig's Panic/.vs
+/Pelrig's Panic/Library
+/Pelrig's Panic/obj
