@@ -62,7 +62,6 @@ public class PlayerControls : MonoBehaviour {
         for (int i = 0; i < 4; i++)
         {
             int randomNumber = (int)Random.Range(0.0f, 13.99f);
-            Debug.Log(randomNumber);
             if (randomNumber < 1)
             {
                 moveValues[i] = 1;

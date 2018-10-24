@@ -7,12 +7,15 @@ public class EnemyAI : MonoBehaviour {
     float time;
     int countMove = 0;
     public bool isTurnActive;
+    [SerializeField] private GameObject presenceObj;
+    [SerializeField] private GameObject resistanceObj;
 
 	// Use this for initialization
 	void Start () {
         time = 0.0f;
         isTurnActive = false;
-
+        presenceObj.GetComponent<MeshRenderer>().sortingOrder = 3;
+        resistanceObj.GetComponent<MeshRenderer>().sortingOrder = 3;
     }
 	
 	// Update is called once per frame
@@ -69,6 +72,10 @@ public class EnemyAI : MonoBehaviour {
                 playersAround += 1;
             }
         }
+
+        UIValues resistance = resistanceObj.GetComponent<UIValues>();
+        resistance.SetValue(resistance.initialValue - playersAround);
+        Debug.Log("Players around: " + playersAround);
 
         if (playersAround >= 3)
         {

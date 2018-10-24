@@ -18,6 +18,8 @@ TagManager:
   - LettersHolderHally
   - UIBox
   - PirateBoss
+  - Resist
+  - Presence
   layers:
   - Default
   - TransparentFX

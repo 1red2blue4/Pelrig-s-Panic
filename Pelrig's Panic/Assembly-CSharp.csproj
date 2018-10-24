@@ -164,6 +164,7 @@
     <Compile Include="Assets\Scripts\UIController.cs" />
     <Compile Include="Assets\Scripts\UIData.cs" />
     <Compile Include="Assets\Scripts\UIStuff.cs" />
+    <Compile Include="Assets\Scripts\UIValues.cs" />
     <Compile Include="Assets\Scripts\Wall.cs" />
     <None Include="Assets\PostProcessing\Resources\Shaders\DepthOfField.shader" />
     <None Include="Assets\RPG Character Animation Pack FREE\Elements\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
