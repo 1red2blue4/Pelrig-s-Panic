@@ -889,6 +889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   youWon: 0
+  youLose: 0
 --- !u!1 &169716454
 GameObject:
   m_ObjectHideFlags: 0
@@ -6390,7 +6391,7 @@ MonoBehaviour:
   rowPosition: 0
   colPosition: 0
   name: 
-  thePiece: {fileID: 1227574366094284, guid: b6798d8515790f7428d45a45f824706b, type: 2}
+  thePiece: {fileID: 1035402443395794, guid: ec975744b05941b4c80ad11d8e3cbc9b, type: 2}
 --- !u!114 &1343187319
 MonoBehaviour:
   m_ObjectHideFlags: 0

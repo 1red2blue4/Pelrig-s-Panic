@@ -138,6 +138,10 @@ public class Board : MonoBehaviour {
 	void Update ()
     {
         SendEverythingDown();
+        for (int i = 0; i < possibleMoveableChars.Length; i++)
+        {
+            possibleMoveableChars[i].thePiece.GetComponent<GridPositioner>().AdjustToCamera();
+        }
         timer += Time.deltaTime;
         coinResetTimer += Time.deltaTime;
     }
@@ -252,6 +256,7 @@ public class Board : MonoBehaviour {
 
             possibleMoveableChars[i].SetRowAndCol(randRow, randCol);
 
+
             //check if in the same spot as another thing
             tempRows[i] = randRow;
             tempCols[i] = randCol;
@@ -291,8 +296,24 @@ public class Board : MonoBehaviour {
             possibleMoveableChars[i].SetName(possibleMoveableChars[i].GetPiece().name);
             piece.name = possibleMoveableChars[i].GetName();
             possibleMoveableChars[i].thePiece = piece;
+            possibleMoveableChars[i].thePiece.transform.Rotate(new Vector3(270.0f, 0.0f, 0.0f));
             GridPositioner bringDown = piece.GetComponent<GridPositioner>();
             bringDown.CheckWhatsBeneath();
+            bringDown.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            bringDown.AdjustToCamera();
+            if (piece.transform.childCount > 0)
+            {
+                GameObject visualChild = piece.transform.GetChild(0).gameObject;
+                if (visualChild != null)
+                {
+                    GridPositioner billboard = piece.transform.GetChild(0).GetComponent<GridPositioner>();
+                    if (billboard != null)
+                    {
+                        billboard.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                        //billboard.AdjustToCamera();
+                    }
+                }
+            }
         }
     }
     /*
