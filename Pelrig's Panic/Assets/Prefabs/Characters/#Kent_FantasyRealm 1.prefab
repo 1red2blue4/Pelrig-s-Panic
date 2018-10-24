@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4937248968504176}
   - component: {fileID: 212262551863467518}
-  - component: {fileID: 114675115264733778}
   m_Layer: 0
   m_Name: Kent_Fantasy
   m_TagString: Untagged
@@ -116,21 +115,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1577949478150316}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114675115264733778
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1523806705462158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6be32e54e2e73a439ac1ae8d6895b87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startPos: {x: 0, y: 0, z: 0}
-  difference: 0
-  speed: 0
-  mainCamera: {fileID: 0}
 --- !u!114 &114720443625294216
 MonoBehaviour:
   m_ObjectHideFlags: 1

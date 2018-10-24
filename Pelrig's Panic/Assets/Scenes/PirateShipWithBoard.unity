@@ -6408,7 +6408,7 @@ MonoBehaviour:
   rowPosition: 0
   colPosition: 0
   name: 
-  thePiece: {fileID: 1839362302340032, guid: 50ac800ca0365234d836be6b78cb17c0, type: 2}
+  thePiece: {fileID: 1108331977492282, guid: 8abafd99ff0ca554fbe16efc5f3d5a41, type: 2}
 --- !u!114 &1343187320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6442,7 +6442,7 @@ MonoBehaviour:
   rowPosition: 0
   colPosition: 0
   name: 
-  thePiece: {fileID: 1534850708101730, guid: 420808c31edc7a741a959ca92641a821, type: 2}
+  thePiece: {fileID: 1775651051564400, guid: 48c4c879eb6a7904182496f960203ee9, type: 2}
 --- !u!114 &1343187322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6459,7 +6459,7 @@ MonoBehaviour:
   rowPosition: 0
   colPosition: 0
   name: 
-  thePiece: {fileID: 1376430584455592, guid: 0afeefb4aad7fb044bbc3142adc6a900, type: 2}
+  thePiece: {fileID: 1577949478150316, guid: 812dfd5495defd848af57d0e1e55a432, type: 2}
 --- !u!114 &1343187323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9053,7 +9053,7 @@ Transform:
   m_GameObject: {fileID: 1843006183}
   m_LocalRotation: {x: -0.5, y: -0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0.5, z: 1}
-  m_LocalScale: {x: 0.65, y: 0.65, z: 0.55}
+  m_LocalScale: {x: 0.55, y: 0.55, z: 0.55}
   m_Children:
   - {fileID: 163356132}
   - {fileID: 662782319}
