@@ -6496,8 +6496,9 @@ MonoBehaviour:
   enemy: {fileID: 1623708700212690, guid: 477f2fc0fdc3dd647887502cda3ef2ea, type: 2}
   pirateBossObject: {fileID: 1250492934760982, guid: c9acbe220d170da4fbfe1b99b7fc108d,
     type: 2}
-  cannons: []
-  enteredNumCannons: 0
+  cannonPrefab: {fileID: 1651644283395480, guid: e2d0238dd48bb444c8ed10aeda22be23,
+    type: 2}
+  generatorPrefab: {fileID: 0}
   mainCamera: {fileID: 0}
   coinPiece: {fileID: 1164183193104502, guid: 44c03ae576243d8409e3f182728c6b85, type: 2}
 --- !u!1 &1358153645

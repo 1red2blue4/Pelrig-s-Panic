@@ -21,6 +21,7 @@ TagManager:
   - Resist
   - Presence
   - Enemy
+  - Cannon
   layers:
   - Default
   - TransparentFX

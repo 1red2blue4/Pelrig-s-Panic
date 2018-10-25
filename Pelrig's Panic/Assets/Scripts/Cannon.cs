@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class Cannon : MonoBehaviour {
     
-    [SerializeField] public int charges;
+    int charges;
     [SerializeField] public Piece cannon;
     [SerializeField] public int cannonID;
     public bool isCanonUsable;
 
     private void Start()
     {
-        isCanonUsable = false;    
+        isCanonUsable = false;
+        charges = 1;
     }
 
     private void Update()
@@ -30,19 +31,29 @@ public class Cannon : MonoBehaviour {
                         {
                             UseCannon(hit.collider.gameObject.GetComponent<Piece>());
                         }
+                        else if (hit.transform.tag == "Cannon")
+                        {
+                            if (hit.transform.parent.gameObject == gameObject)
+                            {
+                                return;
+                            }
+                        }
                     }
+                    isCanonUsable = false;
                 }
-                isCanonUsable = false;
-            }
-            else
-            {
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                else
                 {
-                    if (hit.collider.gameObject == gameObject)
+                    RaycastHit hit;
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    if (Physics.Raycast(ray, out hit, Mathf.Infinity))
                     {
-                        isCanonUsable = CheckForPlayersAround();
+                        if (hit.transform.tag == "Cannon")
+                        {
+                            if (hit.transform.parent.gameObject == gameObject)
+                            {
+                                isCanonUsable = CheckForPlayersAround();
+                            }
+                        }
                     }
                 }
             }
@@ -55,7 +66,7 @@ public class Cannon : MonoBehaviour {
         foreach (var playerObjects in Board.possibleMoveableChars)
         {
             if (playerObjects.rowPosition <= cannon.rowPosition + 1 && playerObjects.rowPosition >= cannon.rowPosition - 1 &&
-                playerObjects.rowPosition <= cannon.colPosition + 1 && playerObjects.rowPosition >= cannon.colPosition - 1)
+                playerObjects.colPosition <= cannon.colPosition + 1 && playerObjects.colPosition >= cannon.colPosition - 1)
             {
                 return true;
             }
@@ -68,10 +79,18 @@ public class Cannon : MonoBehaviour {
     {
         if (charges > 0 &&
             enemy.rowPosition <= cannon.rowPosition + 5 && enemy.rowPosition >= cannon.rowPosition - 5 &&
-            enemy.rowPosition <= cannon.colPosition + 5 && enemy.rowPosition >= cannon.colPosition - 5)
+            enemy.colPosition <= cannon.colPosition + 5 && enemy.colPosition >= cannon.colPosition - 5)
         {
-            Destroy(enemy);
-            charges--;
+            for (int i = 0; i < Board.spawnedEnemies.Count; i++)
+            {
+                if (enemy == Board.spawnedEnemies[i])
+                {
+                    Destroy(enemy.gameObject);
+                    Board.spawnedEnemies.RemoveAt(i);
+                    charges--;
+                    return;
+                }
+            }         
         }
     }
 }

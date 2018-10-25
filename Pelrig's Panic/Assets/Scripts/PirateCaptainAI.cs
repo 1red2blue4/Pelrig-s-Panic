@@ -168,6 +168,27 @@ public class PirateCaptainAI : MonoBehaviour {
                     canMoveLeft = false;
                 }
             }
+
+            for (int i = 0; i < Board.allCannons.Length; i++)
+            {
+                if (Board.allCannons[i].cannon.colPosition == currentColumnPosition && Board.allCannons[i].cannon.rowPosition == currentRowPosition - 1)
+                {
+                    canMoveUp = false;
+                }
+                if (Board.allCannons[i].cannon.colPosition == currentColumnPosition + 1 && Board.allCannons[i].cannon.rowPosition == currentRowPosition)
+                {
+                    canMoveRight = false;
+                }
+                if (Board.allCannons[i].cannon.colPosition == currentColumnPosition && Board.allCannons[i].cannon.rowPosition == currentRowPosition + 1)
+                {
+                    canMoveDown = false;
+                }
+                if (Board.allCannons[i].cannon.colPosition == currentColumnPosition - 1 && Board.allCannons[i].cannon.rowPosition == currentRowPosition)
+                {
+                    canMoveLeft = false;
+                }
+            }
+
             for (int i = 0; i < Board.spawnedEnemies.Count; i++)
             {
                 if (Board.spawnedEnemies[i].colPosition == currentColumnPosition && Board.spawnedEnemies[i].rowPosition == currentRowPosition - 1)

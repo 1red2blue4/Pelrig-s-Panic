@@ -50,16 +50,18 @@ public static class MovementManager {
             //check for cannons in the way
             for (int i = 0; i < Board.numCannons; i++)
             {
-                if (Board.cannonPoints[i].y == character.rowPosition - 1 && Board.cannonPoints[i].x == character.colPosition)
+                if (Board.allCannons[i].cannon.rowPosition == character.rowPosition - 1 && Board.allCannons[i].cannon.colPosition == character.colPosition)
                 {
                     inWay = true;
                     //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
+
             if (Board.pirateBoss.colPosition == character.colPosition && Board.pirateBoss.rowPosition == character.rowPosition - 1)
             {
                 inWay = true;
             }
+
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
                 character.SetRowAndCol(character.rowPosition - 1, character.colPosition);
@@ -100,7 +102,7 @@ public static class MovementManager {
             //check for cannons in the way
             for (int i = 0; i < Board.numCannons; i++)
             {
-                if (Board.cannonPoints[i].x == character.colPosition + 1 && Board.cannonPoints[i].y == character.rowPosition)
+                if (Board.allCannons[i].cannon.colPosition == character.colPosition + 1 && Board.allCannons[i].cannon.rowPosition == character.rowPosition)
                 {
                     inWay = true;
                     //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
@@ -151,7 +153,7 @@ public static class MovementManager {
             //check for cannons in the way
             for (int i = 0; i < Board.numCannons; i++)
             {
-                if (Board.cannonPoints[i].y == character.rowPosition + 1 && Board.cannonPoints[i].x == character.colPosition)
+                if (Board.allCannons[i].cannon.rowPosition == character.rowPosition + 1 && Board.allCannons[i].cannon.colPosition == character.colPosition)
                 {
                     inWay = true;
                     //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
@@ -201,7 +203,7 @@ public static class MovementManager {
             //check for cannons in the way
             for (int i = 0; i < Board.numCannons; i++)
             {
-                if (Board.cannonPoints[i].x == character.colPosition - 1 && Board.cannonPoints[i].y == character.rowPosition)
+                if (Board.allCannons[i].cannon.colPosition == character.colPosition - 1 && Board.allCannons[i].cannon.rowPosition == character.rowPosition)
                 {
                     inWay = true;
                     //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
