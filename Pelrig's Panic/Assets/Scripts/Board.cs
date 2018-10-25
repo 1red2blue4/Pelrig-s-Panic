@@ -414,6 +414,15 @@ public class Board : MonoBehaviour {
             sendingDown = sendDown.GuideToObjectBeneath(0.1f);
             sendDown.AdjustToCamera();
         }
+        /*if (allCannons.Length > 0)
+        {
+            for (int i = 0; i < allCannons.Length; i++)
+            {
+                GridPositioner sendDown = allCannons[i].GetComponent<GridPositioner>();
+                sendingDown = sendDown.GuideToObjectBeneath(0.1f);
+                //sendDown.AdjustToCamera();
+            }
+        }*/
         if (pirateBoss != null)
             sendingDown = pirateBoss.thePiece.GetComponent<GridPositioner>().GuideToObjectBeneath(0.1f);
         if (spawnedEnemies.Count > 0)
@@ -580,6 +589,28 @@ public class Board : MonoBehaviour {
             GridPositioner bringDown = spawnedEnemyObject.GetComponent<Piece>().GetComponent<GridPositioner>();
             bringDown.CheckWhatsBeneath();
             spawnedEnemies.Add(spawnedEnemyObject.GetComponent<Piece>());
+        }
+    }
+
+    void PlaceCannons()
+    {
+        //colums, row for each cannon
+        int[] array = { 29, 3, 29, 14, 35, 5, 35, 10 };
+        //GameObject[] spawnedEnemyObjects = new GameObject[4]; //5 for now
+        for (int i = 0; i < (8); i += 2)
+        {
+            GameObject spawnedEnemyObject;
+            float halfWidth = (float)universalTileWidth / 2.0f;
+            float halfHeight = (float)universalTileHeight / 2.0f;
+            float finalXPos = -halfWidth + (float)array[i] * pieceDistance + midBoardX;
+            float finalYPos = halfHeight - (float)array[i + 1] * pieceDistance - midBoardY;
+            Vector3 placement = new Vector3(finalXPos, finalYPos, 0.0f);
+            spawnedEnemyObject = Instantiate(enemy, placement, Quaternion.identity);
+            spawnedEnemies.Add(spawnedEnemyObject.GetComponent<Piece>());
+            spawnedEnemies[i / 2].SetRowAndCol(array[i + 1], array[i]);
+
+            GridPositioner bringDown = spawnedEnemyObject.GetComponent<Piece>().GetComponent<GridPositioner>();
+            bringDown.CheckWhatsBeneath();
         }
     }
 }

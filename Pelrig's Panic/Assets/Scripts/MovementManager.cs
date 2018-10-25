@@ -53,7 +53,7 @@ public static class MovementManager {
                 if (Board.cannonPoints[i].y == character.rowPosition - 1 && Board.cannonPoints[i].x == character.colPosition)
                 {
                     inWay = true;
-                    Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
+                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
             if (Board.pirateBoss.colPosition == character.colPosition && Board.pirateBoss.rowPosition == character.rowPosition - 1)
@@ -103,7 +103,7 @@ public static class MovementManager {
                 if (Board.cannonPoints[i].x == character.colPosition + 1 && Board.cannonPoints[i].y == character.rowPosition)
                 {
                     inWay = true;
-                    Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
+                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
             if (Board.pirateBoss.colPosition == character.colPosition + 1 && Board.pirateBoss.rowPosition == character.rowPosition)
@@ -154,7 +154,7 @@ public static class MovementManager {
                 if (Board.cannonPoints[i].y == character.rowPosition + 1 && Board.cannonPoints[i].x == character.colPosition)
                 {
                     inWay = true;
-                    Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
+                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
             if (Board.pirateBoss.colPosition == character.colPosition && Board.pirateBoss.rowPosition == character.rowPosition + 1)
@@ -204,7 +204,7 @@ public static class MovementManager {
                 if (Board.cannonPoints[i].x == character.colPosition - 1 && Board.cannonPoints[i].y == character.rowPosition)
                 {
                     inWay = true;
-                    Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
+                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
             if (Board.pirateBoss.colPosition == character.colPosition - 1 && Board.pirateBoss.rowPosition == character.rowPosition)
