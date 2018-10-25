@@ -10,6 +10,7 @@ public class Board : MonoBehaviour {
     [SerializeField] private GameObject tilePieceDead;
     [SerializeField] private GameObject enemy;
     [SerializeField] private GameObject pirateBossObject;
+    [SerializeField] private GameObject cannonPrefab;
     [SerializeField] private GameObject[] cannons;
     [SerializeField] private int enteredNumCannons;
     static public bool first = true;
@@ -595,21 +596,22 @@ public class Board : MonoBehaviour {
     void PlaceCannons()
     {
         //colums, row for each cannon
-        int[] array = { 29, 3, 29, 14, 35, 5, 35, 10 };
+        allCannons = new Cannon[numCannons]; //4
+        int[] arrayRows = { 28,28,18,18};
+        int[] arrayColumns = {3,15,3,15 };
         //GameObject[] spawnedEnemyObjects = new GameObject[4]; //5 for now
-        for (int i = 0; i < (8); i += 2)
+        for (int i = 0; i < allCannons.Length; i += 2)
         {
-            GameObject spawnedEnemyObject;
             float halfWidth = (float)universalTileWidth / 2.0f;
             float halfHeight = (float)universalTileHeight / 2.0f;
-            float finalXPos = -halfWidth + (float)array[i] * pieceDistance + midBoardX;
-            float finalYPos = halfHeight - (float)array[i + 1] * pieceDistance - midBoardY;
+            float finalXPos = -halfWidth + (float)arrayColumns[i] * pieceDistance + midBoardX;
+            float finalYPos = halfHeight - (float)arrayRows[i] * pieceDistance - midBoardY;
             Vector3 placement = new Vector3(finalXPos, finalYPos, 0.0f);
-            spawnedEnemyObject = Instantiate(enemy, placement, Quaternion.identity);
-            spawnedEnemies.Add(spawnedEnemyObject.GetComponent<Piece>());
-            spawnedEnemies[i / 2].SetRowAndCol(array[i + 1], array[i]);
+            GameObject newCannon = Instantiate(cannonPrefab, placement, Quaternion.identity);
+            allCannons[i] = newCannon.GetComponent<Cannon>();
+            allCannons[i].cannon.SetRowAndCol(arrayRows[i], arrayColumns[i]);
 
-            GridPositioner bringDown = spawnedEnemyObject.GetComponent<Piece>().GetComponent<GridPositioner>();
+            GridPositioner bringDown = newCannon.GetComponent<Piece>().GetComponent<GridPositioner>();
             bringDown.CheckWhatsBeneath();
         }
     }
