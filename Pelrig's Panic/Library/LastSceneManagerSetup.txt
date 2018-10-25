@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/PirateShipWithBoard.unity
+- path: Assets/Scenes/CharacterPrefabScene.unity
   isLoaded: 1
   isActive: 1
