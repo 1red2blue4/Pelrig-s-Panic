@@ -47,6 +47,7 @@ public class Generator : MonoBehaviour {
         if (playersAround >= 3)
         {
             ExperimentalResources.generatorsActive++;
+            //gameObject.GetComponent<Material>().color = Color.red;
             return true;
         }
         return false;

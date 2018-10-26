@@ -12,7 +12,7 @@ public class Board : MonoBehaviour {
     [SerializeField] private GameObject pirateBossObject;
     [SerializeField] private GameObject cannonPrefab;
     [SerializeField] private GameObject generatorPrefab;
-    private Generator[] generators;
+    public static Generator[] generators;
     static public bool first = true;
 
     public GameObject mainCamera;
@@ -200,7 +200,7 @@ public class Board : MonoBehaviour {
                     GridPositioner sinkDown = piece.GetComponent<GridPositioner>();
                     sinkDown.CheckWhatsBeneath();
                 }
-                else if (deadSpaces[j, i] == 2)
+                /*else if (deadSpaces[j, i] == 2)
                 {
                     Cannon myCannon = allCannons[currentCannon-1];
                     for (int k = 0; k < numCannons; k++)
@@ -212,7 +212,7 @@ public class Board : MonoBehaviour {
                     }
                     piece = Instantiate(myCannon.cannon.thePiece, placement, Quaternion.identity);
                     piece.name = "gridRow" + i + "Column" + j + "WithCannon";
-                }
+                }*/
                 else
                 {
                     piece = new GameObject();
@@ -407,7 +407,14 @@ public class Board : MonoBehaviour {
             {
                 GridPositioner sendDown = allCannons[i].gameObject.GetComponent<GridPositioner>();
                 sendingDown = sendDown.GuideToObjectBeneath(0.1f);
-                //sendDown.AdjustToCamera();
+            }
+        }
+        if (numGenerators > 0)
+        {
+            for (int i = 0; i < generators.Length; i++)
+            {
+                GridPositioner sendDown = generators[i].gameObject.GetComponent<GridPositioner>();
+                sendingDown = sendDown.GuideToObjectBeneath(0.1f);
             }
         }
         if (pirateBoss != null)
@@ -460,6 +467,7 @@ public class Board : MonoBehaviour {
                 bringDown1.CheckWhatsBeneath();
 
                 PlaceCannons();
+                PlaceGenerators();
                 first = false;
             }
             //Main loop
@@ -608,7 +616,7 @@ public class Board : MonoBehaviour {
     {
         //colums, row for each cannon
         generators = new Generator[2]; //4
-        int[] arrayColumns = { 27, 27};
+        int[] arrayColumns = { 13, 13};
         int[] arrayRows = { 4, 14};
         //GameObject[] spawnedEnemyObjects = new GameObject[4]; //5 for now
         for (int i = 0; i < generators.Length; i++)

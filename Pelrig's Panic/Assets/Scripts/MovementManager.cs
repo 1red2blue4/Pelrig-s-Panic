@@ -61,7 +61,14 @@ public static class MovementManager {
             {
                 inWay = true;
             }
-
+            for (int i = 0; i < Board.numGenerators; i++)
+            {
+                if (Board.generators[i].generator.colPosition == character.colPosition  && Board.generators[i].generator.rowPosition == character.rowPosition - 1)
+                {
+                    inWay = true;
+                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
+                }
+            }
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
                 character.SetRowAndCol(character.rowPosition - 1, character.colPosition);
@@ -112,7 +119,14 @@ public static class MovementManager {
             {
                 inWay = true;
             }
-
+            for (int i = 0; i < Board.numGenerators; i++)
+            {
+                if (Board.generators[i].generator.colPosition == character.colPosition + 1 && Board.generators[i].generator.rowPosition == character.rowPosition)
+                {
+                    inWay = true;
+                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
+                }
+            }
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
                 character.SetRowAndCol(character.rowPosition, character.colPosition + 1);
@@ -163,6 +177,14 @@ public static class MovementManager {
             {
                 inWay = true;
             }
+            for (int i = 0; i < Board.numGenerators; i++)
+            {
+                if (Board.generators[i].generator.colPosition == character.colPosition && Board.generators[i].generator.rowPosition == character.rowPosition + 1)
+                {
+                    inWay = true;
+                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
+                }
+            }
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
                 character.SetRowAndCol(character.rowPosition + 1, character.colPosition);
@@ -204,6 +226,14 @@ public static class MovementManager {
             for (int i = 0; i < Board.numCannons; i++)
             {
                 if (Board.allCannons[i].cannon.colPosition == character.colPosition - 1 && Board.allCannons[i].cannon.rowPosition == character.rowPosition)
+                {
+                    inWay = true;
+                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
+                }
+            }
+            for (int i = 0; i < Board.numGenerators; i++)
+            {
+                if (Board.generators[i].generator.colPosition == character.colPosition - 1 && Board.generators[i].generator.rowPosition == character.rowPosition)
                 {
                     inWay = true;
                     //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);

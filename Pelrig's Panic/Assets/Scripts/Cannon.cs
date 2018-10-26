@@ -5,8 +5,7 @@ using UnityEngine;
 public class Cannon : MonoBehaviour {
     
     int charges;
-    [SerializeField] public Piece cannon;
-    [SerializeField] public int cannonID;
+    public Piece cannon;
     public bool isCanonUsable;
 
     private void Start()
@@ -88,6 +87,8 @@ public class Cannon : MonoBehaviour {
                     Destroy(enemy.gameObject);
                     Board.spawnedEnemies.RemoveAt(i);
                     charges--;
+                    Debug.Log(gameObject.GetComponentInChildren<Renderer>().material.color);
+                    gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
                     return;
                 }
             }         
