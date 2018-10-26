@@ -81,4 +81,9 @@ public static class TextManager {
             }
         }
 	}
+
+    public static void CutSceneText()
+    {
+        
+    }
 }
