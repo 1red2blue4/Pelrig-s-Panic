@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ExperimentalResources : MonoBehaviour {
-
-
     [SerializeField]public static int resources = 40;
     public static int mainResources = 40;
     public static int generatorsActive = 0;

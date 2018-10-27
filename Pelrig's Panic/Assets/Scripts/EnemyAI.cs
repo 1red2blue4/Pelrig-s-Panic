@@ -75,7 +75,7 @@ public class EnemyAI : MonoBehaviour {
 
         UIValues resistance = resistanceObj.GetComponent<UIValues>();
         resistance.SetValue(resistance.initialValue - playersAround);
-        Debug.Log("Players around: " + playersAround);
+        //Debug.Log("Players around: " + playersAround);
 
         if (playersAround >= 3)
         {
@@ -175,6 +175,25 @@ public class EnemyAI : MonoBehaviour {
                     canMoveDown = false;
                 }
                 if (Board.spawnedEnemies[i].colPosition == currentColumnPosition - 1 && Board.spawnedEnemies[i].rowPosition == currentRowPosition)
+                {
+                    canMoveLeft = false;
+                }
+            }
+            for (int i = 0; i < Board.allCannons.Length; i++)
+            {
+                if (Board.allCannons[i].cannon.colPosition == currentColumnPosition && Board.allCannons[i].cannon.rowPosition == currentRowPosition - 1)
+                {
+                    canMoveUp = false;
+                }
+                if (Board.allCannons[i].cannon.colPosition == currentColumnPosition + 1 && Board.allCannons[i].cannon.rowPosition == currentRowPosition)
+                {
+                    canMoveRight = false;
+                }
+                if (Board.allCannons[i].cannon.colPosition == currentColumnPosition && Board.allCannons[i].cannon.rowPosition == currentRowPosition + 1)
+                {
+                    canMoveDown = false;
+                }
+                if (Board.allCannons[i].cannon.colPosition == currentColumnPosition - 1 && Board.allCannons[i].cannon.rowPosition == currentRowPosition)
                 {
                     canMoveLeft = false;
                 }

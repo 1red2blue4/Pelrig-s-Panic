@@ -20,6 +20,8 @@ TagManager:
   - PirateBoss
   - Resist
   - Presence
+  - Enemy
+  - Cannon
   layers:
   - Default
   - TransparentFX

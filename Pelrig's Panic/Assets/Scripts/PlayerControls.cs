@@ -251,15 +251,18 @@ public class PlayerControls : MonoBehaviour {
 
                 enemiesAround += 1;
             }
-            if (Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition - 1 ||
-                Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition ||
-                Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition + 1)
+            if (Board.pirateBoss != null)
             {
-                if (Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition - 1 ||
-                    Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition ||
-                    Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition + 1)
+                if (Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition - 1 ||
+                    Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition ||
+                    Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition + 1)
                 {
-                    enemiesAround += 2;
+                    if (Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition - 1 ||
+                        Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition ||
+                        Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition + 1)
+                    {
+                        enemiesAround += 2;
+                    }
                 }
             }
             if (enemiesAround >= 4)

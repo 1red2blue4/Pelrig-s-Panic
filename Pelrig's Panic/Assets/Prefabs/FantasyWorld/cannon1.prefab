@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 136847961775761104}
   m_Layer: 0
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Cannon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 114012846036392644}
   m_Layer: 0
   m_Name: cannon1
-  m_TagString: Untagged
+  m_TagString: Cannon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,9 +143,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a43395f4df2fcd47a0e1ceefdbe4357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charges: 2
   cannon: {fileID: 114943799217782732}
   cannonID: 0
+  isCanonUsable: 0
 --- !u!114 &114943799217782732
 MonoBehaviour:
   m_ObjectHideFlags: 1

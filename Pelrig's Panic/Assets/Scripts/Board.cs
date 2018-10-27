@@ -10,8 +10,9 @@ public class Board : MonoBehaviour {
     [SerializeField] private GameObject tilePieceDead;
     [SerializeField] private GameObject enemy;
     [SerializeField] private GameObject pirateBossObject;
-    [SerializeField] private GameObject[] cannons;
-    [SerializeField] private int enteredNumCannons;
+    [SerializeField] private GameObject cannonPrefab;
+    [SerializeField] private GameObject generatorPrefab;
+    private Generator[] generators;
     static public bool first = true;
 
     public GameObject mainCamera;
@@ -24,6 +25,7 @@ public class Board : MonoBehaviour {
     //public static Piece[] spawnedEnemies;
     public static Cannon[] allCannons;
 
+    public static int numGenerators;
     public static int numCannons;
     public static int currentCannon;
 
@@ -78,6 +80,8 @@ public class Board : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        numGenerators = 0;
+        numCannons = 0;
         spawnedEnemies = new List<Piece>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         midBoardX = 0.0f;
@@ -88,23 +92,6 @@ public class Board : MonoBehaviour {
         timeToWait = 1.0f;
         universalTileWidth = enteredUniversalTileWidth;
         universalTileHeight = enteredUniversalTileHeight;
-
-        numCannons = enteredNumCannons;
-        currentCannon = 0;
-        if (numCannons > 0)
-        {
-            allCannons = new Cannon[numCannons];
-            GameObject[] allCannonObjects = new GameObject[numCannons]; //5 for now
-
-            for (int i = 0; i < numCannons; i++)
-            {
-                allCannonObjects[i] = Instantiate(cannons[i], new Vector3(10000.0f, 10000.0f, 0.0f), Quaternion.identity);
-                allCannons[i] = allCannonObjects[i].GetComponent<Cannon>();
-                allCannons[i].cannonID = i;
-            }
-        } 
-
-
 
         //allocate arrays
         possibleMoveableChars = new Piece[5];
@@ -414,6 +401,15 @@ public class Board : MonoBehaviour {
             sendingDown = sendDown.GuideToObjectBeneath(0.1f);
             sendDown.AdjustToCamera();
         }
+        if (numCannons > 0)
+        {
+            for (int i = 0; i < allCannons.Length; i++)
+            {
+                GridPositioner sendDown = allCannons[i].gameObject.GetComponent<GridPositioner>();
+                sendingDown = sendDown.GuideToObjectBeneath(0.1f);
+                //sendDown.AdjustToCamera();
+            }
+        }
         if (pirateBoss != null)
             sendingDown = pirateBoss.thePiece.GetComponent<GridPositioner>().GuideToObjectBeneath(0.1f);
         if (spawnedEnemies.Count > 0)
@@ -463,6 +459,7 @@ public class Board : MonoBehaviour {
                 GridPositioner bringDown1 = pirateBoss.thePiece.GetComponent<GridPositioner>();
                 bringDown1.CheckWhatsBeneath();
 
+                PlaceCannons();
                 first = false;
             }
             //Main loop
@@ -580,6 +577,54 @@ public class Board : MonoBehaviour {
             GridPositioner bringDown = spawnedEnemyObject.GetComponent<Piece>().GetComponent<GridPositioner>();
             bringDown.CheckWhatsBeneath();
             spawnedEnemies.Add(spawnedEnemyObject.GetComponent<Piece>());
+        }
+    }
+
+    void PlaceCannons()
+    {
+        //colums, row for each cannon
+        allCannons = new Cannon[4]; //4
+        int[] arrayColumns = { 28,28,18,18};
+        int[] arrayRows = {3,15,3,15 };
+        //GameObject[] spawnedEnemyObjects = new GameObject[4]; //5 for now
+        for (int i = 0; i < allCannons.Length; i ++)
+        {
+            float halfWidth = (float)universalTileWidth / 2.0f;
+            float halfHeight = (float)universalTileHeight / 2.0f;
+            float finalXPos = -halfWidth + (float)arrayColumns[i] * pieceDistance + midBoardX;
+            float finalYPos = halfHeight - (float)arrayRows[i] * pieceDistance - midBoardY;
+            Vector3 placement = new Vector3(finalXPos, finalYPos, 0.0f);
+            GameObject newCannon = Instantiate(cannonPrefab, placement, Quaternion.identity);
+            allCannons[i] = newCannon.GetComponent<Cannon>();
+            allCannons[i].cannon.SetRowAndCol(arrayRows[i], arrayColumns[i]);
+
+            GridPositioner bringDown = allCannons[i].gameObject.GetComponent<GridPositioner>();
+            bringDown.CheckWhatsBeneath();
+            numCannons++;
+        }
+    }
+
+    void PlaceGenerators()
+    {
+        //colums, row for each cannon
+        generators = new Generator[2]; //4
+        int[] arrayColumns = { 27, 27};
+        int[] arrayRows = { 4, 14};
+        //GameObject[] spawnedEnemyObjects = new GameObject[4]; //5 for now
+        for (int i = 0; i < generators.Length; i++)
+        {
+            float halfWidth = (float)universalTileWidth / 2.0f;
+            float halfHeight = (float)universalTileHeight / 2.0f;
+            float finalXPos = -halfWidth + (float)arrayColumns[i] * pieceDistance + midBoardX;
+            float finalYPos = halfHeight - (float)arrayRows[i] * pieceDistance - midBoardY;
+            Vector3 placement = new Vector3(finalXPos, finalYPos, 0.0f);
+            GameObject newGenerator = Instantiate(generatorPrefab, placement, Quaternion.identity);
+            generators[i] = newGenerator.GetComponent<Generator>();
+            generators[i].generator.SetRowAndCol(arrayRows[i], arrayColumns[i]);
+
+            GridPositioner bringDown = generators[i].gameObject.GetComponent<GridPositioner>();
+            bringDown.CheckWhatsBeneath();
+            numGenerators++;
         }
     }
 }
