@@ -303,7 +303,29 @@ public class PlayerControls : MonoBehaviour {
                 {
                     if (selectedUnit != null)
                     {
-                        selectedUnit.GetComponent<MeshRenderer>().material = normalMaterial;
+                        GameObject selectedBase = selectedUnit;
+                        //look for the image to rotate
+                        for (int i = 0; i < selectedUnit.transform.childCount; i++)
+                        {
+                            if (selectedUnit.transform.GetChild(i).GetComponent<MeshRenderer>() != null)
+                            {
+                                selectedBase = selectedUnit.transform.GetChild(i).gameObject;
+                            }
+                        }
+
+                        GameObject panelUnderCharacter = null;
+                        for (int i = 0; i < selectedUnit.transform.childCount; i++)
+                        {
+                            if (selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>() != null)
+                            {
+                                panelUnderCharacter = selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>().gameObject;
+                            }
+                        }
+                        if (panelUnderCharacter != null)
+                        {
+                            panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
+                        }
+                        selectedBase.GetComponent<MeshRenderer>().material = normalMaterial;
                         selectedUnit = null;
                     }
 
@@ -313,10 +335,32 @@ public class PlayerControls : MonoBehaviour {
                         {
                             theOne = i;
                             selectedUnit = Board.possibleMoveableChars[i].thePiece;
-                            normalMaterial = selectedUnit.GetComponent<MeshRenderer>().material;
+                            GameObject selectedBase = selectedUnit;
+                            //look for the image to rotate
+                            for (int j = 0; j < selectedUnit.transform.childCount; j++)
+                            {
+                                if (selectedUnit.transform.GetChild(j).GetComponent<MeshRenderer>() != null)
+                                {
+                                    selectedBase = selectedUnit.transform.GetChild(j).gameObject;
+                                }
+                            }
+                            normalMaterial = selectedBase.GetComponent<MeshRenderer>().material;
                             glowingMaterial.color = normalMaterial.color;
                             glowingMaterial.mainTexture = normalMaterial.mainTexture;
-                            selectedUnit.GetComponent<MeshRenderer>().material = glowingMaterial;
+                            selectedBase.GetComponent<MeshRenderer>().material = glowingMaterial;
+
+                            GameObject panelUnderCharacter = null;
+                            for (int j = 0; j < selectedUnit.transform.childCount; j++)
+                            {
+                                if (selectedUnit.transform.GetChild(j).GetComponent<PanelUnderCharacter>() != null)
+                                {
+                                    panelUnderCharacter = selectedUnit.transform.GetChild(j).GetComponent<PanelUnderCharacter>().gameObject;
+                                }
+                            }
+                            if (panelUnderCharacter != null)
+                            {
+                                panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = true;
+                            }
                             break;
                         }
                     }
@@ -325,7 +369,19 @@ public class PlayerControls : MonoBehaviour {
                 {
                     if (selectedUnit != null)
                     {
-                        selectedUnit.GetComponent<MeshRenderer>().material = normalMaterial;
+                        //selectedUnit.GetComponent<MeshRenderer>().material = normalMaterial;
+                        GameObject panelUnderCharacter = null;
+                        for (int i = 0; i < selectedUnit.transform.childCount; i++)
+                        {
+                            if (selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>() != null)
+                            {
+                                panelUnderCharacter = selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>().gameObject;
+                            }
+                        }
+                        if (panelUnderCharacter != null)
+                        {
+                            panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
+                        }
                         selectedUnit = null;
                     }
                 }

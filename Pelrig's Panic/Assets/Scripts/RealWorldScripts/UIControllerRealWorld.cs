@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class UIControllerRealWorld : MonoBehaviour {
 
     [SerializeField] public CharacterData selectedCharacter;
+    [SerializeField] public CharacterData CONST_CHAR;
     [SerializeField] public Image uiCharacterImage;
     [SerializeField] public Image[] uiAbilityImages;
     [SerializeField] public GameObject[] allPossibleUIImageObjs;
@@ -24,6 +25,8 @@ public class UIControllerRealWorld : MonoBehaviour {
         GameObject canvas = GameObject.FindGameObjectWithTag("Canvas");
         gRaycaster = canvas.GetComponent<GraphicRaycaster>();
         eventSystem = canvas.GetComponent<EventSystem>();
+
+        Debug.Log(selectedCharacter);
 
         isMovingObject = false;
         arbitraryDifferenceInValueAndIHaveNoIdeaWhyItExists = 909;
@@ -76,6 +79,7 @@ public class UIControllerRealWorld : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        selectedCharacter = CONST_CHAR;
         if (!isMovingObject)
         {
             UpdatePosition();

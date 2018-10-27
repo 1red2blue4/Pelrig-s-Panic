@@ -23,10 +23,12 @@ public class RealWorldCharacterSelectionAndMovement : MonoBehaviour {
         cam = GetComponent<Camera>().GetComponent<RealWorldCamera>();
         front = GetComponent<Camera>().transform.forward;
 
+        /*
         normalMaterial = controllableCharacters[0].GetComponent<MeshRenderer>().material;
         glowingMaterial.mainTexture = normalMaterial.mainTexture;
         glowingMaterial.color = normalMaterial.color;
         controllableCharacters[0].GetComponent<MeshRenderer>().material = glowingMaterial;
+        */
 
         characterSlected = 0;
         cam.selectedUnit = controllableCharacters[0];
@@ -99,14 +101,16 @@ public class RealWorldCharacterSelectionAndMovement : MonoBehaviour {
     {
         if (characterNumber != characterSlected)
         {
-            controllableCharacters[characterSlected].GetComponent<MeshRenderer>().material = normalMaterial;
+            //controllableCharacters[characterSlected].GetComponent<MeshRenderer>().material = normalMaterial;
             characterSlected = characterNumber;
             cam.selectedUnit = controllableCharacters[characterSlected];
 
+            /*
             normalMaterial = controllableCharacters[characterSlected].GetComponent<MeshRenderer>().material;
             glowingMaterial.mainTexture = normalMaterial.mainTexture;
             glowingMaterial.color = normalMaterial.color;
             controllableCharacters[characterSlected].GetComponent<MeshRenderer>().material = glowingMaterial;
+            */
         }
     }
 }

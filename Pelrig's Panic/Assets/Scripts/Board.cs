@@ -127,7 +127,17 @@ public class Board : MonoBehaviour {
         SendEverythingDown();
         for (int i = 0; i < possibleMoveableChars.Length; i++)
         {
-            possibleMoveableChars[i].thePiece.GetComponent<GridPositioner>().AdjustToCamera();
+            GridPositioner childPositioner = possibleMoveableChars[i].thePiece.GetComponent<GridPositioner>();
+            //look for the image to rotate
+            for (int j = 0; j < possibleMoveableChars[i].thePiece.transform.childCount; j++)
+            {
+                if (possibleMoveableChars[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null)
+                {
+                    childPositioner = possibleMoveableChars[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
+                }
+            }
+            childPositioner.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            childPositioner.AdjustToCamera();
         }
         timer += Time.deltaTime;
         coinResetTimer += Time.deltaTime;
@@ -287,6 +297,7 @@ public class Board : MonoBehaviour {
             GridPositioner bringDown = piece.GetComponent<GridPositioner>();
             bringDown.CheckWhatsBeneath();
             bringDown.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            /*
             bringDown.AdjustToCamera();
             if (piece.transform.childCount > 0)
             {
@@ -301,6 +312,7 @@ public class Board : MonoBehaviour {
                     }
                 }
             }
+            */
         }
     }
     /*
@@ -392,7 +404,7 @@ public class Board : MonoBehaviour {
         }
         for (int i = 0; i < possibleMoveableChars.Length; i++)
         {
-            GridPositioner sendDown = possibleMoveableChars[i].thePiece.GetComponent<GridPositioner>();
+            GridPositioner sendDown = possibleMoveableChars[i].thePiece.transform.GetComponent<GridPositioner>();
             sendingDown = sendDown.GuideToObjectBeneath(0.1f);
         }
         for (int i = 0; i < allCoins.Length; i++)
