@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class YouWin : MonoBehaviour {
 
@@ -20,13 +21,15 @@ public class YouWin : MonoBehaviour {
         youWon = false;
         youLose = false;
         boardObject = GameObject.Find("GridCreator").GetComponentInChildren<Board>();
+
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {        
         if (youLose)
         {
-            Debug.Log(gameObject.name);
+            SceneManager.LoadScene("FantasyWorldEndScene");
             child.SetActive(true);
             gameObject.GetComponentInChildren<TextMesh>().text = "YOU LOSE";
         }
