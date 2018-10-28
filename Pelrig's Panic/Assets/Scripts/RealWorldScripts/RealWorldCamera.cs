@@ -17,6 +17,19 @@ public class RealWorldCamera : MonoBehaviour {
 
     GridPositioner[] allCharacterPositioners;
 
+    private float cameraChangeVertical;
+    private float cameraChangeHorizontal;
+    private float cameraHorizontalLimit;
+    private float cameraVerticalLimit;
+
+    private void Start()
+    {
+        cameraChangeVertical = 0.0f;
+        cameraChangeHorizontal = 0.0f;
+        cameraHorizontalLimit = 25.0f;
+        cameraVerticalLimit = 25.0f;
+    }
+
     // Use this for initialization
     void Awake ()
     {
@@ -54,6 +67,10 @@ public class RealWorldCamera : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        //Move camera with Arrow keys
+        //Camera movement across the map
+        MoveCamera();
+
         for (int i = 0; i < allCharacterPositioners.Length; i++)
         {
             allCharacterPositioners[i].AdjustToCamera();
@@ -70,17 +87,7 @@ public class RealWorldCamera : MonoBehaviour {
 
         //Move camera with Arrow keys
         //Camera movement across the map
-        if (Input.GetAxis("HorizontalCamera") != 0 || Input.GetAxis("VerticalCamera") != 0)
-        {
-            Vector3 horizontalMovement = right * cameraSpeed * Time.deltaTime * Input.GetAxis("HorizontalCamera");
-            Vector3 verticalMovement = front * cameraSpeed * Time.deltaTime * Input.GetAxis("VerticalCamera");
         
-            transform.position += (horizontalMovement + verticalMovement);
-
-            //unselect the unit as camera is not locked
-            selectedUnit = null;
-        }
-
         //Lock camera
         if (selectedUnit != null)
         {
@@ -88,4 +95,39 @@ public class RealWorldCamera : MonoBehaviour {
             transform.position = Vector3.SmoothDamp(cam.transform.position, selectedUnit.transform.position + groundCamOffset, ref camSmoothDampV, 0.2f);
         }
     }
+
+    public void MoveCamera()
+    {
+        if (Input.GetAxis("HorizontalCamera") != 0 || Input.GetAxis("VerticalCamera") != 0)
+        {
+            if (Input.GetAxis("HorizontalCamera") > 0 && cameraChangeHorizontal < cameraHorizontalLimit)
+            {
+                Vector3 horizontalMovement = right * cameraSpeed * Time.deltaTime * Input.GetAxis("HorizontalCamera");
+                transform.position += horizontalMovement;
+                cameraChangeHorizontal += horizontalMovement.x;
+            }
+            else if (Input.GetAxis("HorizontalCamera") < 0 && cameraChangeHorizontal > -cameraHorizontalLimit)
+            {
+                Vector3 horizontalMovement = right * cameraSpeed * Time.deltaTime * Input.GetAxis("HorizontalCamera");
+                transform.position += horizontalMovement;
+                cameraChangeHorizontal += horizontalMovement.x;
+            }
+
+            if (Input.GetAxis("VerticalCamera") > 0 && cameraChangeVertical < cameraVerticalLimit)
+            {
+                Vector3 verticalMovement = front * cameraSpeed * Time.deltaTime * Input.GetAxis("VerticalCamera");
+                transform.position += verticalMovement;
+                cameraChangeVertical += verticalMovement.z;
+            }
+            else if (Input.GetAxis("VerticalCamera") < 0 && cameraChangeVertical > -cameraVerticalLimit)
+            {
+                Vector3 verticalMovement = front * cameraSpeed * Time.deltaTime * Input.GetAxis("VerticalCamera");
+                transform.position += verticalMovement;
+                cameraChangeVertical += verticalMovement.z;
+            }
+
+            selectedUnit = null;
+        }
+    }
+
 }
