@@ -35,7 +35,7 @@ public class SceneOfDialogueRealWorld : MonoBehaviour {
             TextManager.textSets[i] = allConversations[currConversationNum].lines[i];
         }
         currLine = TextManager.textSets[currConversationNum];
-
+        Debug.Log("currLine:  " + currLine);
         SetNewVoice(allConversations[currConversationNum].characterData[TextManager.currentTextSet].characterIdNum);
 
     }
@@ -45,7 +45,9 @@ public class SceneOfDialogueRealWorld : MonoBehaviour {
         string prevLine = currLine;
         if (!TextManager.textViewEmptied)
         {
+            Debug.Log("currentTextSet:  "+ TextManager.currentTextSet);
             currLine = TextManager.textSets[TextManager.currentTextSet];
+           
             if (prevLine != currLine)
             {
                 SetNewVoice(allConversations[currConversationNum].characterData[TextManager.currentTextSet].characterIdNum);
@@ -144,4 +146,6 @@ public class SceneOfDialogueRealWorld : MonoBehaviour {
 
         return multiConvo;
     }
+
+
 }

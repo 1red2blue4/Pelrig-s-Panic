@@ -61,7 +61,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\EndScene.cs" />
     <Compile Include="Assets\LowPolyWater_Pack\Scripts\LowPolyWater.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
@@ -145,6 +144,7 @@
     <Compile Include="Assets\Scripts\Dialogue\DialogueText.cs" />
     <Compile Include="Assets\Scripts\Dialogue\TextDisplay.cs" />
     <Compile Include="Assets\Scripts\Dialogue\TextManager.cs" />
+    <Compile Include="Assets\Scripts\EndScene.cs" />
     <Compile Include="Assets\Scripts\EnemyAI.cs" />
     <Compile Include="Assets\Scripts\ExperimentalScripts\EndTurnButtonScript.cs" />
     <Compile Include="Assets\Scripts\ExperimentalScripts\ExperimentalResources.cs" />

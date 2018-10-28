@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/TestCutScene.unity
+- path: Assets/Scenes/FantasyWorldEndScene.unity
   isLoaded: 1
   isActive: 1
