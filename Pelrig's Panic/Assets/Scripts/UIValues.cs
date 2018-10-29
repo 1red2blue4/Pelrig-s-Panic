@@ -16,6 +16,7 @@ public class UIValues : MonoBehaviour {
         textValue = gameObject.GetComponent<TextMesh>();
         value = initialValue;
         textValue.text = value.ToString();
+        gameObject.GetComponent<MeshRenderer>().sortingOrder = 3;
         gridPositioner.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         gridPositioner.AdjustToCamera();
         gridPositioner.gameObject.transform.Rotate(new Vector3(90.0f, 0.0f, 0.0f));
