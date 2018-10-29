@@ -110,6 +110,7 @@ public class PlayerControls : MonoBehaviour {
             }
             if (Input.GetKeyDown(KeyCode.Space) || EndTurnButtonScript.isButtonPressed)
             {
+                selectedUnit = null;
                 EndTurnButtonScript.isButtonPressed = false;
                 GiveNumbers();
                 isPlayerTurn = false;
