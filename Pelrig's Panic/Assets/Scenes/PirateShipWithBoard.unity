@@ -1947,8 +1947,8 @@ MonoBehaviour:
   tilePiece: {fileID: 1615018820969726, guid: e0283f1e0facd814fa1d9281d4760552, type: 2}
   tilePieceDead: {fileID: 1655648640878062, guid: 31f798bf9b37f7944b534ca383fa2e1c,
     type: 2}
-  enemy: {fileID: 1623708700212690, guid: 477f2fc0fdc3dd647887502cda3ef2ea, type: 2}
-  pirateBossObject: {fileID: 1250492934760982, guid: c9acbe220d170da4fbfe1b99b7fc108d,
+  enemy: {fileID: 1005522361513020, guid: 374bbb8663e6df446b2e8d249a9e4a3a, type: 2}
+  pirateBossObject: {fileID: 1177191238569498, guid: 5c994aba6d8ede040bea61e6326cdb72,
     type: 2}
   cannonPrefab: {fileID: 1651644283395480, guid: e2d0238dd48bb444c8ed10aeda22be23,
     type: 2}

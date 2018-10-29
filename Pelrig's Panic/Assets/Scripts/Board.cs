@@ -152,6 +152,41 @@ public class Board : MonoBehaviour {
                 childPositioner2.AdjustToCamera();
             }
         }
+        
+        for (int i = 0; i < spawnedEnemies.Count; i++)
+        {
+            GridPositioner childPositioner1 = spawnedEnemies[i].thePiece.GetComponent<GridPositioner>();
+            //look for the image to rotate
+            for (int j = 0; j < spawnedEnemies[i].thePiece.transform.childCount; j++)
+            {
+                if (spawnedEnemies[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null)
+                {
+                    childPositioner1 = spawnedEnemies[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
+                }
+            }
+            GridPositioner childPositioner2 = spawnedEnemies[i].thePiece.GetComponent<GridPositioner>();
+            for (int j = 0; j < spawnedEnemies[i].thePiece.transform.childCount; j++)
+            {
+                if (spawnedEnemies[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null && spawnedEnemies[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != childPositioner1)
+                {
+                    childPositioner2 = spawnedEnemies[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
+                }
+            }
+            childPositioner1.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            childPositioner1.AdjustToCamera();
+            /*
+            if (childPositioner2 != null)
+            {
+                childPositioner2.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                childPositioner2.AdjustToCamera();
+            }
+            */
+        }
+
+        GridPositioner childPositionerBoss = pirateBoss.thePiece.transform.GetChild(0).GetComponent<GridPositioner>();
+        childPositionerBoss.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        childPositionerBoss.AdjustToCamera();
+
         timer += Time.deltaTime;
         coinResetTimer += Time.deltaTime;
     }
