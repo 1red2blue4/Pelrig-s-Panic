@@ -21,9 +21,19 @@ public class Generator : MonoBehaviour {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity))
                 {
+                    Debug.Log(hit.transform.gameObject.name);
                     if (hit.transform.gameObject == gameObject)
                     {
                         isOn = CheckForPlayersAround();
+                        Debug.Log(isOn);
+                    }
+                    else if (hit.transform.gameObject.transform.parent != null)
+                    {
+                        if (hit.transform.gameObject.transform.parent.gameObject == gameObject)
+                        {
+                            isOn = CheckForPlayersAround();
+                            Debug.Log(isOn);
+                        }
                     }
                 }
             }

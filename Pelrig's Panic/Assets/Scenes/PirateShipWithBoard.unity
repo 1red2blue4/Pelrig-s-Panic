@@ -5087,7 +5087,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4136977973604052, guid: 215f6b7f419831049b487cfc106a8cd7, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 215f6b7f419831049b487cfc106a8cd7, type: 2}
@@ -6561,7 +6561,8 @@ MonoBehaviour:
     type: 2}
   cannonPrefab: {fileID: 1651644283395480, guid: e2d0238dd48bb444c8ed10aeda22be23,
     type: 2}
-  generatorPrefab: {fileID: 0}
+  generatorPrefab: {fileID: 1988719070962628, guid: dd4e00160a891c94f9acfb8da60c8ee9,
+    type: 2}
   mainCamera: {fileID: 0}
   coinPiece: {fileID: 1164183193104502, guid: 44c03ae576243d8409e3f182728c6b85, type: 2}
 --- !u!1 &1358153645

@@ -11,7 +11,7 @@ public class Cannon : MonoBehaviour {
 
     private void Start()
     {
-        isCanonUsable = false;
+        isCanonUsable = true;
         charges = 1;
     }
 

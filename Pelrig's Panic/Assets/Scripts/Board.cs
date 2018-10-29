@@ -422,6 +422,15 @@ public class Board : MonoBehaviour {
                 //sendDown.AdjustToCamera();
             }
         }
+        if (numGenerators > 0)
+        {
+            for (int i = 0; i < generators.Length; i++)
+            {
+                GridPositioner sendDown = generators[i].gameObject.GetComponent<GridPositioner>();
+                sendingDown = sendDown.GuideToObjectBeneath(0.1f);
+                //sendDown.AdjustToCamera();
+            }
+        }
         if (pirateBoss != null)
             sendingDown = pirateBoss.thePiece.GetComponent<GridPositioner>().GuideToObjectBeneath(0.1f);
         if (spawnedEnemies.Count > 0)
@@ -472,6 +481,7 @@ public class Board : MonoBehaviour {
                 bringDown1.CheckWhatsBeneath();
 
                 PlaceCannons();
+                PlaceGenerators();
                 first = false;
             }
             //Main loop
@@ -620,7 +630,7 @@ public class Board : MonoBehaviour {
     {
         //colums, row for each cannon
         generators = new Generator[2]; //4
-        int[] arrayColumns = { 27, 27};
+        int[] arrayColumns = { 11, 11};
         int[] arrayRows = { 4, 14};
         //GameObject[] spawnedEnemyObjects = new GameObject[4]; //5 for now
         for (int i = 0; i < generators.Length; i++)
