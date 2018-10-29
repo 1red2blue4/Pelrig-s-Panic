@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class TextManager {
 
@@ -21,6 +22,9 @@ public static class TextManager {
     public static GameObject audioSourceHolderEd;
     public static GameObject audioSourceHolderHally;
 
+    public static bool endConversation;
+    public static int countDialogueLenghth;
+
     // Use this for initialization
     public static void Setup()
     {
@@ -31,7 +35,7 @@ public static class TextManager {
         audioSourceHolderHally = GameObject.FindGameObjectWithTag("LettersHolderHally");
         allSoundListeners = audioSourceHolderEd.GetComponents<AudioSource>();
         allLetters = audioSourceHolderEd.GetComponent<AudioClipHolder>().audioClips;
-        totalTextSets = 5;
+        totalTextSets = 50;
         textSets = new string[totalTextSets];
 
         preppingNewVoice = false;
@@ -58,12 +62,17 @@ public static class TextManager {
         //increment the timer
         if (currentCharacter < textSets[currentTextSet].Length)
         {
+            currentCharacter = textSets[currentTextSet].Length - 1;
+            // This is for automatic dialogue box appears in the interval 0f 10secs.
+            //if (endConversation)
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 currentCharacter = textSets[currentTextSet].Length - 1;
                 wentToEndOfText = true;
+                endConversation = false;
+               
             }
-            timer += Time.deltaTime;
+            timer += Time.deltaTime;            
         }
         //look for dismissing the text box
         else
@@ -73,17 +82,29 @@ public static class TextManager {
                 currentCharacter = 0;
                 currentTextSet++;
                 preppingNewVoice = true;
+
+                //This is for transition into the PirateShip scene.
+                countDialogueLenghth++; 
+                if (countDialogueLenghth >=  27)
+                    SceneManager.LoadScene("PirateShipWithBoard");
             }
             else if (Input.GetKeyDown(KeyCode.Space) && (currentTextSet == textSets.Length - 1 || textSets[currentTextSet + 1] == null) && wentToEndOfText == false)
             {
                 currentCharacter = 0;
                 textViewEmptied = true;
             }
+            // This is for automatic dialogue box appears in the interval 0f 10secs.
+            /*if (endConversation && totalTextSets > currentTextSet - 1 && textSets[currentTextSet + 1] != null && wentToEndOfText == false)
+            {
+                currentCharacter = 0;
+                currentTextSet++;
+                preppingNewVoice = true;
+            }
+            else if (endConversation && (currentTextSet == textSets.Length - 1 || textSets[currentTextSet + 1] == null) && wentToEndOfText == false)
+            {
+                currentCharacter = 0;
+                textViewEmptied = true;
+            }*/
         }
 	}
-
-    public static void CutSceneText()
-    {
-        
-    }
 }

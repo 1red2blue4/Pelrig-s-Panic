@@ -35,6 +35,6 @@ public class SceneSequence : MonoBehaviour
 
     void SceneTransition()
     {
-        SceneManager.LoadScene("PirateShipWithBoard");
+       // SceneManager.LoadScene("PirateShipWithBoard");
     }
 }
