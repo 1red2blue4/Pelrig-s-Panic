@@ -85,13 +85,17 @@ public static class TextManager {
 
                 //This is for transition into the PirateShip scene.
                 countDialogueLenghth++; 
-                if (countDialogueLenghth >=  27)
+                if (countDialogueLenghth >=  28)
                     SceneManager.LoadScene("PirateShipWithBoard");
             }
             else if (Input.GetKeyDown(KeyCode.Space) && (currentTextSet == textSets.Length - 1 || textSets[currentTextSet + 1] == null) && wentToEndOfText == false)
             {
                 currentCharacter = 0;
                 textViewEmptied = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.S))
+            {
+                SceneManager.LoadScene("PirateShipWithBoard");
             }
             // This is for automatic dialogue box appears in the interval 0f 10secs.
             /*if (endConversation && totalTextSets > currentTextSet - 1 && textSets[currentTextSet + 1] != null && wentToEndOfText == false)

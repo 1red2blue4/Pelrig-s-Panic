@@ -194,7 +194,7 @@ public class SceneOfDialogueRealWorld : MonoBehaviour
 
     public Conversation[] FantasyWorldConversation()
     {
-        int startConvoLength = 28;
+        int startConvoLength = 29;
         convoWords = new string[startConvoLength];
         CharacterData[] convoCharData = new CharacterData[startConvoLength];
         convoCharData[0] = hally.GetComponent<CharacterData>();
@@ -225,6 +225,7 @@ public class SceneOfDialogueRealWorld : MonoBehaviour
         convoCharData[25] = meda.GetComponent<CharacterData>();
         convoCharData[26] = meda.GetComponent<CharacterData>();
         convoCharData[27] = jade.GetComponent<CharacterData>();
+        convoCharData[28] = jade.GetComponent<CharacterData>();
         convoWords[0] = "Where....Are we?";
         convoWords[1] = "Aghh! Pirates!";
         convoWords[2] = "What? You’re crazy Meda. There aren’t any pir--";
@@ -246,13 +247,14 @@ public class SceneOfDialogueRealWorld : MonoBehaviour
         convoWords[18] = "Ohhhh, I love pirates! I’m the captain.";
         convoWords[19] = "Looks like the ship already has a captain, Hally.";
         convoWords[20] = "Daw...";
-        convoWords[21] = "Oh look! That pirate is looking right at us! Hello there Mr.Pirate!!";
+        convoWords[21] = "Oh look! That pirate is looking right at us! Hello there Mr. Pirate!!";
         convoWords[22] = "It looks like if we defeat the pirate captain or hold the wheel, we’ll take control of the ship.";
         convoWords[23] = "Huh... that’s oddly kind of the captain to give us the wheel.";
         convoWords[24] = "I don’t think he’s giving it to us.";
         convoWords[25] = "Does everyone remember when we surrounded Kent? Let’s surround the pirates as well!";
         convoWords[26] = "And maybe if we surround those generators on the sides of the ship, we’ll be able to move faster!";
         convoWords[27] = "You had me on board at “move faster.” Let’s surround those generators! And next, the pirates!";
+        convoWords[28] = " ";
 
 
         Conversation convo = new Conversation(convoWords, startConvoLength, convoCharData);
