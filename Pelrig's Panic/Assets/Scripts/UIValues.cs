@@ -24,6 +24,7 @@ public class UIValues : MonoBehaviour {
 
     void Update()
     {
+        gridPositioner.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         gridPositioner.AdjustToCamera();
         gridPositioner.gameObject.transform.Rotate(new Vector3(90.0f, 0.0f, 0.0f));
         textValue.text = value.ToString();

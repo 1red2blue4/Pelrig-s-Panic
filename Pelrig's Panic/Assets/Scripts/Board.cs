@@ -127,17 +127,30 @@ public class Board : MonoBehaviour {
         SendEverythingDown();
         for (int i = 0; i < possibleMoveableChars.Length; i++)
         {
-            GridPositioner childPositioner = possibleMoveableChars[i].thePiece.GetComponent<GridPositioner>();
+            GridPositioner childPositioner1 = possibleMoveableChars[i].thePiece.GetComponent<GridPositioner>();
             //look for the image to rotate
             for (int j = 0; j < possibleMoveableChars[i].thePiece.transform.childCount; j++)
             {
                 if (possibleMoveableChars[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null)
                 {
-                    childPositioner = possibleMoveableChars[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
+                    childPositioner1 = possibleMoveableChars[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
                 }
             }
-            childPositioner.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-            childPositioner.AdjustToCamera();
+            GridPositioner childPositioner2 = possibleMoveableChars[i].thePiece.GetComponent<GridPositioner>();
+            for (int j = 0; j < possibleMoveableChars[i].thePiece.transform.childCount; j++)
+            {
+                if (possibleMoveableChars[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null && possibleMoveableChars[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != childPositioner1)
+                {
+                    childPositioner2 = possibleMoveableChars[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
+                }
+            }
+            childPositioner1.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            childPositioner1.AdjustToCamera();
+            if (childPositioner2 != null)
+            {
+                childPositioner2.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                childPositioner2.AdjustToCamera();
+            }
         }
         timer += Time.deltaTime;
         coinResetTimer += Time.deltaTime;
@@ -239,7 +252,7 @@ public class Board : MonoBehaviour {
         for (int i = 0; i < possibleMoveableChars.Length; i++)
         {
             //get one of the locations
-            int randCol = 8;
+            int randCol = 11;
             int randRow = units[i];
             //on the off chance it rolls exactly 1, pick the largest value instead of overflowing
             if (randRow == tileWidth)

@@ -266,6 +266,7 @@ public class PlayerControls : MonoBehaviour {
                     }
                 }
             }
+
             if (enemiesAround >= 4)
             {
                 if (selectedUnit == Board.possibleMoveableChars[i].GetPiece())
