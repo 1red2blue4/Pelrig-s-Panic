@@ -8,6 +8,7 @@ public class UniversalControls : MonoBehaviour {
 
     private float escapeTimer;
     private float restartTimer;
+    [SerializeField] private bool canSkip;
     private bool escaping;
     private bool restarting;
     [SerializeField] private GameObject prompt;
@@ -30,7 +31,12 @@ public class UniversalControls : MonoBehaviour {
         {
             CheckRestartLevel();
         }
-	}
+
+        if (Input.GetKeyDown(KeyCode.S) && canSkip)
+        {
+            SceneManager.LoadScene("PirateShipWithBoard");
+        }
+    }
 
     public void CheckExitGame()
     {

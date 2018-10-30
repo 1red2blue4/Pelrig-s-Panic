@@ -23,14 +23,6 @@ public class CutSceneSequence : MonoBehaviour
     IEnumerator SceneSequence()
     {
         yield return new WaitForSeconds(5);
-        //camera2.SetActive(true);
-        //camera1.SetActive(false);
-
-        //yield return new WaitForSeconds(5);
-        //camera3.SetActive(true);
-        //Debug.Log("Scene transition called");
-        //camera2.SetActive(false);
-        //Debug.Log("Scene transition enabled");
         SceneTransition();
     }
 

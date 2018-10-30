@@ -35,7 +35,7 @@ public class Cannon : MonoBehaviour {
                         }
                         else if (hit.transform.tag == "Cannon")
                         {
-                            if (hit.transform.parent.gameObject == gameObject)
+                            if (hit.collider.gameObject == gameObject)
                             {
                                 return;
                             }
@@ -51,7 +51,7 @@ public class Cannon : MonoBehaviour {
                     {
                         if (hit.transform.tag == "Cannon")
                         {
-                            if (hit.transform.parent.gameObject == gameObject)
+                            if (hit.collider.gameObject == gameObject)
                             {
                                 isCanonUsable = CheckForPlayersAround();
                             }

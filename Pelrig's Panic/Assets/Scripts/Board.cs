@@ -13,7 +13,7 @@ public class Board : MonoBehaviour {
     [SerializeField] private GameObject cannonPrefab;
     [SerializeField] private GameObject generatorPrefab;
     private Generator[] generators;
-    static public bool first = true;
+    static public bool first;
 
     public GameObject mainCamera;
 
@@ -80,6 +80,7 @@ public class Board : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        first = true;
         numGenerators = 0;
         numCannons = 0;
         spawnedEnemies = new List<Piece>();

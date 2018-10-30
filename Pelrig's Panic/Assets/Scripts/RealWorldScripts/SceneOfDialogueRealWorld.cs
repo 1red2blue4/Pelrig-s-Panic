@@ -266,6 +266,7 @@ public class SceneOfDialogueRealWorld : MonoBehaviour
     // This is for automatic dialogue box appears in the interval 0f 10secs.
     IEnumerator DialogueConversation()
     {
+        Debug.Log("DialogueConversation");
         yield return new WaitForSeconds(5);
         TextManager.endConversation = true;
 
