@@ -187,6 +187,64 @@ public class Board : MonoBehaviour {
         childPositionerBoss.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         childPositionerBoss.AdjustToCamera();
 
+        for (int i = 0; i < allCannons.Length; i++)
+        {
+            GridPositioner childPositionerCannon = allCannons[i].cannon.thePiece.GetComponent<GridPositioner>();
+            //look for the image to rotate
+            for (int j = 0; j < allCannons[i].cannon.thePiece.transform.childCount; j++)
+            {
+                if (allCannons[i].cannon.thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null)
+                {
+                    childPositionerCannon = allCannons[i].cannon.thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
+                }
+            }
+            childPositionerCannon.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            childPositionerCannon.AdjustToCamera();
+
+            GridPositioner childPositionerCannon2 = allCannons[i].cannon.thePiece.GetComponent<GridPositioner>();
+            for (int j = 0; j < allCannons[i].cannon.thePiece.transform.childCount; j++)
+            {
+                if (allCannons[i].cannon.thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null && allCannons[i].cannon.thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != childPositionerCannon)
+                {
+                    childPositionerCannon2 = allCannons[i].cannon.thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
+                }
+            }
+            if (childPositionerCannon2 != null)
+            {
+                childPositionerCannon2.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                childPositionerCannon2.AdjustToCamera();
+            }
+        }
+
+        for (int i = 0; i < generators.Length; i++)
+        {
+            GridPositioner childPositionerGenerator1 = generators[i].generator.thePiece.GetComponent<GridPositioner>();
+            //look for the image to rotate
+            for (int j = 0; j < generators[i].generator.thePiece.transform.childCount; j++)
+            {
+                if (generators[i].generator.thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null)
+                {
+                    childPositionerGenerator1 = generators[i].generator.thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
+                }
+            }
+            childPositionerGenerator1.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            childPositionerGenerator1.AdjustToCamera();
+
+            GridPositioner childPositionerGenerator2 = generators[i].generator.thePiece.GetComponent<GridPositioner>();
+            for (int j = 0; j < generators[i].generator.thePiece.transform.childCount; j++)
+            {
+                if (generators[i].generator.thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null && generators[i].generator.thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != childPositionerGenerator1)
+                {
+                    childPositionerGenerator2 = generators[i].generator.thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
+                }
+            }
+            if (childPositionerGenerator2 != null)
+            {
+                childPositionerGenerator2.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                childPositionerGenerator2.AdjustToCamera();
+            }
+        }
+
         timer += Time.deltaTime;
         coinResetTimer += Time.deltaTime;
     }

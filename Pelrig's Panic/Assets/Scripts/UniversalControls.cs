@@ -50,7 +50,6 @@ public class UniversalControls : MonoBehaviour {
 
             if (escapeTimer >= 0.0f)
             {
-                Debug.Log(prompt.activeSelf);
                 prompt.GetComponent<Text>().text = "Exiting.";
                 if (escapeTimer >= 1.0f)
                 {

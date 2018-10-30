@@ -26,8 +26,6 @@ public class UIControllerRealWorld : MonoBehaviour {
         gRaycaster = canvas.GetComponent<GraphicRaycaster>();
         eventSystem = canvas.GetComponent<EventSystem>();
 
-        Debug.Log(selectedCharacter);
-
         isMovingObject = false;
         arbitraryDifferenceInValueAndIHaveNoIdeaWhyItExists = 909;
         uiAbilityImages = new Image[5];

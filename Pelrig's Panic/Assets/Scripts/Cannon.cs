@@ -7,11 +7,13 @@ public class Cannon : MonoBehaviour {
     int charges;
     [SerializeField] public Piece cannon;
     [SerializeField] public int cannonID;
+    [SerializeField] public GameObject onImage;
+    [SerializeField] public GameObject offImage;
     public bool isCanonUsable;
 
     private void Start()
     {
-        isCanonUsable = true;
+        isCanonUsable = false;
         charges = 1;
     }
 
@@ -57,6 +59,15 @@ public class Cannon : MonoBehaviour {
                     }
                 }
             }
+        }
+
+        if (isCanonUsable)
+        {
+            offImage.SetActive(true);
+        }
+        else
+        {
+            offImage.SetActive(false);
         }
     }
 

@@ -6,8 +6,10 @@ public class Generator : MonoBehaviour {
 
     bool isOn  = false;
     public Piece generator;
-	// Use this for initialization
-	void Start () {
+    [SerializeField] public GameObject onImage;
+    [SerializeField] public GameObject offImage;
+    // Use this for initialization
+    void Start () {
         generator = GetComponent<Piece>();
 	}
 	
@@ -21,22 +23,28 @@ public class Generator : MonoBehaviour {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity))
                 {
-                    Debug.Log(hit.transform.gameObject.name);
                     if (hit.transform.gameObject == gameObject)
                     {
                         isOn = CheckForPlayersAround();
-                        Debug.Log(isOn);
                     }
                     else if (hit.transform.gameObject.transform.parent != null)
                     {
                         if (hit.transform.gameObject.transform.parent.gameObject == gameObject)
                         {
                             isOn = CheckForPlayersAround();
-                            Debug.Log(isOn);
                         }
                     }
                 }
             }
+        }
+
+        if (isOn)
+        {
+            onImage.SetActive(true);
+        }
+        else
+        {
+            onImage.SetActive(false);
         }
     }
 

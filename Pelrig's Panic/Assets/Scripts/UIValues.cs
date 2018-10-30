@@ -17,16 +17,22 @@ public class UIValues : MonoBehaviour {
         value = initialValue;
         textValue.text = value.ToString();
         gameObject.GetComponent<MeshRenderer>().sortingOrder = 3;
-        gridPositioner.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-        gridPositioner.AdjustToCamera();
-        gridPositioner.gameObject.transform.Rotate(new Vector3(90.0f, 0.0f, 0.0f));
+        if (gridPositioner != null)
+        {
+            gridPositioner.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            gridPositioner.AdjustToCamera();
+            gridPositioner.gameObject.transform.Rotate(new Vector3(90.0f, 0.0f, 0.0f));
+        }
     }
 
     void Update()
     {
-        gridPositioner.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-        gridPositioner.AdjustToCamera();
-        gridPositioner.gameObject.transform.Rotate(new Vector3(90.0f, 0.0f, 0.0f));
+        if (gridPositioner != null)
+        {
+            gridPositioner.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            gridPositioner.AdjustToCamera();
+            gridPositioner.gameObject.transform.Rotate(new Vector3(90.0f, 0.0f, 0.0f));
+        }
         textValue.text = value.ToString();
     }
 
