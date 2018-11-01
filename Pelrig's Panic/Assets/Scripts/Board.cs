@@ -9,16 +9,23 @@ public class Board : MonoBehaviour {
     [SerializeField] private GameObject tilePiece;
     [SerializeField] private GameObject tilePieceDead;
     [SerializeField] private GameObject enemy;
-    [SerializeField] private GameObject[] cannons;
-    [SerializeField] private int enteredNumCannons;
+    [SerializeField] private GameObject pirateBossObject;
+    [SerializeField] private GameObject cannonPrefab;
+    [SerializeField] private GameObject generatorPrefab;
+    private Generator[] generators;
+    static public bool first;
+
+    public GameObject mainCamera;
 
     public const int MAXCOINNUM = 100;
     public static GameObject[] allTiles;
     public static Piece[] possibleMoveableChars;
     public static Piece[] allCoins;
-    public static Piece[] spawnedEnemies;
+    public static List<Piece> spawnedEnemies;
+    //public static Piece[] spawnedEnemies;
     public static Cannon[] allCannons;
 
+    public static int numGenerators;
     public static int numCannons;
     public static int currentCannon;
 
@@ -45,9 +52,9 @@ public class Board : MonoBehaviour {
     public static int numCoinsCollected = 0;
     public const float approxGoldenRatio = 1.618f;
 
-
-    private float time;
-    public static int numberOfEnemies;
+    public static bool spawnEnemies = false;
+    public static GameObject pirateBossSpawned;
+    public static Piece pirateBoss;
 
     public struct point
     {
@@ -73,7 +80,11 @@ public class Board : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-
+        first = true;
+        numGenerators = 0;
+        numCannons = 0;
+        spawnedEnemies = new List<Piece>();
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         midBoardX = 0.0f;
         midBoardY = 0.0f;
         Time.maximumDeltaTime = 0.1f;
@@ -83,39 +94,6 @@ public class Board : MonoBehaviour {
         universalTileWidth = enteredUniversalTileWidth;
         universalTileHeight = enteredUniversalTileHeight;
 
-        //Keeping track of time. Keeping initial time as 280.0f as it is used for spawning enemies.
-        //Let the first enemy be spawned after the first minute.
-        time = 280.0f;
-
-        numCannons = enteredNumCannons;
-        currentCannon = 0;
-        if (numCannons > 0)
-        {
-            allCannons = new Cannon[numCannons];
-            GameObject[] allCannonObjects = new GameObject[numCannons]; //5 for now
-
-            for (int i = 0; i < numCannons; i++)
-            {
-                allCannonObjects[i] = Instantiate(cannons[i], new Vector3(10000.0f, 10000.0f, 0.0f), Quaternion.identity);
-                allCannons[i] = allCannonObjects[i].GetComponent<Cannon>();
-                allCannons[i].cannonID = i;
-            }
-        }
-
-        
-
-        numberOfEnemies = 0;
-
-        spawnedEnemies = new Piece[numPossibleMoveableCharacters];
-        GameObject[] spawnedEnemyObjects = new GameObject[5]; //5 for now
-        for (int i=0; i < spawnedEnemies.Length; i++)
-        {
-            spawnedEnemyObjects[i] = Instantiate(enemy, new Vector3(10000.0f, 10000.0f, 0.0f), Quaternion.identity);
-            spawnedEnemies[i] = spawnedEnemyObjects[i].GetComponent<Piece>();
-            spawnedEnemies[i].SetRowAndCol(10000, 10000);
-        }
-
-        
         //allocate arrays
         possibleMoveableChars = new Piece[5];
         allTiles = new GameObject[universalTileHeight * universalTileWidth];
@@ -142,21 +120,132 @@ public class Board : MonoBehaviour {
         //set up board
         pieceDistance = 1.06f;
         CreateBoard(universalTileWidth, universalTileHeight, midBoardX, midBoardY, spaceFieldType);
-        
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        //Spawn enemies after every 5 mins
-        time += Time.deltaTime;
-        if (time >= 300.0f)
-        {
-            time = 0.0f;
-            SpawnEnemy();
-        }
         SendEverythingDown();
-        CoinSpawn(currentNumCoins, universalTileWidth, universalTileHeight, midBoardX, midBoardY);
+        for (int i = 0; i < possibleMoveableChars.Length; i++)
+        {
+            GridPositioner childPositioner1 = possibleMoveableChars[i].thePiece.GetComponent<GridPositioner>();
+            //look for the image to rotate
+            for (int j = 0; j < possibleMoveableChars[i].thePiece.transform.childCount; j++)
+            {
+                if (possibleMoveableChars[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null)
+                {
+                    childPositioner1 = possibleMoveableChars[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
+                }
+            }
+            GridPositioner childPositioner2 = possibleMoveableChars[i].thePiece.GetComponent<GridPositioner>();
+            for (int j = 0; j < possibleMoveableChars[i].thePiece.transform.childCount; j++)
+            {
+                if (possibleMoveableChars[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null && possibleMoveableChars[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != childPositioner1)
+                {
+                    childPositioner2 = possibleMoveableChars[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
+                }
+            }
+            childPositioner1.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            childPositioner1.AdjustToCamera();
+            if (childPositioner2 != null)
+            {
+                childPositioner2.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                childPositioner2.AdjustToCamera();
+            }
+        }
+        
+        for (int i = 0; i < spawnedEnemies.Count; i++)
+        {
+            GridPositioner childPositioner1 = spawnedEnemies[i].thePiece.GetComponent<GridPositioner>();
+            //look for the image to rotate
+            for (int j = 0; j < spawnedEnemies[i].thePiece.transform.childCount; j++)
+            {
+                if (spawnedEnemies[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null)
+                {
+                    childPositioner1 = spawnedEnemies[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
+                }
+            }
+            GridPositioner childPositioner2 = spawnedEnemies[i].thePiece.GetComponent<GridPositioner>();
+            for (int j = 0; j < spawnedEnemies[i].thePiece.transform.childCount; j++)
+            {
+                if (spawnedEnemies[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null && spawnedEnemies[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != childPositioner1)
+                {
+                    childPositioner2 = spawnedEnemies[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
+                }
+            }
+            childPositioner1.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            childPositioner1.AdjustToCamera();
+            /*
+            if (childPositioner2 != null)
+            {
+                childPositioner2.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                childPositioner2.AdjustToCamera();
+            }
+            */
+        }
+
+        GridPositioner childPositionerBoss = pirateBoss.thePiece.transform.GetChild(0).GetComponent<GridPositioner>();
+        childPositionerBoss.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        childPositionerBoss.AdjustToCamera();
+
+        for (int i = 0; i < allCannons.Length; i++)
+        {
+            GridPositioner childPositionerCannon = allCannons[i].cannon.thePiece.GetComponent<GridPositioner>();
+            //look for the image to rotate
+            for (int j = 0; j < allCannons[i].cannon.thePiece.transform.childCount; j++)
+            {
+                if (allCannons[i].cannon.thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null)
+                {
+                    childPositionerCannon = allCannons[i].cannon.thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
+                }
+            }
+            childPositionerCannon.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            childPositionerCannon.AdjustToCamera();
+
+            GridPositioner childPositionerCannon2 = allCannons[i].cannon.thePiece.GetComponent<GridPositioner>();
+            for (int j = 0; j < allCannons[i].cannon.thePiece.transform.childCount; j++)
+            {
+                if (allCannons[i].cannon.thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null && allCannons[i].cannon.thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != childPositionerCannon)
+                {
+                    childPositionerCannon2 = allCannons[i].cannon.thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
+                }
+            }
+            if (childPositionerCannon2 != null)
+            {
+                childPositionerCannon2.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                childPositionerCannon2.AdjustToCamera();
+            }
+        }
+
+        for (int i = 0; i < generators.Length; i++)
+        {
+            GridPositioner childPositionerGenerator1 = generators[i].generator.thePiece.GetComponent<GridPositioner>();
+            //look for the image to rotate
+            for (int j = 0; j < generators[i].generator.thePiece.transform.childCount; j++)
+            {
+                if (generators[i].generator.thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null)
+                {
+                    childPositionerGenerator1 = generators[i].generator.thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
+                }
+            }
+            childPositionerGenerator1.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            childPositionerGenerator1.AdjustToCamera();
+
+            GridPositioner childPositionerGenerator2 = generators[i].generator.thePiece.GetComponent<GridPositioner>();
+            for (int j = 0; j < generators[i].generator.thePiece.transform.childCount; j++)
+            {
+                if (generators[i].generator.thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null && generators[i].generator.thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != childPositionerGenerator1)
+                {
+                    childPositionerGenerator2 = generators[i].generator.thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
+                }
+            }
+            if (childPositionerGenerator2 != null)
+            {
+                childPositionerGenerator2.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                childPositionerGenerator2.AdjustToCamera();
+            }
+        }
+
         timer += Time.deltaTime;
         coinResetTimer += Time.deltaTime;
     }
@@ -252,12 +341,13 @@ public class Board : MonoBehaviour {
         int[] tempRows = new int[possibleMoveableChars.Length];
         int[] tempCols = new int[possibleMoveableChars.Length];
 
+        int[] units = { 10, 9, 8, 7, 6 };
         //set the hero pieces
         for (int i = 0; i < possibleMoveableChars.Length; i++)
         {
             //get one of the locations
-            int randCol = (int)Mathf.Floor(Random.value * (float)tileWidth);
-            int randRow = (int)Mathf.Floor(Random.value * (float)tileHeight);
+            int randCol = 11;
+            int randRow = units[i];
             //on the off chance it rolls exactly 1, pick the largest value instead of overflowing
             if (randRow == tileWidth)
             {
@@ -269,6 +359,7 @@ public class Board : MonoBehaviour {
             }
 
             possibleMoveableChars[i].SetRowAndCol(randRow, randCol);
+
 
             //check if in the same spot as another thing
             tempRows[i] = randRow;
@@ -309,11 +400,29 @@ public class Board : MonoBehaviour {
             possibleMoveableChars[i].SetName(possibleMoveableChars[i].GetPiece().name);
             piece.name = possibleMoveableChars[i].GetName();
             possibleMoveableChars[i].thePiece = piece;
+            possibleMoveableChars[i].thePiece.transform.Rotate(new Vector3(270.0f, 0.0f, 0.0f));
             GridPositioner bringDown = piece.GetComponent<GridPositioner>();
             bringDown.CheckWhatsBeneath();
+            bringDown.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            /*
+            bringDown.AdjustToCamera();
+            if (piece.transform.childCount > 0)
+            {
+                GameObject visualChild = piece.transform.GetChild(0).gameObject;
+                if (visualChild != null)
+                {
+                    GridPositioner billboard = piece.transform.GetChild(0).GetComponent<GridPositioner>();
+                    if (billboard != null)
+                    {
+                        billboard.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                        //billboard.AdjustToCamera();
+                    }
+                }
+            }
+            */
         }
     }
-
+    /*
     private void CoinSpawn(int numCoins, int tileWidth, int tileHeight, float midX, float midY)
     {
         //if the time elapsed is enough to create a coin, make a coin
@@ -382,6 +491,7 @@ public class Board : MonoBehaviour {
             allCoins[currentNumCoins].thePiece = piece;
             allCoins[currentNumCoins].SetRowAndCol(row, col);
             GridPositioner bringDown = piece.GetComponent<GridPositioner>();
+            bringDown.mainCamera = mainCamera;
             bringDown.CheckWhatsBeneath();
 
             //every situation where currentNumCoins increases or decreases, adjust the timeToWait
@@ -390,28 +500,103 @@ public class Board : MonoBehaviour {
             coinResetTimer = 0.0f;
         }
     }
-
+    */
     private void SendEverythingDown()
     {
+        bool sendingDown = false;
         for (int i = 0; i < allTiles.Length; i++)
         {
             GridPositioner sendDown = allTiles[i].GetComponent<GridPositioner>();
-            sendDown.GuideToObjectBeneath(0.1f);
+            sendingDown = sendDown.GuideToObjectBeneath(0.1f);
         }
         for (int i = 0; i < possibleMoveableChars.Length; i++)
         {
-            GridPositioner sendDown = possibleMoveableChars[i].thePiece.GetComponent<GridPositioner>();
-            sendDown.GuideToObjectBeneath(0.1f);
+            GridPositioner sendDown = possibleMoveableChars[i].thePiece.transform.GetComponent<GridPositioner>();
+            sendingDown = sendDown.GuideToObjectBeneath(0.1f);
         }
         for (int i = 0; i < allCoins.Length; i++)
         {
             GridPositioner sendDown = allCoins[i].thePiece.GetComponent<GridPositioner>();
-            sendDown.GuideToObjectBeneath(0.1f);
+            sendingDown = sendDown.GuideToObjectBeneath(0.1f);
+            sendDown.AdjustToCamera();
         }
-        for (int i = 0; i < spawnedEnemies.Length; i++)
+        if (numCannons > 0)
         {
-            GridPositioner sendDown = spawnedEnemies[i].thePiece.GetComponent<GridPositioner>();
-            sendDown.GuideToObjectBeneath(0.1f);
+            for (int i = 0; i < allCannons.Length; i++)
+            {
+                GridPositioner sendDown = allCannons[i].gameObject.GetComponent<GridPositioner>();
+                sendingDown = sendDown.GuideToObjectBeneath(0.1f);
+                //sendDown.AdjustToCamera();
+            }
+        }
+        if (numGenerators > 0)
+        {
+            for (int i = 0; i < generators.Length; i++)
+            {
+                GridPositioner sendDown = generators[i].gameObject.GetComponent<GridPositioner>();
+                sendingDown = sendDown.GuideToObjectBeneath(0.1f);
+                //sendDown.AdjustToCamera();
+            }
+        }
+        if (pirateBoss != null)
+            sendingDown = pirateBoss.thePiece.GetComponent<GridPositioner>().GuideToObjectBeneath(0.1f);
+        if (spawnedEnemies.Count > 0)
+        {
+            for (int i = 0; i < spawnedEnemies.Count; i++)
+            {
+                if (spawnedEnemies[i] == null)
+                {
+                    spawnedEnemies.RemoveAt(i);
+                    if (i >= spawnedEnemies.Count)
+                        break;
+                }
+                GridPositioner sendDown = spawnedEnemies[i].thePiece.GetComponent<GridPositioner>();
+                sendingDown = sendDown.GuideToObjectBeneath(0.1f);
+            }
+        }
+        if (!sendingDown)
+        {
+            if (first)
+            {                
+                int[] array = { 29, 3, 29, 14, 35, 5, 35, 10 };
+                //GameObject[] spawnedEnemyObjects = new GameObject[4]; //5 for now
+                for (int i = 0; i < (8); i += 2)
+                {
+                    GameObject spawnedEnemyObject;
+                    float halfWidth = (float)universalTileWidth / 2.0f;
+                    float halfHeight = (float)universalTileHeight / 2.0f;
+                    float finalXPos = -halfWidth + (float)array[i] * pieceDistance + midBoardX;
+                    float finalYPos = halfHeight - (float)array[i + 1] * pieceDistance - midBoardY;
+                    Vector3 placement = new Vector3(finalXPos, finalYPos, 0.0f);
+                    spawnedEnemyObject = Instantiate(enemy, placement, Quaternion.identity);
+                    spawnedEnemies.Add(spawnedEnemyObject.GetComponent<Piece>());
+                    spawnedEnemies[i/2].SetRowAndCol(array[i+1], array[i]);
+
+                    GridPositioner bringDown = spawnedEnemyObject.GetComponent<Piece>().GetComponent<GridPositioner>();
+                    bringDown.CheckWhatsBeneath();
+                }
+                //Put the pirate boss here
+                float halfWidth1 = (float)universalTileWidth / 2.0f;
+                float halfHeight1 = (float)universalTileHeight / 2.0f;
+                float finalXPos1 = -halfWidth1 + 38 * pieceDistance + midBoardX;
+                float finalYPos1 = halfHeight1 - 7 * pieceDistance - midBoardY;
+                Vector3 pos1 = new Vector3(finalXPos1, finalYPos1, 0.0f);
+                pirateBossSpawned = Instantiate(pirateBossObject, pos1, Quaternion.identity);
+                pirateBoss = pirateBossSpawned.GetComponent<Piece>();
+                pirateBoss.SetRowAndCol(7, 38);
+                GridPositioner bringDown1 = pirateBoss.thePiece.GetComponent<GridPositioner>();
+                bringDown1.CheckWhatsBeneath();
+
+                PlaceCannons();
+                PlaceGenerators();
+                first = false;
+            }
+            //Main loop
+            else
+            {
+                //CoinSpawn(currentNumCoins, universalTileWidth, universalTileHeight, midBoardX, midBoardY);
+            }
+
         }
     }
 
@@ -451,73 +636,124 @@ public class Board : MonoBehaviour {
     }
 
     //Public function as EnemyAI needs the access locations
-    public void SpawnEnemy()
+    public void SpawnEnemy(int numberOfEnemies)
     {
         //find a location for the coin
         //check for the spots where the coin may not be placed
-        int[] disallowedRows = new int[possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Length];
-        int[] disallowedCols = new int[possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Length];
-        for (int i = 0; i < possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Length; i++)
+        for (int j = 0; j < numberOfEnemies; j++)
         {
-            //do not get the same space as a hero
-            if (i < possibleMoveableChars.Length)
+
+            int[] disallowedRows = new int[possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Count + 1];
+            int[] disallowedCols = new int[possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Count + 1];
+            for (int i = 0; i < possibleMoveableChars.Length + currentNumCoins + numDeadSpaces + spawnedEnemies.Count; i++)
             {
-                disallowedRows[i] = possibleMoveableChars[i].rowPosition;
-                disallowedCols[i] = possibleMoveableChars[i].colPosition;
+                //do not get the same space as a hero
+                if (i < possibleMoveableChars.Length)
+                {
+                    disallowedRows[i] = possibleMoveableChars[i].rowPosition;
+                    disallowedCols[i] = possibleMoveableChars[i].colPosition;
+                }
+                //do not get the same space as another enemy
+                else if (i >= possibleMoveableChars.Length && i < possibleMoveableChars.Length + spawnedEnemies.Count)
+                {
+                    disallowedRows[i] = allCoins[i - possibleMoveableChars.Length].rowPosition;
+                    disallowedCols[i] = allCoins[i - possibleMoveableChars.Length].colPosition;
+                }
+                //do not get the same space as a coin
+                else if (i >= possibleMoveableChars.Length + spawnedEnemies.Count && i < possibleMoveableChars.Length + spawnedEnemies.Count + currentNumCoins)
+                {
+                    disallowedRows[i] = allCoins[i - possibleMoveableChars.Length - spawnedEnemies.Count].rowPosition;
+                    disallowedCols[i] = allCoins[i - possibleMoveableChars.Length - spawnedEnemies.Count].colPosition;
+                }
+                //do not get a dead space
+                else
+                {
+                    disallowedRows[i] = deadPoints[i - possibleMoveableChars.Length - currentNumCoins - spawnedEnemies.Count].y;
+                    disallowedCols[i] = deadPoints[i - possibleMoveableChars.Length - currentNumCoins - spawnedEnemies.Count].x;
+                }
             }
-            //do not get the same space as another enemy
-            else if (i >= possibleMoveableChars.Length && i < possibleMoveableChars.Length + spawnedEnemies.Length)
+            disallowedRows[disallowedRows.Length - 1] = pirateBoss.rowPosition;
+            disallowedCols[disallowedCols.Length - 1] = pirateBoss.colPosition;
+            //by default, cannot place a coin until you find a space that is allowed
+            bool canPlace = false;
+            int debugCount = 0;
+            int row = 0;
+            int col = 0;
+            while (!canPlace)
             {
-                disallowedRows[i] = allCoins[i - possibleMoveableChars.Length].rowPosition;
-                disallowedCols[i] = allCoins[i - possibleMoveableChars.Length].colPosition;
+                //select an arbitrary row and column to place the coin
+                row = (int)Mathf.Floor(Random.value * universalTileHeight);
+                col = (int)Mathf.Floor(Random.value * universalTileWidth);
+                canPlace = CheckIfCanPlace(row, col, disallowedRows, disallowedCols);
+                //just in case every space is invalid, throw it at (0, 0) after 100 checks
+                debugCount++;
+                if (debugCount >= 100)
+                {
+                    canPlace = true;
+                }
             }
-            //do not get the same space as a coin
-            else if (i >= possibleMoveableChars.Length + spawnedEnemies.Length && i < possibleMoveableChars.Length + spawnedEnemies.Length + currentNumCoins)
-            {
-                disallowedRows[i] = allCoins[i - possibleMoveableChars.Length - spawnedEnemies.Length].rowPosition;
-                disallowedCols[i] = allCoins[i - possibleMoveableChars.Length - spawnedEnemies.Length].colPosition;
-            }
-            //do not get a dead space
-            else
-            {
-                disallowedRows[i] = deadPoints[i - possibleMoveableChars.Length - currentNumCoins - spawnedEnemies.Length].y;
-                disallowedCols[i] = deadPoints[i - possibleMoveableChars.Length - currentNumCoins - spawnedEnemies.Length].x;
-            }
+
+            //place the coin
+            //PlaceObject(tileWidth, tileHeight, row, col, pieceDistance, midX, midY, allCoins[currentNumCoins], currentNumCoins, true);
+            float halfWidth = (float)universalTileWidth / 2.0f;
+            float halfHeight = (float)universalTileHeight / 2.0f;
+            float finalXPos = -halfWidth + (float)col * pieceDistance + midBoardX;
+            float finalYPos = halfHeight - (float)row * pieceDistance - midBoardY;
+            Vector3 placement = new Vector3(finalXPos, finalYPos, 0.0f);
+
+            GameObject spawnedEnemyObject = Instantiate(enemy, placement, Quaternion.identity);
+            spawnedEnemyObject.GetComponent<Piece>().SetRowAndCol(row, col);
+            GridPositioner bringDown = spawnedEnemyObject.GetComponent<Piece>().GetComponent<GridPositioner>();
+            bringDown.CheckWhatsBeneath();
+            spawnedEnemies.Add(spawnedEnemyObject.GetComponent<Piece>());
         }
-        //by default, cannot place a coin until you find a space that is allowed
-        bool canPlace = false;
-        int debugCount = 0;
-        int row = 0;
-        int col = 0;
-        while (!canPlace)
+    }
+
+    void PlaceCannons()
+    {
+        //colums, row for each cannon
+        allCannons = new Cannon[4]; //4
+        int[] arrayColumns = { 28,28,18,18};
+        int[] arrayRows = {3,15,3,15 };
+        //GameObject[] spawnedEnemyObjects = new GameObject[4]; //5 for now
+        for (int i = 0; i < allCannons.Length; i ++)
         {
-            //select an arbitrary row and column to place the coin
-            row = (int)Mathf.Floor(Random.value * universalTileHeight);
-            col = (int)Mathf.Floor(Random.value * universalTileWidth);
-            canPlace = CheckIfCanPlace(row, col, disallowedRows, disallowedCols);
-            //just in case every space is invalid, throw it at (0, 0) after 100 checks
-            debugCount++;
-            if (debugCount >= 100)
-            {
-                canPlace = true;
-            }
+            float halfWidth = (float)universalTileWidth / 2.0f;
+            float halfHeight = (float)universalTileHeight / 2.0f;
+            float finalXPos = -halfWidth + (float)arrayColumns[i] * pieceDistance + midBoardX;
+            float finalYPos = halfHeight - (float)arrayRows[i] * pieceDistance - midBoardY;
+            Vector3 placement = new Vector3(finalXPos, finalYPos, 0.0f);
+            GameObject newCannon = Instantiate(cannonPrefab, placement, Quaternion.identity);
+            allCannons[i] = newCannon.GetComponent<Cannon>();
+            allCannons[i].cannon.SetRowAndCol(arrayRows[i], arrayColumns[i]);
+
+            GridPositioner bringDown = allCannons[i].gameObject.GetComponent<GridPositioner>();
+            bringDown.CheckWhatsBeneath();
+            numCannons++;
         }
+    }
 
-        //place the coin
-        //PlaceObject(tileWidth, tileHeight, row, col, pieceDistance, midX, midY, allCoins[currentNumCoins], currentNumCoins, true);
-        float halfWidth = (float)universalTileWidth / 2.0f;
-        float halfHeight = (float)universalTileHeight / 2.0f;
-        float finalXPos = -halfWidth + (float)col * pieceDistance + midBoardX;
-        float finalYPos = halfHeight - (float)row * pieceDistance - midBoardY;
-        Vector3 placement = new Vector3(finalXPos, finalYPos, 0.0f);
-        spawnedEnemies[numberOfEnemies].transform.position = placement;
-        //GameObject piece = Instantiate(spawnedEnemies[numberOfEnemies].GetPiece(), placement, Quaternion.identity);
-        spawnedEnemies[numberOfEnemies].SetName("Enemy " + numberOfEnemies);
-        spawnedEnemies[numberOfEnemies].SetRowAndCol(row, col);
-        GridPositioner bringDown = spawnedEnemies[numberOfEnemies].GetComponent<GridPositioner>();
-        bringDown.CheckWhatsBeneath();
+    void PlaceGenerators()
+    {
+        //colums, row for each cannon
+        generators = new Generator[2]; //4
+        int[] arrayColumns = { 11, 11};
+        int[] arrayRows = { 4, 14};
+        //GameObject[] spawnedEnemyObjects = new GameObject[4]; //5 for now
+        for (int i = 0; i < generators.Length; i++)
+        {
+            float halfWidth = (float)universalTileWidth / 2.0f;
+            float halfHeight = (float)universalTileHeight / 2.0f;
+            float finalXPos = -halfWidth + (float)arrayColumns[i] * pieceDistance + midBoardX;
+            float finalYPos = halfHeight - (float)arrayRows[i] * pieceDistance - midBoardY;
+            Vector3 placement = new Vector3(finalXPos, finalYPos, 0.0f);
+            GameObject newGenerator = Instantiate(generatorPrefab, placement, Quaternion.identity);
+            generators[i] = newGenerator.GetComponent<Generator>();
+            generators[i].generator.SetRowAndCol(arrayRows[i], arrayColumns[i]);
 
-        //every situation where currentNumCoins increases or decreases, adjust the timeToWait
-        numberOfEnemies++;
+            GridPositioner bringDown = generators[i].gameObject.GetComponent<GridPositioner>();
+            bringDown.CheckWhatsBeneath();
+            numGenerators++;
+        }
     }
 }

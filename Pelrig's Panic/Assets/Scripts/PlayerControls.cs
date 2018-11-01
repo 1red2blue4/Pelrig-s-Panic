@@ -4,116 +4,493 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour {
 
+    [SerializeField] public GameObject[] allCameras;
     private float cameraSpeed;
     private float cameraScrollSpeed;
-    private float cameraMaxZoom;
-    private float cameraMinZoom;
+    [SerializeField] private float cameraMaxZoom;
+    [SerializeField] private float cameraMinZoom;
     private GameObject columnHighlight;
-    //in place in case this script is attached to another object that is not a camera
-    private Camera thisCamera;
-    
-	void Start ()
+    //0: bottom left; 1: straight on; 2: bottom right
+    private int cameraRotPosition;
+    private int prevCameraRotPosition;
+    private int numCameraRotPositions;
+    private bool cameraRotPress;
+    private float cameraMovementBetween;
+    private bool movingCamera;
+    GameObject selectedUnit;
+    int theOne;
+    int roundCounter = 0;
+
+    private float cameraChangeVertical;
+    private float cameraChangeHorizontal;
+
+    public static int[] moveValues;
+
+    [SerializeField] Material glowingMaterial;
+    Material normalMaterial;
+    public static bool isPlayerTurn;
+
+    void Start()
     {
+        cameraChangeHorizontal = 0.0f;
+        cameraChangeVertical = 0.0f;
+        movingCamera = false;
+        cameraMovementBetween = 0.0f;
+        numCameraRotPositions = 4;
+        allCameras[0] = gameObject;
+        for (int i = 1; i < numCameraRotPositions; i++)
+        {
+            allCameras[i] = GameObject.FindGameObjectWithTag("Camera" + i);
+        }
+        cameraRotPress = false;
+        cameraRotPosition = 1;
+        prevCameraRotPosition = cameraRotPosition;
+        theOne = 0;
         cameraSpeed = 20.0f;
         cameraScrollSpeed = 20.0f;
-        cameraMaxZoom = 11.0f;
-        cameraMinZoom = 3.0f;
-        thisCamera = gameObject.GetComponent<Camera>();
         columnHighlight = GameObject.FindGameObjectWithTag("ColumnHighlight");
         MovementManager.Setup();
-        
-	}
-	
-	// Update is called once per frame
-	void Update ()
+        moveValues = new int[4];
+        selectedUnit = null;
+        GiveNumbers();
+        isPlayerTurn = true;
+    }
+
+    void GiveNumbers()
+    {
+        //Left - 0, up - 1, right - 2, down - 3
+        for (int i = 0; i < 4; i++)
+        {
+            int randomNumber = (int)Random.Range(0.0f, 13.99f);
+            if (randomNumber < 1)
+            {
+                moveValues[i] = 1;
+            }
+            else if (randomNumber < 4)
+            {
+                moveValues[i] = 2;
+            }
+            else if (randomNumber < 7)
+            {
+                moveValues[i] = 3;
+            }
+            else if (randomNumber < 10)
+            {
+                moveValues[i] = 4;
+            }
+            else if (randomNumber < 12)
+            {
+                moveValues[i] = 5;
+            }
+            else
+            {
+                moveValues[i] = 6;
+            }
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
     {
         CheckClick();
         MoveCamera();
-        CheckCoinCollect();
-        CheckForLineupSwap();
-        SelectCharacter();
-	}
+        CheckRotateCamera();
+        if (movingCamera)
+        {
+            RepositionCamera(cameraRotPosition, prevCameraRotPosition, cameraMovementBetween);
+        }
+        //CheckCoinCollect();
+        //CheckForLineupSwap();
+        CheckPlayer();
+        if (isPlayerTurn)
+        {
+            if (selectedUnit != null)
+            {
+                MovePlayer();
+            }
+            if (Input.GetKeyDown(KeyCode.Space) || EndTurnButtonScript.isButtonPressed)
+            {
+                selectedUnit = null;
+                EndTurnButtonScript.isButtonPressed = false;
+                GiveNumbers();
+                isPlayerTurn = false;
+                roundCounter++;
+                if (roundCounter >= 4)
+                {
+                    GameObject.Find("GridLevelStuff").GetComponentInChildren<Board>().SpawnEnemy((int)Random.Range(1.0f, 3.99f));
+                    roundCounter = 0;
+                }
+                EnemyTurnsActivate();
+            }
+        }
+        else if (EnemyMovesDone())
+        {
+            isPlayerTurn = true;
+            ExperimentalResources.ReInitializeResources();
+        }
+    }
 
+    void EnemyTurnsActivate()
+    {
+        bool countRound = false;
+        for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+        {
+            if ((Board.possibleMoveableChars[i].rowPosition > 34 || Board.possibleMoveableChars[i].rowPosition < 38) &&
+                (Board.possibleMoveableChars[i].colPosition == 8 || Board.possibleMoveableChars[i].colPosition == 9))
+            {
+                countRound = true;
+                break;
+            }
+        }
+        if (countRound)
+        {
+            Piece pirateBoss = GameObject.FindGameObjectWithTag("PirateBoss").GetComponent<Piece>();
+            if (pirateBoss != null)
+            {
+                if ((pirateBoss.colPosition > 34 || Board.pirateBoss.rowPosition < 38) &&
+                   (pirateBoss.colPosition == 8 || pirateBoss.colPosition == 9))
+                {
+                    YouWin.roundCount = 0;
+                }
+            }
+            else
+            {
+                YouWin.roundCount++;
+            }
+        }
+        else
+        {
+            YouWin.roundCount = 0;
+        }
+        for (int i = 0; i < Board.spawnedEnemies.Count; i++)
+        {
+            Board.spawnedEnemies[i].GetComponent<EnemyAI>().isTurnActive = true;
+        }
+        Board.pirateBoss.GetComponent<PirateCaptainAI>().isTurnActive = true;
+    }
+
+    bool EnemyMovesDone()
+    {
+        if (Board.pirateBoss.GetComponent<PirateCaptainAI>().isTurnActive == true)
+        {
+            return false;
+        }
+        for (int i = 0; i < Board.spawnedEnemies.Count; i++)
+        {
+            if (Board.spawnedEnemies[i].GetComponent<EnemyAI>().isTurnActive == true)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    void MovePlayer()
+    {
+        int direction = -1;
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            direction = 1;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            direction = 3;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            direction = 0;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            direction = 2;
+        }
+
+        if (direction != -1)
+        {
+            if (MovementManager.Move(Board.possibleMoveableChars[theOne], direction, moveValues[direction]))
+            {
+
+            }
+        }
+    }
+
+    void CheckPlayer()
+    {
+        int count = 0;
+        for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+        {
+            if (Board.possibleMoveableChars[i].rowPosition == 1000)
+            {
+                count++;
+                continue;
+            }
+               
+            int enemiesAround = 0;
+            for (int j = 0; j < Board.spawnedEnemies.Count; j++)
+            {
+                if (Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition - 1 ||
+                    Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition ||
+                    Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition + 1)
+                {
+                }
+                else
+                {
+                    continue;
+                }
+                if (Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition - 1 ||
+                    Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition ||
+                    Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition + 1)
+                {
+                }
+                else
+                {
+                    continue;
+                }
+
+                enemiesAround += 1;
+            }
+            if (Board.pirateBoss != null)
+            {
+                if (Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition - 1 ||
+                    Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition ||
+                    Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition + 1)
+                {
+                    if (Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition - 1 ||
+                        Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition ||
+                        Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition + 1)
+                    {
+                        enemiesAround += 2;
+                    }
+                }
+            }
+
+            if (enemiesAround >= 4)
+            {
+                if (selectedUnit == Board.possibleMoveableChars[i].GetPiece())
+                {
+                    selectedUnit = null;
+                }
+                Board.possibleMoveableChars[i].SetRowAndCol(1000, 1000);
+                Board.possibleMoveableChars[i].GetPiece().transform.position = new Vector3(10000, 10000, 0);
+            }
+        }
+        if (count >= 2 && !Board.first)
+        {
+            GameObject.Find("WinScreen").GetComponentInChildren<YouWin>().youLose = true;
+        }
+    }
 
 
     public void CheckClick()
     {
-
+        if (!isPlayerTurn)
+        {
+            if (selectedUnit != null)
+            {
+                selectedUnit.GetComponent<MeshRenderer>().material = normalMaterial;
+                selectedUnit = null;
+            }
+            return;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, Mathf.Infinity)) 
             {
-                if (hit.collider != null)
+                if (hit.collider.tag == "Player")
                 {
-                    Transform objectHit = hit.transform;
+                    if (selectedUnit != null)
+                    {
+                        GameObject selectedBase = selectedUnit;
+                        //look for the image to rotate
+                        for (int i = 0; i < selectedUnit.transform.childCount; i++)
+                        {
+                            if (selectedUnit.transform.GetChild(i).GetComponent<MeshRenderer>() != null)
+                            {
+                                selectedBase = selectedUnit.transform.GetChild(i).gameObject;
+                            }
+                        }
+
+                        GameObject panelUnderCharacter = null;
+                        for (int i = 0; i < selectedUnit.transform.childCount; i++)
+                        {
+                            if (selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>() != null)
+                            {
+                                panelUnderCharacter = selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>().gameObject;
+                            }
+                        }
+                        if (panelUnderCharacter != null)
+                        {
+                            panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
+                        }
+                        selectedBase.GetComponent<MeshRenderer>().material = normalMaterial;
+                        selectedUnit = null;
+                    }
+
                     for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
                     {
-                        if (objectHit == Board.possibleMoveableChars[i].thePiece.transform)
+                        if (hit.transform == Board.possibleMoveableChars[i].thePiece.transform)
                         {
-                            MovementManager.Move(Board.possibleMoveableChars[i]);
+                            theOne = i;
+                            selectedUnit = Board.possibleMoveableChars[i].thePiece;
+                            GameObject selectedBase = selectedUnit;
+                            //look for the image to rotate
+                            for (int j = 0; j < selectedUnit.transform.childCount; j++)
+                            {
+                                if (selectedUnit.transform.GetChild(j).GetComponent<MeshRenderer>() != null)
+                                {
+                                    selectedBase = selectedUnit.transform.GetChild(j).gameObject;
+                                }
+                            }
+                            normalMaterial = selectedBase.GetComponent<MeshRenderer>().material;
+                            glowingMaterial.color = normalMaterial.color;
+                            glowingMaterial.mainTexture = normalMaterial.mainTexture;
+                            selectedBase.GetComponent<MeshRenderer>().material = glowingMaterial;
+
+                            GameObject panelUnderCharacter = null;
+                            for (int j = 0; j < selectedUnit.transform.childCount; j++)
+                            {
+                                if (selectedUnit.transform.GetChild(j).GetComponent<PanelUnderCharacter>() != null)
+                                {
+                                    panelUnderCharacter = selectedUnit.transform.GetChild(j).GetComponent<PanelUnderCharacter>().gameObject;
+                                }
+                            }
+                            if (panelUnderCharacter != null)
+                            {
+                                panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = true;
+                            }
+                            break;
                         }
+                    }
+                }
+                else
+                {
+                    if (selectedUnit != null)
+                    {
+                        //selectedUnit.GetComponent<MeshRenderer>().material = normalMaterial;
+                        GameObject panelUnderCharacter = null;
+                        for (int i = 0; i < selectedUnit.transform.childCount; i++)
+                        {
+                            if (selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>() != null)
+                            {
+                                panelUnderCharacter = selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>().gameObject;
+                            }
+                        }
+                        if (panelUnderCharacter != null)
+                        {
+                            panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
+                        }
+                        selectedUnit = null;
                     }
                 }
             }
         }
     }
 
-    public void SelectCharacter()
-    {
-        
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            MovementManager.Move(Board.possibleMoveableChars[0]);
-        }
-
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            MovementManager.Move(Board.possibleMoveableChars[1]);
-        }
-
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            MovementManager.Move(Board.possibleMoveableChars[2]);
-        }
-
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            MovementManager.Move(Board.possibleMoveableChars[3]);
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            MovementManager.Move(Board.possibleMoveableChars[4]);
-        }
-    }
-
     public void MoveCamera()
     {
-        if (Input.GetAxis("Horizontal") > 0)
+        if (Input.GetAxis("Horizontal") > 0 && cameraChangeHorizontal < 200.0f)
         {
-            transform.position += new Vector3(cameraSpeed, 0.0f, 0.0f) * Time.deltaTime;
+            for (int i = 0; i < numCameraRotPositions; i++)
+            {
+                allCameras[i].transform.position += new Vector3(cameraSpeed, 0.0f, 0.0f) * Time.deltaTime;
+                cameraChangeHorizontal += cameraSpeed * Time.deltaTime;
+            }
         }
-        else if (Input.GetAxis("Horizontal") < 0)
+        else if (Input.GetAxis("Horizontal") < 0 && cameraChangeHorizontal > -200.0f)
         {
-            transform.position -= new Vector3(cameraSpeed, 0.0f, 0.0f) * Time.deltaTime;
+            for (int i = 0; i < numCameraRotPositions; i++)
+            {
+                allCameras[i].transform.position -= new Vector3(cameraSpeed, 0.0f, 0.0f) * Time.deltaTime;
+                cameraChangeHorizontal -= cameraSpeed * Time.deltaTime;
+            }
         }
-        if (Input.GetAxis("Vertical") > 0)
+        if (Input.GetAxis("Vertical") > 0 && cameraChangeVertical < 200.0f)
         {
-            transform.position += new Vector3(0.0f, cameraSpeed, 0.0f) * Time.deltaTime;
+            for (int i = 0; i < numCameraRotPositions; i++)
+            {
+                allCameras[i].transform.position += new Vector3(0.0f, cameraSpeed, 0.0f) * Time.deltaTime;
+                cameraChangeVertical += cameraSpeed * Time.deltaTime;
+            }
         }
-        else if (Input.GetAxis("Vertical") < 0)
+        else if (Input.GetAxis("Vertical") < 0 && cameraChangeVertical > -200.0f)
         {
-            transform.position -= new Vector3(0.0f, cameraSpeed, 0.0f) * Time.deltaTime;
+            for (int i = 0; i < numCameraRotPositions; i++)
+            {
+                allCameras[i].transform.position -= new Vector3(0.0f, cameraSpeed, 0.0f) * Time.deltaTime;
+                cameraChangeVertical -= cameraSpeed * Time.deltaTime;
+            }
         }
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && gameObject.GetComponent<Camera>().orthographicSize > cameraMinZoom)
         {
-            gameObject.GetComponent<Camera>().orthographicSize -= cameraScrollSpeed * Time.deltaTime;
+            for (int i = 0; i < numCameraRotPositions; i++)
+            {
+                allCameras[i].GetComponent<Camera>().orthographicSize -= cameraScrollSpeed * Time.deltaTime;
+            }
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0 && gameObject.GetComponent<Camera>().orthographicSize < cameraMaxZoom)
         {
-            gameObject.GetComponent<Camera>().orthographicSize += cameraScrollSpeed * Time.deltaTime;
+            for (int i = 0; i < numCameraRotPositions; i++)
+            {
+                allCameras[i].GetComponent<Camera>().orthographicSize += cameraScrollSpeed * Time.deltaTime;
+            }
+        }
+    }
+
+    public void CheckRotateCamera()
+    {
+        if (Input.GetAxis("ChangeCamera") != 0 && !cameraRotPress)
+        {
+            prevCameraRotPosition = cameraRotPosition;
+            float direction = Input.GetAxis("ChangeCamera");
+            cameraRotPress = true;
+            if (direction > 0)
+            {
+                cameraRotPosition++;
+                if (cameraRotPosition >= numCameraRotPositions)
+                {
+                    cameraRotPosition = 1;
+                }
+            }
+            else
+            {
+                cameraRotPosition--;
+                if (cameraRotPosition < 1)
+                {
+                    cameraRotPosition = numCameraRotPositions - 1;
+                }
+            }
+            SetCamera();
+        }
+        else if (Input.GetAxis("ChangeCamera") == 0)
+        {
+            cameraRotPress = false;
+        }
+    }
+
+    private void SetCamera()
+    {
+        cameraMovementBetween = 0.0f;
+        movingCamera = true;
+    }
+
+    private void RepositionCamera(int camPos, int prevPos, float timeToMove)
+    {
+        
+        transform.position = Vector3.Lerp(allCameras[prevPos].transform.position, allCameras[camPos].transform.position, timeToMove);
+        transform.rotation = Quaternion.Lerp(allCameras[prevPos].transform.rotation, allCameras[camPos].transform.rotation, timeToMove);
+        if (cameraMovementBetween < 1.0f)
+        {
+            cameraMovementBetween += 3.0f*Time.deltaTime;
+        }
+        else
+        {
+            cameraMovementBetween = 1.0f;
+            movingCamera = false;
         }
     }
 

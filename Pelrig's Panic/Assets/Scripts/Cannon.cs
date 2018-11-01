@@ -4,38 +4,104 @@ using UnityEngine;
 
 public class Cannon : MonoBehaviour {
     
-    [SerializeField] public int charges;
+    int charges;
     [SerializeField] public Piece cannon;
     [SerializeField] public int cannonID;
+    [SerializeField] public GameObject onImage;
+    [SerializeField] public GameObject offImage;
+    public bool isCanonUsable;
 
-    public void UseCannon(Piece[] enemyList, int cannonRange)
+    private void Start()
     {
-        if (charges > 0)
+        isCanonUsable = false;
+        charges = 1;
+    }
+
+    private void Update()
+    {
+        if (PlayerControls.isPlayerTurn && charges > 0)
         {
-            for (int i = 0; i < enemyList.Length; i++)
+            if (Input.GetMouseButtonDown(0))
             {
-                //first check if the enemy has not been spawned
-                //then check if it's within range
-                if ((enemyList[i].rowPosition != 0 || enemyList[i].colPosition != 0) 
-                    && (cannon.rowPosition <= enemyList[i].rowPosition + cannonRange && cannon.rowPosition >= enemyList[i].rowPosition - cannonRange)
-                    && (cannon.colPosition <= enemyList[i].colPosition + cannonRange && cannon.colPosition >= enemyList[i].colPosition - cannonRange)
-                    )
+                if (isCanonUsable)
                 {
-                    //if it is, kill the enemy
-                    enemyList[i].SetRowAndCol(0, 0);
-                    GameObject foundEnemy = enemyList[i].thePiece;
-                    foundEnemy.transform.position = new Vector3(10000, 10000, 0.0f);
-                    enemyList[i].rowPosition = -5;
-                    enemyList[i].colPosition = -5;
-                    for (int j = i; j < Board.spawnedEnemies.Length - 2; j++)
+                    RaycastHit hit;
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    if (Physics.Raycast(ray, out hit, Mathf.Infinity))
                     {
-                        Board.spawnedEnemies[j] = Board.spawnedEnemies[j + 1];
+                        if (hit.collider.tag == "Enemy")
+                        {
+                            UseCannon(hit.collider.gameObject.GetComponent<Piece>());
+                        }
+                        else if (hit.transform.tag == "Cannon")
+                        {
+                            if (hit.collider.gameObject == gameObject)
+                            {
+                                return;
+                            }
+                        }
                     }
-                    //in every situation where the number of coins increases or decreases, adjust the timeToWait
-                    Board.numberOfEnemies--;
-                    charges--;
+                    isCanonUsable = false;
+                }
+                else
+                {
+                    RaycastHit hit;
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                    {
+                        if (hit.transform.tag == "Cannon")
+                        {
+                            if (hit.collider.gameObject == gameObject)
+                            {
+                                isCanonUsable = CheckForPlayersAround();
+                            }
+                        }
+                    }
                 }
             }
+        }
+
+        if (isCanonUsable)
+        {
+            offImage.SetActive(true);
+        }
+        else
+        {
+            offImage.SetActive(false);
+        }
+    }
+
+    //Check players right round canon
+    bool CheckForPlayersAround()
+    {
+        foreach (var playerObjects in Board.possibleMoveableChars)
+        {
+            if (playerObjects.rowPosition <= cannon.rowPosition + 1 && playerObjects.rowPosition >= cannon.rowPosition - 1 &&
+                playerObjects.colPosition <= cannon.colPosition + 1 && playerObjects.colPosition >= cannon.colPosition - 1)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Destroy any enemy 5 spaces away
+    void UseCannon(Piece enemy)
+    {
+        if (charges > 0 &&
+            enemy.rowPosition <= cannon.rowPosition + 5 && enemy.rowPosition >= cannon.rowPosition - 5 &&
+            enemy.colPosition <= cannon.colPosition + 5 && enemy.colPosition >= cannon.colPosition - 5)
+        {
+            for (int i = 0; i < Board.spawnedEnemies.Count; i++)
+            {
+                if (enemy == Board.spawnedEnemies[i])
+                {
+                    Destroy(enemy.gameObject);
+                    Board.spawnedEnemies.RemoveAt(i);
+                    charges--;
+                    return;
+                }
+            }         
         }
     }
 }
