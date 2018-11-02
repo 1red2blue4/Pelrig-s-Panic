@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114613213718379404}
   - component: {fileID: 136731682684400072}
   - component: {fileID: 114998191945290220}
+  - component: {fileID: 114585698612063230}
   m_Layer: 0
   m_Name: '#Hally_Fantasy_Realm_temp'
   m_TagString: Player
@@ -471,6 +472,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialValue: 4
   gridPositioner: {fileID: 0}
+--- !u!114 &114585698612063230
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1099632027117354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa8f17a6fe40a2040876402fd9341bff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  presenceObj: {fileID: 1519046492363298}
+  resistanceObj: {fileID: 1469482944337208}
 --- !u!114 &114613213718379404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -538,6 +552,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objToDisappear: {fileID: 1640483430970128}
+  objToBubblePres: {fileID: 1103372154033702}
+  objToBubbleResist: {fileID: 1539324171489462}
+  bubblesUpOnAction: 1
+  valueChanged: 0
+  presAndResist: {fileID: 114585698612063230}
 --- !u!136 &136731682684400072
 CapsuleCollider:
   m_ObjectHideFlags: 1

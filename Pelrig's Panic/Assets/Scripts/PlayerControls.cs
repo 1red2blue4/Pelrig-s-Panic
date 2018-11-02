@@ -32,6 +32,7 @@ public class PlayerControls : MonoBehaviour {
 
     void Start()
     {
+        
         cameraChangeHorizontal = 0.0f;
         cameraChangeVertical = 0.0f;
         movingCamera = false;
@@ -276,7 +277,12 @@ public class PlayerControls : MonoBehaviour {
                 Board.possibleMoveableChars[i].SetRowAndCol(1000, 1000);
                 Board.possibleMoveableChars[i].GetPiece().transform.position = new Vector3(10000, 10000, 0);
             }
+            
+            UIValues resistance = Board.possibleMoveableChars[i].thePiece.GetComponent<ValueHolder>().resistanceObj.GetComponent<UIValues>();
+            resistance.SetValue(resistance.initialValue - enemiesAround);
         }
+
+        
         if (count >= 2 && !Board.first)
         {
             GameObject.Find("WinScreen").GetComponentInChildren<YouWin>().youLose = true;

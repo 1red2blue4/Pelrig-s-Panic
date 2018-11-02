@@ -1444,6 +1444,16 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114747334948682146, guid: 16e446cc3cf4e5642bb7a186bd7697ce,
+        type: 2}
+      propertyPath: presenceObjs.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114747334948682146, guid: 16e446cc3cf4e5642bb7a186bd7697ce,
+        type: 2}
+      propertyPath: resistanceObjs.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4866939103272752, guid: 16e446cc3cf4e5642bb7a186bd7697ce, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1492,6 +1502,56 @@ Prefab:
     - target: {fileID: 4866939103272752, guid: 16e446cc3cf4e5642bb7a186bd7697ce, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114747334948682146, guid: 16e446cc3cf4e5642bb7a186bd7697ce,
+        type: 2}
+      propertyPath: presenceObjs.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114747334948682146, guid: 16e446cc3cf4e5642bb7a186bd7697ce,
+        type: 2}
+      propertyPath: resistanceObjs.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114747334948682146, guid: 16e446cc3cf4e5642bb7a186bd7697ce,
+        type: 2}
+      propertyPath: presenceObjs.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114747334948682146, guid: 16e446cc3cf4e5642bb7a186bd7697ce,
+        type: 2}
+      propertyPath: resistanceObjs.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114747334948682146, guid: 16e446cc3cf4e5642bb7a186bd7697ce,
+        type: 2}
+      propertyPath: presenceObjs.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114747334948682146, guid: 16e446cc3cf4e5642bb7a186bd7697ce,
+        type: 2}
+      propertyPath: resistanceObjs.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114747334948682146, guid: 16e446cc3cf4e5642bb7a186bd7697ce,
+        type: 2}
+      propertyPath: presenceObjs.Array.data[3]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114747334948682146, guid: 16e446cc3cf4e5642bb7a186bd7697ce,
+        type: 2}
+      propertyPath: resistanceObjs.Array.data[3]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114747334948682146, guid: 16e446cc3cf4e5642bb7a186bd7697ce,
+        type: 2}
+      propertyPath: presenceObjs.Array.data[4]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114747334948682146, guid: 16e446cc3cf4e5642bb7a186bd7697ce,
+        type: 2}
+      propertyPath: resistanceObjs.Array.data[4]
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16e446cc3cf4e5642bb7a186bd7697ce, type: 2}
@@ -1867,6 +1927,10 @@ MonoBehaviour:
   rowPosition: 0
   colPosition: 0
   name: 
+  presenceValue: 0
+  resistanceValue: 0
+  initialPresenceValue: 1
+  initialResistanceValue: 4
   thePiece: {fileID: 1158910450287922, guid: 19101d5d09914f54baa4ef266e8c01bd, type: 2}
 --- !u!114 &1343187319
 MonoBehaviour:
@@ -1884,6 +1948,10 @@ MonoBehaviour:
   rowPosition: 0
   colPosition: 0
   name: 
+  presenceValue: 0
+  resistanceValue: 0
+  initialPresenceValue: 1
+  initialResistanceValue: 4
   thePiece: {fileID: 1099632027117354, guid: 3da84a7cd1d90a64d919fd58f4ebae9c, type: 2}
 --- !u!114 &1343187320
 MonoBehaviour:
@@ -1901,6 +1969,10 @@ MonoBehaviour:
   rowPosition: 0
   colPosition: 0
   name: 
+  presenceValue: 0
+  resistanceValue: 0
+  initialPresenceValue: 1
+  initialResistanceValue: 4
   thePiece: {fileID: 1445851507171124, guid: c0940d55018df204c85b65ada65dc631, type: 2}
 --- !u!114 &1343187321
 MonoBehaviour:
@@ -1918,6 +1990,10 @@ MonoBehaviour:
   rowPosition: 0
   colPosition: 0
   name: 
+  presenceValue: 0
+  resistanceValue: 0
+  initialPresenceValue: 1
+  initialResistanceValue: 4
   thePiece: {fileID: 1004241752199634, guid: 798008a55497158438cad3898bdce197, type: 2}
 --- !u!114 &1343187322
 MonoBehaviour:
@@ -1935,6 +2011,10 @@ MonoBehaviour:
   rowPosition: 0
   colPosition: 0
   name: 
+  presenceValue: 0
+  resistanceValue: 0
+  initialPresenceValue: 1
+  initialResistanceValue: 4
   thePiece: {fileID: 1673096372370608, guid: f5a593e929a6cab45bd1a7d0f7f363d7, type: 2}
 --- !u!114 &1343187323
 MonoBehaviour:
