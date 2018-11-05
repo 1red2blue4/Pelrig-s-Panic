@@ -12,7 +12,6 @@ public class DisplayOnHover : MonoBehaviour {
     private GameObject bubblingObj;
     [SerializeField] public bool bubblesUpOnAction;
     public bool valueChanged;
-    [SerializeField] public ValueHolder presAndResist;
     private int prevPresence;
     private int prevResist;
     private Vector3 startScale;
@@ -25,14 +24,20 @@ public class DisplayOnHover : MonoBehaviour {
     void Start()
     {
         timer = 0.0f;
-        if (bubblingObj)
+        if (bubblesUpOnAction)
         {
             amountBloat = 0.0f;
-            bubblingRate = 0.1f;
-            bloatRate = 0.02f;
+            bubblingRate = 2.25f;
+            bloatRate = 0.5f;
             startScale = objToBubblePres.transform.localScale;
-            prevPresence = presAndResist.presenceObj.GetComponent<UIValues>().initialValue;
-            prevResist = presAndResist.resistanceObj.GetComponent<UIValues>().initialValue;
+            for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+            {
+                if (Board.possibleMoveableChars[i].thePiece == gameObject)
+                {
+                    prevPresence = Board.possibleMoveableChars[i].presenceValue;
+                    prevResist = Board.possibleMoveableChars[i].resistanceValue;
+                }
+            }
             valueChanged = false;
         }
     }
@@ -54,8 +59,6 @@ public class DisplayOnHover : MonoBehaviour {
             }
         }
         
-        //TODO: Get this to work.
-        /*
         if (bubblesUpOnAction && timer >= 5.0f)
         {
             if (!valueChanged)
@@ -73,20 +76,27 @@ public class DisplayOnHover : MonoBehaviour {
                 objToBubbleResist.transform.localScale = startScale;
             }
         }
-        */
 
         timer += Time.deltaTime;
     }
 
     public void CheckForBubbling()
     {
-        int presenceValue = presAndResist.presenceObj.GetComponent<UIValues>().GetValue();
-        int resistValue = presAndResist.resistanceObj.GetComponent<UIValues>().GetValue();
+        int presenceValue = 0;
+        int resistValue = 0;
+
+        for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+        {
+            if (Board.possibleMoveableChars[i].thePiece == gameObject)
+            {
+                presenceValue = Board.possibleMoveableChars[i].presenceValue;
+                resistValue = Board.possibleMoveableChars[i].resistanceValue;
+            }
+        }
 
         if (prevPresence != presenceValue)
         {
-            Debug.Log("Previous: " + prevPresence);
-            Debug.Log("Now: " + presenceValue);
+            objToDisappear.SetActive(true);
             objToBubblePres.SetActive(true);
             valueChanged = true;
             bubblingObj = objToBubblePres;
@@ -95,6 +105,7 @@ public class DisplayOnHover : MonoBehaviour {
         }
         if (prevResist != resistValue)
         {
+            objToDisappear.SetActive(true);
             objToBubbleResist.SetActive(true);
             valueChanged = true;
             bubblingObj = objToBubbleResist;
@@ -108,9 +119,9 @@ public class DisplayOnHover : MonoBehaviour {
 
     public void Bubble(GameObject bubblingObj)
     {
-        bubblingObj.transform.localScale = new Vector3(startScale.x + bloatRate, startScale.y + bloatRate, startScale.z + bloatRate);
-        amountBloat += bloatRate;
-        distBetweenBubbling += bubblingRate;
+        bubblingObj.transform.localScale = new Vector3(startScale.x + amountBloat, startScale.y + amountBloat, startScale.z + amountBloat);
+        amountBloat += bloatRate * Time.deltaTime;
+        distBetweenBubbling += bubblingRate * Time.deltaTime;
 
         if (distBetweenBubbling >= 1.0f)
         {

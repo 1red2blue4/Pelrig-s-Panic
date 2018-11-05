@@ -280,6 +280,7 @@ public class PlayerControls : MonoBehaviour {
             
             UIValues resistance = Board.possibleMoveableChars[i].thePiece.GetComponent<ValueHolder>().resistanceObj.GetComponent<UIValues>();
             resistance.SetValue(resistance.initialValue - enemiesAround);
+            Board.possibleMoveableChars[i].resistanceValue = resistance.initialValue - enemiesAround;
         }
 
         
