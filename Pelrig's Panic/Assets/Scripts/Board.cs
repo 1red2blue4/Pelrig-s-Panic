@@ -22,7 +22,6 @@ public class Board : MonoBehaviour {
     public static Piece[] possibleMoveableChars;
     public static Piece[] allCoins;
     public static List<Piece> spawnedEnemies;
-    //public static Piece[] spawnedEnemies;
     public static Cannon[] allCannons;
 
     public static int numGenerators;
@@ -51,8 +50,7 @@ public class Board : MonoBehaviour {
     public static int currentNumCoins = 0;
     public static int numCoinsCollected = 0;
     public const float approxGoldenRatio = 1.618f;
-
-    public static bool spawnEnemies = false;
+    
     public static GameObject pirateBossSpawned;
     public static Piece pirateBoss;
 
@@ -125,7 +123,7 @@ public class Board : MonoBehaviour {
         cannonPoints = new point[universalTileHeight * universalTileWidth];
 
         //set up board
-        pieceDistance = 1.06f;
+        pieceDistance = 1.56f;
         CreateBoard(universalTileWidth, universalTileHeight, midBoardX, midBoardY, spaceFieldType);
 	}
 	
@@ -247,13 +245,14 @@ public class Board : MonoBehaviour {
         int[] tempRows = new int[possibleMoveableChars.Length];
         int[] tempCols = new int[possibleMoveableChars.Length];
 
-        int[] units = { 10, 9, 8, 7, 6 };
+        int[] unitsRow = { 5, 6, 6, 7, 7 };
+        int[] unitsCol = { 8, 9, 8, 8, 9 };
         //set the hero pieces
         for (int i = 0; i < possibleMoveableChars.Length; i++)
         {
             //get one of the locations
-            int randCol = 11;
-            int randRow = units[i];
+            int randCol = unitsCol[i];
+            int randRow = unitsRow[i];
             //on the off chance it rolls exactly 1, pick the largest value instead of overflowing
             if (randRow == tileWidth)
             {
@@ -310,22 +309,6 @@ public class Board : MonoBehaviour {
             GridPositioner bringDown = piece.GetComponent<GridPositioner>();
             bringDown.CheckWhatsBeneath();
             bringDown.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-            /*
-            bringDown.AdjustToCamera();
-            if (piece.transform.childCount > 0)
-            {
-                GameObject visualChild = piece.transform.GetChild(0).gameObject;
-                if (visualChild != null)
-                {
-                    GridPositioner billboard = piece.transform.GetChild(0).GetComponent<GridPositioner>();
-                    if (billboard != null)
-                    {
-                        billboard.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-                        //billboard.AdjustToCamera();
-                    }
-                }
-            }
-            */
         }
     }
 
@@ -543,7 +526,7 @@ public class Board : MonoBehaviour {
         {
             if (first)
             {                
-                int[] array = { 29, 3, 29, 14, 35, 5, 35, 10 };
+                int[] array = { 19, 3, 19, 9, 26, 4, 26, 8 };
                 //GameObject[] spawnedEnemyObjects = new GameObject[4]; //5 for now
                 for (int i = 0; i < (8); i += 2)
                 {
@@ -561,14 +544,16 @@ public class Board : MonoBehaviour {
                     bringDown.CheckWhatsBeneath();
                 }
                 //Put the pirate boss here
+                int bossCol = 25;
+                int bossRow = 6;
                 float halfWidth1 = (float)universalTileWidth / 2.0f;
                 float halfHeight1 = (float)universalTileHeight / 2.0f;
-                float finalXPos1 = -halfWidth1 + 38 * pieceDistance + midBoardX;
-                float finalYPos1 = halfHeight1 - 7 * pieceDistance - midBoardY;
+                float finalXPos1 = -halfWidth1 + bossCol * pieceDistance + midBoardX;
+                float finalYPos1 = halfHeight1 - bossRow * pieceDistance - midBoardY;
                 Vector3 pos1 = new Vector3(finalXPos1, finalYPos1, 0.0f);
                 pirateBossSpawned = Instantiate(pirateBossObject, pos1, Quaternion.identity);
                 pirateBoss = pirateBossSpawned.GetComponent<Piece>();
-                pirateBoss.SetRowAndCol(7, 38);
+                pirateBoss.SetRowAndCol(bossRow, bossCol);
                 GridPositioner bringDown1 = pirateBoss.thePiece.GetComponent<GridPositioner>();
                 bringDown1.CheckWhatsBeneath();
 
@@ -698,8 +683,8 @@ public class Board : MonoBehaviour {
     {
         //colums, row for each cannon
         allCannons = new Cannon[4]; //4
-        int[] arrayColumns = { 28,28,18,18};
-        int[] arrayRows = {3,15,3,15 };
+        int[] arrayColumns = { 18,18,12,12};
+        int[] arrayRows = {2,10,2,10 };
         //GameObject[] spawnedEnemyObjects = new GameObject[4]; //5 for now
         for (int i = 0; i < allCannons.Length; i ++)
         {
@@ -722,8 +707,8 @@ public class Board : MonoBehaviour {
     {
         //colums, row for each cannon
         generators = new Generator[2]; //4
-        int[] arrayColumns = { 11, 11};
-        int[] arrayRows = { 4, 14};
+        int[] arrayColumns = { 8, 8};
+        int[] arrayRows = { 3, 9};
         //GameObject[] spawnedEnemyObjects = new GameObject[4]; //5 for now
         for (int i = 0; i < generators.Length; i++)
         {

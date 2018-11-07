@@ -341,7 +341,7 @@ MeshRenderer:
   m_GameObject: {fileID: 1852947560284858}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -516,6 +516,10 @@ MonoBehaviour:
   rowPosition: 0
   colPosition: 0
   name: 
+  presenceValue: 0
+  resistanceValue: 0
+  initialPresenceValue: 2
+  initialResistanceValue: 4
   thePiece: {fileID: 1005522361513020}
 --- !u!114 &114382239792649188
 MonoBehaviour:
@@ -584,6 +588,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objToDisappear: {fileID: 1457347733575966}
+  objToBubblePres: {fileID: 1149869578562094}
+  objToBubbleResist: {fileID: 1236825801563786}
+  bubblesUpOnAction: 1
+  valueChanged: 0
 --- !u!136 &136546542106618600
 CapsuleCollider:
   m_ObjectHideFlags: 1

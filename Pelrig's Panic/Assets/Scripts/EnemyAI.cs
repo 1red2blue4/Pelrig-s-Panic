@@ -75,6 +75,7 @@ public class EnemyAI : MonoBehaviour {
 
         UIValues resistance = resistanceObj.GetComponent<UIValues>();
         resistance.SetValue(resistance.initialValue - playersAround);
+        gameObject.GetComponent<Piece>().resistanceValue = resistance.initialValue - playersAround;
 
         if (playersAround >= 3)
         {

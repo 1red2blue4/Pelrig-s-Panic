@@ -38,6 +38,16 @@ public class DisplayOnHover : MonoBehaviour {
                     prevResist = Board.possibleMoveableChars[i].resistanceValue;
                 }
             }
+            /*
+            for (int i = 0; i < Board.spawnedEnemies.Count; i++)
+            {
+                if (Board.spawnedEnemies[i].thePiece == gameObject)
+                {
+                    prevPresence = Board.spawnedEnemies[i].presenceValue;
+                    prevResist = Board.spawnedEnemies[i].resistanceValue;
+                }
+            }
+            */
             valueChanged = false;
         }
     }
@@ -52,6 +62,8 @@ public class DisplayOnHover : MonoBehaviour {
             if (hit.collider.gameObject == gameObject)
             {
                 objToDisappear.SetActive(true);
+                objToBubblePres.SetActive(true);
+                objToBubbleResist.SetActive(true);
             }
             else if (!valueChanged)
             {
@@ -59,7 +71,7 @@ public class DisplayOnHover : MonoBehaviour {
             }
         }
         
-        if (bubblesUpOnAction && timer >= 5.0f)
+        if (bubblesUpOnAction && timer >= 0.5f)
         {
             if (!valueChanged)
             {
@@ -93,11 +105,20 @@ public class DisplayOnHover : MonoBehaviour {
                 resistValue = Board.possibleMoveableChars[i].resistanceValue;
             }
         }
+        for (int i = 0; i < Board.spawnedEnemies.Count; i++)
+        {
+            if (Board.spawnedEnemies[i].thePiece == gameObject)
+            {
+                presenceValue = Board.spawnedEnemies[i].presenceValue;
+                resistValue = Board.spawnedEnemies[i].resistanceValue;
+            }
+        }
 
         if (prevPresence != presenceValue)
         {
             objToDisappear.SetActive(true);
             objToBubblePres.SetActive(true);
+            objToBubbleResist.SetActive(false);
             valueChanged = true;
             bubblingObj = objToBubblePres;
             distBetweenBubbling = 0.0f;
@@ -107,6 +128,7 @@ public class DisplayOnHover : MonoBehaviour {
         {
             objToDisappear.SetActive(true);
             objToBubbleResist.SetActive(true);
+            objToBubblePres.SetActive(false);
             valueChanged = true;
             bubblingObj = objToBubbleResist;
             distBetweenBubbling = 0.0f;

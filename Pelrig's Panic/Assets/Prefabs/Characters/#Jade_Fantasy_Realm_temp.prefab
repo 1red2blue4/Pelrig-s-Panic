@@ -298,7 +298,7 @@ MeshRenderer:
   m_GameObject: {fileID: 1793467070284282}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -475,7 +475,6 @@ MonoBehaviour:
   objToBubbleResist: {fileID: 1581971038881714}
   bubblesUpOnAction: 1
   valueChanged: 0
-  presAndResist: {fileID: 114820282899510462}
 --- !u!114 &114741694175183176
 MonoBehaviour:
   m_ObjectHideFlags: 1
