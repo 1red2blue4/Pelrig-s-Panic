@@ -15,6 +15,7 @@ public class UIValues : MonoBehaviour {
     {
         textValue = gameObject.GetComponent<TextMesh>();
         value = initialValue;
+       
         textValue.text = value.ToString();
         gameObject.GetComponent<MeshRenderer>().sortingOrder = 3;
         if (gridPositioner != null)

@@ -12,11 +12,20 @@ public static class MovementManager {
     public static int currentDirectionLineup;
     public static Direction nextDirection;
 
+    private static int possibleMove;
+    private static bool checkRight;
+
+
+
+
+    [SerializeField] static int theNumber;
     public static bool Move(Piece character, int direction, int cost)
     {
+        //up
         if (direction == 1)
         {
             bool inWay = false;
+            PlayerControls.ClearAllGrids();
             //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
             {
@@ -24,8 +33,7 @@ public static class MovementManager {
                 {
                     continue;
                 }
-                if (Board.possibleMoveableChars[i].rowPosition == character.rowPosition - 1 &&
-                    Board.possibleMoveableChars[i].colPosition == character.colPosition)
+                if (Board.possibleMoveableChars[i].rowPosition == character.rowPosition - 1 && Board.possibleMoveableChars[i].colPosition == character.colPosition)
                 {
                     inWay = true;
                 }
@@ -63,14 +71,17 @@ public static class MovementManager {
             }
 
             if (!inWay && ExperimentalResources.ModifyResource(cost))
-            {
+            {                
                 character.SetRowAndCol(character.rowPosition - 1, character.colPosition);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + character.colPosition).transform.position;
+                PlayerControls.UnoccupiedSpaceEnable(character);
                 return true;
             }
         }
+        //right
         else if (direction == 2)
         {
+            PlayerControls.ClearAllGrids();
             bool inWay = false;
             //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
@@ -115,17 +126,23 @@ public static class MovementManager {
 
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
+
                 character.SetRowAndCol(character.rowPosition, character.colPosition + 1);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
+
+                PlayerControls.UnoccupiedSpaceEnable(character); 
                 return true;
             }
+           
         }
+        //down
         else if (direction == 3)
-        {
+        {            
             bool inWay = false;
+            PlayerControls.ClearAllGrids();
             //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
-            {
+            {                
                 if (Board.possibleMoveableChars[i] == character)
                 {
                     continue;
@@ -165,17 +182,21 @@ public static class MovementManager {
             }
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
+               // PlayerControls.isDown = false;
                 character.SetRowAndCol(character.rowPosition + 1, character.colPosition);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
+                PlayerControls.UnoccupiedSpaceEnable(character);
                 return true;
             }
         }
+        //left
         else
         {
             bool inWay = false;
+            PlayerControls.ClearAllGrids();
             //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
-            {
+            {                
                 if (Board.possibleMoveableChars[i] == character)
                 {
                     continue;
@@ -217,11 +238,15 @@ public static class MovementManager {
             {
                 character.SetRowAndCol(character.rowPosition, character.colPosition - 1);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
+                PlayerControls.UnoccupiedSpaceEnable(character);
                 return true;
             }
         }
-
+       // Debug.Log("PlayerControls.moveValues[theNumber].ToString()):        "+ PlayerControls.moveValues[theNumber].ToString());
+        //Debug.Log("PlayerControls.moveValues[theNumber].ToString()):        "+ ExperimentalResources.resources.ToString());
         return false;
+
+        
     }
 
     public static void SetStartDirectionLineup()
@@ -342,5 +367,5 @@ public static class MovementManager {
         MovementManager.numDirectionLineups = 2;
         MovementManager.directionLineups = new MovementManager.Direction[MovementManager.numDirectionsInLineup, MovementManager.numDirectionLineups];
         MovementManager.SetStartDirectionLineup();
-    }
+    }    
 }
