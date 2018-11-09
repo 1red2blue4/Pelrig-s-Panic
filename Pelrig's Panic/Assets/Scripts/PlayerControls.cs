@@ -29,6 +29,7 @@ public class PlayerControls : MonoBehaviour {
     [SerializeField] Material glowingMaterial;
     Material normalMaterial;
     public static bool isPlayerTurn;
+    
 
     void Start()
     {
@@ -86,7 +87,7 @@ public class PlayerControls : MonoBehaviour {
             else
             {
                 moveValues[i] = 6;
-            }
+            }            
         }
     }
 
@@ -213,7 +214,8 @@ public class PlayerControls : MonoBehaviour {
         {
             if (MovementManager.Move(Board.possibleMoveableChars[theOne], direction, moveValues[direction]))
             {
-
+              //  Debug.Log("No movement on keypress");
+               // Debug.Log("Board.possibleMoveableChars[theOne]: "+ Board.possibleMoveableChars[theOne].name);
             }
         }
     }
@@ -225,10 +227,9 @@ public class PlayerControls : MonoBehaviour {
         {
             if (Board.possibleMoveableChars[i].rowPosition == 1000)
             {
-                count++;
+                count++;                
                 continue;
             }
-               
             int enemiesAround = 0;
             for (int j = 0; j < Board.spawnedEnemies.Count; j++)
             {
@@ -306,19 +307,23 @@ public class PlayerControls : MonoBehaviour {
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            GameObject selectedBase;
+
             if (Physics.Raycast(ray, out hit, Mathf.Infinity)) 
             {
+               
                 if (hit.collider.tag == "Player")
                 {
                     if (selectedUnit != null)
                     {
-                        GameObject selectedBase = selectedUnit;
+                        selectedBase = selectedUnit;
                         //look for the image to rotate
                         for (int i = 0; i < selectedUnit.transform.childCount; i++)
                         {
                             if (selectedUnit.transform.GetChild(i).GetComponent<MeshRenderer>() != null)
                             {
                                 selectedBase = selectedUnit.transform.GetChild(i).gameObject;
+                              
                             }
                         }
 
@@ -330,13 +335,22 @@ public class PlayerControls : MonoBehaviour {
                                 panelUnderCharacter = selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>().gameObject;
                             }
                         }
+
+                        
                         if (panelUnderCharacter != null)
                         {
+                            Debug.Log("Panel under character is not enable");
+                            /* for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+                             {
+                                 UnoccupiedSpaceDisable(Board.possibleMoveableChars[i]);
+                             }*/
+                           
+                            ClearAllGrids();
                             panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
                         }
                         selectedBase.GetComponent<MeshRenderer>().material = normalMaterial;
                         selectedUnit = null;
-                    }
+                    }                    
 
                     for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
                     {
@@ -344,33 +358,44 @@ public class PlayerControls : MonoBehaviour {
                         {
                             theOne = i;
                             selectedUnit = Board.possibleMoveableChars[i].thePiece;
-                            GameObject selectedBase = selectedUnit;
+                            Debug.Log("selectedUnit:     " + Board.possibleMoveableChars[i].thePiece);
+
+
+                            selectedBase = selectedUnit;
                             //look for the image to rotate
                             for (int j = 0; j < selectedUnit.transform.childCount; j++)
                             {
                                 if (selectedUnit.transform.GetChild(j).GetComponent<MeshRenderer>() != null)
                                 {
-                                    selectedBase = selectedUnit.transform.GetChild(j).gameObject;
+                                    selectedBase = selectedUnit.transform.GetChild(j).gameObject; 
                                 }
                             }
                             normalMaterial = selectedBase.GetComponent<MeshRenderer>().material;
-                            glowingMaterial.color = normalMaterial.color;
+                            glowingMaterial.color = normalMaterial.color; 
                             glowingMaterial.mainTexture = normalMaterial.mainTexture;
                             selectedBase.GetComponent<MeshRenderer>().material = glowingMaterial;
-
+                            
                             GameObject panelUnderCharacter = null;
                             for (int j = 0; j < selectedUnit.transform.childCount; j++)
                             {
                                 if (selectedUnit.transform.GetChild(j).GetComponent<PanelUnderCharacter>() != null)
                                 {
                                     panelUnderCharacter = selectedUnit.transform.GetChild(j).GetComponent<PanelUnderCharacter>().gameObject;
+                                   // Debug.Log("panelUnderCharacter:     "+ panelUnderCharacter);
+                                  //  Debug.Log("find gameobject:     " + GameObject.FindGameObjectsWithTag("BlankSpace"));
                                 }
                             }
                             if (panelUnderCharacter != null)
                             {
+                                Debug.Log("Highlight possible space enabled when player is selected");
                                 panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = true;
+
+                                //This enables the highlight space when player is clicked.
+                                 UnoccupiedSpaceEnable(Board.possibleMoveableChars[theOne]);
+                                //GameObject.Find("gridRow" + (Piece.character.rowPosition - 1) + "Column" + character.colPosition);
+                                //HighlightPossibleMoveGrids();
                             }
-                            break;
+                            break;                            
                         }
                     }
                 }
@@ -384,12 +409,25 @@ public class PlayerControls : MonoBehaviour {
                         {
                             if (selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>() != null)
                             {
-                                panelUnderCharacter = selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>().gameObject;
+                                panelUnderCharacter = selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>().gameObject; 
                             }
                         }
                         if (panelUnderCharacter != null)
                         {
+                            Debug.Log("Highlight possible space disabled when player is clicked any of the grid");
                             panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
+
+
+
+                            /*for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+                          {
+                              UnoccupiedSpaceDisable(Board.possibleMoveableChars[i]);
+
+                             // Debug.Log("Disable highlighted space");
+                          }*/
+                            ClearAllGrids();
+
+                            //Debug.Log("Possible move diabled:    " + Board.possibleMoveableChars[theOne]);
                         }
                         selectedUnit = null;
                     }
@@ -537,6 +575,115 @@ public class PlayerControls : MonoBehaviour {
         else if (Input.GetKeyDown(KeyCode.E))
         {
             MovementManager.SwitchDirectionLineup(MovementManager.Direction.Right, columnHighlight);
+        }
+    }
+
+   
+    public static void UnoccupiedSpaceEnable(Piece character)
+    {
+        //Highlight space enabled in Up.
+        /* bool inWay = false;
+         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+         {
+             if (Board.possibleMoveableChars[i] == character)
+             {
+                 continue;
+             }
+             if (Board.possibleMoveableChars[i].colPosition == character.colPosition + 1 && Board.possibleMoveableChars[i].rowPosition == character.rowPosition)
+             {
+                 inWay = true;
+             }            
+         }
+         if(!inWay)
+         {
+             GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition + 1)).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
+             inWay = false;
+         }*/
+
+        bool isUp  = false;
+        bool isRight = false;
+        bool isDown = false;
+        bool isLeft = false;
+        //Up
+        for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+        {
+              if (Board.possibleMoveableChars[i] == character)
+              {
+                  continue;
+              }
+
+              if (Board.possibleMoveableChars[i].rowPosition == character.rowPosition - 1 && Board.possibleMoveableChars[i].colPosition == character.colPosition)
+              {
+                  isUp = true;
+              }
+          }
+        if (!isUp)
+        {
+            GameObject.Find("gridRow" + (character.rowPosition - 1) + "Column" + character.colPosition).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
+            isUp = false;
+        }
+        //Right
+        for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+          {            
+              if (Board.possibleMoveableChars[i] == character)
+              {
+                  continue;
+              }
+
+              if (Board.possibleMoveableChars[i].rowPosition == character.rowPosition && Board.possibleMoveableChars[i].colPosition == character.colPosition + 1)
+              {
+                  isRight = true;               
+              }
+          }
+        if (!isRight)
+        {
+            GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition + 1)).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
+            isRight = false;
+        }
+        //Down
+        for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+          {
+              if (Board.possibleMoveableChars[i] == character)
+              {
+                  continue;
+              }
+              if (Board.possibleMoveableChars[i].rowPosition == character.rowPosition + 1 && Board.possibleMoveableChars[i].colPosition == character.colPosition)
+              {
+                  isDown = true;               
+              }
+          }
+        if (!isDown)
+        {
+            GameObject.Find("gridRow" + (character.rowPosition + 1) + "Column" + (character.colPosition)).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
+            isDown = false;
+        }
+        //Left
+        for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+        {            
+            if (Board.possibleMoveableChars[i] == character)
+            {
+                continue;
+            }
+            if (Board.possibleMoveableChars[i].rowPosition == character.rowPosition && Board.possibleMoveableChars[i].colPosition == character.colPosition - 1)
+            {
+                isLeft = true;                
+            }
+        }
+        if (!isLeft)
+        {
+            GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition - 1)).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
+            isLeft = false;
+        }
+    }
+
+    public static void ClearAllGrids()
+    {
+        for (int i = 0; i < Board.allTiles.Length; i++)
+        {
+            if (Board.allTiles[i].tag == "BlankSpace")
+            {
+                Board.allTiles[i].transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = false;                
+            }
         }
     }
 }

@@ -95,6 +95,7 @@ public class Board : MonoBehaviour {
         //allocate arrays
         possibleMoveableChars = new Piece[5];
         allTiles = new GameObject[universalTileHeight * universalTileWidth];
+        //Debug.Log("allTiles:    "+ allTiles);
         
         allCoins = new Piece[MAXCOINNUM];
         GameObject[] allCoinObjects = new GameObject[MAXCOINNUM];
@@ -264,7 +265,7 @@ public class Board : MonoBehaviour {
             }
 
             possibleMoveableChars[i].SetRowAndCol(randRow, randCol);
-
+           // Debug.Log("selectedUnit:     " + possibleMoveableChars[i].rowPosition);
 
             //check if in the same spot as another thing
             tempRows[i] = randRow;

@@ -23,6 +23,7 @@ TagManager:
   - Enemy
   - Cannon
   - EnemyVisuals
+  - BlankSpace
   layers:
   - Default
   - TransparentFX
