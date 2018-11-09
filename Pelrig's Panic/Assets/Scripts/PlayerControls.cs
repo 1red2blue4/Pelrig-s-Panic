@@ -407,20 +407,8 @@ public class PlayerControls : MonoBehaviour {
                         }
                         if (panelUnderCharacter != null)
                         {
-                            Debug.Log("Highlight possible space disabled when player is clicked any of the grid");
                             panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
-
-
-
-                            /*for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
-                          {
-                              UnoccupiedSpaceDisable(Board.possibleMoveableChars[i]);
-
-                             // Debug.Log("Disable highlighted space");
-                          }*/
                             ClearAllGrids();
-
-                            //Debug.Log("Possible move diabled:    " + Board.possibleMoveableChars[theOne]);
                         }
                         selectedUnit = null;
                     }
@@ -574,25 +562,6 @@ public class PlayerControls : MonoBehaviour {
    
     public static void UnoccupiedSpaceEnable(Piece character)
     {
-        //Highlight space enabled in Up.
-        /* bool inWay = false;
-         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
-         {
-             if (Board.possibleMoveableChars[i] == character)
-             {
-                 continue;
-             }
-             if (Board.possibleMoveableChars[i].colPosition == character.colPosition + 1 && Board.possibleMoveableChars[i].rowPosition == character.rowPosition)
-             {
-                 inWay = true;
-             }            
-         }
-         if(!inWay)
-         {
-             GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition + 1)).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
-             inWay = false;
-         }*/
-
         bool isUp  = false;
         bool isRight = false;
         bool isDown = false;
