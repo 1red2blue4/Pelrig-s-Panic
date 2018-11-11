@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 114817839116068556}
   - component: {fileID: 136926482673524384}
   - component: {fileID: 114093455696501544}
+  - component: {fileID: 114518967021281770}
   m_Layer: 0
   m_Name: '#Ed_Fantasy_Realm_temp'
   m_TagString: Player
@@ -297,7 +298,7 @@ MeshRenderer:
   m_GameObject: {fileID: 1192767384648214}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -455,6 +456,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objToDisappear: {fileID: 1599760433457578}
+  objToBubblePres: {fileID: 1002113010736916}
+  objToBubbleResist: {fileID: 1817619647670820}
+  bubblesUpOnAction: 1
+  valueChanged: 0
 --- !u!114 &114165366520792660
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -510,6 +515,19 @@ MonoBehaviour:
   difference: 0
   speed: 0
   mainCamera: {fileID: 0}
+--- !u!114 &114518967021281770
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1158910450287922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa8f17a6fe40a2040876402fd9341bff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  presenceObj: {fileID: 1786290417381706}
+  resistanceObj: {fileID: 1665272076616890}
 --- !u!114 &114764263575923860
 MonoBehaviour:
   m_ObjectHideFlags: 1

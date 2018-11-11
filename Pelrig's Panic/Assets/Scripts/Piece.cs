@@ -9,12 +9,18 @@ public class Piece : MonoBehaviour
     public int rowPosition;
     public int colPosition;
     [SerializeField] private string name;
+    public int presenceValue;
+    public int resistanceValue;
+    public int initialPresenceValue;
+    public int initialResistanceValue;
     private PieceType type;
     [SerializeField] public GameObject thePiece;
     float timer = 0.0f;
 
     private void Start()
     {
+        presenceValue = initialPresenceValue;
+        resistanceValue = initialResistanceValue;
     }
 
     public void SetRowAndCol(int row, int col)

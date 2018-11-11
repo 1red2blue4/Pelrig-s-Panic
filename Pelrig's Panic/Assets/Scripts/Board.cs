@@ -22,7 +22,6 @@ public class Board : MonoBehaviour {
     public static Piece[] possibleMoveableChars;
     public static Piece[] allCoins;
     public static List<Piece> spawnedEnemies;
-    //public static Piece[] spawnedEnemies;
     public static Cannon[] allCannons;
 
     public static int numGenerators;
@@ -51,8 +50,7 @@ public class Board : MonoBehaviour {
     public static int currentNumCoins = 0;
     public static int numCoinsCollected = 0;
     public const float approxGoldenRatio = 1.618f;
-
-    public static bool spawnEnemies = false;
+    
     public static GameObject pirateBossSpawned;
     public static Piece pirateBoss;
 
@@ -109,6 +107,13 @@ public class Board : MonoBehaviour {
         //retrieve pieces from the gameObject with this board
         possibleMoveableChars = gameObject.GetComponents<Piece>();
 
+        for (int i = 0; i < possibleMoveableChars.Length; i++)
+        {
+            possibleMoveableChars[i].presenceValue = possibleMoveableChars[i].initialPresenceValue;
+            possibleMoveableChars[i].resistanceValue = possibleMoveableChars[i].initialResistanceValue;
+        }
+        
+
         //find walls
         allWalls = (Wall[])FindObjectsOfType(typeof(Wall));
 
@@ -119,7 +124,7 @@ public class Board : MonoBehaviour {
         cannonPoints = new point[universalTileHeight * universalTileWidth];
 
         //set up board
-        pieceDistance = 1.06f;
+        pieceDistance = 1.56f;
         CreateBoard(universalTileWidth, universalTileHeight, midBoardX, midBoardY, spaceFieldType);
 	}
 	
@@ -127,125 +132,24 @@ public class Board : MonoBehaviour {
 	void Update ()
     {
         SendEverythingDown();
-        for (int i = 0; i < possibleMoveableChars.Length; i++)
+        RotateCharacterPosition(possibleMoveableChars, possibleMoveableChars.Length, 2);
+        RotateCharacterPositionWithList(spawnedEnemies, spawnedEnemies.Count, 1);
+        Piece[] cannonPieces = new Piece[allCannons.Length];
+        for (int i = 0; i < cannonPieces.Length; i++)
         {
-            GridPositioner childPositioner1 = possibleMoveableChars[i].thePiece.GetComponent<GridPositioner>();
-            //look for the image to rotate
-            for (int j = 0; j < possibleMoveableChars[i].thePiece.transform.childCount; j++)
-            {
-                if (possibleMoveableChars[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null)
-                {
-                    childPositioner1 = possibleMoveableChars[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
-                }
-            }
-            GridPositioner childPositioner2 = possibleMoveableChars[i].thePiece.GetComponent<GridPositioner>();
-            for (int j = 0; j < possibleMoveableChars[i].thePiece.transform.childCount; j++)
-            {
-                if (possibleMoveableChars[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null && possibleMoveableChars[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != childPositioner1)
-                {
-                    childPositioner2 = possibleMoveableChars[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
-                }
-            }
-            childPositioner1.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-            childPositioner1.AdjustToCamera();
-            if (childPositioner2 != null)
-            {
-                childPositioner2.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-                childPositioner2.AdjustToCamera();
-            }
+            cannonPieces[i] = allCannons[i].cannon;
         }
-        
-        for (int i = 0; i < spawnedEnemies.Count; i++)
+        RotateCharacterPosition(cannonPieces, cannonPieces.Length, 2);
+        Piece[] generatorPieces = new Piece[generators.Length];
+        for (int i = 0; i < generatorPieces.Length; i++)
         {
-            GridPositioner childPositioner1 = spawnedEnemies[i].thePiece.GetComponent<GridPositioner>();
-            //look for the image to rotate
-            for (int j = 0; j < spawnedEnemies[i].thePiece.transform.childCount; j++)
-            {
-                if (spawnedEnemies[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null)
-                {
-                    childPositioner1 = spawnedEnemies[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
-                }
-            }
-            GridPositioner childPositioner2 = spawnedEnemies[i].thePiece.GetComponent<GridPositioner>();
-            for (int j = 0; j < spawnedEnemies[i].thePiece.transform.childCount; j++)
-            {
-                if (spawnedEnemies[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null && spawnedEnemies[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != childPositioner1)
-                {
-                    childPositioner2 = spawnedEnemies[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
-                }
-            }
-            childPositioner1.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-            childPositioner1.AdjustToCamera();
-            /*
-            if (childPositioner2 != null)
-            {
-                childPositioner2.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-                childPositioner2.AdjustToCamera();
-            }
-            */
+            generatorPieces[i] = generators[i].generator;
         }
+        RotateCharacterPosition(generatorPieces, generatorPieces.Length, 2);
 
         GridPositioner childPositionerBoss = pirateBoss.thePiece.transform.GetChild(0).GetComponent<GridPositioner>();
         childPositionerBoss.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         childPositionerBoss.AdjustToCamera();
-
-        for (int i = 0; i < allCannons.Length; i++)
-        {
-            GridPositioner childPositionerCannon = allCannons[i].cannon.thePiece.GetComponent<GridPositioner>();
-            //look for the image to rotate
-            for (int j = 0; j < allCannons[i].cannon.thePiece.transform.childCount; j++)
-            {
-                if (allCannons[i].cannon.thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null)
-                {
-                    childPositionerCannon = allCannons[i].cannon.thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
-                }
-            }
-            childPositionerCannon.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-            childPositionerCannon.AdjustToCamera();
-
-            GridPositioner childPositionerCannon2 = allCannons[i].cannon.thePiece.GetComponent<GridPositioner>();
-            for (int j = 0; j < allCannons[i].cannon.thePiece.transform.childCount; j++)
-            {
-                if (allCannons[i].cannon.thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null && allCannons[i].cannon.thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != childPositionerCannon)
-                {
-                    childPositionerCannon2 = allCannons[i].cannon.thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
-                }
-            }
-            if (childPositionerCannon2 != null)
-            {
-                childPositionerCannon2.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-                childPositionerCannon2.AdjustToCamera();
-            }
-        }
-
-        for (int i = 0; i < generators.Length; i++)
-        {
-            GridPositioner childPositionerGenerator1 = generators[i].generator.thePiece.GetComponent<GridPositioner>();
-            //look for the image to rotate
-            for (int j = 0; j < generators[i].generator.thePiece.transform.childCount; j++)
-            {
-                if (generators[i].generator.thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null)
-                {
-                    childPositionerGenerator1 = generators[i].generator.thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
-                }
-            }
-            childPositionerGenerator1.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-            childPositionerGenerator1.AdjustToCamera();
-
-            GridPositioner childPositionerGenerator2 = generators[i].generator.thePiece.GetComponent<GridPositioner>();
-            for (int j = 0; j < generators[i].generator.thePiece.transform.childCount; j++)
-            {
-                if (generators[i].generator.thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null && generators[i].generator.thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != childPositionerGenerator1)
-                {
-                    childPositionerGenerator2 = generators[i].generator.thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
-                }
-            }
-            if (childPositionerGenerator2 != null)
-            {
-                childPositionerGenerator2.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-                childPositionerGenerator2.AdjustToCamera();
-            }
-        }
 
         timer += Time.deltaTime;
         coinResetTimer += Time.deltaTime;
@@ -342,13 +246,14 @@ public class Board : MonoBehaviour {
         int[] tempRows = new int[possibleMoveableChars.Length];
         int[] tempCols = new int[possibleMoveableChars.Length];
 
-        int[] units = { 10, 9, 8, 7, 6 };
+        int[] unitsRow = { 5, 6, 6, 7, 7 };
+        int[] unitsCol = { 8, 9, 8, 8, 9 };
         //set the hero pieces
         for (int i = 0; i < possibleMoveableChars.Length; i++)
         {
             //get one of the locations
-            int randCol = 11;
-            int randRow = units[i];
+            int randCol = unitsCol[i];
+            int randRow = unitsRow[i];
             //on the off chance it rolls exactly 1, pick the largest value instead of overflowing
             if (randRow == tileWidth)
             {
@@ -405,24 +310,87 @@ public class Board : MonoBehaviour {
             GridPositioner bringDown = piece.GetComponent<GridPositioner>();
             bringDown.CheckWhatsBeneath();
             bringDown.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-            /*
-            bringDown.AdjustToCamera();
-            if (piece.transform.childCount > 0)
-            {
-                GameObject visualChild = piece.transform.GetChild(0).gameObject;
-                if (visualChild != null)
-                {
-                    GridPositioner billboard = piece.transform.GetChild(0).GetComponent<GridPositioner>();
-                    if (billboard != null)
-                    {
-                        billboard.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-                        //billboard.AdjustToCamera();
-                    }
-                }
-            }
-            */
         }
     }
+
+    private void RotateCharacterPosition(Piece[] piecesToRotate, int numOfThesePieces, int numChildGridPositioners)
+    {
+        for (int i = 0; i < numOfThesePieces; i++)
+        {
+            GridPositioner[] tempGridPositioners = new GridPositioner[numChildGridPositioners];
+            for (int k = 0; k < numChildGridPositioners; k++)
+            {
+                GridPositioner childPositioner = piecesToRotate[i].thePiece.GetComponent<GridPositioner>();
+                //look for the image to rotate
+                for (int j = 0; j < piecesToRotate[i].thePiece.transform.childCount; j++)
+                {
+                    if (piecesToRotate[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null)
+                    {
+                        if (k == 0)
+                        {
+                            childPositioner = piecesToRotate[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
+                        }
+                        else
+                        {
+                            for (int g = k - 1; g >= 0; g--)
+                            {
+                                if (piecesToRotate[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != tempGridPositioners[g])
+                                {
+                                    childPositioner = piecesToRotate[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
+                                }
+                            }
+                        }
+                    }
+                }
+                if (childPositioner != piecesToRotate[i].thePiece.GetComponent<GridPositioner>() && childPositioner != null)
+                {
+                    childPositioner.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                    childPositioner.AdjustToCamera();
+                    tempGridPositioners[k] = childPositioner;
+                }
+            }
+        }
+    }
+
+    private void RotateCharacterPositionWithList(List<Piece> piecesToRotate, int numOfThesePieces, int numChildGridPositioners)
+    {
+        for (int i = 0; i < numOfThesePieces; i++)
+        {
+            GridPositioner[] tempGridPositioners = new GridPositioner[numChildGridPositioners];
+            for (int k = 0; k < numChildGridPositioners; k++)
+            {
+                GridPositioner childPositioner = piecesToRotate[i].thePiece.GetComponent<GridPositioner>();
+                //look for the image to rotate
+                for (int j = 0; j < piecesToRotate[i].thePiece.transform.childCount; j++)
+                {
+                    if (piecesToRotate[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != null)
+                    {
+                        if (k == 0)
+                        {
+                            childPositioner = piecesToRotate[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
+                        }
+                        else
+                        {
+                            for (int g = k - 1; g >= 0; g--)
+                            {
+                                if (piecesToRotate[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>() != tempGridPositioners[g])
+                                {
+                                    childPositioner = piecesToRotate[i].thePiece.transform.GetChild(j).GetComponent<GridPositioner>();
+                                }
+                            }
+                        }
+                    }
+                }
+                if (childPositioner != piecesToRotate[i].thePiece.GetComponent<GridPositioner>() && childPositioner != null)
+                {
+                    childPositioner.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                    childPositioner.AdjustToCamera();
+                    tempGridPositioners[k] = childPositioner;
+                }
+            }
+        }
+    }
+
     /*
     private void CoinSpawn(int numCoins, int tileWidth, int tileHeight, float midX, float midY)
     {
@@ -559,7 +527,7 @@ public class Board : MonoBehaviour {
         {
             if (first)
             {                
-                int[] array = { 29, 3, 29, 14, 35, 5, 35, 10 };
+                int[] array = { 19, 3, 19, 9, 26, 4, 26, 8 };
                 //GameObject[] spawnedEnemyObjects = new GameObject[4]; //5 for now
                 for (int i = 0; i < (8); i += 2)
                 {
@@ -577,14 +545,16 @@ public class Board : MonoBehaviour {
                     bringDown.CheckWhatsBeneath();
                 }
                 //Put the pirate boss here
+                int bossCol = 25;
+                int bossRow = 6;
                 float halfWidth1 = (float)universalTileWidth / 2.0f;
                 float halfHeight1 = (float)universalTileHeight / 2.0f;
-                float finalXPos1 = -halfWidth1 + 38 * pieceDistance + midBoardX;
-                float finalYPos1 = halfHeight1 - 7 * pieceDistance - midBoardY;
+                float finalXPos1 = -halfWidth1 + bossCol * pieceDistance + midBoardX;
+                float finalYPos1 = halfHeight1 - bossRow * pieceDistance - midBoardY;
                 Vector3 pos1 = new Vector3(finalXPos1, finalYPos1, 0.0f);
                 pirateBossSpawned = Instantiate(pirateBossObject, pos1, Quaternion.identity);
                 pirateBoss = pirateBossSpawned.GetComponent<Piece>();
-                pirateBoss.SetRowAndCol(7, 38);
+                pirateBoss.SetRowAndCol(bossRow, bossCol);
                 GridPositioner bringDown1 = pirateBoss.thePiece.GetComponent<GridPositioner>();
                 bringDown1.CheckWhatsBeneath();
 
@@ -714,8 +684,8 @@ public class Board : MonoBehaviour {
     {
         //colums, row for each cannon
         allCannons = new Cannon[4]; //4
-        int[] arrayColumns = { 28,28,18,18};
-        int[] arrayRows = {3,15,3,15 };
+        int[] arrayColumns = { 18,18,12,12};
+        int[] arrayRows = {2,10,2,10 };
         //GameObject[] spawnedEnemyObjects = new GameObject[4]; //5 for now
         for (int i = 0; i < allCannons.Length; i ++)
         {
@@ -738,8 +708,8 @@ public class Board : MonoBehaviour {
     {
         //colums, row for each cannon
         generators = new Generator[2]; //4
-        int[] arrayColumns = { 11, 11};
-        int[] arrayRows = { 4, 14};
+        int[] arrayColumns = { 8, 8};
+        int[] arrayRows = { 3, 9};
         //GameObject[] spawnedEnemyObjects = new GameObject[4]; //5 for now
         for (int i = 0; i < generators.Length; i++)
         {

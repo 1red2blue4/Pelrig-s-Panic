@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 114387269399379206}
   - component: {fileID: 136521991603015288}
   - component: {fileID: 114404051625211566}
+  - component: {fileID: 114712380863120912}
   m_Layer: 0
   m_Name: '#Kent_Fantasy_Realm_temp'
   m_TagString: Player
@@ -332,7 +333,7 @@ MeshRenderer:
   m_GameObject: {fileID: 1629828650287792}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -498,6 +499,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objToDisappear: {fileID: 1065185864937170}
+  objToBubblePres: {fileID: 1427391397002392}
+  objToBubbleResist: {fileID: 1698528830530476}
+  bubblesUpOnAction: 1
+  valueChanged: 0
 --- !u!114 &114432842325093222
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -526,6 +531,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialValue: 1
   gridPositioner: {fileID: 0}
+--- !u!114 &114712380863120912
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1673096372370608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa8f17a6fe40a2040876402fd9341bff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  presenceObj: {fileID: 1712117823536812}
+  resistanceObj: {fileID: 1400977605621594}
 --- !u!114 &114762674916288488
 MonoBehaviour:
   m_ObjectHideFlags: 1

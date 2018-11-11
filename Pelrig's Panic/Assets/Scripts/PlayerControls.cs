@@ -33,6 +33,7 @@ public class PlayerControls : MonoBehaviour {
 
     void Start()
     {
+        
         cameraChangeHorizontal = 0.0f;
         cameraChangeVertical = 0.0f;
         movingCamera = false;
@@ -277,7 +278,13 @@ public class PlayerControls : MonoBehaviour {
                 Board.possibleMoveableChars[i].SetRowAndCol(1000, 1000);
                 Board.possibleMoveableChars[i].GetPiece().transform.position = new Vector3(10000, 10000, 0);
             }
+            
+            UIValues resistance = Board.possibleMoveableChars[i].thePiece.GetComponent<ValueHolder>().resistanceObj.GetComponent<UIValues>();
+            resistance.SetValue(resistance.initialValue - enemiesAround);
+            Board.possibleMoveableChars[i].resistanceValue = resistance.initialValue - enemiesAround;
         }
+
+        
         if (count >= 2 && !Board.first)
         {
             GameObject.Find("WinScreen").GetComponentInChildren<YouWin>().youLose = true;
@@ -581,8 +588,11 @@ public class PlayerControls : MonoBehaviour {
           }
         if (!isUp)
         {
-            GameObject.Find("gridRow" + (character.rowPosition - 1) + "Column" + character.colPosition).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
-            isUp = false;
+            if (GameObject.Find("gridRow" + (character.rowPosition - 1) + "Column" + character.colPosition) != null)
+            {
+                GameObject.Find("gridRow" + (character.rowPosition - 1) + "Column" + character.colPosition).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
+                isUp = false;
+            }
         }
         //Right
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
@@ -599,8 +609,11 @@ public class PlayerControls : MonoBehaviour {
           }
         if (!isRight)
         {
-            GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition + 1)).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
-            isRight = false;
+            if (GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition + 1)) != null)
+            {
+                GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition + 1)).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
+                isRight = false;
+            }
         }
         //Down
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
@@ -616,8 +629,11 @@ public class PlayerControls : MonoBehaviour {
           }
         if (!isDown)
         {
-            GameObject.Find("gridRow" + (character.rowPosition + 1) + "Column" + (character.colPosition)).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
-            isDown = false;
+            if (GameObject.Find("gridRow" + (character.rowPosition + 1) + "Column" + (character.colPosition)) != null)
+            {
+                GameObject.Find("gridRow" + (character.rowPosition + 1) + "Column" + (character.colPosition)).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
+                isDown = false;
+            }
         }
         //Left
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
@@ -633,8 +649,11 @@ public class PlayerControls : MonoBehaviour {
         }
         if (!isLeft)
         {
-            GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition - 1)).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
-            isLeft = false;
+            if (GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition - 1)) != null)
+            {
+                GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition - 1)).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
+                isLeft = false;
+            }
         }
     }
 

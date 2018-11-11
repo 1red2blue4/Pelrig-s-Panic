@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 114483012542876488}
   - component: {fileID: 136597630464958948}
   - component: {fileID: 114792864971470680}
+  - component: {fileID: 114775285683063192}
   m_Layer: 0
   m_Name: '#Meda_Fantasy_Realm_temp'
   m_TagString: Player
@@ -298,7 +299,7 @@ MeshRenderer:
   m_GameObject: {fileID: 1469560358481866}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -514,6 +515,19 @@ MonoBehaviour:
   difference: 0
   speed: 0
   mainCamera: {fileID: 0}
+--- !u!114 &114775285683063192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1445851507171124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa8f17a6fe40a2040876402fd9341bff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  presenceObj: {fileID: 1314531710186940}
+  resistanceObj: {fileID: 1179842924804012}
 --- !u!114 &114792864971470680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -526,6 +540,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objToDisappear: {fileID: 1571711118364400}
+  objToBubblePres: {fileID: 1880501161802412}
+  objToBubbleResist: {fileID: 1319786522092248}
+  bubblesUpOnAction: 1
+  valueChanged: 0
 --- !u!114 &114918012776708352
 MonoBehaviour:
   m_ObjectHideFlags: 1

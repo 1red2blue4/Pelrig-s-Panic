@@ -7,12 +7,16 @@ public class PirateCaptainAI : MonoBehaviour {
     float time;
     int countMove = 0;
     public bool isTurnActive;
+    [SerializeField] private GameObject presenceObj;
+    [SerializeField] private GameObject resistanceObj;
 
     // Use this for initialization
     void Start()
     {
         isTurnActive = false;
         time = 0.0f;
+        presenceObj.GetComponent<MeshRenderer>().sortingOrder = 3;
+        resistanceObj.GetComponent<MeshRenderer>().sortingOrder = 3;
     }
 
     // Update is called once per frame
@@ -69,6 +73,9 @@ public class PirateCaptainAI : MonoBehaviour {
                 playersAround += 1;
             }
         }
+
+        UIValues resistance = resistanceObj.GetComponent<UIValues>();
+        resistance.SetValue(resistance.initialValue - playersAround);
 
         if (playersAround >= 4)
         {
