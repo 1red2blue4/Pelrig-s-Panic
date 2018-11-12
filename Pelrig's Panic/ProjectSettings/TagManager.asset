@@ -25,6 +25,7 @@ TagManager:
   - EnemyVisuals
   - BlankSpace
   - EndTurn
+  - Control
   layers:
   - Default
   - TransparentFX

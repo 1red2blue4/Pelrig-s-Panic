@@ -22,8 +22,6 @@ public class SceneSequence : MonoBehaviour
         TextManager.isSpaceKeyPressed = false;
 
         SkipScene();
-        
-
     }
     
     IEnumerator Sequence()
@@ -34,8 +32,7 @@ public class SceneSequence : MonoBehaviour
 
         yield return new WaitForSeconds(5);
         cam3.SetActive(true);
-        cam2.SetActive(false);
-        
+        cam2.SetActive(false);        
         
         yield return new WaitForSeconds(20000000);
         SceneTransition();
@@ -44,9 +41,8 @@ public class SceneSequence : MonoBehaviour
 
     void SceneTransition()
     {
-        SceneManager.LoadScene("PirateShipWithBoard");
+        SceneManager.LoadScene("PirateShipUI");
     }
-
 
     void SkipScene()
     {       

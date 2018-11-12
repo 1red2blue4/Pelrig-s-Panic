@@ -88,7 +88,7 @@ public static class TextManager {
                 countDialogueLenghth++; 
                 if (countDialogueLenghth >=  28)
                 {
-                    SceneManager.LoadScene("PirateShipWithBoard");
+                    SceneManager.LoadScene("PirateShipUI");
                 }
             }
             else if (Input.GetKeyDown(KeyCode.Space) && (currentTextSet == textSets.Length - 1 || textSets[currentTextSet + 1] == null) && wentToEndOfText == false)
