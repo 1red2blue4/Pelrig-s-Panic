@@ -15,7 +15,6 @@ public class UIStuff : MonoBehaviour {
         if (PlayerControls.isPlayerTurn)
         {
             transform.GetComponent<TMPro.TextMeshProUGUI>().text = PlayerControls.moveValues[theNumber].ToString();
-             //Debug.Log("theNumber:   "+ PlayerControls.moveValues[theNumber].ToString());
         }
         else
         {

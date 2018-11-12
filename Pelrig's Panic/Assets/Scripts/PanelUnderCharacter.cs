@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PanelUnderCharacter : MonoBehaviour {
-
+public class PanelUnderCharacter : MonoBehaviour
+{
     public bool visible;
 
     private void Start()
@@ -15,7 +15,7 @@ public class PanelUnderCharacter : MonoBehaviour {
     {
         if (visible)
         {
-            gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            gameObject.GetComponent<SpriteRenderer>().enabled = true;           
         }
         else
         {

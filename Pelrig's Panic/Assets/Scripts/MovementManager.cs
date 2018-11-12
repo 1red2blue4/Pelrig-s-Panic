@@ -26,6 +26,7 @@ public static class MovementManager {
         {
             bool inWay = false;
             PlayerControls.ClearAllGrids();
+            PlayerControls.EndButtonEnable();
             //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
             {
@@ -82,6 +83,7 @@ public static class MovementManager {
         else if (direction == 2)
         {
             PlayerControls.ClearAllGrids();
+            PlayerControls.EndButtonEnable();
             bool inWay = false;
             //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
@@ -140,6 +142,7 @@ public static class MovementManager {
         {            
             bool inWay = false;
             PlayerControls.ClearAllGrids();
+            PlayerControls.EndButtonEnable();
             //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
             {                
@@ -194,6 +197,7 @@ public static class MovementManager {
         {
             bool inWay = false;
             PlayerControls.ClearAllGrids();
+            PlayerControls.EndButtonEnable();
             //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
             {                
@@ -242,11 +246,7 @@ public static class MovementManager {
                 return true;
             }
         }
-       // Debug.Log("PlayerControls.moveValues[theNumber].ToString()):        "+ PlayerControls.moveValues[theNumber].ToString());
-        //Debug.Log("PlayerControls.moveValues[theNumber].ToString()):        "+ ExperimentalResources.resources.ToString());
-        return false;
-
-        
+        return false;        
     }
 
     public static void SetStartDirectionLineup()
@@ -368,4 +368,6 @@ public static class MovementManager {
         MovementManager.directionLineups = new MovementManager.Direction[MovementManager.numDirectionsInLineup, MovementManager.numDirectionLineups];
         MovementManager.SetStartDirectionLineup();
     }    
+
+   
 }

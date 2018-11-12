@@ -536,7 +536,7 @@ Prefab:
     - target: {fileID: 224322961769847800, guid: ab7e49ed629738345a36ff3077ddbd12,
         type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224322961769847800, guid: ab7e49ed629738345a36ff3077ddbd12,
         type: 2}
@@ -594,6 +594,10 @@ Prefab:
       value: 
       objectReference: {fileID: 12800000, guid: 580f080b6b3981244bf05fc898561fd9,
         type: 3}
+    - target: {fileID: 1768244825002336, guid: ab7e49ed629738345a36ff3077ddbd12, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab7e49ed629738345a36ff3077ddbd12, type: 2}
   m_IsPrefabAsset: 0
@@ -1068,9 +1072,6 @@ MonoBehaviour:
   canSkip: 0
   prompt: {fileID: 1698342476}
   restartable: 1
-  camera1: {fileID: 511342514}
-  camera2: {fileID: 1033947547}
-  camera3: {fileID: 823343657}
 --- !u!4 &930185345
 Transform:
   m_ObjectHideFlags: 0
