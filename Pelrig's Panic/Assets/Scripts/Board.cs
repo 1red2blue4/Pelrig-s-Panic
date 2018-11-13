@@ -12,7 +12,7 @@ public class Board : MonoBehaviour {
     [SerializeField] private GameObject pirateBossObject;
     [SerializeField] private GameObject cannonPrefab;
     [SerializeField] private GameObject generatorPrefab;
-    private Generator[] generators;
+    public static Generator[] generators;
     static public bool first;
 
     public GameObject mainCamera;

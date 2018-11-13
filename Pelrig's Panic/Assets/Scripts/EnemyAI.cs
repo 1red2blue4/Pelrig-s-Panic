@@ -198,6 +198,25 @@ public class EnemyAI : MonoBehaviour {
                     canMoveLeft = false;
                 }
             }
+            for (int i = 0; i < Board.numGenerators; i++)
+            {
+                if (Board.generators[i].generator.colPosition == currentColumnPosition && Board.generators[i].generator.rowPosition == currentRowPosition - 1)
+                {
+                    canMoveUp = false;
+                }
+                if (Board.generators[i].generator.colPosition == currentColumnPosition + 1 && Board.generators[i].generator.rowPosition == currentRowPosition)
+                {
+                    canMoveRight = false;
+                }
+                if (Board.generators[i].generator.colPosition == currentColumnPosition && Board.generators[i].generator.rowPosition == currentRowPosition + 1)
+                {
+                    canMoveDown = false;
+                }
+                if (Board.generators[i].generator.colPosition == currentColumnPosition - 1 && Board.generators[i].generator.rowPosition == currentRowPosition)
+                {
+                    canMoveLeft = false;
+                }
+            }
             if (Board.pirateBoss.colPosition == currentColumnPosition && Board.pirateBoss.rowPosition == currentRowPosition - 1)
             {
                 canMoveUp = false;
