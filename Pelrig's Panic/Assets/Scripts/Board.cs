@@ -700,6 +700,7 @@ public class Board : MonoBehaviour {
 
             GridPositioner bringDown = allCannons[i].gameObject.GetComponent<GridPositioner>();
             bringDown.CheckWhatsBeneath();
+            GameObject.Find("gridRow" + arrayRows[i] + "Column" + arrayColumns[i]).GetComponent<SpriteRenderer>().enabled = false;
             numCannons++;
         }
     }
@@ -724,6 +725,7 @@ public class Board : MonoBehaviour {
 
             GridPositioner bringDown = generators[i].gameObject.GetComponent<GridPositioner>();
             bringDown.CheckWhatsBeneath();
+            GameObject.Find("gridRow" + arrayRows[i] + "Column" + arrayColumns[i]).GetComponent<SpriteRenderer>().enabled = false;
             numGenerators++;
         }
     }
