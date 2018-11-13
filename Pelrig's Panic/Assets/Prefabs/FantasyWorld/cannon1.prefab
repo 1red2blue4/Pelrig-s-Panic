@@ -253,6 +253,10 @@ MonoBehaviour:
   rowPosition: 5
   colPosition: 17
   name: 
+  presenceValue: 0
+  resistanceValue: 0
+  initialPresenceValue: 0
+  initialResistanceValue: 0
   thePiece: {fileID: 1651644283395480}
 --- !u!114 &114985873310002988
 MonoBehaviour:
@@ -343,7 +347,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c8263cc00bfb13f489fdd6753850d359, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
