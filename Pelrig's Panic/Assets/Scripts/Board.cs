@@ -697,7 +697,7 @@ public class Board : MonoBehaviour {
             GameObject newCannon = Instantiate(cannonPrefab, placement, Quaternion.identity);
             allCannons[i] = newCannon.GetComponent<Cannon>();
             allCannons[i].cannon.SetRowAndCol(arrayRows[i], arrayColumns[i]);
-
+            newCannon.name = "cannon" + i;
             GridPositioner bringDown = allCannons[i].gameObject.GetComponent<GridPositioner>();
             bringDown.CheckWhatsBeneath();
             GameObject.Find("gridRow" + arrayRows[i] + "Column" + arrayColumns[i]).GetComponent<SpriteRenderer>().enabled = false;
