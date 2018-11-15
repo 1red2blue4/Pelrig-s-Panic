@@ -65,6 +65,15 @@ public static class MovementManager {
                     //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
+            //check for generators in the way
+            for (int i = 0; i < Board.numGenerators; i++)
+            {
+                if (Board.generators[i].generator.rowPosition == character.rowPosition - 1 && Board.generators[i].generator.colPosition == character.colPosition)
+                {
+                    inWay = true;
+                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
+                }
+            }
 
             if (Board.pirateBoss.colPosition == character.colPosition && Board.pirateBoss.rowPosition == character.rowPosition - 1)
             {
@@ -116,6 +125,15 @@ public static class MovementManager {
             for (int i = 0; i < Board.numCannons; i++)
             {
                 if (Board.allCannons[i].cannon.colPosition == character.colPosition + 1 && Board.allCannons[i].cannon.rowPosition == character.rowPosition)
+                {
+                    inWay = true;
+                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
+                }
+            }
+            //check for generators in the way
+            for (int i = 0; i < Board.numGenerators; i++)
+            {
+                if (Board.generators[i].generator.rowPosition == character.rowPosition && Board.generators[i].generator.colPosition == character.colPosition + 1)
                 {
                     inWay = true;
                     //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
@@ -179,6 +197,15 @@ public static class MovementManager {
                     //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
+            //check for generators in the way
+            for (int i = 0; i < Board.numGenerators; i++)
+            {
+                if (Board.generators[i].generator.rowPosition == character.rowPosition + 1 && Board.generators[i].generator.colPosition == character.colPosition)
+                {
+                    inWay = true;
+                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
+                }
+            }
             if (Board.pirateBoss.colPosition == character.colPosition && Board.pirateBoss.rowPosition == character.rowPosition + 1)
             {
                 inWay = true;
@@ -229,6 +256,15 @@ public static class MovementManager {
             for (int i = 0; i < Board.numCannons; i++)
             {
                 if (Board.allCannons[i].cannon.colPosition == character.colPosition - 1 && Board.allCannons[i].cannon.rowPosition == character.rowPosition)
+                {
+                    inWay = true;
+                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
+                }
+            }
+            //check for generators in the way
+            for (int i = 0; i < Board.numGenerators; i++)
+            {
+                if (Board.generators[i].generator.rowPosition == character.rowPosition && Board.generators[i].generator.colPosition == character.colPosition - 1)
                 {
                     inWay = true;
                     //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);

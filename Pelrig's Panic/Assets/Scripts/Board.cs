@@ -12,7 +12,7 @@ public class Board : MonoBehaviour {
     [SerializeField] private GameObject pirateBossObject;
     [SerializeField] private GameObject cannonPrefab;
     [SerializeField] private GameObject generatorPrefab;
-    private Generator[] generators;
+    public static Generator[] generators;
     static public bool first;
 
     public GameObject mainCamera;
@@ -700,6 +700,7 @@ public class Board : MonoBehaviour {
 
             GridPositioner bringDown = allCannons[i].gameObject.GetComponent<GridPositioner>();
             bringDown.CheckWhatsBeneath();
+            GameObject.Find("gridRow" + arrayRows[i] + "Column" + arrayColumns[i]).GetComponent<SpriteRenderer>().enabled = false;
             numCannons++;
         }
     }
@@ -724,6 +725,7 @@ public class Board : MonoBehaviour {
 
             GridPositioner bringDown = generators[i].gameObject.GetComponent<GridPositioner>();
             bringDown.CheckWhatsBeneath();
+            GameObject.Find("gridRow" + arrayRows[i] + "Column" + arrayColumns[i]).GetComponent<SpriteRenderer>().enabled = false;
             numGenerators++;
         }
     }

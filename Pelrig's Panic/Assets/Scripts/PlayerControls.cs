@@ -309,7 +309,7 @@ public class PlayerControls : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             GameObject selectedBase;
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity)) 
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1)) 
             {
                
                 if (hit.collider.tag == "Player")
