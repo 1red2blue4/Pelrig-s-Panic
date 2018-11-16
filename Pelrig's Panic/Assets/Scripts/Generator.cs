@@ -19,43 +19,13 @@ public class Generator : MonoBehaviour
         //gameObject.GetComponent<TextMesh>().text = null;
 
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         if (!isOn)
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                GeneratorPopupText.isVisible = true;
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-                {
-                   
-                    if (hit.transform.gameObject == gameObject)
-                    {
-                        
-                        isOn = CheckForPlayersAround();
-                    }
-                    else if (hit.transform.gameObject.transform.parent != null)
-                    {
-                        if (hit.transform.gameObject.transform.parent.gameObject == gameObject)
-                        {
-                            isOn = CheckForPlayersAround();
-                        }
-                    }
-                }
-            }
-        }
-
-        if (isOn)
-        {
-            onImage.SetActive(true);
-        }
-        else
-        {            
-            onImage.SetActive(false);
+            isOn = CheckForPlayersAround();
         }
     }
 
@@ -85,6 +55,7 @@ public class Generator : MonoBehaviour
             ExperimentalResources.generatorsActive++;
             int temp = ExperimentalResources.generatorsActive++;
             transform.GetChild(0).GetComponent<TextMesh>().text = "Activated" + "\ngenerator";
+            onImage.SetActive(true);
             return true;
         }
         return false;
