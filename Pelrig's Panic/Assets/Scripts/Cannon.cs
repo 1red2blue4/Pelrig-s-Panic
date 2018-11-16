@@ -3,27 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Cannon : MonoBehaviour {
-    
+
+    [SerializeField]
+    Texture2D mouseTarget;
     int charges;
     [SerializeField] public Piece cannon;
     [SerializeField] public int cannonID;
     [SerializeField] public GameObject onImage;
     [SerializeField] public GameObject offImage;
-    public bool isCanonUsable;
-
+    public static bool isCanonUsable;
+    public static bool isCanonSelected;
+    
     private void Start()
     {
         isCanonUsable = false;
         charges = 1;
+        isCanonSelected = false;
     }
 
     private void Update()
     {
+        isCanonUsable = CheckForPlayersAround();
         if (PlayerControls.isPlayerTurn && charges > 0)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && isCanonUsable)
             {
-                if (isCanonUsable)
+                if (isCanonSelected)
                 {
                     RaycastHit hit;
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -41,7 +46,9 @@ public class Cannon : MonoBehaviour {
                             }
                         }
                     }
-                    isCanonUsable = false;
+                    isCanonSelected = false;
+                    Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                    offImage.SetActive(false);
                 }
                 else
                 {
@@ -53,21 +60,24 @@ public class Cannon : MonoBehaviour {
                         {
                             if (hit.collider.gameObject == gameObject)
                             {
-                                isCanonUsable = CheckForPlayersAround();
+                                isCanonSelected = true;
+                                Cursor.SetCursor(mouseTarget, Vector2.zero, CursorMode.Auto);
+                                offImage.SetActive(true);
                             }
                         }
                     }
                 }
             }
         }
-
+        
         if (isCanonUsable)
         {
-            offImage.SetActive(true);
+            //offImage.SetActive(true);
+            CannonPopup.isVisible = true;
         }
         else
         {
-            offImage.SetActive(false);
+            CannonPopup.isVisible = false;
         }
     }
 

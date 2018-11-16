@@ -26,7 +26,7 @@ public static class MovementManager {
         {
             bool inWay = false;
             PlayerControls.ClearAllGrids();
-            PlayerControls.EndButtonEnable();
+            //PlayerControls.EndButtonEnable();
             //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
             {
@@ -69,7 +69,7 @@ public static class MovementManager {
             for (int i = 0; i < Board.numGenerators; i++)
             {
                 if (Board.generators[i].generator.rowPosition == character.rowPosition - 1 && Board.generators[i].generator.colPosition == character.colPosition)
-                {
+                {                    
                     inWay = true;
                     //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
@@ -92,7 +92,7 @@ public static class MovementManager {
         else if (direction == 2)
         {
             PlayerControls.ClearAllGrids();
-            PlayerControls.EndButtonEnable();
+           // PlayerControls.EndButtonEnable();
             bool inWay = false;
             //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
@@ -160,7 +160,7 @@ public static class MovementManager {
         {            
             bool inWay = false;
             PlayerControls.ClearAllGrids();
-            PlayerControls.EndButtonEnable();
+            //PlayerControls.EndButtonEnable();
             //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
             {                
@@ -224,7 +224,7 @@ public static class MovementManager {
         {
             bool inWay = false;
             PlayerControls.ClearAllGrids();
-            PlayerControls.EndButtonEnable();
+           // PlayerControls.EndButtonEnable();
             //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
             {                
