@@ -20,12 +20,10 @@ public class EndButtonToggle : MonoBehaviour
 	}
 
     public void EnableEndTurn()
-    {
-        
+    { 
         if(!isEnable)
-        {
-            Debug.Log("End turn button pressed");
-            PlayerControls.EnemyTurnsActivate();
+        { 
+            EndTurnButtonScript.isButtonPressed = true;
             isEnable = true;
         }       
     }

@@ -32,7 +32,7 @@ public class Cannon : MonoBehaviour {
                 {
                     RaycastHit hit;
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                    if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1))
                     {
                         if (hit.collider.tag == "Enemy")
                         {
@@ -54,7 +54,7 @@ public class Cannon : MonoBehaviour {
                 {
                     RaycastHit hit;
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                    if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1))
                     {
                         if (hit.transform.tag == "Cannon")
                         {
@@ -70,7 +70,7 @@ public class Cannon : MonoBehaviour {
             }
         }
         
-        if (isCanonUsable)
+        if (isCanonUsable && charges > 0)
         {
             //offImage.SetActive(true);
             CannonPopup.isVisible = true;
