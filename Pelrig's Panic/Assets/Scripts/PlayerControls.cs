@@ -432,13 +432,13 @@ public class PlayerControls : MonoBehaviour
                             {
                                 if (selectedUnit.transform.GetChild(j).GetComponent<PanelUnderCharacter>() != null)
                                 {
-                                    panelUnderCharacter = selectedUnit.transform.GetChild(j).GetComponent<PanelUnderCharacter>().gameObject; 
+                                    panelUnderCharacter = selectedUnit.transform.GetChild(j).GetComponent<PanelUnderCharacter>().gameObject;
                                 }                                 
                             }
                             if (panelUnderCharacter != null)
-                            {                               
+                            {
+                               
                                 panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = true;
-                                
                                 UnoccupiedSpaceEnable(Board.possibleMoveableChars[theOne]);
                             }
                             break;                            
@@ -632,185 +632,121 @@ public class PlayerControls : MonoBehaviour
    
     public static void UnoccupiedSpaceEnable(Piece character)
     {
-        bool isUp  = false;
-        bool isRight = false;
-        bool isDown = false;
-        bool isLeft = false; 
-        //Up
+        bool isUp  = true;
+        bool isRight = true;
+        bool isDown = true;
+        bool isLeft = true;
+
+        for (int i = 0; i < Board.numDeadSpaces; i++)
+        {
+            if (Board.deadPoints[i].x == character.colPosition && Board.deadPoints[i].y == character.rowPosition - 1)
+            {
+                isUp = false;
+            }
+            if (Board.deadPoints[i].x == character.colPosition + 1 && Board.deadPoints[i].y == character.rowPosition)
+            {
+                isRight = false;
+            }
+            if (Board.deadPoints[i].x == character.colPosition && Board.deadPoints[i].y == character.rowPosition + 1)
+            {
+                isDown = false;
+            }
+            if (Board.deadPoints[i].x == character.colPosition - 1 && Board.deadPoints[i].y == character.rowPosition)
+            {
+                isLeft = false;
+            }
+        }
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
-              if (Board.possibleMoveableChars[i] == character)
-              {
-                  continue;
-              }
-
-              if (Board.possibleMoveableChars[i].rowPosition == character.rowPosition - 1 && Board.possibleMoveableChars[i].colPosition == character.colPosition)
-              {
-                  isUp = true;
-              }            
+            if (Board.possibleMoveableChars[i].colPosition == character.colPosition && Board.possibleMoveableChars[i].rowPosition == character.rowPosition - 1)
+            {
+                isUp = false;
+            }
+            if (Board.possibleMoveableChars[i].colPosition == character.colPosition + 1 && Board.possibleMoveableChars[i].rowPosition == character.rowPosition)
+            {
+                isRight = false;
+            }
+            if (Board.possibleMoveableChars[i].colPosition == character.colPosition && Board.possibleMoveableChars[i].rowPosition == character.rowPosition + 1)
+            {
+                isDown = false;
+            }
+            if (Board.possibleMoveableChars[i].colPosition == character.colPosition - 1 && Board.possibleMoveableChars[i].rowPosition == character.rowPosition)
+            {
+                isLeft = false;
+            }
         }
         for (int i = 0; i < Board.spawnedEnemies.Count; i++)
         {
-            if (Board.spawnedEnemies[i].rowPosition == character.rowPosition - 1 &&
-                Board.spawnedEnemies[i].colPosition == character.colPosition)
+            if (Board.spawnedEnemies[i].colPosition == character.colPosition && Board.spawnedEnemies[i].rowPosition == character.rowPosition - 1)
             {
-                isUp = true;
+                isUp = false;
+            }
+            if (Board.spawnedEnemies[i].colPosition == character.colPosition + 1 && Board.spawnedEnemies[i].rowPosition == character.rowPosition)
+            {
+                isRight = false;
+            }
+            if (Board.spawnedEnemies[i].colPosition == character.colPosition && Board.spawnedEnemies[i].rowPosition == character.rowPosition + 1)
+            {
+                isDown = false;
+            }
+            if (Board.spawnedEnemies[i].colPosition == character.colPosition - 1 && Board.spawnedEnemies[i].rowPosition == character.rowPosition)
+            {
+                isLeft = false;
             }
         }
-        //check for dead spaces in the way
-        for (int i = 0; i < Board.numDeadSpaces; i++)
+        for (int i = 0; i < Board.allCannons.Length; i++)
         {
-            if (Board.deadPoints[i].y == character.rowPosition - 1 &&
-                Board.deadPoints[i].x == character.colPosition)
+            if (Board.allCannons[i].cannon.colPosition == character.colPosition && Board.allCannons[i].cannon.rowPosition == character.rowPosition - 1)
             {
-                isUp = true;
+                isUp = false;
             }
-        }
-        //check for cannons in the way
-        for (int i = 0; i < Board.numCannons; i++)
-        {
-            if (Board.allCannons[i].cannon.rowPosition == character.rowPosition - 1 && Board.allCannons[i].cannon.colPosition == character.colPosition)
+            if (Board.allCannons[i].cannon.colPosition == character.colPosition + 1 && Board.allCannons[i].cannon.rowPosition == character.rowPosition)
             {
-                isUp = true;
+                isRight = false;
+            }
+            if (Board.allCannons[i].cannon.colPosition == character.colPosition && Board.allCannons[i].cannon.rowPosition == character.rowPosition + 1)
+            {
+                isDown = false;
+            }
+            if (Board.allCannons[i].cannon.colPosition == character.colPosition - 1 && Board.allCannons[i].cannon.rowPosition == character.rowPosition)
+            {
+                isLeft = false;
             }
         }
         for (int i = 0; i < Board.numGenerators; i++)
         {
-            if (Board.generators[i].generator.rowPosition == character.rowPosition - 1 && Board.generators[i].generator.colPosition == character.colPosition)
+            if (Board.generators[i].generator.colPosition == character.colPosition && Board.generators[i].generator.rowPosition == character.rowPosition - 1)
             {
-                isUp = true;
+                isUp = false;
+            }
+            if (Board.generators[i].generator.colPosition == character.colPosition + 1 && Board.generators[i].generator.rowPosition == character.rowPosition)
+            {
+                isRight = false;
+            }
+            if (Board.generators[i].generator.colPosition == character.colPosition && Board.generators[i].generator.rowPosition == character.rowPosition + 1)
+            {
+                isDown = false;
+            }
+            if (Board.generators[i].generator.colPosition == character.colPosition - 1 && Board.generators[i].generator.rowPosition == character.rowPosition)
+            {
+                isLeft = false;
             }
         }
         if (Board.pirateBoss.colPosition == character.colPosition && Board.pirateBoss.rowPosition == character.rowPosition - 1)
         {
-            isUp = true;
-        }
-        if (!isUp)
-        {
-            if (GameObject.Find("gridRow" + (character.rowPosition - 1) + "Column" + character.colPosition) != null)
-            {
-                GameObject.Find("gridRow" + (character.rowPosition - 1) + "Column" + character.colPosition).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
-                GameObject.Find("gridRow" + (character.rowPosition - 1) + "Column" + character.colPosition).transform.GetChild(1).GetComponent<FreeSpaceHighlightAnim>().isVisible = true;
-                GameObject.Find("gridRow" + (character.rowPosition - 1) + "Column" + character.colPosition).transform.GetChild(2).GetComponent<PossibleMoveCostText>().isVisible = true;
-
-                isUp = false;
-            }
-        }
-        //Right
-        for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
-        {            
-            if (Board.possibleMoveableChars[i] == character)
-            {
-                continue;
-            }
-
-            if (Board.possibleMoveableChars[i].rowPosition == character.rowPosition && Board.possibleMoveableChars[i].colPosition == character.colPosition + 1)
-            {
-                isRight = true;               
-            }
-        }
-        for (int i = 0; i < Board.spawnedEnemies.Count; i++)
-        {
-            if (Board.spawnedEnemies[i].colPosition == character.colPosition + 1 && Board.spawnedEnemies[i].rowPosition == character.rowPosition)
-            {
-                isRight = true;
-            }
-        }
-        //check for dead spaces in the way
-        for (int i = 0; i < Board.numDeadSpaces; i++)
-        {
-            if (Board.deadPoints[i].x == character.colPosition + 1 && Board.deadPoints[i].y == character.rowPosition)
-            {
-                isRight = true;
-            }
-        }
-        //check for cannons in the way
-        for (int i = 0; i < Board.numCannons; i++)
-        {
-            if (Board.allCannons[i].cannon.colPosition == character.colPosition + 1 && Board.allCannons[i].cannon.rowPosition == character.rowPosition)
-            {
-                isRight = true;
-            }
-        }
-        //check for generators in the way
-        for (int i = 0; i < Board.numGenerators; i++)
-        {
-            if (Board.generators[i].generator.rowPosition == character.rowPosition && Board.generators[i].generator.colPosition == character.colPosition + 1)
-            {
-                isRight = true;
-            }
+            isUp = false;
         }
         if (Board.pirateBoss.colPosition == character.colPosition + 1 && Board.pirateBoss.rowPosition == character.rowPosition)
         {
-            isRight = true;
-        }
-        if (!isRight)
-        {
-            if (GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition + 1)) != null)
-            {
-                GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition + 1)).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
-                GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition + 1)).transform.GetChild(1).GetComponent<FreeSpaceHighlightAnim>().isVisible = true;
-                GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition + 1)).transform.GetChild(2).GetComponent<PossibleMoveCostText>().isVisible = true;
-                GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition + 1)).transform.GetComponent<TMPro.TextMeshPro>().text = PlayerControls.moveValues[1].ToString();
-                isRight = false;
-            }
-        }
-        //Down
-        for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
-        {
-            if (Board.possibleMoveableChars[i] == character)
-            {
-                continue;
-            }
-            if (Board.possibleMoveableChars[i].rowPosition == character.rowPosition + 1 && Board.possibleMoveableChars[i].colPosition == character.colPosition)
-            {
-                isDown = true;               
-            }
-        }
-        for (int i = 0; i < Board.spawnedEnemies.Count; i++)
-        {
-            if (Board.spawnedEnemies[i].rowPosition == character.rowPosition + 1 && Board.spawnedEnemies[i].colPosition == character.colPosition)
-            {
-                isDown = true;
-            }
-        }
-        //check for dead spaces in the way
-        for (int i = 0; i < Board.numDeadSpaces; i++)
-        {
-            if (Board.deadPoints[i].y == character.rowPosition + 1 && Board.deadPoints[i].x == character.colPosition)
-            {
-                isDown = true;
-            }
-        }
-        //check for cannons in the way
-        for (int i = 0; i < Board.numCannons; i++)
-        {
-            if (Board.allCannons[i].cannon.rowPosition == character.rowPosition + 1 && Board.allCannons[i].cannon.colPosition == character.colPosition)
-            {
-                isDown = true;
-            }
-        }
-        //check for generators in the way
-        for (int i = 0; i < Board.numGenerators; i++)
-        {
-            if (Board.generators[i].generator.rowPosition == character.rowPosition + 1 && Board.generators[i].generator.colPosition == character.colPosition)
-            {
-                isDown = true;
-            }
+            isRight = false;
         }
         if (Board.pirateBoss.colPosition == character.colPosition && Board.pirateBoss.rowPosition == character.rowPosition + 1)
         {
-            isDown = true;
+            isDown = false;
         }
-        if (!isDown)
+        if (Board.pirateBoss.colPosition == character.colPosition - 1 && Board.pirateBoss.rowPosition == character.rowPosition)
         {
-            if (GameObject.Find("gridRow" + (character.rowPosition + 1) + "Column" + (character.colPosition)) != null)
-            {
-                GameObject.Find("gridRow" + (character.rowPosition + 1) + "Column" + (character.colPosition)).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
-                GameObject.Find("gridRow" + (character.rowPosition + 1) + "Column" + (character.colPosition)).transform.GetChild(1).GetComponent<FreeSpaceHighlightAnim>().isVisible = true;
-                GameObject.Find("gridRow" + (character.rowPosition + 1) + "Column" + (character.colPosition)).transform.GetChild(2).GetComponent<PossibleMoveCostText>().isVisible = true;
-                isDown = false;
-            }
+            isLeft = false;
         }
         //Left
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
@@ -831,42 +767,36 @@ public class PlayerControls : MonoBehaviour
                 isLeft = true;
             }
         }
-        //check for dead spaces in the way
-        for (int i = 0; i < Board.numDeadSpaces; i++)
-        {
-            if (Board.deadPoints[i].x == character.colPosition - 1 && Board.deadPoints[i].y == character.rowPosition)
-            {
-                isLeft = true;
-            }
-        }
-        //check for cannons in the way
-        for (int i = 0; i < Board.numCannons; i++)
-        {
-            if (Board.allCannons[i].cannon.colPosition == character.colPosition - 1 && Board.allCannons[i].cannon.rowPosition == character.rowPosition)
-            {
-                isLeft = true;
-            }
-        }
-        //check for generators in the way
-        for (int i = 0; i < Board.numGenerators; i++)
-        {
-            if (Board.generators[i].generator.rowPosition == character.rowPosition && Board.generators[i].generator.colPosition == character.colPosition - 1)
-            {
-                isLeft = true;
-            }
-        }
-        if (Board.pirateBoss.colPosition == character.colPosition - 1 && Board.pirateBoss.rowPosition == character.rowPosition)
-        {
-            isLeft = true;
-        }
-        if (!isLeft)
+        if (isLeft)
         {
             if (GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition - 1)) != null)
             {
                 GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition - 1)).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
                 GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition - 1)).transform.GetChild(1).GetComponent<FreeSpaceHighlightAnim>().isVisible = true;
-                GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition - 1)).transform.GetChild(2).GetComponent<PossibleMoveCostText>().isVisible = true;
-                isLeft = false;
+            }
+        }
+        if (isRight)
+        {
+            if (GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition + 1)) != null)
+            {
+                GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition + 1)).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
+                GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition + 1)).transform.GetChild(1).GetComponent<FreeSpaceHighlightAnim>().isVisible = true;
+            }
+        }
+        if (isUp)
+        {
+            if (GameObject.Find("gridRow" + (character.rowPosition - 1) + "Column" + (character.colPosition)) != null)
+            {
+                GameObject.Find("gridRow" + (character.rowPosition - 1) + "Column" + (character.colPosition)).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
+                GameObject.Find("gridRow" + (character.rowPosition - 1) + "Column" + (character.colPosition)).transform.GetChild(1).GetComponent<FreeSpaceHighlightAnim>().isVisible = true;
+            }
+        }
+        if (isDown)
+        {
+            if (GameObject.Find("gridRow" + (character.rowPosition + 1) + "Column" + (character.colPosition)) != null)
+            {
+                GameObject.Find("gridRow" + (character.rowPosition + 1) + "Column" + (character.colPosition)).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
+                GameObject.Find("gridRow" + (character.rowPosition + 1) + "Column" + (character.colPosition)).transform.GetChild(1).GetComponent<FreeSpaceHighlightAnim>().isVisible = true;
             }
         }
     }
@@ -878,8 +808,7 @@ public class PlayerControls : MonoBehaviour
             if (Board.allTiles[i].tag == "BlankSpace")
             {
                 Board.allTiles[i].transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = false;                
-                Board.allTiles[i].transform.GetChild(1).GetComponent<FreeSpaceHighlightAnim>().isVisible = false;
-                Board.allTiles[i].transform.GetChild(2).GetComponent<PossibleMoveCostText>().isVisible = false;
+                Board.allTiles[i].transform.GetChild(1).GetComponent<FreeSpaceHighlightAnim>().isVisible = false;                
             }
         }
     }
