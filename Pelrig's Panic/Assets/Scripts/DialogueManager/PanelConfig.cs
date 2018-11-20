@@ -61,13 +61,15 @@ public class PanelConfig : MonoBehaviour
     IEnumerator AnimateText(string dialogueText)
     {
         dialogue.text = "";
-
+        Debug.Log("Dialogue character length:       "+ dialogueText.Length);
         foreach(char letter in dialogueText)
            {
             dialogue.text += letter;
             yield return new WaitForSeconds(0.05f);
             isDialogueTextOver = true;
             Debug.Log("Letter played:   " + letter);
+
+            //if(dialogueText.Length)
         }
     }
 }
