@@ -13,7 +13,7 @@ public class Cannon : MonoBehaviour {
     [SerializeField] public GameObject offImage;
     public static bool isCanonUsable;
     public static bool isCanonSelected;
-    
+    int theOne;
     private void Start()
     {
         isCanonUsable = false;
@@ -60,6 +60,7 @@ public class Cannon : MonoBehaviour {
                         {
                             if (hit.collider.gameObject == gameObject)
                             {
+
                                 isCanonSelected = true;
                                 Cursor.SetCursor(mouseTarget, Vector2.zero, CursorMode.Auto);
                                 offImage.SetActive(true);
