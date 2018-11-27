@@ -32,6 +32,8 @@ public class PlayerControls : MonoBehaviour
     public static bool isPlayerTurn;
 
     GameObject panelUnderCharacter;
+
+    public static bool isWalk;
     void Start()
     {        
         cameraChangeHorizontal = 0.0f;
@@ -57,6 +59,7 @@ public class PlayerControls : MonoBehaviour
         GiveNumbers();
         isPlayerTurn = true;
         panelUnderCharacter = null;
+        isWalk = false;
     }
 
     public void GiveNumbers()
@@ -204,21 +207,25 @@ public class PlayerControls : MonoBehaviour
         int direction = -1;
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            isWalk = true;
             direction = 1;
         }
 
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
+            isWalk = true;
             direction = 3;
         }
 
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            isWalk = true;
             direction = 0;
         }
 
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            isWalk = true;
             direction = 2;
         }
 
