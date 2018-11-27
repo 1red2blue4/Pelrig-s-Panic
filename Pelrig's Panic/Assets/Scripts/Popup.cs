@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CannonPopup : MonoBehaviour
+public class Popup : MonoBehaviour
 {
     public static bool isVisible;
 	// Use this for initialization

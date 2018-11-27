@@ -15,6 +15,7 @@ public static class TextManager {
     private static float timer;
     public static bool textViewEmptied;
     public static bool preppingNewVoice;
+    public static bool playerControlsLocked;
 
     public static GameObject audioSourceHolderMeda;
     public static GameObject audioSourceHolderKent;
@@ -23,7 +24,7 @@ public static class TextManager {
     public static GameObject audioSourceHolderHally;
 
     public static bool endConversation;
-    public static int countDialogueLenghth;
+    public static int countDialogueLength;
     public static bool isSpaceKeyPressed;
 
     // Use this for initialization
@@ -44,6 +45,8 @@ public static class TextManager {
         timer = 0.0f;
         currentCharacter = 0;
         currentTextSet = 0;
+
+        playerControlsLocked = false;
         
     }
 	
@@ -77,7 +80,7 @@ public static class TextManager {
         //look for dismissing the text box
         else
         {
-            if (Input.GetKeyDown(KeyCode.Space) && totalTextSets > currentTextSet - 1 && textSets[currentTextSet + 1] != null && wentToEndOfText == false && isSpaceKeyPressed == false)
+            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && totalTextSets > currentTextSet - 1 && textSets[currentTextSet + 1] != null && wentToEndOfText == false && isSpaceKeyPressed == false)
             {
                 SceneSequence.isSkipKeyPressed = true;
                 currentCharacter = 0;
@@ -85,13 +88,22 @@ public static class TextManager {
                 preppingNewVoice = true;
 
                 //This is for transition into the PirateShip scene.
-                countDialogueLenghth++; 
-                if (countDialogueLenghth >=  28)
+                countDialogueLength++; 
+                //TODO: organize buildIndex documentation
+                if (SceneManager.GetActiveScene().buildIndex == 3 && countDialogueLength >= 18)
                 {
                     SceneManager.LoadScene("PirateShipUI");
                 }
+                if (SceneManager.GetActiveScene().buildIndex == 4 && countDialogueLength < 10)
+                {
+                    playerControlsLocked = true;
+                }
+                else
+                {
+                    playerControlsLocked = false;
+                }
             }
-            else if (Input.GetKeyDown(KeyCode.Space) && (currentTextSet == textSets.Length - 1 || textSets[currentTextSet + 1] == null) && wentToEndOfText == false)
+            else if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && (currentTextSet == textSets.Length - 1 || textSets[currentTextSet + 1] == null) && wentToEndOfText == false)
             {
                 currentCharacter = 0;
                 textViewEmptied = true;

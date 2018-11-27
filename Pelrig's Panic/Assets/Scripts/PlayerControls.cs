@@ -99,51 +99,52 @@ public class PlayerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckClick();
         MoveCamera();
         CheckRotateCamera();
         if (movingCamera)
         {
             RepositionCamera(cameraRotPosition, prevCameraRotPosition, cameraMovementBetween);
         }
-        
-        //CheckCoinCollect();
-        //CheckForLineupSwap();
-        CheckPlayer();
-        if (isPlayerTurn)
-        {
 
-            if (selectedUnit != null)
-            {
-                MovePlayer();
-                
-            }
-            if (Input.GetKeyDown(KeyCode.Space) || EndTurnButtonScript.isButtonPressed)// || Input.GetMouseButtonDown(0))
-            {
-                //Clearing all highlighted possible moves and selected character.
-                ClearAllGrids();
-                // panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
-                if(selectedUnit)
-                    DisablePanelUnderCharacter(selectedUnit);
-                selectedUnit = null;
-                EndTurnButtonScript.isButtonPressed = false;
-                GiveNumbers();
-                isPlayerTurn = false;
-                roundCounter++;
-                if (roundCounter >= 4)
-                {
-                    GameObject.Find("GridLevelStuff").GetComponentInChildren<Board>().SpawnEnemy((int)Random.Range(1.0f, 3.99f));
-                    roundCounter = 0;
-                }
-                EnemyTurnsActivate();
-            }
-        }
-        else if (EnemyMovesDone())
+        if (!TextManager.playerControlsLocked)
         {
-            isPlayerTurn = true;
-          //  GameObject.Find("EndTurn").transform.GetComponent<Button>().transition = Navigation.None;
-            ExperimentalResources.ReInitializeResources();
-           // GameObject.Find("EndTurn").transform.GetComponent<EndButtonToggle>().isVisible = false;
+            CheckClick();
+            CheckPlayer();
+            if (isPlayerTurn)
+            {
+
+                if (selectedUnit != null)
+                {
+                    MovePlayer();
+
+                }
+                if (Input.GetKeyDown(KeyCode.Space) || EndTurnButtonScript.isButtonPressed)// || Input.GetMouseButtonDown(0))
+                {
+                    //Clearing all highlighted possible moves and selected character.
+                    ClearAllGrids();
+                    // panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
+                    if (selectedUnit)
+                        DisablePanelUnderCharacter(selectedUnit);
+                    selectedUnit = null;
+                    EndTurnButtonScript.isButtonPressed = false;
+                    GiveNumbers();
+                    isPlayerTurn = false;
+                    roundCounter++;
+                    if (roundCounter >= 4)
+                    {
+                        GameObject.Find("GridLevelStuff").GetComponentInChildren<Board>().SpawnEnemy((int)Random.Range(1.0f, 3.99f));
+                        roundCounter = 0;
+                    }
+                    EnemyTurnsActivate();
+                }
+            }
+            else if (EnemyMovesDone())
+            {
+                isPlayerTurn = true;
+                //  GameObject.Find("EndTurn").transform.GetComponent<Button>().transition = Navigation.None;
+                ExperimentalResources.ReInitializeResources();
+                // GameObject.Find("EndTurn").transform.GetComponent<EndButtonToggle>().isVisible = false;
+            }
         }
     }
 
@@ -389,11 +390,11 @@ public class PlayerControls : MonoBehaviour
                 {
                     //Debug.Log("Clear cannon popup");
                     
-                    GameObject.Find("#Kent_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
-                    GameObject.Find("#Meda_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
-                    GameObject.Find("#Hally_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
-                    GameObject.Find("#Ed_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
-                    GameObject.Find("#Jade_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
+                    //GameObject.Find("#Kent_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
+                    //GameObject.Find("#Meda_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
+                    //GameObject.Find("#Hally_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
+                    //GameObject.Find("#Ed_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
+                    //GameObject.Find("#Jade_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
                     if (selectedUnit != null)
                     {
                         selectedBase = selectedUnit;
