@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 136626439936959738}
   - component: {fileID: 114431887815289504}
   - component: {fileID: 114820282899510462}
+  - component: {fileID: 114863699347227546}
   m_Layer: 8
   m_Name: '#Jade_Fantasy_Realm_temp'
   m_TagString: Player
@@ -171,7 +172,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1191024062545022}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.38268343, y: -0, z: -0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -257,7 +258,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1865029539023448}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.38268343, y: -0, z: -0, w: 0.92387956}
   m_LocalPosition: {x: -0.1, y: 0.9, z: 0}
   m_LocalScale: {x: -0.18, y: 0.18, z: 1}
   m_Children: []
@@ -543,6 +544,20 @@ MonoBehaviour:
   difference: 0
   speed: 0
   mainCamera: {fileID: 0}
+--- !u!114 &114863699347227546
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1004241752199634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbaf077f31704f740a16da574dcd7d0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 8
+  damage: 2
+  canAttack: 0
 --- !u!114 &114975319938485590
 MonoBehaviour:
   m_ObjectHideFlags: 1

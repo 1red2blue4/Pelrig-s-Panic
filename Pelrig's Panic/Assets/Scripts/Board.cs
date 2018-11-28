@@ -14,7 +14,7 @@ public class Board : MonoBehaviour {
     [SerializeField] private GameObject generatorPrefab;
     public static Generator[] generators;
     static public bool first;
-
+    bool isPirateBossSpawned = false;
     public GameObject mainCamera;
 
     public const int MAXCOINNUM = 100;
@@ -512,9 +512,16 @@ public class Board : MonoBehaviour {
             }
         }
         if (pirateBoss)
+        {
             sendingDown = pirateBoss.thePiece.GetComponent<GridPositioner>().GuideToObjectBeneath(0.1f);
-        else
+            isPirateBossSpawned = true;
+        }
+        else if (isPirateBossSpawned)
+        {
             GameObject.Find("WinScreen").GetComponentInChildren<YouWin>().youWon = true;
+        }
+              
+       
         if (spawnedEnemies.Count > 0)
         {
             for (int i = 0; i < spawnedEnemies.Count; i++)

@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 136597630464958948}
   - component: {fileID: 114792864971470680}
   - component: {fileID: 114775285683063192}
+  - component: {fileID: 114891156789692794}
   m_Layer: 8
   m_Name: '#Meda_Fantasy_Realm_temp'
   m_TagString: Player
@@ -242,7 +243,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1571711118364400}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.38268343, y: -0, z: -0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -284,7 +285,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1496095888987150}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.38268343, y: -0, z: -0, w: 0.92387956}
   m_LocalPosition: {x: 0.05, y: 0.8, z: 0}
   m_LocalScale: {x: 0.037, y: 0.038, z: 1}
   m_Children: []
@@ -544,6 +545,20 @@ MonoBehaviour:
   objToBubbleResist: {fileID: 1319786522092248}
   bubblesUpOnAction: 1
   valueChanged: 0
+--- !u!114 &114891156789692794
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1445851507171124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbaf077f31704f740a16da574dcd7d0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 8
+  damage: 2
+  canAttack: 0
 --- !u!114 &114918012776708352
 MonoBehaviour:
   m_ObjectHideFlags: 1
