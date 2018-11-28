@@ -93,6 +93,20 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
+    void AttackEnemy(Stats playerStats)
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        LayerMask layerMask = LayerMask.GetMask("Enemy");
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+        {
+            hit.transform.GetComponent<Stats>().TakeDamage(playerStats.damage);
+            playerStats.canAttack = false;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -106,12 +120,15 @@ public class PlayerControls : MonoBehaviour
         
         //CheckCoinCollect();
         //CheckForLineupSwap();
-        CheckPlayer();
+        //CheckPlayer();
         if (isPlayerTurn)
         {
-
             if (selectedUnit)
             {
+                if (selectedUnit.GetComponent<Stats>().canAttack && Input.GetMouseButtonDown(0))
+                {
+                    AttackEnemy(selectedUnit.GetComponent<Stats>());
+                }
                 MovePlayer();
                 
             }
@@ -140,7 +157,20 @@ public class PlayerControls : MonoBehaviour
             isPlayerTurn = true;
           //  GameObject.Find("EndTurn").transform.GetComponent<Button>().transition = Navigation.None;
             ExperimentalResources.ReInitializeResources();
-           // GameObject.Find("EndTurn").transform.GetComponent<EndButtonToggle>().isVisible = false;
+            // GameObject.Find("EndTurn").transform.GetComponent<EndButtonToggle>().isVisible = false;
+
+            foreach (var item in Board.spawnedEnemies)
+            {
+                item.GetComponent<EnemyAI>().stats.canAttack = false;
+            }
+
+            foreach (var item in Board.possibleMoveableChars)
+            {
+                if (item != null)
+                {
+                    item.thePiece.GetComponent<Stats>().canAttack = true;
+                }
+            }
         }
     }
 
@@ -179,8 +209,18 @@ public class PlayerControls : MonoBehaviour
         for (int i = 0; i < Board.spawnedEnemies.Count; i++)
         {
             Board.spawnedEnemies[i].GetComponent<EnemyAI>().isTurnActive = true;
+            Board.spawnedEnemies[i].GetComponent<Stats>().canAttack = true;
         }
         Board.pirateBoss.GetComponent<PirateCaptainAI>().isTurnActive = true;
+        Board.pirateBoss.GetComponent<Stats>().canAttack = true;
+
+        foreach (var item in Board.possibleMoveableChars)
+        {
+            if (item != null)
+            {
+                item.thePiece.GetComponent<Stats>().canAttack = false;
+            }
+        }
     }
 
     bool EnemyMovesDone()
@@ -369,8 +409,10 @@ public class PlayerControls : MonoBehaviour
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             GameObject selectedBase;
+
+            LayerMask layerMask = LayerMask.GetMask("MainCharacter") + LayerMask.GetMask("Grid");
             
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1)) 
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)) 
             {
 
                 if(hit.collider.tag == "BlankSpace")

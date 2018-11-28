@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 23935534138586494}
   - component: {fileID: 102345925870723736}
   - component: {fileID: 114918012776708352}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Value
   m_TagString: Resist
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 23836421924539194}
   - component: {fileID: 102036997040739796}
   - component: {fileID: 114392272279644844}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Value
   m_TagString: Presence
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4923076185048752}
   - component: {fileID: 212653812503667290}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player_UIResistance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 136597630464958948}
   - component: {fileID: 114792864971470680}
   - component: {fileID: 114775285683063192}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: '#Meda_Fantasy_Realm_temp'
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 33759191572676084}
   - component: {fileID: 23573263300919686}
   - component: {fileID: 136795686900378714}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Base
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 4985113325911406}
   - component: {fileID: 212027204293192554}
   - component: {fileID: 114329360058643088}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Meda_Fantasy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4606562542554714}
   - component: {fileID: 114518454799628552}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GridRotater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 4211328622532240}
   - component: {fileID: 212462912922129824}
   - component: {fileID: 114125610843316758}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: under_character_select
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4185943079037772}
   - component: {fileID: 212373954502131410}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player_UIPresence
   m_TagString: Untagged
   m_Icon: {fileID: 0}

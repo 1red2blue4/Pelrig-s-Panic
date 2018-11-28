@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4667778885491442}
   - component: {fileID: 114432842325093222}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GridRotater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4217044131305626}
   - component: {fileID: 212806889418589306}
   - component: {fileID: 114398865788982932}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Kent_Fantasy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 23485803417612806}
   - component: {fileID: 102591111217285310}
   - component: {fileID: 114316555860812448}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Value
   m_TagString: Resist
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4699186718982910}
   - component: {fileID: 212478840581674158}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player_UIPresence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 4545779527281434}
   - component: {fileID: 212045629760936626}
   - component: {fileID: 114762674916288488}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: under_character_select
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 4511916427464776}
   - component: {fileID: 33898456085510698}
   - component: {fileID: 23430268297351990}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Base
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 136521991603015288}
   - component: {fileID: 114404051625211566}
   - component: {fileID: 114712380863120912}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: '#Kent_Fantasy_Realm_temp'
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4687212690038152}
   - component: {fileID: 212691486477218760}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player_UIResistance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 23235167616219246}
   - component: {fileID: 102560076502594748}
   - component: {fileID: 114510973474465424}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Value
   m_TagString: Presence
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 4403728422383644}
   - component: {fileID: 212680929101176944}
   - component: {fileID: 95964749004786442}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSelection
   m_TagString: Untagged
   m_Icon: {fileID: 0}

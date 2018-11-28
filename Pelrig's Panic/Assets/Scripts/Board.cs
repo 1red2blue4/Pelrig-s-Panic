@@ -303,6 +303,7 @@ public class Board : MonoBehaviour {
             float finalYPos = halfHeight - (float)randRow * pieceDistance - midY;
             Vector3 placement = new Vector3(finalXPos, finalYPos, 0.0f);
             GameObject piece = Instantiate(possibleMoveableChars[i].GetPiece(), placement, Quaternion.identity);
+            piece.GetComponent<Stats>().canAttack = true;
             possibleMoveableChars[i].SetName(possibleMoveableChars[i].GetPiece().name);
             piece.name = possibleMoveableChars[i].GetName();
             possibleMoveableChars[i].thePiece = piece;

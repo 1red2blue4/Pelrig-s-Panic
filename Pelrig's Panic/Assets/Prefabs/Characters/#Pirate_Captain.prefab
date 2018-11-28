@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114631356412396332}
   - component: {fileID: 114350409428396070}
   - component: {fileID: 114522333533611592}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: '#Pirate_Captain'
   m_TagString: PirateBoss
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 23244998542019996}
   - component: {fileID: 102133676880972512}
   - component: {fileID: 114399699199793386}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Value
   m_TagString: Presence
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 23173973273883674}
   - component: {fileID: 102711501736299518}
   - component: {fileID: 114866007449440352}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Value
   m_TagString: Resist
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4647657188452828}
   - component: {fileID: 114211235391938312}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GridRotater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4430064132968326}
   - component: {fileID: 212267192747034162}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: EnemyUI_Presence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4176133193451276}
   - component: {fileID: 212082371290022500}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: EnemyUI_Resist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 4636372988984184}
   - component: {fileID: 212459477593566118}
   - component: {fileID: 114906465727337962}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pirate Captain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 33619991238010308}
   - component: {fileID: 23035040082014478}
   - component: {fileID: 136959680557231354}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -548,6 +548,8 @@ MonoBehaviour:
   resistanceValue: 0
   initialPresenceValue: 1
   initialResistanceValue: 3
+  health: 0
+  attack: 0
   thePiece: {fileID: 1177191238569498}
 --- !u!114 &114631356412396332
 MonoBehaviour:

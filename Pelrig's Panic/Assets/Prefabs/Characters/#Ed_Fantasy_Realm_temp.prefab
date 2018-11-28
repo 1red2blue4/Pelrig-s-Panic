@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4811218146907828}
   - component: {fileID: 212335199913835756}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player_UIPresence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 136926482673524384}
   - component: {fileID: 114093455696501544}
   - component: {fileID: 114518967021281770}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: '#Ed_Fantasy_Realm_temp'
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 4734007395054528}
   - component: {fileID: 33151537096881502}
   - component: {fileID: 23102467957741318}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Base
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 4994025097400782}
   - component: {fileID: 212793631750500340}
   - component: {fileID: 114481745572266966}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ed_Fantasy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4608770593127928}
   - component: {fileID: 114322045440368400}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GridRotater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 4070703455891428}
   - component: {fileID: 212478174554399126}
   - component: {fileID: 114413979510854514}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: under_character_select
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 23880902043984358}
   - component: {fileID: 102637730368942984}
   - component: {fileID: 114764263575923860}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Value
   m_TagString: Resist
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 23634357225474994}
   - component: {fileID: 102724980133269242}
   - component: {fileID: 114165366520792660}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Value
   m_TagString: Presence
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4776719899922446}
   - component: {fileID: 212714789123921772}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player_UIResistance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
