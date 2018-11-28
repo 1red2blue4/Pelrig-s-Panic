@@ -48,7 +48,7 @@ public class PirateCaptainAI : MonoBehaviour {
 
             }
         }
-        CheckPlayer();
+        //CheckPlayer();
     }
 
     void CheckPlayer()

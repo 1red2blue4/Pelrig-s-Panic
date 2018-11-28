@@ -481,8 +481,11 @@ public class Board : MonoBehaviour {
         }
         for (int i = 0; i < possibleMoveableChars.Length; i++)
         {
-            GridPositioner sendDown = possibleMoveableChars[i].thePiece.transform.GetComponent<GridPositioner>();
-            sendingDown = sendDown.GuideToObjectBeneath(0.1f);
+            if (possibleMoveableChars[i].thePiece)
+            {
+                GridPositioner sendDown = possibleMoveableChars[i].thePiece.transform.GetComponent<GridPositioner>();
+                sendingDown = sendDown.GuideToObjectBeneath(0.1f);
+            }
         }
         for (int i = 0; i < allCoins.Length; i++)
         {
@@ -508,8 +511,10 @@ public class Board : MonoBehaviour {
                 //sendDown.AdjustToCamera();
             }
         }
-        if (pirateBoss != null)
+        if (pirateBoss)
             sendingDown = pirateBoss.thePiece.GetComponent<GridPositioner>().GuideToObjectBeneath(0.1f);
+        else
+            GameObject.Find("WinScreen").GetComponentInChildren<YouWin>().youWon = true;
         if (spawnedEnemies.Count > 0)
         {
             for (int i = 0; i < spawnedEnemies.Count; i++)
