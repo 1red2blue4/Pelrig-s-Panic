@@ -18,11 +18,11 @@ public class WaterMovement : MonoBehaviour {
         Vector3 newPos = transform.position;
         if (movingLeft)
         {
-            newPos.x += 2.1f * Time.deltaTime;
+            newPos.x += 1.5f * Time.deltaTime;
         }
         else
         {
-            newPos.x -= 2.1f * Time.deltaTime;
+            newPos.x -= 1.5f * Time.deltaTime;
         }
         transform.position = newPos;
         if (Mathf.Abs(transform.position.x - startX) > displacement )

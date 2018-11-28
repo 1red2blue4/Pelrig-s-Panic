@@ -380,7 +380,7 @@ public class PlayerControls : MonoBehaviour
                 }
                 if (hit.collider.tag == "Player")
                 {
-                    Debug.Log("Clear cannon popup");
+                    //Debug.Log("Clear cannon popup");
                     
                     GameObject.Find("#Kent_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
                     GameObject.Find("#Meda_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
