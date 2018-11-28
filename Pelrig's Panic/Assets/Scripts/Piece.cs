@@ -13,6 +13,9 @@ public class Piece : MonoBehaviour
     public int resistanceValue;
     public int initialPresenceValue;
     public int initialResistanceValue;
+    public int health;
+    public int attack;
+
     private PieceType type;
     [SerializeField] public GameObject thePiece;
     float timer = 0.0f;
@@ -21,6 +24,11 @@ public class Piece : MonoBehaviour
     {
         presenceValue = initialPresenceValue;
         resistanceValue = initialResistanceValue;
+    }
+
+    public void TakeDamage(int hit)
+    {
+
     }
 
     public void SetRowAndCol(int row, int col)

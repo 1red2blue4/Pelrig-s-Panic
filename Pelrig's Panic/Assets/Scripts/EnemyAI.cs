@@ -10,8 +10,13 @@ public class EnemyAI : MonoBehaviour {
     [SerializeField] private GameObject presenceObj;
     [SerializeField] private GameObject resistanceObj;
 
+    int resist = 3;
+    bool isEncumbered = false;
+    public Stats stats;
+
 	// Use this for initialization
 	void Start () {
+        stats = GetComponent<Stats>();
         time = 0.0f;
         isTurnActive = false;
         presenceObj.GetComponent<MeshRenderer>().sortingOrder = 3;
@@ -28,11 +33,11 @@ public class EnemyAI : MonoBehaviour {
                 if (time >= 1.5f)
                 {
                     time = 0.0f;
-                    MoveAndCheckUnitCollision();
+                    MoveAndCheckUnitCollision(false);
                     countMove++;
                     if (countMove >= 3)
                     {
-
+                        MoveAndCheckUnitCollision(true);
                         isTurnActive = false;
                         countMove = 0;
                         time = 0.0f;
@@ -40,10 +45,10 @@ public class EnemyAI : MonoBehaviour {
                 }
                 //For now, heuristic movement to closest unit
                 //CheckCoinDestroy();
-
             }
         }
-        CheckPlayer();
+        if (!isEncumbered)
+            CheckPlayer();
     }
 
     void CheckPlayer()
@@ -79,7 +84,11 @@ public class EnemyAI : MonoBehaviour {
 
         if (playersAround >= 3)
         {
-            Destroy(gameObject);
+            isEncumbered = true;
+            stats.health /= 2;
+
+            if (stats.damage > 1)
+                stats.damage /= 2;
         }
     }
     //To verify
@@ -105,7 +114,7 @@ public class EnemyAI : MonoBehaviour {
         }
     }
 
-    private void MoveAndCheckUnitCollision()
+    private void MoveAndCheckUnitCollision(bool onlyAttack)
     {
         int shortestDistance = 10000;
         int targetRowPosition = 0;
@@ -130,10 +139,14 @@ public class EnemyAI : MonoBehaviour {
         //Attack
         if (shortestDistance == 1)
         {
-            //Attack()
+            if (stats.canAttack)
+            {
+                Board.possibleMoveableChars[targetPlayer].thePiece.GetComponent<Stats>().TakeDamage(stats.damage);
+                stats.canAttack = false;
+            }
         }
         //Move. Terrible system, must find a better way for later
-        else
+        else if (!onlyAttack)
         {
             bool canMoveLeft = true;
             bool canMoveRight = true;
