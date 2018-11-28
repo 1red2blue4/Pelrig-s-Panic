@@ -120,10 +120,13 @@ public class PlayerControls : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Space) || EndTurnButtonScript.isButtonPressed)// || Input.GetMouseButtonDown(0))
             {
+
                 //Clearing all highlighted possible moves and selected character.
                 ClearAllGrids();
+                //Disable the Character HUD.
+                //CharacterHUDDisable();
                 // panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
-                if(selectedUnit)
+                if (selectedUnit)
                     DisablePanelUnderCharacter(selectedUnit);
                 selectedUnit = null;
                 EndTurnButtonScript.isButtonPressed = false;
@@ -136,6 +139,7 @@ public class PlayerControls : MonoBehaviour
                     roundCounter = 0;
                 }
                 EnemyTurnsActivate();
+
             }
         }
         else if (EnemyMovesDone())
@@ -383,17 +387,18 @@ public class PlayerControls : MonoBehaviour
                 if(hit.collider.tag == "BlankSpace")
                 {
                     Debug.Log("Cleared all highlights when player switched using Alpha keys");
+                   // CharacterHUDDisable();
                     ClearAllGrids();
                 }
                 if (hit.collider.tag == "Player")
                 {
                     //Debug.Log("Clear cannon popup");
                     
-                    GameObject.Find("#Kent_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
-                    GameObject.Find("#Meda_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
-                    GameObject.Find("#Hally_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
-                    GameObject.Find("#Ed_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
-                    GameObject.Find("#Jade_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
+                    //GameObject.Find("#Kent_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
+                    //GameObject.Find("#Meda_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
+                    //GameObject.Find("#Hally_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
+                    //GameObject.Find("#Ed_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
+                    //GameObject.Find("#Jade_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
                     if (selectedUnit != null)
                     {
                         selectedBase = selectedUnit;
@@ -434,18 +439,23 @@ public class PlayerControls : MonoBehaviour
                             glowingMaterial.mainTexture = normalMaterial.mainTexture;
                             selectedBase.GetComponent<MeshRenderer>().material = glowingMaterial;
                             
-                            GameObject panelUnderCharacter = null; 
+                            GameObject panelUnderCharacter = null;
+                           
                             for (int j = 0; j < selectedUnit.transform.childCount; j++)
                             {
                                 if (selectedUnit.transform.GetChild(j).GetComponent<PanelUnderCharacter>() != null)
                                 {
                                     panelUnderCharacter = selectedUnit.transform.GetChild(j).GetComponent<PanelUnderCharacter>().gameObject;
+                                   
                                 }                                 
                             }
                             if (panelUnderCharacter != null)
                             {
                                
                                 panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = true;
+
+                                //CharacterHUDEnable();
+
                                 UnoccupiedSpaceEnable(Board.possibleMoveableChars[theOne]);
                             }
                             break;                            
@@ -468,6 +478,7 @@ public class PlayerControls : MonoBehaviour
                         if (panelUnderCharacter != null)
                         {
                             panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
+                           // CharacterHUDDisable();
                             ClearAllGrids();
                         }
                         selectedUnit = null;
@@ -490,6 +501,7 @@ public class PlayerControls : MonoBehaviour
         if (panelUnderCharacter != null)
         {
             ClearAllGrids();
+            //CharacterHUDDisable();
             panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
         }
     }
@@ -635,8 +647,7 @@ public class PlayerControls : MonoBehaviour
             MovementManager.SwitchDirectionLineup(MovementManager.Direction.Right, columnHighlight);
         }
     }
-
-   
+       
     public static void UnoccupiedSpaceEnable(Piece character)
     {
         bool isUp  = true;
@@ -829,5 +840,14 @@ public class PlayerControls : MonoBehaviour
                // GameObject.Find("EndTurn").transform.GetComponent<EndButtonToggle>().isVisible = true;
             }
         }        
+    }
+
+    public static void CharacterHUDEnable()
+    {
+        GameObject.Find("HUD").GetComponent<CharacterHUD>().isEnable = true;
+    }
+    public static void CharacterHUDDisable()
+    {
+        GameObject.Find("HUD").GetComponent<CharacterHUD>().isEnable = false;
     }
 }
