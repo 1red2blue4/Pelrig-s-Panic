@@ -110,7 +110,7 @@ public class PlayerControls : MonoBehaviour
         if (isPlayerTurn)
         {
 
-            if (selectedUnit != null)
+            if (selectedUnit)
             {
                 MovePlayer();
                 
