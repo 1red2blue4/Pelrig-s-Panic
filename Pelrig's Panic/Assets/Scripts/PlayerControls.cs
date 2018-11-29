@@ -140,7 +140,7 @@ public class PlayerControls : MonoBehaviour
                 if(selectedUnit)
                     DisablePanelUnderCharacter(selectedUnit);
                 selectedUnit = null;
-                EndTurnButtonScript.isButtonPressed = false;
+                //EndTurnButtonScript.isButtonPressed = false;
                 GiveNumbers();
                 isPlayerTurn = false;
                 roundCounter++;
@@ -171,11 +171,14 @@ public class PlayerControls : MonoBehaviour
                     item.thePiece.GetComponent<Stats>().canAttack = true;
                 }
             }
+
+            EndButtonToggle.DisableEndTurn();
         }
     }
 
     public static void EnemyTurnsActivate()
     {
+        EndButtonToggle.EnableEndTurn();
         bool countRound = false;
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {

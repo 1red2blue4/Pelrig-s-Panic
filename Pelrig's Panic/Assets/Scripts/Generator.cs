@@ -53,7 +53,6 @@ public class Generator : MonoBehaviour
         if (playersAround >= 3)
         {
             ExperimentalResources.generatorsActive++;
-            int temp = ExperimentalResources.generatorsActive++;
             transform.GetChild(0).GetComponent<TextMesh>().text = "Activated" + "\ngenerator";
             onImage.SetActive(true);
             return true;
