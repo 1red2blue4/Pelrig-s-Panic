@@ -10,4 +10,15 @@ public class SceneTransition : MonoBehaviour
     {
         SceneManager.LoadScene(scene);
     }
+
+    public void TurnOn(GameObject on)
+    {
+        on.SetActive(true);
+    }
+
+    public void TurnOff(GameObject off)
+    {
+        off.SetActive(false);
+    }
+
 }

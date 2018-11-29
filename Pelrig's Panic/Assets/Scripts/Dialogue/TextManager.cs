@@ -66,10 +66,10 @@ public static class TextManager {
         //increment the timer
         if (currentCharacter < textSets[currentTextSet].Length)
         {
-            currentCharacter = textSets[currentTextSet].Length - 1;
+            //currentCharacter = textSets[currentTextSet].Length - 1;
             // This is for automatic dialogue box appears in the interval 0f 10secs.
             //if (endConversation)
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {
                 currentCharacter = textSets[currentTextSet].Length - 1;
                 wentToEndOfText = true;
@@ -88,20 +88,7 @@ public static class TextManager {
                 preppingNewVoice = true;
 
                 //This is for transition into the PirateShip scene.
-                countDialogueLength++; 
-                //TODO: organize buildIndex documentation
-                if (SceneManager.GetActiveScene().buildIndex == 3 && countDialogueLength >= 18)
-                {
-                    SceneManager.LoadScene("PirateShipUI");
-                }
-                if (SceneManager.GetActiveScene().buildIndex == 4 && countDialogueLength < 10)
-                {
-                    playerControlsLocked = true;
-                }
-                else
-                {
-                    playerControlsLocked = false;
-                }
+                countDialogueLength++;                 
             }
             else if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && (currentTextSet == textSets.Length - 1 || textSets[currentTextSet + 1] == null) && wentToEndOfText == false)
             {
@@ -125,5 +112,23 @@ public static class TextManager {
                 textViewEmptied = true;
             }*/
         }
-	}
+        //TODO: organize buildIndex documentation
+        if (SceneManager.GetActiveScene().buildIndex == 3 && (Input.GetKey(KeyCode.P) || countDialogueLength >= 18))
+        {
+            countDialogueLength = 0;
+            playerControlsLocked = true;
+            SceneManager.LoadScene("PirateShipUI");
+        }
+        Debug.Log(playerControlsLocked);
+        Debug.Log(SceneManager.GetActiveScene().buildIndex);
+        if (SceneManager.GetActiveScene().buildIndex == 4 && countDialogueLength < 9)
+        {
+            Debug.Log("Controls should be locked!");
+            playerControlsLocked = true;
+        }
+        else
+        {
+            playerControlsLocked = false;
+        }
+    }
 }
