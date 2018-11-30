@@ -749,6 +749,9 @@ public class Board : MonoBehaviour {
             GameObject.Find("gridRow" + arrayRows[i] + "Column" + arrayColumns[i]).GetComponent<SpriteRenderer>().enabled = false;
             numCannons++;
         }
+
+        gameObject.AddComponent<CannonCrossbarController>();
+        gameObject.GetComponent<CannonCrossbarController>().mouseTarget = cannonPrefab.GetComponent<Cannon>().mouseTarget;
     }
 
     void PlaceGenerators()
