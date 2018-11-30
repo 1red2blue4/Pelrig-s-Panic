@@ -34,7 +34,7 @@ public class UIValues : MonoBehaviour {
             gridPositioner.AdjustToCamera();
             gridPositioner.gameObject.transform.Rotate(new Vector3(90.0f, 0.0f, 0.0f));
         }
-        textValue.text = value.ToString();
+        textValue.text = value.ToString();  
     }
 
     public void SetValue(int vl)
