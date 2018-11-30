@@ -10,8 +10,10 @@ public class PlayerControls : MonoBehaviour
     private float cameraScrollSpeed;
     [SerializeField] private float cameraMaxZoom;
     [SerializeField] private float cameraMinZoom;
+    [SerializeField] private Transform WindSprite;
     private GameObject columnHighlight;
     //0: bottom left; 1: straight on; 2: bottom right
+    private int turnCount;
     private int cameraRotPosition;
     private int prevCameraRotPosition;
     private int numCameraRotPositions;
@@ -33,7 +35,8 @@ public class PlayerControls : MonoBehaviour
 
     GameObject panelUnderCharacter;
     void Start()
-    {        
+    {
+        turnCount = 1;
         cameraChangeHorizontal = 0.0f;
         cameraChangeVertical = 0.0f;
         movingCamera = false;
@@ -61,7 +64,76 @@ public class PlayerControls : MonoBehaviour
 
     public void GiveNumbers()
     {
-        //Left - 0, up - 1, right - 2, down - 3
+        //Left - 0, up - 1, right - 2, down - 3 (Also wind direction)
+
+        int windDirection = 4; //Default no wind
+
+        //First 2 turns no wind
+        if (turnCount == 2)
+        {
+            //Wind always agains you in the 3rd round
+            windDirection = 0;
+        }
+        else if(turnCount > 2)
+        { 
+            //Wind becomes random after round 3
+            //I could be wrong, but The 0 - 16 range and then divide by 4 makes it more evenly distributed
+            windDirection = (int)(Random.Range(0.0f, 20.00f) / 4);
+        }
+
+        if (windDirection == 0) //left
+        {
+            moveValues[0] = 2; //left
+            moveValues[1] = 3; //up
+            moveValues[2] = 4; //right
+            moveValues[3] = 3; //down
+
+            WindSprite.gameObject.SetActive(true);
+            WindSprite.rotation = Quaternion.Euler(0, 0, 180);
+        }
+        else if (windDirection == 1) //up
+        {
+            moveValues[0] = 3; //left
+            moveValues[1] = 2; //up
+            moveValues[2] = 3; //right
+            moveValues[3] = 4; //down
+
+            WindSprite.gameObject.SetActive(true);
+            WindSprite.rotation = Quaternion.Euler(0, 0, 90);
+        }
+        else if (windDirection == 2) //right
+        {
+            moveValues[0] = 4; //left
+            moveValues[1] = 3; //up
+            moveValues[2] = 2; //right
+            moveValues[3] = 3; //down
+
+            WindSprite.gameObject.SetActive(true);
+            WindSprite.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (windDirection == 3) //down
+        {
+            moveValues[0] = 3; //left
+            moveValues[1] = 4; //up
+            moveValues[2] = 3; //right
+            moveValues[3] = 2; //down
+
+            WindSprite.gameObject.SetActive(true);
+            WindSprite.rotation = Quaternion.Euler(0, 0, -90);
+        }
+        else if (windDirection == 4) //No wind
+        {
+            moveValues[0] = 3; //left
+            moveValues[1] = 3; //up
+            moveValues[2] = 3; //right
+            moveValues[3] = 3; //down
+
+            WindSprite.gameObject.SetActive(false);
+            WindSprite.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        Debug.Log("Turn Count:   " + turnCount);
+
+        /* Old mechanic
         for (int i = 0; i < 4; i++)
         {
             int randomNumber = (int)Random.Range(0.0f, 13.99f);
@@ -91,6 +163,7 @@ public class PlayerControls : MonoBehaviour
             }
             //Debug.Log("moveValues[i]:   "+ moveValues[i]);
         }
+        */
     }
 
     void AttackEnemy(Stats playerStats)
@@ -154,6 +227,7 @@ public class PlayerControls : MonoBehaviour
         }
         else if (EnemyMovesDone())
         {
+            turnCount++;
             isPlayerTurn = true;
           //  GameObject.Find("EndTurn").transform.GetComponent<Button>().transition = Navigation.None;
             ExperimentalResources.ReInitializeResources();
