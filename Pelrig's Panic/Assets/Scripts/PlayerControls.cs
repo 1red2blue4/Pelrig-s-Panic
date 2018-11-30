@@ -494,62 +494,41 @@ public class PlayerControls : MonoBehaviour
     public void LimitMoveCamera()
     {
         
-
-        for (int i = 0; i < numCameraRotPositions; i++)
-        {
-            //Check if Camera1 is out of range
-            if (allCameras[i].transform.position.x < xLowerLimit[i])
-            {
-                //allCameras[i].transform.position.x = xLowerLimit;
-            }
-        }
     }
 
     public void MoveCamera()
     {
 
-        if (Input.GetAxis("Horizontal") > 0 && cameraChangeHorizontal < 200.0f)
+        if (Input.GetAxis("Horizontal") > 0 && cameraChangeHorizontal < 200.0f && allCameras[1].transform.position.x > xLowerLimit[1])
         {
             for (int i = 0; i < numCameraRotPositions; i++)
-            {
-                if ((allCameras[i].transform.position.x > xLowerLimit[i]) & (allCameras[i].transform.position.x < xHigherLimit[i]))
-                {
-                    allCameras[i].transform.position += new Vector3(cameraSpeed, 0.0f, 0.0f) * Time.deltaTime;
-                    cameraChangeHorizontal -= cameraSpeed * Time.deltaTime;
-                }
+            {   
+                allCameras[i].transform.position += new Vector3(cameraSpeed, 0.0f, 0.0f) * Time.deltaTime;
+                cameraChangeHorizontal -= cameraSpeed * Time.deltaTime;
             }
         }
-        else if (Input.GetAxis("Horizontal") < 0 && cameraChangeHorizontal > -200.0f)
+        else if (Input.GetAxis("Horizontal") < 0 && cameraChangeHorizontal > -200.0f && allCameras[1].transform.position.x < xHigherLimit[1])
         {
             for (int i = 0; i < numCameraRotPositions; i++)
             {
-                if ((allCameras[i].transform.position.x > xLowerLimit[i]) & (allCameras[i].transform.position.x < xHigherLimit[i]))
-                {
-                    allCameras[i].transform.position -= new Vector3(cameraSpeed, 0.0f, 0.0f) * Time.deltaTime;
-                    cameraChangeHorizontal += cameraSpeed * Time.deltaTime;
-                }
+                allCameras[i].transform.position -= new Vector3(cameraSpeed, 0.0f, 0.0f) * Time.deltaTime;
+                cameraChangeHorizontal += cameraSpeed * Time.deltaTime;
             }
         }
-        if (Input.GetAxis("Vertical") > 0 && cameraChangeVertical < 200.0f)
+        if (Input.GetAxis("Vertical") > 0 && cameraChangeVertical < 200.0f && allCameras[1].transform.position.y > yLowerLimit[1])
         {
             for (int i = 0; i < numCameraRotPositions; i++)
             {
-                if ((allCameras[i].transform.position.y > yLowerLimit[i]) & (allCameras[i].transform.position.y < yHigherLimit[i]))
-                {
-                    allCameras[i].transform.position += new Vector3(0.0f, cameraSpeed, 0.0f) * Time.deltaTime;
-                    cameraChangeVertical += cameraSpeed * Time.deltaTime;
-                }
+                allCameras[i].transform.position += new Vector3(0.0f, cameraSpeed, 0.0f) * Time.deltaTime;
+                cameraChangeVertical += cameraSpeed * Time.deltaTime;
             }
         }
-        else if (Input.GetAxis("Vertical") < 0 && cameraChangeVertical > -200.0f)
+        else if (Input.GetAxis("Vertical") < 0 && cameraChangeVertical > -200.0f && allCameras[1].transform.position.y < yHigherLimit[1])
         {
             for (int i = 0; i < numCameraRotPositions; i++)
             {
-                if ((allCameras[i].transform.position.y > yLowerLimit[i]) & (allCameras[i].transform.position.y < yHigherLimit[i]))
-                {
-                    allCameras[i].transform.position -= new Vector3(0.0f, cameraSpeed, 0.0f) * Time.deltaTime;
-                    cameraChangeVertical -= cameraSpeed * Time.deltaTime;
-                }
+                allCameras[i].transform.position -= new Vector3(0.0f, cameraSpeed, 0.0f) * Time.deltaTime;
+                cameraChangeVertical -= cameraSpeed * Time.deltaTime;
             }
         }
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && gameObject.GetComponent<Camera>().orthographicSize > cameraMinZoom)
