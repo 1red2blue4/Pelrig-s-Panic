@@ -33,7 +33,15 @@ public class SceneOfDialogueRealWorld : MonoBehaviour
 
         if(!isStartConvo)
         {
-            startSceneConverstion = FantasyWorldConversation();
+            if (SceneManager.GetActiveScene().buildIndex == 3)
+            {
+                startSceneConverstion = PirateShipCusceneConversation();
+            }
+
+            if (SceneManager.GetActiveScene().buildIndex == 4)
+            {
+                startSceneConverstion = PirateShipBeforeStartingConversation();
+            }
 
             for (int i = 0; i < startSceneConverstion[currConversationNum].lines.Length; i++)
             {
@@ -55,8 +63,6 @@ public class SceneOfDialogueRealWorld : MonoBehaviour
 
             SetNewVoice(allConversations[currConversationNum].characterData[TextManager.currentTextSet].characterIdNum);
         }
-        //StartCoroutine(DialogueConversation());
-        //StartCoroutine(GoToScene());
     }
 
     void Update()
@@ -192,9 +198,9 @@ public class SceneOfDialogueRealWorld : MonoBehaviour
         return multiConvo;
     }
 
-    public Conversation[] FantasyWorldConversation()
+    public Conversation[] PirateShipCusceneConversation()
     {
-        int startConvoLength = 29;
+        int startConvoLength = 19;
         convoWords = new string[startConvoLength];
         CharacterData[] convoCharData = new CharacterData[startConvoLength];
         convoCharData[0] = hally.GetComponent<CharacterData>();
@@ -215,17 +221,7 @@ public class SceneOfDialogueRealWorld : MonoBehaviour
         convoCharData[15] = kent.GetComponent<CharacterData>();
         convoCharData[16] = jade.GetComponent<CharacterData>();
         convoCharData[17] = ed.GetComponent<CharacterData>();
-        convoCharData[18] = hally.GetComponent<CharacterData>();
-        convoCharData[19] = meda.GetComponent<CharacterData>();
-        convoCharData[20] = hally.GetComponent<CharacterData>();
-        convoCharData[21] = jade.GetComponent<CharacterData>();
-        convoCharData[22] = meda.GetComponent<CharacterData>();
-        convoCharData[23] = hally.GetComponent<CharacterData>();
-        convoCharData[24] = kent.GetComponent<CharacterData>();
-        convoCharData[25] = meda.GetComponent<CharacterData>();
-        convoCharData[26] = meda.GetComponent<CharacterData>();
-        convoCharData[27] = jade.GetComponent<CharacterData>();
-        convoCharData[28] = jade.GetComponent<CharacterData>();
+        convoCharData[18] = ed.GetComponent<CharacterData>();
         convoWords[0] = "Where....Are we?";
         convoWords[1] = "Aghh! Pirates!";
         convoWords[2] = "What? You’re crazy Meda. There aren’t any pir--";
@@ -244,23 +240,48 @@ public class SceneOfDialogueRealWorld : MonoBehaviour
         convoWords[15] = "Well well well! Look who decided to speak up. So, how about that lunch money?";
         convoWords[16] = "Hush Kent. Now’s not the time. Ed, how do you know all this is real?";
         convoWords[17] = "See for yourselves.";
-        convoWords[18] = "Ohhhh, I love pirates! I’m the captain.";
-        convoWords[19] = "Looks like the ship already has a captain, Hally.";
-        convoWords[20] = "Daw...";
-        convoWords[21] = "Oh look! That pirate is looking right at us! Hello there Mr. Pirate!!";
-        convoWords[22] = "It looks like if we defeat the pirate captain or hold the wheel, we’ll take control of the ship.";
-        convoWords[23] = "Huh... that’s oddly kind of the captain to give us the wheel.";
-        convoWords[24] = "I don’t think he’s giving it to us.";
-        convoWords[25] = "Does everyone remember when we surrounded Kent? Let’s surround the pirates as well!";
-        convoWords[26] = "And maybe if we surround those generators on the sides of the ship, we’ll be able to move faster!";
-        convoWords[27] = "You had me on board at “move faster.” Let’s surround those generators! And next, the pirates!";
-        convoWords[28] = " ";
+        convoWords[18] = "Hmmm...";
 
 
         Conversation convo = new Conversation(convoWords, startConvoLength, convoCharData);
 
         Conversation[] startConvo = new Conversation[1];
         startConvo[0] = convo; 
+        return startConvo;
+    }
+
+    public Conversation[] PirateShipBeforeStartingConversation()
+    {
+        int startConvoLength = 11;
+        convoWords = new string[startConvoLength];
+        CharacterData[] convoCharData = new CharacterData[startConvoLength];
+        convoCharData[0] = hally.GetComponent<CharacterData>();
+        convoCharData[1] = meda.GetComponent<CharacterData>();
+        convoCharData[2] = hally.GetComponent<CharacterData>();
+        convoCharData[3] = jade.GetComponent<CharacterData>();
+        convoCharData[4] = meda.GetComponent<CharacterData>();
+        convoCharData[5] = hally.GetComponent<CharacterData>();
+        convoCharData[6] = kent.GetComponent<CharacterData>();
+        convoCharData[7] = meda.GetComponent<CharacterData>();
+        convoCharData[8] = meda.GetComponent<CharacterData>();
+        convoCharData[9] = jade.GetComponent<CharacterData>();
+        convoCharData[10] = jade.GetComponent<CharacterData>();
+        convoWords[0] = "Ohhhh, I love pirates! I’m the captain.";
+        convoWords[1] = "Looks like the ship already has a captain, Hally.";
+        convoWords[2] = "Daw...";
+        convoWords[3] = "Oh look! That pirate is looking right at us! Hello there Mr. Pirate!!";
+        convoWords[4] = "It looks like if we defeat the pirate captain or hold the wheel, we’ll take control of the ship.";
+        convoWords[5] = "Huh... that’s oddly kind of the captain to give us the wheel.";
+        convoWords[6] = "I don’t think he’s giving it to us.";
+        convoWords[7] = "Does everyone remember when we surrounded Kent? Let’s surround the pirates as well!";
+        convoWords[8] = "And maybe if we surround those generators on the sides of the ship, we’ll be able to move faster!";
+        convoWords[9] = "You had me on board at “move faster.” Let’s surround those generators! And next, the pirates!";
+
+
+        Conversation convo = new Conversation(convoWords, startConvoLength, convoCharData);
+
+        Conversation[] startConvo = new Conversation[1];
+        startConvo[0] = convo;
         return startConvo;
     }
     // This is for automatic dialogue box appears in the interval 0f 10secs.

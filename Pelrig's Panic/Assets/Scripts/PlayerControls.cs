@@ -99,55 +99,52 @@ public class PlayerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckClick();
         MoveCamera();
         CheckRotateCamera();
         if (movingCamera)
         {
             RepositionCamera(cameraRotPosition, prevCameraRotPosition, cameraMovementBetween);
         }
-        
-        //CheckCoinCollect();
-        //CheckForLineupSwap();
-        CheckPlayer();
-        if (isPlayerTurn)
+
+        if (!TextManager.playerControlsLocked)
         {
-
-            if (selectedUnit != null)
-            {
-                MovePlayer();
-                
-            }
-            if (Input.GetKeyDown(KeyCode.Space) || EndTurnButtonScript.isButtonPressed)// || Input.GetMouseButtonDown(0))
+            CheckClick();
+            CheckPlayer();
+            if (isPlayerTurn)
             {
 
-                //Clearing all highlighted possible moves and selected character.
-                ClearAllGrids();
-                //Disable the Character HUD.
-                //CharacterHUDDisable();
-                // panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
-                if (selectedUnit)
-                    DisablePanelUnderCharacter(selectedUnit);
-                selectedUnit = null;
-                EndTurnButtonScript.isButtonPressed = false;
-                GiveNumbers();
-                isPlayerTurn = false;
-                roundCounter++;
-                if (roundCounter >= 4)
+                if (selectedUnit != null)
                 {
-                    GameObject.Find("GridLevelStuff").GetComponentInChildren<Board>().SpawnEnemy((int)Random.Range(1.0f, 3.99f));
-                    roundCounter = 0;
-                }
-                EnemyTurnsActivate();
+                    MovePlayer();
 
+                }
+                if (Input.GetKeyDown(KeyCode.Space) || EndTurnButtonScript.isButtonPressed)// || Input.GetMouseButtonDown(0))
+                {
+                    //Clearing all highlighted possible moves and selected character.
+                    ClearAllGrids();
+                    // panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
+                    if (selectedUnit)
+                        DisablePanelUnderCharacter(selectedUnit);
+                    selectedUnit = null;
+                    EndTurnButtonScript.isButtonPressed = false;
+                    GiveNumbers();
+                    isPlayerTurn = false;
+                    roundCounter++;
+                    if (roundCounter >= 4)
+                    {
+                        GameObject.Find("GridLevelStuff").GetComponentInChildren<Board>().SpawnEnemy((int)Random.Range(1.0f, 3.99f));
+                        roundCounter = 0;
+                    }
+                    EnemyTurnsActivate();
+                }
             }
-        }
-        else if (EnemyMovesDone())
-        {
-            isPlayerTurn = true;
-          //  GameObject.Find("EndTurn").transform.GetComponent<Button>().transition = Navigation.None;
-            ExperimentalResources.ReInitializeResources();
-           // GameObject.Find("EndTurn").transform.GetComponent<EndButtonToggle>().isVisible = false;
+            else if (EnemyMovesDone())
+            {
+                isPlayerTurn = true;
+                //  GameObject.Find("EndTurn").transform.GetComponent<Button>().transition = Navigation.None;
+                ExperimentalResources.ReInitializeResources();
+                // GameObject.Find("EndTurn").transform.GetComponent<EndButtonToggle>().isVisible = false;
+            }
         }
     }
 
@@ -387,7 +384,6 @@ public class PlayerControls : MonoBehaviour
                 if(hit.collider.tag == "BlankSpace")
                 {
                     Debug.Log("Cleared all highlights when player switched using Alpha keys");
-                   // CharacterHUDDisable();
                     ClearAllGrids();
                 }
                 if (hit.collider.tag == "Player")
@@ -439,23 +435,18 @@ public class PlayerControls : MonoBehaviour
                             glowingMaterial.mainTexture = normalMaterial.mainTexture;
                             selectedBase.GetComponent<MeshRenderer>().material = glowingMaterial;
                             
-                            GameObject panelUnderCharacter = null;
-                           
+                            GameObject panelUnderCharacter = null; 
                             for (int j = 0; j < selectedUnit.transform.childCount; j++)
                             {
                                 if (selectedUnit.transform.GetChild(j).GetComponent<PanelUnderCharacter>() != null)
                                 {
                                     panelUnderCharacter = selectedUnit.transform.GetChild(j).GetComponent<PanelUnderCharacter>().gameObject;
-                                   
                                 }                                 
                             }
                             if (panelUnderCharacter != null)
                             {
                                
                                 panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = true;
-
-                                //CharacterHUDEnable();
-
                                 UnoccupiedSpaceEnable(Board.possibleMoveableChars[theOne]);
                             }
                             break;                            
@@ -478,7 +469,6 @@ public class PlayerControls : MonoBehaviour
                         if (panelUnderCharacter != null)
                         {
                             panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
-                           // CharacterHUDDisable();
                             ClearAllGrids();
                         }
                         selectedUnit = null;
@@ -501,7 +491,6 @@ public class PlayerControls : MonoBehaviour
         if (panelUnderCharacter != null)
         {
             ClearAllGrids();
-            //CharacterHUDDisable();
             panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
         }
     }
@@ -647,7 +636,8 @@ public class PlayerControls : MonoBehaviour
             MovementManager.SwitchDirectionLineup(MovementManager.Direction.Right, columnHighlight);
         }
     }
-       
+
+   
     public static void UnoccupiedSpaceEnable(Piece character)
     {
         bool isUp  = true;
@@ -840,14 +830,5 @@ public class PlayerControls : MonoBehaviour
                // GameObject.Find("EndTurn").transform.GetComponent<EndButtonToggle>().isVisible = true;
             }
         }        
-    }
-
-    public static void CharacterHUDEnable()
-    {
-        GameObject.Find("HUD").GetComponent<CharacterHUD>().isEnable = true;
-    }
-    public static void CharacterHUDDisable()
-    {
-        GameObject.Find("HUD").GetComponent<CharacterHUD>().isEnable = false;
     }
 }
