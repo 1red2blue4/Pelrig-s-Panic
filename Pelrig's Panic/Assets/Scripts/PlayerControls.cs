@@ -134,7 +134,8 @@ public class PlayerControls : MonoBehaviour
             WindSprite.gameObject.SetActive(false);
             WindSprite.rotation = Quaternion.Euler(0, 0, 0);
         }
-        Debug.Log("Turn Count:   " + turnCount);
+        //Debug.Log("Turn Count:   " + turnCount);
+        //Debug.Log("Wind Dir:   " + windDirection);
 
         /* Old mechanic
         for (int i = 0; i < 4; i++)
@@ -230,6 +231,7 @@ public class PlayerControls : MonoBehaviour
             }
             else if (EnemyMovesDone())
             {
+                turnCount++;
                 isPlayerTurn = true;
                 //  GameObject.Find("EndTurn").transform.GetComponent<Button>().transition = Navigation.None;
                 ExperimentalResources.ReInitializeResources();
