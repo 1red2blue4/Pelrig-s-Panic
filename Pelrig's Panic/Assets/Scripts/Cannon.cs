@@ -5,14 +5,14 @@ using UnityEngine;
 public class Cannon : MonoBehaviour {
 
     [SerializeField]
-    Texture2D mouseTarget;
+    public Texture2D mouseTarget;
     int charges;
     [SerializeField] public Piece cannon;
     [SerializeField] public int cannonID;
     [SerializeField] public GameObject onImage;
     [SerializeField] public GameObject offImage;
-    public static bool isCanonUsable;
-    public static bool isCanonSelected;
+    public bool isCanonUsable;
+    public bool isCanonSelected;
     int theOne;
     int cannonRange;
     private void Start()
@@ -34,7 +34,9 @@ public class Cannon : MonoBehaviour {
                 {
                     RaycastHit hit;
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1))
+
+                    LayerMask layermask = LayerMask.GetMask("Enemy") | LayerMask.GetMask("Interactable");
+                    if (Physics.Raycast(ray, out hit, Mathf.Infinity, layermask))
                     {
                         if (hit.collider.tag == "Enemy")
                         {
@@ -49,7 +51,7 @@ public class Cannon : MonoBehaviour {
                         }
                     }
                     isCanonSelected = false;
-                    Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                    //Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
                     offImage.SetActive(false);
                 }
                 else
@@ -64,7 +66,7 @@ public class Cannon : MonoBehaviour {
                             {
 
                                 isCanonSelected = true;
-                                Cursor.SetCursor(mouseTarget, Vector2.zero, CursorMode.Auto);
+                                //Cursor.SetCursor(mouseTarget, Vector2.zero, CursorMode.Auto);
                                 offImage.SetActive(true);
                             }
                         }

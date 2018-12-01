@@ -10,9 +10,12 @@ public class PirateCaptainAI : MonoBehaviour {
     [SerializeField] private GameObject presenceObj;
     [SerializeField] private GameObject resistanceObj;
 
+    public Stats stats;
+
     // Use this for initialization
     void Start()
     {
+        stats = GetComponent<Stats>();
         isTurnActive = false;
         time = 0.0f;
         presenceObj.GetComponent<MeshRenderer>().sortingOrder = 3;
@@ -30,10 +33,11 @@ public class PirateCaptainAI : MonoBehaviour {
                 if (time >= 1.5f)
                 {
                     time = 0.0f;
-                    MoveAndCheckUnitCollision();
+                    MoveAndCheckUnitCollision(false);
                     countMove++;
                     if (countMove >= 5)
                     {
+                        MoveAndCheckUnitCollision(true);
                         isTurnActive = false;
                         countMove = 0;
                         time = 0.0f;
@@ -44,7 +48,7 @@ public class PirateCaptainAI : MonoBehaviour {
 
             }
         }
-        CheckPlayer();
+        //CheckPlayer();
     }
 
     void CheckPlayer()
@@ -106,7 +110,7 @@ public class PirateCaptainAI : MonoBehaviour {
         }
     }
 
-    private void MoveAndCheckUnitCollision()
+    private void MoveAndCheckUnitCollision(bool onlyAttack)
     {
         int random = (int)Random.Range(0.0f, 1.99f);
         int shortestDistance = 15;
@@ -145,10 +149,14 @@ public class PirateCaptainAI : MonoBehaviour {
         }
         if (shortestDistance == 1)
         {
-            //Attack();
+            if (stats.canAttack)
+            {
+                Board.possibleMoveableChars[targetPlayer].thePiece.GetComponent<Stats>().TakeDamage(stats.damage);
+                stats.canAttack = false;
+            }
         }
         //Move. Terrible system, must find a better way for later
-        else
+        else if ( !onlyAttack)
         {
             bool canMoveLeft = true;
             bool canMoveRight = true;

@@ -26,7 +26,8 @@ GameObject:
   - component: {fileID: 114736645835019562}
   - component: {fileID: 114076583329912802}
   - component: {fileID: 114984084154924024}
-  m_Layer: 0
+  - component: {fileID: 114226140492780138}
+  m_Layer: 9
   m_Name: '#Pirate_Crew'
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -42,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4233151753110470}
   - component: {fileID: 212947661469635534}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: EnemyUI_Presence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +59,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4279635986432890}
   - component: {fileID: 212561856497206498}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: EnemyUI_Resist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +75,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4156610778925950}
   - component: {fileID: 114382239792649188}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GridRotater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +92,7 @@ GameObject:
   - component: {fileID: 4841692776942334}
   - component: {fileID: 212433389234409134}
   - component: {fileID: 114139862181361960}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pirate Crew
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +110,7 @@ GameObject:
   - component: {fileID: 23116984816897058}
   - component: {fileID: 102639950482770328}
   - component: {fileID: 114539802489224718}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Value
   m_TagString: Presence
   m_Icon: {fileID: 0}
@@ -127,7 +128,7 @@ GameObject:
   - component: {fileID: 33311683659046690}
   - component: {fileID: 23275873018990814}
   - component: {fileID: 136546542106618600}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +146,7 @@ GameObject:
   - component: {fileID: 23063992051689548}
   - component: {fileID: 102495451176927698}
   - component: {fileID: 114683196758997568}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Value
   m_TagString: Resist
   m_Icon: {fileID: 0}
@@ -520,7 +521,23 @@ MonoBehaviour:
   resistanceValue: 0
   initialPresenceValue: 2
   initialResistanceValue: 4
+  health: 0
+  attack: 0
   thePiece: {fileID: 1005522361513020}
+--- !u!114 &114226140492780138
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1005522361513020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbaf077f31704f740a16da574dcd7d0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 6
+  damage: 1
+  canAttack: 0
 --- !u!114 &114382239792649188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -576,6 +593,7 @@ MonoBehaviour:
   isTurnActive: 0
   presenceObj: {fileID: 1590191265046264}
   resistanceObj: {fileID: 1978429140124236}
+  stats: {fileID: 0}
 --- !u!114 &114984084154924024
 MonoBehaviour:
   m_ObjectHideFlags: 1

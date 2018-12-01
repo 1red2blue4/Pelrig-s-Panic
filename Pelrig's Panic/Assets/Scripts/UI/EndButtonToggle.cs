@@ -19,12 +19,30 @@ public class EndButtonToggle : MonoBehaviour
        
 	}
 
-    public void EnableEndTurn()
+    public static void EnableEndTurn()
     { 
         if(!isEnable)
         { 
             EndTurnButtonScript.isButtonPressed = true;
             isEnable = true;
         }       
+    }
+
+    public static void DisableEndTurn()
+    {
+        if (isEnable)
+        {
+            EndTurnButtonScript.isButtonPressed = false;
+            isEnable = false;
+        }
+    }
+
+    public void LocalEnableEndTurn()
+    {
+        if (!isEnable)
+        {
+            EndTurnButtonScript.isButtonPressed = true;
+            isEnable = true;
+        }
     }
 }

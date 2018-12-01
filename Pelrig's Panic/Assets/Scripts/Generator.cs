@@ -7,17 +7,14 @@ public class Generator : MonoBehaviour
 {
     bool isOn  = false;
     public Piece generator;
-    [SerializeField] private GameObject[] onImages;
-    [SerializeField] private GameObject offImage;
-    [SerializeField] private GameObject uiImage;
+    [SerializeField] public GameObject onImage;
+    [SerializeField] public GameObject offImage;
     [SerializeField] private GameObject textHolder;
-    private int numCharsToSurround;
     Text generatorPopupText;
     // Use this for initialization
     void Start ()
     {
         generator = GetComponent<Piece>();
-        numCharsToSurround = 3;
         //generatorPopupText = textHolder.GetComponent<TextMesh>;
         //gameObject.GetComponent<TextMesh>().text = null;
 
@@ -50,36 +47,14 @@ public class Generator : MonoBehaviour
         //generatorPopupText.text = "Temp:" + displayNumber;
         //gameObject.GetComponent<TextMesh>().text = displayNumber.ToString();
        // var displayNumber = 3 - playersAround;
-
-        if (playersAround >= 1 && playersAround < numCharsToSurround)
-        {
-            uiImage.SetActive(true);
-            if (uiImage.transform.GetChild(0) != null && uiImage.transform.GetChild(0).GetComponent<TextMesh>() != null)
-            {
-                uiImage.transform.GetChild(0).GetComponent<TextMesh>().text = (numCharsToSurround - playersAround).ToString();
-                uiImage.transform.GetChild(0).GetComponent<MeshRenderer>().sortingOrder = uiImage.transform.GetComponent<SpriteRenderer>().sortingOrder;
-            }
-        }
-        else
-        {
-            uiImage.SetActive(false);
-        }
        
 
 
-        if (playersAround >= numCharsToSurround)
+        if (playersAround >= 3)
         {
             ExperimentalResources.generatorsActive++;
-            int temp = ExperimentalResources.generatorsActive++;
-            for (int i = 0; i < onImages.Length; i++)
-            {
-                onImages[i].SetActive(true);
-                if (onImages[i].GetComponent<SpriteRenderer>() != null)
-                {
-                    onImages[i].GetComponent<SpriteRenderer>().enabled = true;
-                }
-            }
-            offImage.SetActive(false);
+            transform.GetChild(0).GetComponent<TextMesh>().text = "Activated" + "\ngenerator";
+            onImage.SetActive(true);
             return true;
         }
         return false;
