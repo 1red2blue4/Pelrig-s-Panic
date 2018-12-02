@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 114943799217782732}
   - component: {fileID: 114012846036392644}
   - component: {fileID: 65942504204306884}
+  - component: {fileID: 114564475574152472}
   m_Layer: 0
   m_Name: cannon1
   m_TagString: Cannon
@@ -255,6 +256,8 @@ MonoBehaviour:
   onImage: {fileID: 1533815919065450}
   offImage: {fileID: 1185680182702822}
   isCanonUsable: 0
+  isCanonSelected: 0
+  cannonPopup: {fileID: 0}
 --- !u!114 &114236557463247976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -281,6 +284,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 475c068cddc2d394b896b9b0d2cb6c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isVisible: 0
+--- !u!114 &114564475574152472
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1651644283395480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e013001e11f510245b4b86ac5844a379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114943799217782732
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -300,6 +315,8 @@ MonoBehaviour:
   resistanceValue: 0
   initialPresenceValue: 0
   initialResistanceValue: 0
+  health: 0
+  attack: 0
   thePiece: {fileID: 1651644283395480}
 --- !u!114 &114985873310002988
 MonoBehaviour:

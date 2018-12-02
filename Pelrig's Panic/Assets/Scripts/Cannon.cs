@@ -13,6 +13,7 @@ public class Cannon : MonoBehaviour {
     [SerializeField] public GameObject offImage;
     public bool isCanonUsable;
     public bool isCanonSelected;
+    public CannonPopup cannonPopup;
     int theOne;
     private void Start()
     {
@@ -32,7 +33,7 @@ public class Cannon : MonoBehaviour {
                 {
                     RaycastHit hit;
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
+                    
                     LayerMask layermask = LayerMask.GetMask("Enemy") | LayerMask.GetMask("Interactable");
                     if (Physics.Raycast(ray, out hit, Mathf.Infinity, layermask))
                     {
@@ -76,11 +77,11 @@ public class Cannon : MonoBehaviour {
         if (isCanonUsable && charges > 0)
         {
             //offImage.SetActive(true);
-            CannonPopup.isVisible = true;
+            cannonPopup.isVisible = true;
         }
         else
         {
-            CannonPopup.isVisible = false;
+            cannonPopup.isVisible = false;
         }
     }
 

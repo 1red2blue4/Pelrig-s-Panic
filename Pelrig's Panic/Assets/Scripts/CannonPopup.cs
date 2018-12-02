@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CannonPopup : MonoBehaviour
 {
-    public static bool isVisible;
+    public bool isVisible;
 	// Use this for initialization
 	void Start ()
     {
