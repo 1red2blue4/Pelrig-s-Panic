@@ -11,15 +11,19 @@ public class Cannon : MonoBehaviour {
     [SerializeField] public int cannonID;
     [SerializeField] public GameObject onImage;
     [SerializeField] public GameObject offImage;
+    CannonRadius cannonRadius;
     public bool isCanonUsable;
     public bool isCanonSelected;
-    public CannonPopup cannonPopup;
+    //public CannonPopup cannonPopup;
     int theOne;
+
+
     private void Start()
     {
         isCanonUsable = false;
         charges = 1;
         isCanonSelected = false;
+        cannonRadius = GetComponent<CannonRadius>();
     }
 
     private void Update()
@@ -50,6 +54,7 @@ public class Cannon : MonoBehaviour {
                         }
                     }
                     isCanonSelected = false;
+                    cannonRadius.RemoveHighlights();
                     //Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
                     offImage.SetActive(false);
                 }
@@ -65,6 +70,7 @@ public class Cannon : MonoBehaviour {
                             {
 
                                 isCanonSelected = true;
+                                cannonRadius.HighlightGrids();
                                 //Cursor.SetCursor(mouseTarget, Vector2.zero, CursorMode.Auto);
                                 offImage.SetActive(true);
                             }
@@ -77,11 +83,11 @@ public class Cannon : MonoBehaviour {
         if (isCanonUsable && charges > 0)
         {
             //offImage.SetActive(true);
-            cannonPopup.isVisible = true;
+            CannonPopup.isVisible = true;
         }
         else
         {
-            cannonPopup.isVisible = false;
+            CannonPopup.isVisible = false;
         }
     }
 
@@ -103,8 +109,8 @@ public class Cannon : MonoBehaviour {
     void UseCannon(Piece enemy)
     {
         if (charges > 0 &&
-            enemy.rowPosition <= cannon.rowPosition + 5 && enemy.rowPosition >= cannon.rowPosition - 5 &&
-            enemy.colPosition <= cannon.colPosition + 5 && enemy.colPosition >= cannon.colPosition - 5)
+            enemy.rowPosition <= cannon.rowPosition + cannonRadius.cannonRadius && enemy.rowPosition >= cannon.rowPosition - cannonRadius.cannonRadius &&
+            enemy.colPosition <= cannon.colPosition + cannonRadius.cannonRadius && enemy.colPosition >= cannon.colPosition - cannonRadius.cannonRadius)
         {
             for (int i = 0; i < Board.spawnedEnemies.Count; i++)
             {

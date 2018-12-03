@@ -194,7 +194,7 @@ public class PlayerControls : MonoBehaviour
         //CheckCoinCollect();
         //CheckForLineupSwap();
         //CheckPlayer();
-        if (isPlayerTurn)
+        if (isPlayerTurn )
         {
             if (selectedUnit)
             {
@@ -202,7 +202,10 @@ public class PlayerControls : MonoBehaviour
                 {
                     AttackEnemy(selectedUnit.GetComponent<Stats>());
                 }
-                MovePlayer();
+                if (!CannonCrossbarController.isCannonSelected)
+                {
+                    MovePlayer();
+                }
                 
             }
             if (Input.GetKeyDown(KeyCode.Space) || EndTurnButtonScript.isButtonPressed)// || Input.GetMouseButtonDown(0))

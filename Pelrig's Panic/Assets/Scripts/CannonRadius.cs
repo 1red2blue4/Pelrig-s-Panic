@@ -4,63 +4,54 @@ using UnityEngine;
 
 public class CannonRadius : MonoBehaviour {
 
-    bool cannonSelected;
-    List<Cannon> cannons;
-
-    bool isRight = false;
-    bool isLeft = false;
-    bool isUp = false;
-    bool isDown = false;
+    List<Transform> gridsToHighlight;
+    public int cannonRadius = 5;
 
 	// Use this for initialization
 	void Start () {
-        cannons = new List<Cannon>();
-	}
+        gridsToHighlight = new List<Transform>();
+        GetGridRadius();
+    }
 	
-	// Update is called once per frame
-	void Update () {
-        if (PlayerControls.isPlayerTurn)
-        {
-            cannonSelected = false;
-            for(int i = 0; i < Board.allCannons.Length; i++)
-            {
-                if (Board.allCannons[i].GetComponent<Cannon>().isCanonSelected)
-                {
-                    cannonSelected = true;
-                    isRight = true;
-                    isLeft = true;
-                    isUp = true;
-                    isDown = true;
+    void GetGridRadius()
+    {
+        Piece gamePiece = gameObject.GetComponent<Piece>();
+        int row = gamePiece.rowPosition;
+        int col = gamePiece.colPosition;
 
-                    if (isLeft)
-                    {
-                        
-                            GameObject.Find("gridRow" + (Board.allCannons[i].GetComponent<Cannon>().cannon.rowPosition) + "Column" + (Board.allCannons[i].GetComponent<Cannon>().cannon.rowPosition - 5)).transform.GetChild(0).GetComponent<CannonPopup>().isVisible = true;
-                            //GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition - 1)).transform.GetChild(1).GetComponent<FreeSpaceHighlightAnim>().isVisible = true;
-                       
-                    }
-                    if (isRight)
-                    {
-                            GameObject.Find("gridRow" + (Board.allCannons[i].GetComponent<Cannon>().cannon.rowPosition) + "Column" + (Board.allCannons[i].GetComponent<Cannon>().cannon.rowPosition + 5)).transform.GetChild(0).GetComponent<CannonPopup>().isVisible = true;
-                            //GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition + 1)).transform.GetChild(1).GetComponent<FreeSpaceHighlightAnim>().isVisible = true;
-                        
-                    }
-                    if (isUp)
-                    {
-                        
-                            GameObject.Find("gridRow" + (Board.allCannons[i].GetComponent<Cannon>().cannon.rowPosition - 5) + "Column" + (Board.allCannons[i].GetComponent<Cannon>().cannon.rowPosition)).transform.GetChild(0).GetComponent<CannonPopup>().isVisible = true;
-                            //GameObject.Find("gridRow" + (character.rowPosition - 1) + "Column" + (character.colPosition)).transform.GetChild(1).GetComponent<FreeSpaceHighlightAnim>().isVisible = true;
-                        
-                    }
-                    if (isDown)
-                    {
-                        
-                            GameObject.Find("gridRow" + (Board.allCannons[i].GetComponent<Cannon>().cannon.rowPosition + 5) + "Column" + (Board.allCannons[i].GetComponent<Cannon>().cannon.rowPosition)).transform.GetChild(0).GetComponent<CannonPopup>().isVisible = true;
-                            //GameObject.Find("gridRow" + (character.rowPosition + 1) + "Column" + (character.colPosition)).transform.GetChild(1).GetComponent<FreeSpaceHighlightAnim>().isVisible = true;
-                        
-                    }
+        int tempRow, tempCol;
+        for (int i = -cannonRadius; i <= cannonRadius; i++)
+        {
+            for (int j = -cannonRadius; j <= cannonRadius; j++)
+            {
+                if (i == 0 && j == 0)
+                {
+                    continue;
+                }
+                tempRow = row + i;
+                tempCol = col + j;
+                if (GameObject.Find("gridRow"+ tempRow + "Column"+ tempCol))
+                {
+                    Debug.Log(GameObject.Find("gridRow" + tempRow + "Column" + tempCol).transform.childCount);
+                    gridsToHighlight.Add(GameObject.Find("gridRow" + tempRow + "Column" + tempCol).transform.GetChild(3));
                 }
             }
         }
-	}
+    }
+
+    public void HighlightGrids()
+    {
+        foreach (var item in gridsToHighlight)
+        {
+            item.GetComponent<SpriteRenderer>().enabled = true;
+        }
+    }
+
+    public void RemoveHighlights()
+    {
+        foreach (var item in gridsToHighlight)
+        {
+            item.GetComponent<SpriteRenderer>().enabled = false;
+        }
+    }
 }
