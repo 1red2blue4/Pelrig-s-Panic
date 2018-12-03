@@ -28,6 +28,7 @@ public class PlayerControls : MonoBehaviour
     private float[] xHigherLimit = { 10.0f, 10.0f, 10.0f, -45.0f };
     private float[] yLowerLimit = { -55.0f, -55.0f, -5.0f, -55.0f };
     private float[] yHigherLimit = { -45.0f, -45.0f, 5.0f, -35.0f };
+    private float[] zSetView = { -50.0f, -50.0f, -70.0f, -40.0f };
 
     public static int[] moveValues;
 
@@ -101,8 +102,11 @@ public class PlayerControls : MonoBehaviour
     void Update()
     {
         CheckClick();
-        MoveCamera();
+        //MoveCamera();
         CheckRotateCamera();
+
+        LimitMoveCamera();
+
         if (movingCamera)
         {
             RepositionCamera(cameraRotPosition, prevCameraRotPosition, cameraMovementBetween);
@@ -491,15 +495,27 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
+    
     public void LimitMoveCamera()
     {
+        float xAxisValue = Input.GetAxis("Horizontal");
+        float yAxisValue = Input.GetAxis("Vertical");
+
         
+        for (int i = 0; i < numCameraRotPositions; i++)
+        {
+            allCameras[i].transform.Translate(new Vector3(xAxisValue, yAxisValue, 0.0f));
+            allCameras[i].transform.position = new Vector3(
+                Mathf.Clamp(allCameras[i].transform.position.x, xLowerLimit[i], xHigherLimit[i]),
+                Mathf.Clamp(allCameras[i].transform.position.y, yLowerLimit[i], yHigherLimit[i]),
+                zSetView[i]);
+        }
     }
 
     public void MoveCamera()
     {
 
-        if (Input.GetAxis("Horizontal") > 0 && cameraChangeHorizontal < 200.0f && allCameras[1].transform.position.x > xLowerLimit[1])
+        if (Input.GetAxis("Horizontal") > 0 && cameraChangeHorizontal < 200.0f)
         {
             for (int i = 0; i < numCameraRotPositions; i++)
             {   
@@ -507,7 +523,7 @@ public class PlayerControls : MonoBehaviour
                 cameraChangeHorizontal -= cameraSpeed * Time.deltaTime;
             }
         }
-        else if (Input.GetAxis("Horizontal") < 0 && cameraChangeHorizontal > -200.0f && allCameras[1].transform.position.x < xHigherLimit[1])
+        else if (Input.GetAxis("Horizontal") < 0 && cameraChangeHorizontal > -200.0f)
         {
             for (int i = 0; i < numCameraRotPositions; i++)
             {
@@ -515,7 +531,7 @@ public class PlayerControls : MonoBehaviour
                 cameraChangeHorizontal += cameraSpeed * Time.deltaTime;
             }
         }
-        if (Input.GetAxis("Vertical") > 0 && cameraChangeVertical < 200.0f && allCameras[1].transform.position.y > yLowerLimit[1])
+        if (Input.GetAxis("Vertical") > 0 && cameraChangeVertical < 200.0f)
         {
             for (int i = 0; i < numCameraRotPositions; i++)
             {
@@ -523,7 +539,7 @@ public class PlayerControls : MonoBehaviour
                 cameraChangeVertical += cameraSpeed * Time.deltaTime;
             }
         }
-        else if (Input.GetAxis("Vertical") < 0 && cameraChangeVertical > -200.0f && allCameras[1].transform.position.y < yHigherLimit[1])
+        else if (Input.GetAxis("Vertical") < 0 && cameraChangeVertical > -200.0f)
         {
             for (int i = 0; i < numCameraRotPositions; i++)
             {

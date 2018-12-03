@@ -2907,6 +2907,15 @@ Prefab:
       propertyPath: m_TargetDisplay
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4866939103272752, guid: 16e446cc3cf4e5642bb7a186bd7697ce, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -45
+      objectReference: {fileID: 0}
+    - target: {fileID: 20078618193238412, guid: 16e446cc3cf4e5642bb7a186bd7697ce,
+        type: 2}
+      propertyPath: orthographic size
+      value: 12.67
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114747334948682146, guid: 16e446cc3cf4e5642bb7a186bd7697ce, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 16e446cc3cf4e5642bb7a186bd7697ce, type: 2}
@@ -5367,7 +5376,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4866939103272752, guid: 16e446cc3cf4e5642bb7a186bd7697ce, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1.95
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4866939103272752, guid: 16e446cc3cf4e5642bb7a186bd7697ce, type: 2}
       propertyPath: m_LocalPosition.y
@@ -5418,6 +5427,15 @@ Prefab:
         type: 2}
       propertyPath: orthographic size
       value: 12.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 114747334948682146, guid: 16e446cc3cf4e5642bb7a186bd7697ce,
+        type: 2}
+      propertyPath: cameraMaxZoom
+      value: 12.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4866939103272752, guid: 16e446cc3cf4e5642bb7a186bd7697ce, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16e446cc3cf4e5642bb7a186bd7697ce, type: 2}
@@ -9177,8 +9195,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1939fe47675bc243a705b0639b22c03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isVisible: 0
-  isShowing: 0
 --- !u!1 &1951730984
 GameObject:
   m_ObjectHideFlags: 0
