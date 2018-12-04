@@ -247,7 +247,7 @@ public class Board : MonoBehaviour {
         int[] tempCols = new int[possibleMoveableChars.Length];
 
         int[] unitsRow = { 5, 6, 6, 7, 7 };
-        int[] unitsCol = { 8, 9, 8, 8, 9 };
+        int[] unitsCol = { 4, 5, 4, 4, 5 };
         //set the hero pieces
         for (int i = 0; i < possibleMoveableChars.Length; i++)
         {
@@ -758,8 +758,8 @@ public class Board : MonoBehaviour {
     {
         //colums, row for each cannon
         generators = new Generator[2]; //4
-        int[] arrayColumns = { 8, 8};
-        int[] arrayRows = { 3, 9};
+        int[] arrayColumns = { 20, 8};
+        int[] arrayRows = { 5, 8};
         //GameObject[] spawnedEnemyObjects = new GameObject[4]; //5 for now
         for (int i = 0; i < generators.Length; i++)
         {

@@ -14,8 +14,10 @@ public class Cannon : MonoBehaviour {
     public bool isCanonUsable;
     public bool isCanonSelected;
     int theOne;
+    int cannonRange;
     private void Start()
     {
+        cannonRange = 5;
         isCanonUsable = false;
         charges = 1;
         isCanonSelected = false;
@@ -76,11 +78,11 @@ public class Cannon : MonoBehaviour {
         if (isCanonUsable && charges > 0)
         {
             //offImage.SetActive(true);
-            CannonPopup.isVisible = true;
+            Popup.isVisible = true;
         }
         else
         {
-            CannonPopup.isVisible = false;
+            Popup.isVisible = false;
         }
     }
 
@@ -102,8 +104,8 @@ public class Cannon : MonoBehaviour {
     void UseCannon(Piece enemy)
     {
         if (charges > 0 &&
-            enemy.rowPosition <= cannon.rowPosition + 5 && enemy.rowPosition >= cannon.rowPosition - 5 &&
-            enemy.colPosition <= cannon.colPosition + 5 && enemy.colPosition >= cannon.colPosition - 5)
+            enemy.rowPosition <= cannon.rowPosition + cannonRange && enemy.rowPosition >= cannon.rowPosition - cannonRange &&
+            enemy.colPosition <= cannon.colPosition + cannonRange && enemy.colPosition >= cannon.colPosition - cannonRange)
         {
             for (int i = 0; i < Board.spawnedEnemies.Count; i++)
             {

@@ -34,6 +34,8 @@ public class PlayerControls : MonoBehaviour
     public static bool isPlayerTurn;
 
     GameObject panelUnderCharacter;
+
+    public static bool isWalk;
     void Start()
     {
         turnCount = 1;
@@ -60,6 +62,7 @@ public class PlayerControls : MonoBehaviour
         GiveNumbers();
         isPlayerTurn = true;
         panelUnderCharacter = null;
+        isWalk = false;
     }
 
     public void GiveNumbers()
@@ -131,7 +134,8 @@ public class PlayerControls : MonoBehaviour
             WindSprite.gameObject.SetActive(false);
             WindSprite.rotation = Quaternion.Euler(0, 0, 0);
         }
-        Debug.Log("Turn Count:   " + turnCount);
+        //Debug.Log("Turn Count:   " + turnCount);
+        //Debug.Log("Wind Dir:   " + windDirection);
 
         /* Old mechanic
         for (int i = 0; i < 4; i++)
@@ -183,70 +187,71 @@ public class PlayerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckClick();
         MoveCamera();
         CheckRotateCamera();
         if (movingCamera)
         {
             RepositionCamera(cameraRotPosition, prevCameraRotPosition, cameraMovementBetween);
         }
-        
-        //CheckCoinCollect();
-        //CheckForLineupSwap();
-        //CheckPlayer();
-        if (isPlayerTurn)
+
+        if (!TextManager.playerControlsLocked)
         {
-            if (selectedUnit)
+            CheckClick();
+            CheckPlayer();
+            if (isPlayerTurn)
             {
-                if (selectedUnit.GetComponent<Stats>().canAttack && Input.GetMouseButtonDown(0))
-                {
-                    AttackEnemy(selectedUnit.GetComponent<Stats>());
-                }
-                MovePlayer();
-                
-            }
-            if (Input.GetKeyDown(KeyCode.Space) || EndTurnButtonScript.isButtonPressed)// || Input.GetMouseButtonDown(0))
-            {
-                //Clearing all highlighted possible moves and selected character.
-                ClearAllGrids();
-                // panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
-                if(selectedUnit)
-                    DisablePanelUnderCharacter(selectedUnit);
-                selectedUnit = null;
-                //EndTurnButtonScript.isButtonPressed = false;
-                GiveNumbers();
-                isPlayerTurn = false;
-                roundCounter++;
-                if (roundCounter >= 4)
-                {
-                    GameObject.Find("GridLevelStuff").GetComponentInChildren<Board>().SpawnEnemy((int)Random.Range(1.0f, 3.99f));
-                    roundCounter = 0;
-                }
-                EnemyTurnsActivate();
-            }
-        }
-        else if (EnemyMovesDone())
-        {
-            turnCount++;
-            isPlayerTurn = true;
-          //  GameObject.Find("EndTurn").transform.GetComponent<Button>().transition = Navigation.None;
-            ExperimentalResources.ReInitializeResources();
-            // GameObject.Find("EndTurn").transform.GetComponent<EndButtonToggle>().isVisible = false;
 
-            foreach (var item in Board.spawnedEnemies)
-            {
-                item.GetComponent<EnemyAI>().stats.canAttack = false;
-            }
-
-            foreach (var item in Board.possibleMoveableChars)
-            {
-                if (item.thePiece != null)
+                if (selectedUnit != null)
                 {
-                    item.thePiece.GetComponent<Stats>().canAttack = true;
+                    if (selectedUnit.GetComponent<Stats>().canAttack && Input.GetMouseButtonDown(0))
+                    {
+                        AttackEnemy(selectedUnit.GetComponent<Stats>());
+                    }
+                    MovePlayer();
+                }
+                if (Input.GetKeyDown(KeyCode.Space) || EndTurnButtonScript.isButtonPressed)// || Input.GetMouseButtonDown(0))
+                {
+                    //Clearing all highlighted possible moves and selected character.
+                    ClearAllGrids();
+                    // panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
+                    if (selectedUnit)
+                        DisablePanelUnderCharacter(selectedUnit);
+                    selectedUnit = null;
+                    EndTurnButtonScript.isButtonPressed = false;
+                    GiveNumbers();
+                    isPlayerTurn = false;
+                    roundCounter++;
+                    if (roundCounter >= 4)
+                    {
+                        GameObject.Find("GridLevelStuff").GetComponentInChildren<Board>().SpawnEnemy((int)Random.Range(1.0f, 3.99f));
+                        roundCounter = 0;
+                    }
+                    EnemyTurnsActivate();
                 }
             }
+            else if (EnemyMovesDone())
+            {
+                turnCount++;
+                isPlayerTurn = true;
+                //  GameObject.Find("EndTurn").transform.GetComponent<Button>().transition = Navigation.None;
+                ExperimentalResources.ReInitializeResources();
+                // GameObject.Find("EndTurn").transform.GetComponent<EndButtonToggle>().isVisible = false;
 
-            EndButtonToggle.DisableEndTurn();
+                foreach (var item in Board.spawnedEnemies)
+                {
+                    item.GetComponent<EnemyAI>().stats.canAttack = false;
+                }
+
+                foreach (var item in Board.possibleMoveableChars)
+                {
+                    if (item.thePiece != null)
+                    {
+                        item.thePiece.GetComponent<Stats>().canAttack = true;
+                    }
+                }
+
+                EndButtonToggle.DisableEndTurn();
+            }
         }
     }
 
@@ -321,21 +326,25 @@ public class PlayerControls : MonoBehaviour
         int direction = -1;
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            isWalk = true;
             direction = 1;
         }
 
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
+            isWalk = true;
             direction = 3;
         }
 
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            isWalk = true;
             direction = 0;
         }
 
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            isWalk = true;
             direction = 2;
         }
 

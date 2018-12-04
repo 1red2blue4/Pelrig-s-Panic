@@ -35,12 +35,7 @@ public class SceneSequence : MonoBehaviour
         cam2.SetActive(false);        
         
         yield return new WaitForSeconds(20000000);
-        SceneTransition();
-    }
-    
 
-    void SceneTransition()
-    {
         SceneManager.LoadScene("PirateShipUI");
     }
 
@@ -52,8 +47,10 @@ public class SceneSequence : MonoBehaviour
             cam1.SetActive(false);
             cam2.SetActive(false);
             cam3.SetActive(false);
+            TextManager.countDialogueLength = 0;
+            TextManager.playerControlsLocked = true;
             TextManager.isSpaceKeyPressed = true;
-            SceneTransition();
+            SceneManager.LoadScene("PirateShipUI");
         }        
     }
 }
