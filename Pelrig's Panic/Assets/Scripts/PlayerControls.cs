@@ -20,8 +20,8 @@ public class PlayerControls : MonoBehaviour
     private bool cameraRotPress;
     private float cameraMovementBetween;
     private bool movingCamera;
-    GameObject selectedUnit;
-    int theOne;
+    public static GameObject selectedUnit;
+    public static int theOne;
     int roundCounter = 0;
 
     private float cameraChangeVertical;

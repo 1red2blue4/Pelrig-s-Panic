@@ -10,8 +10,9 @@ public class PirateCaptainAI : MonoBehaviour {
     [SerializeField] private GameObject presenceObj;
     [SerializeField] private GameObject resistanceObj;
     bool isEncumbered;
-
+    bool cursorChanged = false;
     public Stats stats;
+    public Texture2D mouseTarget;
 
     // Use this for initialization
     void Start()
@@ -114,6 +115,52 @@ public class PirateCaptainAI : MonoBehaviour {
                 Board.timeToWait /= Board.approxGoldenRatio;
             }
         }
+    }
+
+    private void OnMouseEnter()
+    {
+        if (!cursorChanged && !CannonCrossbarController.isCannonSelected && CheckIfAPlayerAround())
+        {
+            cursorChanged = true;
+            Cursor.SetCursor(mouseTarget, Vector2.zero, CursorMode.Auto);
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        if (cursorChanged)
+        {
+            cursorChanged = false;
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        }
+
+    }
+
+    bool CheckIfAPlayerAround()
+    {
+        if (PlayerControls.selectedUnit.GetComponent<Stats>().canAttack)
+        {
+            Piece unit = Board.possibleMoveableChars[PlayerControls.theOne];
+            bool a = false;
+            bool b = false;
+            if (transform.GetComponent<Piece>().rowPosition == unit.rowPosition - 1 ||
+                 transform.GetComponent<Piece>().rowPosition == unit.rowPosition + 1 ||
+                 transform.GetComponent<Piece>().rowPosition == unit.rowPosition)
+            {
+                a = true;
+            }
+            if (transform.GetComponent<Piece>().colPosition == unit.colPosition - 1 ||
+                transform.GetComponent<Piece>().colPosition == unit.colPosition + 1 ||
+                transform.GetComponent<Piece>().colPosition == unit.colPosition)
+            {
+                b = true;
+            }
+            if (a && b)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void MoveAndCheckUnitCollision(bool onlyAttack)

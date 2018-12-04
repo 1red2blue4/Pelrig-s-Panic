@@ -30,13 +30,19 @@ public class CannonCrossbarController : MonoBehaviour {
 
             if (cannonSelected)
             {
-                isCannonSelected = true;
-                Cursor.SetCursor(mouseTarget, Vector2.zero, CursorMode.Auto);
+                if (!isCannonSelected)
+                {
+                    isCannonSelected = true;
+                    Cursor.SetCursor(mouseTarget, Vector2.zero, CursorMode.Auto);
+                }
             }
             else
             {
-                isCannonSelected = false;
-                Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                if (isCannonSelected)
+                {
+                    isCannonSelected = false;
+                    Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                }
             }
         }
 

@@ -536,7 +536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 6
-  damage: 1
+  damage: 2
   canAttack: 0
 --- !u!114 &114382239792649188
 MonoBehaviour:
@@ -594,6 +594,7 @@ MonoBehaviour:
   presenceObj: {fileID: 1590191265046264}
   resistanceObj: {fileID: 1978429140124236}
   stats: {fileID: 0}
+  mouseTarget: {fileID: 2800000, guid: 98bad250e8887ac4688bbd00e4bbb89d, type: 3}
 --- !u!114 &114984084154924024
 MonoBehaviour:
   m_ObjectHideFlags: 1
