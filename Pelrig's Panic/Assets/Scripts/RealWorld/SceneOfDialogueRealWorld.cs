@@ -33,12 +33,12 @@ public class SceneOfDialogueRealWorld : MonoBehaviour
 
         if(!isStartConvo)
         {
-            if (SceneManager.GetActiveScene().buildIndex == 3)
+            if (SceneManager.GetActiveScene().buildIndex == 1)
             {
                 startSceneConverstion = PirateShipCusceneConversation();
             }
 
-            if (SceneManager.GetActiveScene().buildIndex == 4)
+            if (SceneManager.GetActiveScene().buildIndex == 2)
             {
                 startSceneConverstion = PirateShipBeforeStartingConversation();
             }
