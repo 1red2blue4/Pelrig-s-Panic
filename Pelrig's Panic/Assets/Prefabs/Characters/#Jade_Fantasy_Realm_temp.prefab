@@ -23,7 +23,8 @@ GameObject:
   - component: {fileID: 136626439936959738}
   - component: {fileID: 114431887815289504}
   - component: {fileID: 114820282899510462}
-  m_Layer: 0
+  - component: {fileID: 114863699347227546}
+  m_Layer: 8
   m_Name: '#Jade_Fantasy_Realm_temp'
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -40,7 +41,7 @@ GameObject:
   - component: {fileID: 4295922506335386}
   - component: {fileID: 212181596981306542}
   - component: {fileID: 114760996353867870}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: under_character_select
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +57,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4078622718541846}
   - component: {fileID: 114741694175183176}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GridRotater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +75,7 @@ GameObject:
   - component: {fileID: 23290256238826984}
   - component: {fileID: 102830383939805372}
   - component: {fileID: 114769111465282914}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Value
   m_TagString: Presence
   m_Icon: {fileID: 0}
@@ -90,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4509704288062100}
   - component: {fileID: 212147827722824274}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player_UIResistance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4112635158561682}
   - component: {fileID: 212568072669914060}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player_UIPresence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +125,7 @@ GameObject:
   - component: {fileID: 23704845013502330}
   - component: {fileID: 102193220076862306}
   - component: {fileID: 114975319938485590}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Value
   m_TagString: Resist
   m_Icon: {fileID: 0}
@@ -141,7 +142,7 @@ GameObject:
   - component: {fileID: 4907598159142444}
   - component: {fileID: 33718076545062544}
   - component: {fileID: 23035638314620884}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Base
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -158,7 +159,7 @@ GameObject:
   - component: {fileID: 4668732709522352}
   - component: {fileID: 212496031122583260}
   - component: {fileID: 114820957571140502}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Jade_Fantasy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +172,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1191024062545022}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.38268343, y: -0, z: -0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -187,8 +188,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1689759308507078}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.511, y: 2.398, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalPosition: {x: -0.513, y: 2.383, z: 0}
+  m_LocalScale: {x: 0.14652, y: 0.14652, z: 0.14652}
   m_Children:
   - {fileID: 4226101692083772}
   m_Father: {fileID: 4078622718541846}
@@ -201,7 +202,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1369043185569868}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.02000004, y: -1.16, z: -0.10000001}
+  m_LocalPosition: {x: -0.02000004, y: -0.32764944, z: 0.6}
   m_LocalScale: {x: 0.030000001, y: 0.030000001, z: 0.030000001}
   m_Children: []
   m_Father: {fileID: 4112635158561682}
@@ -214,7 +215,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1004241752199634}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 6.31, y: -4.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4295922506335386}
@@ -244,8 +245,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1581971038881714}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.511, y: 2.398, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalPosition: {x: 0.8, y: 2.383, z: 0}
+  m_LocalScale: {x: 0.14652, y: 0.14652, z: 0.14652}
   m_Children:
   - {fileID: 4870195191550202}
   m_Father: {fileID: 4078622718541846}
@@ -257,7 +258,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1865029539023448}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.38268343, y: -0, z: -0, w: 0.92387956}
   m_LocalPosition: {x: -0.1, y: 0.9, z: 0}
   m_LocalScale: {x: -0.18, y: 0.18, z: 1}
   m_Children: []
@@ -271,7 +272,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1760815516882720}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.02000004, y: -1.16, z: -0.10000001}
+  m_LocalPosition: {x: -0.02000004, y: -0.32764944, z: 0.6}
   m_LocalScale: {x: 0.030000001, y: 0.030000001, z: 0.030000001}
   m_Children: []
   m_Father: {fileID: 4509704288062100}
@@ -411,18 +412,18 @@ TextMesh:
   m_GameObject: {fileID: 1760815516882720}
   m_Text: Test
   m_OffsetZ: 0
-  m_CharacterSize: 1
+  m_CharacterSize: 3
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
   m_TabSize: 4
-  m_FontSize: 200
+  m_FontSize: 500
   m_FontStyle: 1
   m_RichText: 1
   m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4294967295
 --- !u!102 &102830383939805372
 TextMesh:
   serializedVersion: 3
@@ -432,18 +433,18 @@ TextMesh:
   m_GameObject: {fileID: 1369043185569868}
   m_Text: Test
   m_OffsetZ: 0
-  m_CharacterSize: 1
+  m_CharacterSize: 3
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
   m_TabSize: 4
-  m_FontSize: 200
+  m_FontSize: 500
   m_FontStyle: 1
   m_RichText: 1
   m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4294967295
 --- !u!114 &114090405098943204
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -543,6 +544,20 @@ MonoBehaviour:
   difference: 0
   speed: 0
   mainCamera: {fileID: 0}
+--- !u!114 &114863699347227546
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1004241752199634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbaf077f31704f740a16da574dcd7d0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 8
+  damage: 2
+  canAttack: 0
 --- !u!114 &114975319938485590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -604,7 +619,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: cbeab44fa752c214fb482a37b77d4c9c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e40994ddd549a0b4f8242b3d52a13c7e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -742,7 +757,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: f9a62708495d61c4a97311c474c23d70, type: 3}
+  m_Sprite: {fileID: 21300000, guid: de0c91c12bf80ed4191b3af1ca1f2b19, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

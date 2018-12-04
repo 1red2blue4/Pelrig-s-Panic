@@ -5,17 +5,19 @@ using UnityEngine;
 public class Cannon : MonoBehaviour {
 
     [SerializeField]
-    Texture2D mouseTarget;
+    public Texture2D mouseTarget;
     int charges;
     [SerializeField] public Piece cannon;
     [SerializeField] public int cannonID;
     [SerializeField] public GameObject onImage;
     [SerializeField] public GameObject offImage;
-    public static bool isCanonUsable;
-    public static bool isCanonSelected;
-    
+    public bool isCanonUsable;
+    public bool isCanonSelected;
+    int theOne;
+    int cannonRange;
     private void Start()
     {
+        cannonRange = 5;
         isCanonUsable = false;
         charges = 1;
         isCanonSelected = false;
@@ -32,7 +34,9 @@ public class Cannon : MonoBehaviour {
                 {
                     RaycastHit hit;
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+
+                    LayerMask layermask = LayerMask.GetMask("Enemy") | LayerMask.GetMask("Interactable");
+                    if (Physics.Raycast(ray, out hit, Mathf.Infinity, layermask))
                     {
                         if (hit.collider.tag == "Enemy")
                         {
@@ -47,21 +51,22 @@ public class Cannon : MonoBehaviour {
                         }
                     }
                     isCanonSelected = false;
-                    Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                    //Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
                     offImage.SetActive(false);
                 }
                 else
                 {
                     RaycastHit hit;
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                    if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1))
                     {
                         if (hit.transform.tag == "Cannon")
                         {
                             if (hit.collider.gameObject == gameObject)
                             {
+
                                 isCanonSelected = true;
-                                Cursor.SetCursor(mouseTarget, Vector2.zero, CursorMode.Auto);
+                                //Cursor.SetCursor(mouseTarget, Vector2.zero, CursorMode.Auto);
                                 offImage.SetActive(true);
                             }
                         }
@@ -70,14 +75,14 @@ public class Cannon : MonoBehaviour {
             }
         }
         
-        if (isCanonUsable)
+        if (isCanonUsable && charges > 0)
         {
             //offImage.SetActive(true);
-            CannonPopup.isVisible = true;
+            Popup.isVisible = true;
         }
         else
         {
-            CannonPopup.isVisible = false;
+            Popup.isVisible = false;
         }
     }
 
@@ -99,8 +104,8 @@ public class Cannon : MonoBehaviour {
     void UseCannon(Piece enemy)
     {
         if (charges > 0 &&
-            enemy.rowPosition <= cannon.rowPosition + 5 && enemy.rowPosition >= cannon.rowPosition - 5 &&
-            enemy.colPosition <= cannon.colPosition + 5 && enemy.colPosition >= cannon.colPosition - 5)
+            enemy.rowPosition <= cannon.rowPosition + cannonRange && enemy.rowPosition >= cannon.rowPosition - cannonRange &&
+            enemy.colPosition <= cannon.colPosition + cannonRange && enemy.colPosition >= cannon.colPosition - cannonRange)
         {
             for (int i = 0; i < Board.spawnedEnemies.Count; i++)
             {

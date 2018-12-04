@@ -10,8 +10,10 @@ public class PlayerControls : MonoBehaviour
     private float cameraScrollSpeed;
     [SerializeField] private float cameraMaxZoom;
     [SerializeField] private float cameraMinZoom;
+    [SerializeField] private Transform WindSprite;
     private GameObject columnHighlight;
     //0: bottom left; 1: straight on; 2: bottom right
+    private int turnCount;
     private int cameraRotPosition;
     private int prevCameraRotPosition;
     private int numCameraRotPositions;
@@ -39,8 +41,11 @@ public class PlayerControls : MonoBehaviour
     public static bool isPlayerTurn;
 
     GameObject panelUnderCharacter;
+
+    public static bool isWalk;
     void Start()
     {
+        turnCount = 1;
         cameraChangeHorizontal = 0.0f;
         cameraChangeVertical = 0.0f;
         movingCamera = false;
@@ -64,11 +69,82 @@ public class PlayerControls : MonoBehaviour
         GiveNumbers();
         isPlayerTurn = true;
         panelUnderCharacter = null;
+        isWalk = false;
     }
 
     public void GiveNumbers()
     {
-        //Left - 0, up - 1, right - 2, down - 3
+        //Left - 0, up - 1, right - 2, down - 3 (Also wind direction)
+
+        int windDirection = 4; //Default no wind
+
+        //First 2 turns no wind
+        if (turnCount == 2)
+        {
+            //Wind always agains you in the 3rd round
+            windDirection = 0;
+        }
+        else if(turnCount > 2)
+        { 
+            //Wind becomes random after round 3
+            //I could be wrong, but The 0 - 16 range and then divide by 4 makes it more evenly distributed
+            windDirection = (int)(Random.Range(0.0f, 20.00f) / 4);
+        }
+
+        if (windDirection == 0) //left
+        {
+            moveValues[0] = 2; //left
+            moveValues[1] = 3; //up
+            moveValues[2] = 4; //right
+            moveValues[3] = 3; //down
+
+            WindSprite.gameObject.SetActive(true);
+            WindSprite.rotation = Quaternion.Euler(0, 0, 180);
+        }
+        else if (windDirection == 1) //up
+        {
+            moveValues[0] = 3; //left
+            moveValues[1] = 2; //up
+            moveValues[2] = 3; //right
+            moveValues[3] = 4; //down
+
+            WindSprite.gameObject.SetActive(true);
+            WindSprite.rotation = Quaternion.Euler(0, 0, 90);
+        }
+        else if (windDirection == 2) //right
+        {
+            moveValues[0] = 4; //left
+            moveValues[1] = 3; //up
+            moveValues[2] = 2; //right
+            moveValues[3] = 3; //down
+
+            WindSprite.gameObject.SetActive(true);
+            WindSprite.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (windDirection == 3) //down
+        {
+            moveValues[0] = 3; //left
+            moveValues[1] = 4; //up
+            moveValues[2] = 3; //right
+            moveValues[3] = 2; //down
+
+            WindSprite.gameObject.SetActive(true);
+            WindSprite.rotation = Quaternion.Euler(0, 0, -90);
+        }
+        else if (windDirection == 4) //No wind
+        {
+            moveValues[0] = 3; //left
+            moveValues[1] = 3; //up
+            moveValues[2] = 3; //right
+            moveValues[3] = 3; //down
+
+            WindSprite.gameObject.SetActive(false);
+            WindSprite.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        //Debug.Log("Turn Count:   " + turnCount);
+        //Debug.Log("Wind Dir:   " + windDirection);
+
+        /* Old mechanic
         for (int i = 0; i < 4; i++)
         {
             int randomNumber = (int)Random.Range(0.0f, 13.99f);
@@ -98,12 +174,26 @@ public class PlayerControls : MonoBehaviour
             }
             //Debug.Log("moveValues[i]:   "+ moveValues[i]);
         }
+        */
+    }
+
+    void AttackEnemy(Stats playerStats)
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        LayerMask layerMask = LayerMask.GetMask("Enemy");
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+        {
+            hit.transform.GetComponent<Stats>().TakeDamage(playerStats.damage);
+            playerStats.canAttack = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        CheckClick();
         MoveCamera();
         CheckRotateCamera();
 
@@ -114,48 +204,70 @@ public class PlayerControls : MonoBehaviour
             RepositionCamera(cameraRotPosition, prevCameraRotPosition, cameraMovementBetween);
         }
 
-        //CheckCoinCollect();
-        //CheckForLineupSwap();
-        CheckPlayer();
-        if (isPlayerTurn)
+        if (!TextManager.playerControlsLocked)
         {
-
-            if (selectedUnit != null)
+            CheckClick();
+            CheckPlayer();
+            if (isPlayerTurn)
             {
-                MovePlayer();
 
-            }
-            if (Input.GetKeyDown(KeyCode.Space) || EndTurnButtonScript.isButtonPressed)// || Input.GetMouseButtonDown(0))
-            {
-                //Clearing all highlighted possible moves and selected character.
-                ClearAllGrids();
-                // panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
-                if (selectedUnit)
-                    DisablePanelUnderCharacter(selectedUnit);
-                selectedUnit = null;
-                EndTurnButtonScript.isButtonPressed = false;
-                GiveNumbers();
-                isPlayerTurn = false;
-                roundCounter++;
-                if (roundCounter >= 4)
+                if (selectedUnit != null)
                 {
-                    GameObject.Find("GridLevelStuff").GetComponentInChildren<Board>().SpawnEnemy((int)Random.Range(1.0f, 3.99f));
-                    roundCounter = 0;
+                    if (selectedUnit.GetComponent<Stats>().canAttack && Input.GetMouseButtonDown(0))
+                    {
+                        AttackEnemy(selectedUnit.GetComponent<Stats>());
+                    }
+                    MovePlayer();
                 }
-                EnemyTurnsActivate();
+                if (Input.GetKeyDown(KeyCode.Space) || EndTurnButtonScript.isButtonPressed)// || Input.GetMouseButtonDown(0))
+                {
+                    //Clearing all highlighted possible moves and selected character.
+                    ClearAllGrids();
+                    // panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
+                    if (selectedUnit)
+                        DisablePanelUnderCharacter(selectedUnit);
+                    selectedUnit = null;
+                    EndTurnButtonScript.isButtonPressed = false;
+                    GiveNumbers();
+                    isPlayerTurn = false;
+                    roundCounter++;
+                    if (roundCounter >= 4)
+                    {
+                        GameObject.Find("GridLevelStuff").GetComponentInChildren<Board>().SpawnEnemy((int)Random.Range(1.0f, 3.99f));
+                        roundCounter = 0;
+                    }
+                    EnemyTurnsActivate();
+                }
             }
-        }
-        else if (EnemyMovesDone())
-        {
-            isPlayerTurn = true;
-            //  GameObject.Find("EndTurn").transform.GetComponent<Button>().transition = Navigation.None;
-            ExperimentalResources.ReInitializeResources();
-            // GameObject.Find("EndTurn").transform.GetComponent<EndButtonToggle>().isVisible = false;
+            else if (EnemyMovesDone())
+            {
+                turnCount++;
+                isPlayerTurn = true;
+                //  GameObject.Find("EndTurn").transform.GetComponent<Button>().transition = Navigation.None;
+                ExperimentalResources.ReInitializeResources();
+                // GameObject.Find("EndTurn").transform.GetComponent<EndButtonToggle>().isVisible = false;
+
+                foreach (var item in Board.spawnedEnemies)
+                {
+                    item.GetComponent<EnemyAI>().stats.canAttack = false;
+                }
+
+                foreach (var item in Board.possibleMoveableChars)
+                {
+                    if (item.thePiece != null)
+                    {
+                        item.thePiece.GetComponent<Stats>().canAttack = true;
+                    }
+                }
+
+                EndButtonToggle.DisableEndTurn();
+            }
         }
     }
 
     public static void EnemyTurnsActivate()
     {
+        EndButtonToggle.EnableEndTurn();
         bool countRound = false;
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
@@ -189,8 +301,18 @@ public class PlayerControls : MonoBehaviour
         for (int i = 0; i < Board.spawnedEnemies.Count; i++)
         {
             Board.spawnedEnemies[i].GetComponent<EnemyAI>().isTurnActive = true;
+            Board.spawnedEnemies[i].GetComponent<Stats>().canAttack = true;
         }
         Board.pirateBoss.GetComponent<PirateCaptainAI>().isTurnActive = true;
+        Board.pirateBoss.GetComponent<Stats>().canAttack = true;
+
+        foreach (var item in Board.possibleMoveableChars)
+        {
+            if (item != null)
+            {
+                item.thePiece.GetComponent<Stats>().canAttack = false;
+            }
+        }
     }
 
     bool EnemyMovesDone()
@@ -214,21 +336,25 @@ public class PlayerControls : MonoBehaviour
         int direction = -1;
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            isWalk = true;
             direction = 1;
         }
 
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
+            isWalk = true;
             direction = 3;
         }
 
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            isWalk = true;
             direction = 0;
         }
 
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            isWalk = true;
             direction = 2;
         }
 
@@ -380,7 +506,9 @@ public class PlayerControls : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             GameObject selectedBase;
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1))
+            LayerMask layerMask = LayerMask.GetMask("MainCharacter") + LayerMask.GetMask("Grid");
+            
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)) 
             {
 
                 if (hit.collider.tag == "BlankSpace")
@@ -390,13 +518,13 @@ public class PlayerControls : MonoBehaviour
                 }
                 if (hit.collider.tag == "Player")
                 {
-                    Debug.Log("Clear cannon popup");
-
-                    GameObject.Find("#Kent_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
-                    GameObject.Find("#Meda_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
-                    GameObject.Find("#Hally_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
-                    GameObject.Find("#Ed_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
-                    GameObject.Find("#Jade_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
+                    //Debug.Log("Clear cannon popup");
+                    
+                    //GameObject.Find("#Kent_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
+                    //GameObject.Find("#Meda_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
+                    //GameObject.Find("#Hally_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
+                    //GameObject.Find("#Ed_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
+                    //GameObject.Find("#Jade_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
                     if (selectedUnit != null)
                     {
                         selectedBase = selectedUnit;

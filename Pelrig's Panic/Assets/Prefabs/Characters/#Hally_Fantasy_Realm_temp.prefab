@@ -23,7 +23,8 @@ GameObject:
   - component: {fileID: 136731682684400072}
   - component: {fileID: 114998191945290220}
   - component: {fileID: 114585698612063230}
-  m_Layer: 0
+  - component: {fileID: 114143585922409112}
+  m_Layer: 8
   m_Name: '#Hally_Fantasy_Realm_temp'
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -39,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4502442962435458}
   - component: {fileID: 212099538412315114}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player_UIPresence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +58,7 @@ GameObject:
   - component: {fileID: 23595550905042096}
   - component: {fileID: 102510853855939480}
   - component: {fileID: 114295009109029924}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Value
   m_TagString: Resist
   m_Icon: {fileID: 0}
@@ -75,7 +76,7 @@ GameObject:
   - component: {fileID: 23783149831225316}
   - component: {fileID: 102506099599751548}
   - component: {fileID: 114782497370458400}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Value
   m_TagString: Presence
   m_Icon: {fileID: 0}
@@ -91,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4911108164291960}
   - component: {fileID: 212953264092090502}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player_UIResistance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +109,7 @@ GameObject:
   - component: {fileID: 4377800052193984}
   - component: {fileID: 212768652967365014}
   - component: {fileID: 114725862723643540}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: under_character_select
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4809741722407486}
   - component: {fileID: 114972223227138132}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GridRotater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +142,7 @@ GameObject:
   - component: {fileID: 4178431367043054}
   - component: {fileID: 212357235140554644}
   - component: {fileID: 114044014714426078}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hally_Fantasy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +159,7 @@ GameObject:
   - component: {fileID: 4124225162636280}
   - component: {fileID: 33459230004902446}
   - component: {fileID: 23568814562079408}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Base
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -184,7 +185,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1786514761559430}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.38268343, y: -0, z: -0, w: 0.92387956}
   m_LocalPosition: {x: -0.12800002, y: 0.8, z: 0}
   m_LocalScale: {x: 0.037, y: 0.038, z: 1}
   m_Children: []
@@ -250,7 +251,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1640483430970128}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.38268343, y: -0, z: -0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -459,6 +460,20 @@ MonoBehaviour:
   difference: 0
   speed: 0
   mainCamera: {fileID: 0}
+--- !u!114 &114143585922409112
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1099632027117354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbaf077f31704f740a16da574dcd7d0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 8
+  damage: 2
+  canAttack: 0
 --- !u!114 &114295009109029924
 MonoBehaviour:
   m_ObjectHideFlags: 1
