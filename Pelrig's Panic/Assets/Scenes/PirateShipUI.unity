@@ -465,22 +465,22 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1314101326}
-    - target: {fileID: 114521021918139472, guid: de15da0aacba8c54680c9d03f1cc5c9d,
+    - target: {fileID: 114649772802183702, guid: de15da0aacba8c54680c9d03f1cc5c9d,
         type: 2}
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114521021918139472, guid: de15da0aacba8c54680c9d03f1cc5c9d,
+    - target: {fileID: 114649772802183702, guid: de15da0aacba8c54680c9d03f1cc5c9d,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114118556639555648, guid: de15da0aacba8c54680c9d03f1cc5c9d,
+    - target: {fileID: 114521021918139472, guid: de15da0aacba8c54680c9d03f1cc5c9d,
         type: 2}
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114118556639555648, guid: de15da0aacba8c54680c9d03f1cc5c9d,
+    - target: {fileID: 114521021918139472, guid: de15da0aacba8c54680c9d03f1cc5c9d,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
@@ -495,12 +495,12 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114649772802183702, guid: de15da0aacba8c54680c9d03f1cc5c9d,
+    - target: {fileID: 114118556639555648, guid: de15da0aacba8c54680c9d03f1cc5c9d,
         type: 2}
       propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114649772802183702, guid: de15da0aacba8c54680c9d03f1cc5c9d,
+    - target: {fileID: 114118556639555648, guid: de15da0aacba8c54680c9d03f1cc5c9d,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
@@ -514,46 +514,6 @@ Prefab:
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224563039452559038, guid: de15da0aacba8c54680c9d03f1cc5c9d,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 64.3999
-      objectReference: {fileID: 0}
-    - target: {fileID: 224563039452559038, guid: de15da0aacba8c54680c9d03f1cc5c9d,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: -265.8999
-      objectReference: {fileID: 0}
-    - target: {fileID: 224000068173671572, guid: de15da0aacba8c54680c9d03f1cc5c9d,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 132.2002
-      objectReference: {fileID: 0}
-    - target: {fileID: 224000068173671572, guid: de15da0aacba8c54680c9d03f1cc5c9d,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: -210.69995
-      objectReference: {fileID: 0}
-    - target: {fileID: 224614116622845256, guid: de15da0aacba8c54680c9d03f1cc5c9d,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 157.7002
-      objectReference: {fileID: 0}
-    - target: {fileID: 224457572317446728, guid: de15da0aacba8c54680c9d03f1cc5c9d,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 112.14014
-      objectReference: {fileID: 0}
-    - target: {fileID: 224457572317446728, guid: de15da0aacba8c54680c9d03f1cc5c9d,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: -275.30005
-      objectReference: {fileID: 0}
-    - target: {fileID: 114264168467949060, guid: de15da0aacba8c54680c9d03f1cc5c9d,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LocalEnableEndTurn
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de15da0aacba8c54680c9d03f1cc5c9d, type: 2}
