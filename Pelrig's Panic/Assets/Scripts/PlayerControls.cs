@@ -372,7 +372,7 @@ public class PlayerControls : MonoBehaviour
         int count = 0;
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
-            if (Board.possibleMoveableChars[i].GetComponent<Stats>().health <= 0)
+            if (Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().health <= 0)
             {
                     if (selectedUnit == Board.possibleMoveableChars[i].GetPiece())
                     {
@@ -438,7 +438,9 @@ public class PlayerControls : MonoBehaviour
             UIValues resistance = Board.possibleMoveableChars[i].thePiece.GetComponent<ValueHolder>().resistanceObj.GetComponent<UIValues>();
             resistance.SetValue(Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().health);
 
-       
+            UIValues health = Board.possibleMoveableChars[i].thePiece.GetComponent<ValueHolder>().presenceObj.GetComponent<UIValues>();
+            health.SetValue(Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().damage);
+
             //resistance.SetValue(resistance.initialValue - enemiesAround);
             //Board.possibleMoveableChars[i].resistanceValue = resistance.initialValue - enemiesAround;
         }
