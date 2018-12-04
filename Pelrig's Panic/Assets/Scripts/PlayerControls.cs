@@ -26,6 +26,13 @@ public class PlayerControls : MonoBehaviour
 
     private float cameraChangeVertical;
     private float cameraChangeHorizontal;
+    private float[] xLowerLimit = {-10.0f, -10.0f, -10.0f, -65.0f };
+    private float[] xHigherLimit = { 10.0f, 10.0f, 10.0f, -45.0f };
+    private float[] yLowerLimit = { -55.0f, -55.0f, -5.0f, -55.0f };
+    private float[] yHigherLimit = { -45.0f, -45.0f, 5.0f, -35.0f };
+    private float[] zSetView = { -50.0f, -50.0f, -70.0f, -40.0f };
+
+    private float cameraLimit = 20.0f;
 
     public static int[] moveValues;
 
@@ -189,6 +196,9 @@ public class PlayerControls : MonoBehaviour
     {
         MoveCamera();
         CheckRotateCamera();
+
+        //LimitMoveCamera();
+
         if (movingCamera)
         {
             RepositionCamera(cameraRotPosition, prevCameraRotPosition, cameraMovementBetween);
@@ -364,7 +374,7 @@ public class PlayerControls : MonoBehaviour
         {
             if (Board.possibleMoveableChars[i].rowPosition == 1000)
             {
-                count++;                
+                count++;
                 continue;
             }
             int enemiesAround = 0;
@@ -415,13 +425,13 @@ public class PlayerControls : MonoBehaviour
                 Board.possibleMoveableChars[i].SetRowAndCol(1000, 1000);
                 Board.possibleMoveableChars[i].GetPiece().transform.position = new Vector3(10000, 10000, 0);
             }
-            
+
             UIValues resistance = Board.possibleMoveableChars[i].thePiece.GetComponent<ValueHolder>().resistanceObj.GetComponent<UIValues>();
             resistance.SetValue(resistance.initialValue - enemiesAround);
             Board.possibleMoveableChars[i].resistanceValue = resistance.initialValue - enemiesAround;
         }
 
-        
+
         if (count >= 2 && !Board.first)
         {
             GameObject.Find("WinScreen").GetComponentInChildren<YouWin>().youLose = true;
@@ -446,13 +456,13 @@ public class PlayerControls : MonoBehaviour
             GameObject.Find("#Hally_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
             GameObject.Find("#Ed_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
             GameObject.Find("#Jade_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
-           
 
-                UnoccupiedSpaceEnable(Board.possibleMoveableChars[theOne]);
-            }
+
+            UnoccupiedSpaceEnable(Board.possibleMoveableChars[theOne]);
+        }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-           // ClearAllGrids();
+            // ClearAllGrids();
             GameObject.Find("#Kent_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
             GameObject.Find("#Meda_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = true;
             GameObject.Find("#Hally_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
@@ -462,7 +472,7 @@ public class PlayerControls : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-           // ClearAllGrids();
+            // ClearAllGrids();
             GameObject.Find("#Kent_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
             GameObject.Find("#Meda_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
             GameObject.Find("#Hally_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = true;
@@ -472,7 +482,7 @@ public class PlayerControls : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-           // ClearAllGrids();
+            // ClearAllGrids();
             GameObject.Find("#Kent_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
             GameObject.Find("#Meda_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
             GameObject.Find("#Hally_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
@@ -501,7 +511,7 @@ public class PlayerControls : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)) 
             {
 
-                if(hit.collider.tag == "BlankSpace")
+                if (hit.collider.tag == "BlankSpace")
                 {
                     Debug.Log("Cleared all highlights when player switched using Alpha keys");
                     ClearAllGrids();
@@ -524,7 +534,7 @@ public class PlayerControls : MonoBehaviour
                             if (selectedUnit.transform.GetChild(i).GetComponent<MeshRenderer>() != null)
                             {
                                 selectedBase = selectedUnit.transform.GetChild(i).gameObject;
-                              
+
                             }
                         }
 
@@ -532,7 +542,7 @@ public class PlayerControls : MonoBehaviour
                         DisablePanelUnderCharacter(selectedUnit);
                         selectedBase.GetComponent<MeshRenderer>().material = normalMaterial;
                         selectedUnit = null;
-                    }                    
+                    }
 
                     for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
                     {
@@ -547,29 +557,29 @@ public class PlayerControls : MonoBehaviour
                             {
                                 if (selectedUnit.transform.GetChild(j).GetComponent<MeshRenderer>() != null)
                                 {
-                                    selectedBase = selectedUnit.transform.GetChild(j).gameObject; 
+                                    selectedBase = selectedUnit.transform.GetChild(j).gameObject;
                                 }
                             }
                             normalMaterial = selectedBase.GetComponent<MeshRenderer>().material;
-                            glowingMaterial.color = normalMaterial.color; 
+                            glowingMaterial.color = normalMaterial.color;
                             glowingMaterial.mainTexture = normalMaterial.mainTexture;
                             selectedBase.GetComponent<MeshRenderer>().material = glowingMaterial;
-                            
-                            GameObject panelUnderCharacter = null; 
+
+                            GameObject panelUnderCharacter = null;
                             for (int j = 0; j < selectedUnit.transform.childCount; j++)
                             {
                                 if (selectedUnit.transform.GetChild(j).GetComponent<PanelUnderCharacter>() != null)
                                 {
                                     panelUnderCharacter = selectedUnit.transform.GetChild(j).GetComponent<PanelUnderCharacter>().gameObject;
-                                }                                 
+                                }
                             }
                             if (panelUnderCharacter != null)
                             {
-                               
+
                                 panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = true;
                                 UnoccupiedSpaceEnable(Board.possibleMoveableChars[theOne]);
                             }
-                            break;                            
+                            break;
                         }
                     }
                 }
@@ -583,7 +593,7 @@ public class PlayerControls : MonoBehaviour
                         {
                             if (selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>() != null)
                             {
-                                panelUnderCharacter = selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>().gameObject; 
+                                panelUnderCharacter = selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>().gameObject;
                             }
                         }
                         if (panelUnderCharacter != null)
@@ -615,25 +625,43 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
+    
+    public void LimitMoveCamera()
+    {
+        float xAxisValue = Input.GetAxis("Horizontal");
+        float yAxisValue = Input.GetAxis("Vertical");
+
+        
+        for (int i = 0; i < numCameraRotPositions; i++)
+        {
+            allCameras[i].transform.Translate(new Vector3(xAxisValue, yAxisValue, 0.0f));
+            allCameras[i].transform.position = new Vector3(
+                Mathf.Clamp(allCameras[i].transform.position.x, xLowerLimit[i], xHigherLimit[i]),
+                Mathf.Clamp(allCameras[i].transform.position.y, yLowerLimit[i], yHigherLimit[i]),
+                zSetView[i]);
+        }
+    }
+
     public void MoveCamera()
     {
-        if (Input.GetAxis("Horizontal") > 0 && cameraChangeHorizontal < 200.0f)
+
+        if (Input.GetAxis("Horizontal") > 0 && cameraChangeHorizontal < cameraLimit)
         {
             for (int i = 0; i < numCameraRotPositions; i++)
-            {
+            {   
                 allCameras[i].transform.position += new Vector3(cameraSpeed, 0.0f, 0.0f) * Time.deltaTime;
-                cameraChangeHorizontal -= cameraSpeed * Time.deltaTime;
+                cameraChangeHorizontal += cameraSpeed * Time.deltaTime;
             }
         }
-        else if (Input.GetAxis("Horizontal") < 0 && cameraChangeHorizontal > -200.0f)
+        else if (Input.GetAxis("Horizontal") < 0 && cameraChangeHorizontal > -cameraLimit)
         {
             for (int i = 0; i < numCameraRotPositions; i++)
             {
                 allCameras[i].transform.position -= new Vector3(cameraSpeed, 0.0f, 0.0f) * Time.deltaTime;
-                cameraChangeHorizontal += cameraSpeed * Time.deltaTime;
+                cameraChangeHorizontal -= cameraSpeed * Time.deltaTime;
             }
         }
-        if (Input.GetAxis("Vertical") > 0 && cameraChangeVertical < 200.0f)
+        if (Input.GetAxis("Vertical") > 0 && cameraChangeVertical < cameraLimit)
         {
             for (int i = 0; i < numCameraRotPositions; i++)
             {
@@ -641,7 +669,7 @@ public class PlayerControls : MonoBehaviour
                 cameraChangeVertical += cameraSpeed * Time.deltaTime;
             }
         }
-        else if (Input.GetAxis("Vertical") < 0 && cameraChangeVertical > -200.0f)
+        else if (Input.GetAxis("Vertical") < 0 && cameraChangeVertical > -cameraLimit)
         {
             for (int i = 0; i < numCameraRotPositions; i++)
             {
