@@ -34,8 +34,8 @@ public class DisplayOnHover : MonoBehaviour {
             {
                 if (Board.possibleMoveableChars[i].thePiece == gameObject)
                 {
-                    prevPresence = Board.possibleMoveableChars[i].presenceValue;
-                    prevResist = Board.possibleMoveableChars[i].resistanceValue;
+                    prevPresence = Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().health;
+                    prevResist = Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().damage; 
                 }
             }
             /*
@@ -44,7 +44,7 @@ public class DisplayOnHover : MonoBehaviour {
                 if (Board.spawnedEnemies[i].thePiece == gameObject)
                 {
                     prevPresence = Board.spawnedEnemies[i].presenceValue;
-                    prevResist = Board.spawnedEnemies[i].resistanceValue;
+                    prevResist = Board.spawnedEnemies[i].thePiece.GetComponent<Stats>().damage;
                 }
             }
             */
@@ -101,16 +101,19 @@ public class DisplayOnHover : MonoBehaviour {
         {
             if (Board.possibleMoveableChars[i].thePiece == gameObject)
             {
-                presenceValue = Board.possibleMoveableChars[i].presenceValue;
-                resistValue = Board.possibleMoveableChars[i].resistanceValue;
+                Debug.Log(" Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().health:       " + Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().health);
+                Debug.Log(" Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().damage:       " + Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().damage);
+
+                presenceValue = Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().health;
+                resistValue = Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().damage;
             }
         }
         for (int i = 0; i < Board.spawnedEnemies.Count; i++)
         {
             if (Board.spawnedEnemies[i].thePiece == gameObject)
             {
-                presenceValue = Board.spawnedEnemies[i].presenceValue;
-                resistValue = Board.spawnedEnemies[i].resistanceValue;
+                presenceValue = Board.spawnedEnemies[i].thePiece.GetComponent<Stats>().health;
+                resistValue = Board.spawnedEnemies[i].thePiece.GetComponent<Stats>().damage;
             }
         }
 
@@ -137,6 +140,8 @@ public class DisplayOnHover : MonoBehaviour {
 
         prevPresence = presenceValue;
         prevResist = resistValue;
+
+
     }
 
     public void Bubble(GameObject bubblingObj)
