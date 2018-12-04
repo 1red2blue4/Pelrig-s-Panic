@@ -372,6 +372,15 @@ public class PlayerControls : MonoBehaviour
         int count = 0;
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
+            if (Board.possibleMoveableChars[i].GetComponent<Stats>().health <= 0)
+            {
+                    if (selectedUnit == Board.possibleMoveableChars[i].GetPiece())
+                    {
+                        selectedUnit = null;
+                    }
+                    Board.possibleMoveableChars[i].SetRowAndCol(1000, 1000);
+                    Board.possibleMoveableChars[i].GetPiece().transform.position = new Vector3(10000, 10000, 0);
+            }
             //if (Board.possibleMoveableChars[i].rowPosition == 1000)
             //{
             //    count++;

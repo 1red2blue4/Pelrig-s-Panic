@@ -13,7 +13,7 @@ public class EnemyAI : MonoBehaviour {
     int resist = 3;
     bool isEncumbered = false;
     public Stats stats;
-    bool cursorChanged;
+    public bool cursorChanged;
     public Texture2D mouseTarget;
 
     // Use this for initialization
@@ -97,7 +97,14 @@ public class EnemyAI : MonoBehaviour {
                 //CheckCoinDestroy();
             }
         }
-
+        else
+        {
+            if (stats.health <= 0)
+            {
+                Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                Destroy(gameObject);
+            }
+        }
         CheckPlayer();
     }
 

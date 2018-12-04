@@ -70,7 +70,6 @@ public class Generator : MonoBehaviour
         if (playersAround >= numCharsToSurround)
         {
             ExperimentalResources.generatorsActive++;
-            int temp = ExperimentalResources.generatorsActive++;
             for (int i = 0; i < onImages.Length; i++)
             {
                 onImages[i].SetActive(true);

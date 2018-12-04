@@ -51,6 +51,14 @@ public class PirateCaptainAI : MonoBehaviour {
 
             }
         }
+        else
+        {
+            if (stats.health <= 0)
+            {
+                Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                Destroy(gameObject);
+            }
+        }
 
         CheckPlayer();
     }

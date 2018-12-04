@@ -13,7 +13,7 @@ public class Stats : MonoBehaviour {
         health -= hit;
         if (health  <= 0)
         {
-            Destroy(gameObject);
+            health = 0;
         }
     }
 }
