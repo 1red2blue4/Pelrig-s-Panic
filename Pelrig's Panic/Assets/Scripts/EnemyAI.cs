@@ -73,7 +73,8 @@ public class EnemyAI : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         if (transform.GetComponent<Piece>().rowPosition != 1000 && !PlayerControls.isPlayerTurn)
         {
             if (isTurnActive)
@@ -96,8 +97,8 @@ public class EnemyAI : MonoBehaviour {
                 //CheckCoinDestroy();
             }
         }
-        if (!isEncumbered)
-            CheckPlayer();
+
+        CheckPlayer();
     }
 
     void CheckPlayer()
@@ -127,11 +128,9 @@ public class EnemyAI : MonoBehaviour {
             }
         }
 
-        UIValues resistance = resistanceObj.GetComponent<UIValues>();
-        resistance.SetValue(resistance.initialValue - playersAround);
-        gameObject.GetComponent<Piece>().resistanceValue = resistance.initialValue - playersAround;
+        
 
-        if (playersAround >= 3)
+        if (!isEncumbered && playersAround >= 3)
         {
             isEncumbered = true;
             stats.health /= 3;
@@ -139,6 +138,9 @@ public class EnemyAI : MonoBehaviour {
             if (stats.damage > 1)
                 stats.damage /= 2;
         }
+
+        UIValues resistance = resistanceObj.GetComponent<UIValues>();
+        resistance.SetValue(stats.health);
     }
     //To verify
     private void CheckCoinDestroy()

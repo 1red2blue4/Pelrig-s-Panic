@@ -51,10 +51,8 @@ public class PirateCaptainAI : MonoBehaviour {
 
             }
         }
-        else if (!isEncumbered)
-        {
-            CheckPlayer();
-        }
+
+        CheckPlayer();
     }
 
     void CheckPlayer()
@@ -84,15 +82,15 @@ public class PirateCaptainAI : MonoBehaviour {
             }
         }
 
-        UIValues resistance = resistanceObj.GetComponent<UIValues>();
-        resistance.SetValue(resistance.initialValue - playersAround);
-
-        if (playersAround >= 4)
+        if (!isEncumbered && playersAround >= 4)
         {
             stats.damage /= 2;
             stats.health /= 3;
             isEncumbered = true;
         }
+
+        UIValues resistance = resistanceObj.GetComponent<UIValues>();
+        resistance.SetValue(stats.health);
     }
     //To verify
     private void CheckCoinDestroy()

@@ -427,6 +427,9 @@ public class PlayerControls : MonoBehaviour
             //}
 
             UIValues resistance = Board.possibleMoveableChars[i].thePiece.GetComponent<ValueHolder>().resistanceObj.GetComponent<UIValues>();
+            resistance.SetValue(Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().health);
+
+       
             //resistance.SetValue(resistance.initialValue - enemiesAround);
             //Board.possibleMoveableChars[i].resistanceValue = resistance.initialValue - enemiesAround;
         }
@@ -434,7 +437,7 @@ public class PlayerControls : MonoBehaviour
 
         if (count >= 2 && !Board.first)
         {
-            GameObject.Find("WinScreen").GetComponentInChildren<YouWin>().youLose = true;
+            //GameObject.Find("WinScreen").GetComponentInChildren<YouWin>().youLose = true;
         }
     }
     public void CheckClick()
