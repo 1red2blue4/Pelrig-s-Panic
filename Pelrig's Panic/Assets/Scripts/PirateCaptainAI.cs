@@ -9,6 +9,7 @@ public class PirateCaptainAI : MonoBehaviour {
     public bool isTurnActive;
     [SerializeField] private GameObject presenceObj;
     [SerializeField] private GameObject resistanceObj;
+    bool isEncumbered;
 
     public Stats stats;
 
@@ -16,6 +17,7 @@ public class PirateCaptainAI : MonoBehaviour {
     void Start()
     {
         stats = GetComponent<Stats>();
+        isEncumbered = false;
         isTurnActive = false;
         time = 0.0f;
         presenceObj.GetComponent<MeshRenderer>().sortingOrder = 3;
@@ -48,7 +50,10 @@ public class PirateCaptainAI : MonoBehaviour {
 
             }
         }
-        //CheckPlayer();
+        else if (!isEncumbered)
+        {
+            CheckPlayer();
+        }
     }
 
     void CheckPlayer()
@@ -83,8 +88,9 @@ public class PirateCaptainAI : MonoBehaviour {
 
         if (playersAround >= 4)
         {
-            GameObject.Find("WinScreen").GetComponentInChildren<YouWin>().youWon = true;
-            Destroy(gameObject);
+            stats.damage /= 2;
+            stats.health /= 3;
+            isEncumbered = true;
         }
     }
     //To verify
