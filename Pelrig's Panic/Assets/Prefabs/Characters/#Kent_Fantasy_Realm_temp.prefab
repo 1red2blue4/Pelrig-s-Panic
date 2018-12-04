@@ -579,7 +579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a847cbb1bf53b44850dea4e8ad4a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialValue: 1
+  initialValue: 2
   gridPositioner: {fileID: 0}
 --- !u!114 &114620593461490070
 MonoBehaviour:

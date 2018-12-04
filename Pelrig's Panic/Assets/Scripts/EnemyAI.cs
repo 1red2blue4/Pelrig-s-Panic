@@ -141,6 +141,9 @@ public class EnemyAI : MonoBehaviour {
 
         UIValues resistance = resistanceObj.GetComponent<UIValues>();
         resistance.SetValue(stats.health);
+
+        UIValues attack = presenceObj.GetComponent<UIValues>();
+        attack.SetValue(stats.damage);
     }
     //To verify
     private void CheckCoinDestroy()
