@@ -13,18 +13,67 @@ public class EnemyAI : MonoBehaviour {
     int resist = 3;
     bool isEncumbered = false;
     public Stats stats;
+    bool cursorChanged;
+    public Texture2D mouseTarget;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
+
+        cursorChanged = false;
         stats = GetComponent<Stats>();
         time = 0.0f;
         isTurnActive = false;
         presenceObj.GetComponent<MeshRenderer>().sortingOrder = 3;
         resistanceObj.GetComponent<MeshRenderer>().sortingOrder = 3;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void OnMouseEnter()
+    {
+        if (!CannonCrossbarController.isCannonSelected && CheckIfAPlayerAround())
+        {
+            cursorChanged = true;
+            Cursor.SetCursor(mouseTarget, Vector2.zero, CursorMode.Auto);
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        if (cursorChanged)
+        {
+            cursorChanged = false;
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        }
+    }
+
+    bool CheckIfAPlayerAround()
+    {
+        if (PlayerControls.selectedUnit.GetComponent<Stats>().canAttack)
+        {
+            Piece unit = Board.possibleMoveableChars[PlayerControls.theOne];
+            bool a = false;
+            bool b = false;
+            if (transform.GetComponent<Piece>().rowPosition == unit.rowPosition - 1 ||
+                 transform.GetComponent<Piece>().rowPosition == unit.rowPosition + 1 ||
+                 transform.GetComponent<Piece>().rowPosition == unit.rowPosition)
+            {
+                a = true;
+            }
+            if (transform.GetComponent<Piece>().colPosition == unit.colPosition - 1 ||
+                transform.GetComponent<Piece>().colPosition == unit.colPosition + 1 ||
+                transform.GetComponent<Piece>().colPosition == unit.colPosition)
+            {
+                b = true;
+            }
+            if (a && b)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (transform.GetComponent<Piece>().rowPosition != 1000 && !PlayerControls.isPlayerTurn)
         {
             if (isTurnActive)
