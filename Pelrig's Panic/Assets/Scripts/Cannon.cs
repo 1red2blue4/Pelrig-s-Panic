@@ -79,6 +79,12 @@ public class Cannon : MonoBehaviour {
                 }
             }
         }
+        else if (isCanonSelected)
+        {
+            isCanonSelected = false;
+            cannonRadius.RemoveHighlights();
+            offImage.SetActive(false);
+        }
         
         if (isCanonUsable && charges > 0)
         {

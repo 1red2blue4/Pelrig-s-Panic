@@ -18,6 +18,7 @@ public class Generator : MonoBehaviour
     {
         generator = GetComponent<Piece>();
         numCharsToSurround = 3;
+        
         //generatorPopupText = textHolder.GetComponent<TextMesh>;
         //gameObject.GetComponent<TextMesh>().text = null;
 
