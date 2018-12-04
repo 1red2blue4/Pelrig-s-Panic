@@ -8,7 +8,7 @@ public class CannonCrossbarController : MonoBehaviour {
     public Texture2D mouseTarget;
 
     List<Cannon> cannons;
-    bool cannonSelected;
+    public static bool isCannonSelected;
 	// Use this for initialization
 	void Start () {
         cannons = new List<Cannon>();
@@ -18,7 +18,7 @@ public class CannonCrossbarController : MonoBehaviour {
 	void Update () {
 		if (PlayerControls.isPlayerTurn)
         {
-            cannonSelected = false;
+            bool cannonSelected = false;
             for (int i = 0; i < Board.allCannons.Length; i++)
             {
                 if (Board.allCannons[i].GetComponent<Cannon>().isCanonSelected)
@@ -30,10 +30,12 @@ public class CannonCrossbarController : MonoBehaviour {
 
             if (cannonSelected)
             {
+                isCannonSelected = true;
                 Cursor.SetCursor(mouseTarget, Vector2.zero, CursorMode.Auto);
             }
             else
             {
+                isCannonSelected = false;
                 Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
             }
         }
