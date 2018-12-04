@@ -134,7 +134,7 @@ public class EnemyAI : MonoBehaviour {
         if (playersAround >= 3)
         {
             isEncumbered = true;
-            stats.health /= 2;
+            stats.health /= 3;
 
             if (stats.damage > 1)
                 stats.damage /= 2;
