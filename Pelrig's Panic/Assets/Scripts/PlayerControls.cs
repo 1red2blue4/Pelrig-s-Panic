@@ -372,63 +372,63 @@ public class PlayerControls : MonoBehaviour
         int count = 0;
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
-            if (Board.possibleMoveableChars[i].rowPosition == 1000)
-            {
-                count++;
-                continue;
-            }
-            int enemiesAround = 0;
-            for (int j = 0; j < Board.spawnedEnemies.Count; j++)
-            {
-                if (Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition - 1 ||
-                    Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition ||
-                    Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition + 1)
-                {
-                }
-                else
-                {
-                    continue;
-                }
-                if (Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition - 1 ||
-                    Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition ||
-                    Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition + 1)
-                {
-                }
-                else
-                {
-                    continue;
-                }
-
-                enemiesAround += 1;
-            }
-            if (Board.pirateBoss != null)
-            {
-                if (Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition - 1 ||
-                    Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition ||
-                    Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition + 1)
-                {
-                    if (Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition - 1 ||
-                        Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition ||
-                        Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition + 1)
-                    {
-                        enemiesAround += 2;
-                    }
-                }
-            }
-
-            if (enemiesAround >= 4)
-            {
-                if (selectedUnit == Board.possibleMoveableChars[i].GetPiece())
-                {
-                    selectedUnit = null;
-                }
-                Board.possibleMoveableChars[i].SetRowAndCol(1000, 1000);
-                Board.possibleMoveableChars[i].GetPiece().transform.position = new Vector3(10000, 10000, 0);
-            }
+            //if (Board.possibleMoveableChars[i].rowPosition == 1000)
+            //{
+            //    count++;
+            //    continue;
+            //}
+            //int enemiesAround = 0;
+            //for (int j = 0; j < Board.spawnedEnemies.Count; j++)
+            //{
+            //    if (Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition - 1 ||
+            //        Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition ||
+            //        Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition + 1)
+            //    {
+            //    }
+            //    else
+            //    {
+            //        continue;
+            //    }
+            //    if (Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition - 1 ||
+            //        Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition ||
+            //        Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition + 1)
+            //    {
+            //    }
+            //    else
+            //    {
+            //        continue;
+            //    }
+            //
+            //    enemiesAround += 1;
+            //}
+            //if (Board.pirateBoss != null)
+            //{
+            //    if (Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition - 1 ||
+            //        Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition ||
+            //        Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition + 1)
+            //    {
+            //        if (Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition - 1 ||
+            //            Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition ||
+            //            Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition + 1)
+            //        {
+            //            enemiesAround += 2;
+            //        }
+            //    }
+            //}
+            //
+            //if (enemiesAround >= 4)
+            //{
+            //    if (selectedUnit == Board.possibleMoveableChars[i].GetPiece())
+            //    {
+            //        selectedUnit = null;
+            //    }
+            //    Board.possibleMoveableChars[i].SetRowAndCol(1000, 1000);
+            //    Board.possibleMoveableChars[i].GetPiece().transform.position = new Vector3(10000, 10000, 0);
+            //}
 
             UIValues resistance = Board.possibleMoveableChars[i].thePiece.GetComponent<ValueHolder>().resistanceObj.GetComponent<UIValues>();
-            resistance.SetValue(resistance.initialValue - enemiesAround);
-            Board.possibleMoveableChars[i].resistanceValue = resistance.initialValue - enemiesAround;
+            //resistance.SetValue(resistance.initialValue - enemiesAround);
+            //Board.possibleMoveableChars[i].resistanceValue = resistance.initialValue - enemiesAround;
         }
 
 
