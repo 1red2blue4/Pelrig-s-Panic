@@ -926,8 +926,7 @@ public class PlayerControls : MonoBehaviour
             }
             if (Board.possibleMoveableChars[i].rowPosition == character.rowPosition && Board.possibleMoveableChars[i].colPosition == character.colPosition - 1)
             {
-                isLeft = true;
-                MovemenetCostTextDisplay.isCostText = true;
+                isLeft = true; 
             }
         }
         for (int i = 0; i < Board.spawnedEnemies.Count; i++)

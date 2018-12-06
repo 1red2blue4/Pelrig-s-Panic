@@ -29,24 +29,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1367839210156684
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4073222933554154}
-  - component: {fileID: 23217569982894578}
-  - component: {fileID: 102844149057690834}
-  - component: {fileID: 114334726502291446}
-  m_Layer: 0
-  m_Name: MovementCost
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
 --- !u!1 &1473424934142922
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,6 +41,24 @@ GameObject:
   - component: {fileID: 114939622494903036}
   m_Layer: 0
   m_Name: UnoccupiedSpaceHighlight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1533233030290022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4193466005706596}
+  - component: {fileID: 23695096865322112}
+  - component: {fileID: 102874145869324416}
+  - component: {fileID: 114374195425590048}
+  m_Layer: 5
+  m_Name: TextValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,18 +136,18 @@ Transform:
   - {fileID: 4018919040593206}
   - {fileID: 4948476481827840}
   - {fileID: 4044362411690252}
-  - {fileID: 4073222933554154}
+  - {fileID: 4193466005706596}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4073222933554154
+--- !u!4 &4193466005706596
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1367839210156684}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.396, y: 0.027, z: -0.38}
+  m_GameObject: {fileID: 1533233030290022}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.15, y: -0.14, z: -0.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4064168744238726}
@@ -166,12 +166,12 @@ Transform:
   m_Father: {fileID: 4064168744238726}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23217569982894578
+--- !u!23 &23695096865322112
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1367839210156684}
+  m_GameObject: {fileID: 1533233030290022}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -219,22 +219,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!102 &102844149057690834
+--- !u!102 &102874145869324416
 TextMesh:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1367839210156684}
-  m_Text: 10
+  m_GameObject: {fileID: 1533233030290022}
+  m_Text: 
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
   m_Anchor: 4
-  m_Alignment: 0
+  m_Alignment: 1
   m_TabSize: 4
-  m_FontSize: 0
-  m_FontStyle: 0
+  m_FontSize: 35
+  m_FontStyle: 1
   m_RichText: 1
   m_Font: {fileID: 0}
   m_Color:
@@ -255,17 +255,18 @@ MonoBehaviour:
   difference: 0
   speed: 0
   mainCamera: {fileID: 0}
---- !u!114 &114334726502291446
+--- !u!114 &114374195425590048
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1367839210156684}
+  m_GameObject: {fileID: 1533233030290022}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a9618cd82c6ff04a9768d16bdda2861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  costText: {fileID: 0}
 --- !u!114 &114916418319273518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -416,7 +417,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5c379438cc7203d4fba8a9094d4fda07, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

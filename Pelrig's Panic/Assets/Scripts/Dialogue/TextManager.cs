@@ -121,7 +121,7 @@ public static class TextManager {
         }
         if (SceneManager.GetActiveScene().buildIndex == 2 && countDialogueLength < 9)
         {
-            Debug.Log("Controls should be locked!");
+        //    Debug.Log("Controls should be locked!");
             playerControlsLocked = true;
         }
         else

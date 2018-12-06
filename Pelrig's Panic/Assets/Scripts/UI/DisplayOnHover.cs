@@ -101,8 +101,8 @@ public class DisplayOnHover : MonoBehaviour {
         {
             if (Board.possibleMoveableChars[i].thePiece == gameObject)
             {
-                Debug.Log(" Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().health:       " + Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().health);
-                Debug.Log(" Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().damage:       " + Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().damage);
+              //  Debug.Log(" Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().health:       " + Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().health);
+              //  Debug.Log(" Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().damage:       " + Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().damage);
 
                 presenceValue = Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().health;
                 resistValue = Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().damage;
