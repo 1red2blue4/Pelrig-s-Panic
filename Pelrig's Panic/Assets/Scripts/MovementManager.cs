@@ -82,7 +82,8 @@ public static class MovementManager {
             }
 
             if (!inWay && ExperimentalResources.ModifyResource(cost))
-            {                
+            {
+                //Debug.Log("Up direction");
                 character.SetRowAndCol(character.rowPosition - 1, character.colPosition);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + character.colPosition).transform.position;
                 PlayerControls.UnoccupiedSpaceEnable(character);
@@ -149,6 +150,7 @@ public static class MovementManager {
 
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
+                //Debug.Log("Right direction");
                 character.SetRowAndCol(character.rowPosition, character.colPosition + 1);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 PlayerControls.UnoccupiedSpaceEnable(character);
@@ -215,7 +217,8 @@ public static class MovementManager {
             }
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
-               // PlayerControls.isDown = false;
+                //Debug.Log("Down direction");
+                // PlayerControls.isDown = false;
                 character.SetRowAndCol(character.rowPosition + 1, character.colPosition);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 PlayerControls.UnoccupiedSpaceEnable(character);
@@ -281,6 +284,7 @@ public static class MovementManager {
             }
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
+              //  Debug.Log("Left direction");
                 character.SetRowAndCol(character.rowPosition, character.colPosition - 1);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 PlayerControls.UnoccupiedSpaceEnable(character);

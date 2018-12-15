@@ -16,22 +16,21 @@ public class MovemenetCostTextDisplay : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        Debug.Log("PlayerControls.isDown:      " + PlayerControls.isDown);
-		if(PlayerControls.isLeft)
-        {
-            //gameObject.GetComponent<TextMesh>().text = "1";
-        }
-        else if(PlayerControls.isUp)
-        {
-            gameObject.GetComponent<TextMesh>().text = "2";
-        }
-        else if(PlayerControls.isRight)
-        {
-            gameObject.GetComponent<TextMesh>().text = "3";
-        }
-        else if(PlayerControls.isDown)
-        {
-            gameObject.GetComponent<TextMesh>().text = "4";
-        }
+		//if(PlayerControls.isLeft)
+  //      {
+  //          //gameObject.GetComponent<TextMesh>().text = "1";
+  //      }
+  //      else if(PlayerControls.isUp)
+  //      {
+  //          //gameObject.GetComponent<TextMesh>().text = "2";
+  //      }
+  //      else if(PlayerControls.isRight)
+  //      {
+  //          //gameObject.GetComponent<TextMesh>().text = "3";
+  //      }
+  //      else if(PlayerControls.isDown)
+  //      {
+  //          //gameObject.GetComponent<TextMesh>().text = "4";
+  //      }
 	}
 }
