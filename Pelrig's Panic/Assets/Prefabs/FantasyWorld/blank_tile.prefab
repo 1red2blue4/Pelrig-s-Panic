@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212845479065380556}
   - component: {fileID: 95604957757681338}
   - component: {fileID: 114916418319273518}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BlankSpaceHighlightAnim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 4018919040593206}
   - component: {fileID: 212602660771547824}
   - component: {fileID: 114939622494903036}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: UnoccupiedSpaceHighlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 23695096865322112}
   - component: {fileID: 102874145869324416}
   - component: {fileID: 114374195425590048}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: TextValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 4064168744238726}
   - component: {fileID: 212421631891562918}
   - component: {fileID: 114282480180007352}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: blank_tile
   m_TagString: BlankSpace
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4044362411690252}
   - component: {fileID: 212042522000138130}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: CannonHighlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -266,7 +266,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9618cd82c6ff04a9768d16bdda2861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  costText: {fileID: 0}
 --- !u!114 &114916418319273518
 MonoBehaviour:
   m_ObjectHideFlags: 1
