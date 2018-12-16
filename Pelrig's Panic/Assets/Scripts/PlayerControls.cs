@@ -41,10 +41,7 @@ public class PlayerControls : MonoBehaviour
     public static bool isPlayerTurn;
 
     GameObject panelUnderCharacter;
-    public static bool isUp = true;
-    public static bool isRight = true;
-    public static bool isDown = true;
-    public static bool isLeft = true;
+
 
     public static bool isWalk;
     void Start()
@@ -208,7 +205,7 @@ public class PlayerControls : MonoBehaviour
             RepositionCamera(cameraRotPosition, prevCameraRotPosition, cameraMovementBetween);
         }
 
-        if (!TextManager.playerControlsLocked)
+        if (!TextManager.playerControlsLocked && !TutorialCards.isTutorialRunning)
         {
             CheckClick();
             CheckPlayer();
@@ -806,6 +803,10 @@ public class PlayerControls : MonoBehaviour
    
     public static void UnoccupiedSpaceEnable(Piece character)
     {
+        bool isUp = true;
+        bool isRight = true;
+        bool isDown = true;
+        bool isLeft = true;
         for (int i = 0; i < Board.numDeadSpaces; i++)
         {
             if (Board.deadPoints[i].x == character.colPosition && Board.deadPoints[i].y == character.rowPosition - 1)
@@ -926,8 +927,7 @@ public class PlayerControls : MonoBehaviour
             }
             if (Board.possibleMoveableChars[i].rowPosition == character.rowPosition && Board.possibleMoveableChars[i].colPosition == character.colPosition - 1)
             {
-                isLeft = true;
-                MovemenetCostTextDisplay.isCostText = true;
+                isLeft = true; 
             }
         }
         for (int i = 0; i < Board.spawnedEnemies.Count; i++)
@@ -937,6 +937,17 @@ public class PlayerControls : MonoBehaviour
                 isLeft = true;
             }
         }
+        Debug.Log("isLeft:      " + isLeft);
+        //right
+        
+
+        //up
+
+
+        //down
+
+
+
         if (isLeft)
         {
             if (GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition - 1)) != null)
