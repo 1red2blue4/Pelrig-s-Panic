@@ -208,7 +208,7 @@ public class PlayerControls : MonoBehaviour
             RepositionCamera(cameraRotPosition, prevCameraRotPosition, cameraMovementBetween);
         }
 
-        if (!TextManager.playerControlsLocked)
+        if (!TextManager.playerControlsLocked && !TutorialCards.isTutorialRunning)
         {
             CheckClick();
             CheckPlayer();
