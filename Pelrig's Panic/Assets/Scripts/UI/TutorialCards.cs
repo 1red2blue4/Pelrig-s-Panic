@@ -20,6 +20,8 @@ public class TutorialCards : MonoBehaviour {
         transform.GetChild(1).GetComponent<Image>().enabled = false;
         transform.GetChild(2).GetComponent<Button>().enabled = false;
         transform.GetChild(2).GetComponent<Image>().enabled = false;
+        transform.GetChild(2).GetChild(0).GetComponent<Text>().enabled = false;
+        transform.GetChild(2).GetChild(0).GetComponent<Text>().text = "Next";
         isTutorialRunning = false;
         iterator = 0;
         changeCards = true;
@@ -57,21 +59,23 @@ public class TutorialCards : MonoBehaviour {
                 if (iterator >= cards.Count)
                 {
                     lastTutorial = true;
+                    transform.GetChild(2).GetChild(0).GetComponent<Text>().text = "Lets Play!";
                 }
 
-                float timeIncrement = Time.deltaTime * 0.6f;
+                float timeIncrement = Time.deltaTime * 1.6f;
                 transform.GetChild(0).localScale += new Vector3(timeIncrement, timeIncrement, timeIncrement);
                 transform.GetChild(1).localScale += new Vector3(timeIncrement, timeIncrement, timeIncrement);
 
-                if (!card1 && transform.GetChild(0).localScale.x >= 1.0f)
+                if (!card1 && transform.GetChild(0).localScale.x >= 2.0f)
                 {
-                    transform.GetChild(0).localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    transform.GetChild(0).localScale = new Vector3(2.0f, 2.0f, 2.0f);
                 }
-                if (!card2 && transform.GetChild(1).localScale.x >= 1.0f)
+                if (!card2 && transform.GetChild(1).localScale.x >= 2.0f)
                 {
-                    transform.GetChild(1).localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    transform.GetChild(1).localScale = new Vector3(2.0f, 2.0f, 2.0f);
                     transform.GetChild(2).GetComponent<Button>().enabled = true;
                     transform.GetChild(2).GetComponent<Image>().enabled = true;
+                    transform.GetChild(2).GetChild(0).GetComponent<Text>().enabled = true;
                     changeCards = false;
                 }
 
@@ -81,6 +85,7 @@ public class TutorialCards : MonoBehaviour {
 
     public void NextRound()
     {
+        transform.GetChild(2).GetChild(0).GetComponent<Text>().enabled = false;
         transform.GetChild(0).GetComponent<Image>().enabled = false;
         transform.GetChild(1).GetComponent<Image>().enabled = false;
         transform.GetChild(2).GetComponent<Button>().enabled = false;
