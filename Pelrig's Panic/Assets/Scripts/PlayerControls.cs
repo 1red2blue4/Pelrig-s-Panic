@@ -521,20 +521,14 @@ public class PlayerControls : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             GameObject selectedBase;
 
-            LayerMask layerMask = LayerMask.GetMask("MainCharacter") + LayerMask.GetMask("Grid");
-            
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)) 
-            {
+            LayerMask layerMask = LayerMask.GetMask("MainCharacter") + LayerMask.GetMask("Interactables");
 
-                if (hit.collider.tag == "BlankSpace")
-                {
-                    Debug.Log("Cleared all highlights when player switched using Alpha keys");
-                    ClearAllGrids();
-                }
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+            {
                 if (hit.collider.tag == "Player")
                 {
                     //Debug.Log("Clear cannon popup");
-                    
+
                     //GameObject.Find("#Kent_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
                     //GameObject.Find("#Meda_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
                     //GameObject.Find("#Hally_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
@@ -598,30 +592,31 @@ public class PlayerControls : MonoBehaviour
                         }
                     }
                 }
-                else
+            }
+            else if (!CannonCrossbarController.isCannonSelected)
+            {
+                if (selectedUnit != null)
                 {
-                    if (selectedUnit != null)
+                    //selectedUnit.GetComponent<MeshRenderer>().material = normalMaterial;
+                    GameObject panelUnderCharacter = null;
+                    for (int i = 0; i < selectedUnit.transform.childCount; i++)
                     {
-                        //selectedUnit.GetComponent<MeshRenderer>().material = normalMaterial;
-                        GameObject panelUnderCharacter = null;
-                        for (int i = 0; i < selectedUnit.transform.childCount; i++)
+                        if (selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>() != null)
                         {
-                            if (selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>() != null)
-                            {
-                                panelUnderCharacter = selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>().gameObject;
-                            }
+                            panelUnderCharacter = selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>().gameObject;
                         }
-                        if (panelUnderCharacter != null)
-                        {
-                            panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
-                            ClearAllGrids();
-                        }
-                        selectedUnit = null;
                     }
+                    if (panelUnderCharacter != null)
+                    {
+                        panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
+                    }
+                    selectedUnit = null;
+                    ClearAllGrids();
                 }
             }
         }
     }
+    
 
     public void DisablePanelUnderCharacter(GameObject selected)
     {
