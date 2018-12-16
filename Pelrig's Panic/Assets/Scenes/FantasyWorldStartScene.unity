@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43450388, g: 0.76419604, b: 0.94673294, a: 1}
+  m_IndirectSpecularColor: {r: 0.4227024, g: 0.7473569, b: 0.94796795, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1709,6 +1709,161 @@ Prefab:
     - target: {fileID: 4540649508363532, guid: f390b5df77a259d4da467173cd8e1b3d, type: 2}
       propertyPath: m_RootOrder
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 82181657365630104, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 82181657365630104, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82988492457247064, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82935021298970246, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82193530713223878, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82000457879851192, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82222027212101148, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82259977894062862, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82853343904704468, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82069020015140374, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82132351522678830, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82029376533523060, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82687709995430838, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82707303220834220, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82305829991166840, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82041988252061046, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82922919635020668, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82359725805119186, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82593021987256710, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82585376500378968, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82784199659578420, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82817786327496996, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82927484745387958, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82964258642636862, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82154955008798178, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82670818798660954, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82620559539130868, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82623893595897440, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82483850443966302, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82290830085643074, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82191834700957784, guid: f390b5df77a259d4da467173cd8e1b3d,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f390b5df77a259d4da467173cd8e1b3d, type: 2}
