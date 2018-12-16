@@ -47,26 +47,29 @@ public class EnemyAI : MonoBehaviour {
 
     bool CheckIfAPlayerAround()
     {
-        if (PlayerControls.selectedUnit.GetComponent<Stats>().canAttack)
+        if (PlayerControls.selectedUnit)
         {
-            Piece unit = Board.possibleMoveableChars[PlayerControls.theOne];
-            bool a = false;
-            bool b = false;
-            if (transform.GetComponent<Piece>().rowPosition == unit.rowPosition - 1 ||
-                 transform.GetComponent<Piece>().rowPosition == unit.rowPosition + 1 ||
-                 transform.GetComponent<Piece>().rowPosition == unit.rowPosition)
+            if (PlayerControls.selectedUnit.GetComponent<Stats>().canAttack)
             {
-                a = true;
-            }
-            if (transform.GetComponent<Piece>().colPosition == unit.colPosition - 1 ||
-                transform.GetComponent<Piece>().colPosition == unit.colPosition + 1 ||
-                transform.GetComponent<Piece>().colPosition == unit.colPosition)
-            {
-                b = true;
-            }
-            if (a && b)
-            {
-                return true;
+                Piece unit = Board.possibleMoveableChars[PlayerControls.theOne];
+                bool a = false;
+                bool b = false;
+                if (transform.GetComponent<Piece>().rowPosition == unit.rowPosition - 1 ||
+                     transform.GetComponent<Piece>().rowPosition == unit.rowPosition + 1 ||
+                     transform.GetComponent<Piece>().rowPosition == unit.rowPosition)
+                {
+                    a = true;
+                }
+                if (transform.GetComponent<Piece>().colPosition == unit.colPosition - 1 ||
+                    transform.GetComponent<Piece>().colPosition == unit.colPosition + 1 ||
+                    transform.GetComponent<Piece>().colPosition == unit.colPosition)
+                {
+                    b = true;
+                }
+                if (a && b)
+                {
+                    return true;
+                }
             }
         }
         return false;
