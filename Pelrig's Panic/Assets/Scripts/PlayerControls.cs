@@ -185,11 +185,7 @@ public class PlayerControls : MonoBehaviour
 
         LayerMask layerMask = LayerMask.GetMask("Enemy");
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
-        {
-            hit.transform.GetComponent<Stats>().TakeDamage(playerStats.damage);
-            playerStats.canAttack = false;
-        }
+
     }
 
     // Update is called once per frame
@@ -214,10 +210,6 @@ public class PlayerControls : MonoBehaviour
 
                 if (selectedUnit != null)
                 {
-                    if (selectedUnit.GetComponent<Stats>().canAttack && Input.GetMouseButtonDown(0))
-                    {
-                        AttackEnemy(selectedUnit.GetComponent<Stats>());
-                    }
                     MovePlayer();
                 }
                 if (Input.GetKeyDown(KeyCode.Space) || EndTurnButtonScript.isButtonPressed)// || Input.GetMouseButtonDown(0))
@@ -515,13 +507,14 @@ public class PlayerControls : MonoBehaviour
             GameObject.Find("#Jade_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = true;
             UnoccupiedSpaceEnable(Board.possibleMoveableChars[theOne]);
         }
+
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             GameObject selectedBase;
 
-            LayerMask layerMask = LayerMask.GetMask("MainCharacter") + LayerMask.GetMask("Interactables");
+            LayerMask layerMask = LayerMask.GetMask("MainCharacter") + LayerMask.GetMask("Interactables") + LayerMask.GetMask("Enemy");
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
             {
@@ -591,6 +584,11 @@ public class PlayerControls : MonoBehaviour
                             break;
                         }
                     }
+                }
+                else if (hit.collider.tag == "Enemy" && selectedUnit)
+                {
+                    hit.transform.GetComponent<Stats>().TakeDamage(selectedUnit.GetComponent<Stats>().damage);
+                    selectedUnit.GetComponent<Stats>().canAttack = false;
                 }
             }
             else if (!CannonCrossbarController.isCannonSelected)
