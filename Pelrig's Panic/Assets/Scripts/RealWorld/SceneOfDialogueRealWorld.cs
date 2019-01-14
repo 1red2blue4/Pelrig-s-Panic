@@ -43,6 +43,11 @@ public class SceneOfDialogueRealWorld : MonoBehaviour
                 startSceneConverstion = PirateShipBeforeStartingConversation();
             }
 
+            if (SceneManager.GetActiveScene().buildIndex != 1 && SceneManager.GetActiveScene().buildIndex != 2)
+            {
+                startSceneConverstion = TutorialSceneConversation();
+            }
+
             for (int i = 0; i < startSceneConverstion[currConversationNum].lines.Length; i++)
             {
                 TextManager.textSets[i] = startSceneConverstion[currConversationNum].lines[i];
@@ -284,6 +289,25 @@ public class SceneOfDialogueRealWorld : MonoBehaviour
         startConvo[0] = convo;
         return startConvo;
     }
+
+    public Conversation[] TutorialSceneConversation()
+    {
+        int startConvoLength = 2;
+        convoWords = new string[startConvoLength];
+        CharacterData[] convoCharData = new CharacterData[startConvoLength];
+        convoCharData[0] = meda.GetComponent<CharacterData>();
+        convoCharData[1] = meda.GetComponent<CharacterData>();
+        convoWords[0] = "I just want to say onew thing.";
+        convoWords[1] = "That's it.";
+
+
+        Conversation convo = new Conversation(convoWords, startConvoLength, convoCharData);
+
+        Conversation[] startConvo = new Conversation[1];
+        startConvo[0] = convo;
+        return startConvo;
+    }
+
     // This is for automatic dialogue box appears in the interval 0f 10secs.
     IEnumerator DialogueConversation()
     {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerControls : MonoBehaviour
 {
@@ -310,7 +311,7 @@ public class PlayerControls : MonoBehaviour
 
     bool EnemyMovesDone()
     {
-        if (Board.pirateBoss.GetComponent<PirateCaptainAI>().isTurnActive == true)
+        if (SceneManager.GetActiveScene().buildIndex == 2 && Board.pirateBoss.GetComponent<PirateCaptainAI>().isTurnActive == true)
         {
             return false;
         }
