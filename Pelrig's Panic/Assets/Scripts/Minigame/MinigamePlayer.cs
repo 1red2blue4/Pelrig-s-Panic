@@ -5,15 +5,17 @@ using UnityEngine;
 public class MinigamePlayer : MonoBehaviour
 {
 
-    public float speedScale;
+    [SerializeField] private float speedScale;
     public bool winningGame;
-    public Material winningColor;
-    public Material notWinningColor;
+    [SerializeField] private Material winningColor;
+    [SerializeField] private Material notWinningColor;
     public GameObject[] backgroundObjects;
+    private int direction;
 
     public void Start()
     {
-        speedScale = 4.0f;
+        direction = 0;
+        speedScale = 20.0f;
         winningGame = false;
     }
 
@@ -29,7 +31,39 @@ public class MinigamePlayer : MonoBehaviour
         float vert = Input.GetAxis("Vertical");
         float horiz = Input.GetAxis("Horizontal");
 
-        gameObject.transform.position += new Vector3(speedScale * horiz * Time.deltaTime, speedScale * vert * Time.deltaTime, 0.0f);
+        if (vert > 0)
+        {
+            direction = 1;
+        }
+        else if (vert < 0)
+        {
+            direction = 2;
+        }
+        if (horiz > 0)
+        {
+            direction = 3;
+        }
+        else if (horiz < 0)
+        {
+            direction = 4;
+        }
+
+        if (direction == 1)
+        {
+            transform.localPosition += new Vector3(0.0f, speedScale * Time.deltaTime, 0.0f);
+        }
+        else if (direction == 2)
+        {
+            transform.localPosition += new Vector3(0.0f, -speedScale * Time.deltaTime, 0.0f);
+        }
+        else if (direction == 3)
+        {
+            transform.localPosition += new Vector3(speedScale * Time.deltaTime, 0.0f, 0.0f);
+        }
+        else if (direction == 4)
+        {
+            transform.localPosition += new Vector3(-speedScale * Time.deltaTime, 0.0f, 0.0f);
+        }
     }
     
     public void CheckIfWinning()
