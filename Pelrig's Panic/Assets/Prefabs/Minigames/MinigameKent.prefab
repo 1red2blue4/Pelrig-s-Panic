@@ -631,3 +631,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2f4f70c84cf74a428ce4bcb930a36dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typeOfMinigame: Kent

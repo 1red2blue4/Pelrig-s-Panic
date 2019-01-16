@@ -81,6 +81,20 @@ public class MinigamePlayer : MonoBehaviour
             }
             else
             {
+                //perhaps the first thing the raycast reaches is a wall? if so, check the next one
+                RaycastHit insideHit;
+                if (Physics.Raycast(hit.transform.position, hit.transform.forward, out insideHit, Mathf.Infinity))
+                {
+                    if (hit.collider.GetComponent<MinigameBonus>() != null)
+                    {
+                        winningGame = true;
+                        for (int i = 0; i < backgroundObjects.Length; i++)
+                        {
+                            backgroundObjects[i].GetComponent<Renderer>().material.color = winningColor.color;
+                        }
+                    }
+                }
+                //otherwise, you aren't winning
                 winningGame = false;
                 for (int i = 0; i < backgroundObjects.Length; i++)
                 {
