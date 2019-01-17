@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 9190e7039adecab40b7069d11169a512
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Action Comics
+  fontNames:
+  - Action Comics
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 759c9942c8c557048bbc40bbb9e451bd, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
