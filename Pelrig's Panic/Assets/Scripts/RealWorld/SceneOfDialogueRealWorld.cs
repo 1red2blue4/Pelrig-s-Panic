@@ -29,115 +29,111 @@ public class SceneOfDialogueRealWorld : MonoBehaviour
         ranSecondDialogue = false;
         currLine = "";
         currConversationNum = 0;
-        TextManager.Setup();        
+        TextManager.Setup();
 
-        if(!isStartConvo)
+        if (!isStartConvo)
         {
             if (SceneManager.GetActiveScene().buildIndex == 1)
             {
-                startSceneConverstion = PirateShipCusceneConversation();
+                //startSceneConverstion = PirateShipCusceneConversation();
+                
             }
 
             if (SceneManager.GetActiveScene().buildIndex == 2)
             {
-                startSceneConverstion = PirateShipBeforeStartingConversation();
+                //startSceneConverstion = PirateShipBeforeStartingConversation();
             }
-
-            if (SceneManager.GetActiveScene().buildIndex != 1 && SceneManager.GetActiveScene().buildIndex != 2)
-            {
-                startSceneConverstion = TutorialSceneConversation();
-            }
-
-            for (int i = 0; i < startSceneConverstion[currConversationNum].lines.Length; i++)
-            {
-                TextManager.textSets[i] = startSceneConverstion[currConversationNum].lines[i];
-            }
-            currLine = TextManager.textSets[currConversationNum];
-
-            SetNewVoice(startSceneConverstion[currConversationNum].characterData[TextManager.currentTextSet].characterIdNum);
         }
-        if(isStartConvo)
-        {
-            allConversations = ProduceConversations();
+        //    for (int i = 0; i < startSceneConverstion[currConversationNum].lines.Length; i++)
+        //    {
+        //        TextManager.textSets[i] = startSceneConverstion[currConversationNum].lines[i];
+        //    }
+        //    currLine = TextManager.textSets[currConversationNum];
 
-            for (int i = 0; i < allConversations[currConversationNum].lines.Length; i++)
-            {
-                TextManager.textSets[i] = allConversations[currConversationNum].lines[i];
-            }
-            currLine = TextManager.textSets[currConversationNum];
+        //    SetNewVoice(startSceneConverstion[currConversationNum].characterData[TextManager.currentTextSet].characterIdNum);
+        //}
+        //if(isStartConvo)
+        //{
+        //    allConversations = ProduceConversations();
 
-            SetNewVoice(allConversations[currConversationNum].characterData[TextManager.currentTextSet].characterIdNum);
-        }
+        //    for (int i = 0; i < allConversations[currConversationNum].lines.Length; i++)
+        //    {
+        //        TextManager.textSets[i] = allConversations[currConversationNum].lines[i];
+        //    }
+        //    currLine = TextManager.textSets[currConversationNum];
+
+        //    SetNewVoice(allConversations[currConversationNum].characterData[TextManager.currentTextSet].characterIdNum);
+        //}
     }
 
     void Update()
     {
-        string prevLine = currLine;
-        if (!TextManager.textViewEmptied)
-        {
-            currLine = TextManager.textSets[TextManager.currentTextSet];
-            if (!isStartConvo)
-            {
-                if (prevLine != currLine)
-                {
-                    SetNewVoice(startSceneConverstion[currConversationNum].characterData[TextManager.currentTextSet].characterIdNum);
-                }
-            }
-            if (isStartConvo)
-            {
-                if (prevLine != currLine)
-                {
-                    SetNewVoice(allConversations[currConversationNum].characterData[TextManager.currentTextSet].characterIdNum);
-                }
-            }
-            TextManager.RunText();
-        }
-        else
-        {
-            dialogueBox.SetActive(false);
-        }
+        //string prevLine = currLine;
+        //if (!TextManager.textViewEmptied)
+        //{
+        //    currLine = TextManager.textSets[TextManager.currentTextSet];
+        //    if (!isStartConvo)
+        //    {
+        //        if (prevLine != currLine)
+        //        {
+        //            SetNewVoice(startSceneConverstion[currConversationNum].characterData[TextManager.currentTextSet].characterIdNum);
+        //        }
+        //    }
+        //    if (isStartConvo)
+        //    {
+        //        if (prevLine != currLine)
+        //        {
+        //            SetNewVoice(allConversations[currConversationNum].characterData[TextManager.currentTextSet].characterIdNum);
+        //        }
+        //    }
+        //    TextManager.RunText();
+        //}
+        //else
+        //{
+        //    dialogueBox.SetActive(false);
+        //}
 
-        //condition under which the conversation changes
-        if (!isStartConvo)
-        {
-            talkingCharacter = startSceneConverstion[currConversationNum].characterData[TextManager.currentTextSet];
-        }
-        if (isStartConvo)
-        {
-            talkingCharacter = allConversations[currConversationNum].characterData[TextManager.currentTextSet];
-        }
+        ////condition under which the conversation changes
+        //if (!isStartConvo)
+        //{
+        //    talkingCharacter = startSceneConverstion[currConversationNum].characterData[TextManager.currentTextSet];
+        //}
+        //if (isStartConvo)
+        //{
+        //    talkingCharacter = allConversations[currConversationNum].characterData[TextManager.currentTextSet];
+        //}
 
-        charPortrait.talkingCharacter = talkingCharacter;
-        charPortrait.UpdatePortrait();
-        if (TextManager.textViewEmptied && Input.GetAxis("RunConversation") > 0 && !ranSecondDialogue)
-        {
-            currConversationNum = 1;
-            TextManager.textViewEmptied = false;
-            TextManager.currentTextSet = 0;
-            if (!isStartConvo)
-            {
-                for (int i = 0; i < startSceneConverstion[currConversationNum].lines.Length; i++)
-                {
-                    TextManager.textSets[i] = startSceneConverstion[currConversationNum].lines[i];
-                }
-                SetNewVoice(startSceneConverstion[currConversationNum].characterData[TextManager.currentTextSet].characterIdNum);
-            }
-            if (isStartConvo)
-            {
-                for (int i = 0; i < allConversations[currConversationNum].lines.Length; i++)
-                {
-                    TextManager.textSets[i] = allConversations[currConversationNum].lines[i];
-                    SetNewVoice(allConversations[currConversationNum].characterData[TextManager.currentTextSet].characterIdNum);
-                }
-            }
-            dialogueBox.SetActive(true);
-            timer = 0.0f;
-            ranSecondDialogue = true;
-        }
-        else
-        {
-            timer += Time.deltaTime;
-        }
+        //charPortrait.talkingCharacter = talkingCharacter;
+        //charPortrait.UpdatePortrait();
+        //if (TextManager.textViewEmptied && Input.GetAxis("RunConversation") > 0 && !ranSecondDialogue)
+        //{
+        //    currConversationNum = 1;
+        //    TextManager.textViewEmptied = false;
+        //    TextManager.currentTextSet = 0;
+        //    if (!isStartConvo)
+        //    {
+        //        for (int i = 0; i < startSceneConverstion[currConversationNum].lines.Length; i++)
+        //        {
+        //            TextManager.textSets[i] = startSceneConverstion[currConversationNum].lines[i];
+        //        }
+        //        SetNewVoice(startSceneConverstion[currConversationNum].characterData[TextManager.currentTextSet].characterIdNum);
+        //    }
+        //    if (isStartConvo)
+        //    {
+        //        for (int i = 0; i < allConversations[currConversationNum].lines.Length; i++)
+        //        {
+        //            TextManager.textSets[i] = allConversations[currConversationNum].lines[i];
+        //            SetNewVoice(allConversations[currConversationNum].characterData[TextManager.currentTextSet].characterIdNum);
+        //        }
+        //    }
+        //    dialogueBox.SetActive(true);
+        //    timer = 0.0f;
+        //    ranSecondDialogue = true;
+        //}
+        //else
+        //{
+        //    timer += Time.deltaTime;
+        //}
     }
 
     public void SetNewVoice(int charIdNum)
@@ -289,25 +285,6 @@ public class SceneOfDialogueRealWorld : MonoBehaviour
         startConvo[0] = convo;
         return startConvo;
     }
-
-    public Conversation[] TutorialSceneConversation()
-    {
-        int startConvoLength = 2;
-        convoWords = new string[startConvoLength];
-        CharacterData[] convoCharData = new CharacterData[startConvoLength];
-        convoCharData[0] = meda.GetComponent<CharacterData>();
-        convoCharData[1] = meda.GetComponent<CharacterData>();
-        convoWords[0] = "I just want to say onew thing.";
-        convoWords[1] = "That's it.";
-
-
-        Conversation convo = new Conversation(convoWords, startConvoLength, convoCharData);
-
-        Conversation[] startConvo = new Conversation[1];
-        startConvo[0] = convo;
-        return startConvo;
-    }
-
     // This is for automatic dialogue box appears in the interval 0f 10secs.
     IEnumerator DialogueConversation()
     {
@@ -317,9 +294,5 @@ public class SceneOfDialogueRealWorld : MonoBehaviour
         yield return new WaitForSeconds(5);
         TextManager.endConversation = true;
     }
-
-
-    
-
     
 }
