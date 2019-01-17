@@ -9,8 +9,10 @@ namespace JSONFactory
 {
     class JSONAssembly
     {
-        private static Dictionary<int, string> _resourceList = new Dictionary<int, string> {
-        {1, "/Resources/Event1.json"}
+        private static Dictionary<int, string> _resourceList = new Dictionary<int, string>
+        {
+        {1, "/Resources/Cutscene1.json"},
+        {2, "/Resources/Cutscene2.json"}
         };
 
 
