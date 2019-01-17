@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class MovementManager {
     
@@ -76,7 +77,7 @@ public static class MovementManager {
                 }
             }
 
-            if (Board.pirateBoss.colPosition == character.colPosition && Board.pirateBoss.rowPosition == character.rowPosition - 1)
+            if (SceneManager.GetActiveScene().buildIndex == 2 && Board.pirateBoss.colPosition == character.colPosition && Board.pirateBoss.rowPosition == character.rowPosition - 1)
             {
                 inWay = true;
             }
@@ -143,7 +144,7 @@ public static class MovementManager {
                     //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
-            if (Board.pirateBoss.colPosition == character.colPosition + 1 && Board.pirateBoss.rowPosition == character.rowPosition)
+            if (SceneManager.GetActiveScene().buildIndex == 2 && Board.pirateBoss.colPosition == character.colPosition + 1 && Board.pirateBoss.rowPosition == character.rowPosition)
             {
                 inWay = true;
             }
@@ -211,7 +212,7 @@ public static class MovementManager {
                     //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
-            if (Board.pirateBoss.colPosition == character.colPosition && Board.pirateBoss.rowPosition == character.rowPosition + 1)
+            if (SceneManager.GetActiveScene().buildIndex == 2 && Board.pirateBoss.colPosition == character.colPosition && Board.pirateBoss.rowPosition == character.rowPosition + 1)
             {
                 inWay = true;
             }
@@ -278,7 +279,7 @@ public static class MovementManager {
                     //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
-            if (Board.pirateBoss.colPosition == character.colPosition - 1 && Board.pirateBoss.rowPosition == character.rowPosition)
+            if (SceneManager.GetActiveScene().buildIndex == 2 && Board.pirateBoss.colPosition == character.colPosition - 1 && Board.pirateBoss.rowPosition == character.rowPosition)
             {
                 inWay = true;
             }

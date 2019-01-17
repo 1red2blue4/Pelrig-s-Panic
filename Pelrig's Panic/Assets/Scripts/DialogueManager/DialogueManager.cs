@@ -16,8 +16,6 @@ public class DialogueManager : MonoBehaviour
     void Awake()
     {
         atlasManager = GetComponent<AtlasManager>();
-        
-
         panelManeger = GetComponent<PanelManager>();
 
         managerList.Add(atlasManager);

@@ -39,7 +39,7 @@ public class EndButtonToggle : MonoBehaviour
 
     public void LocalEnableEndTurn()
     {
-        if (!isEnable && !TextManager.playerControlsLocked)
+        if (!isEnable && !PanelManager.playerControlsLocked)
         {
             EndTurnButtonScript.isButtonPressed = true;
             isEnable = true;

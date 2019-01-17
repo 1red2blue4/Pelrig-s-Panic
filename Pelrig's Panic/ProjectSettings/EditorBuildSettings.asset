@@ -11,7 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FantasyWorldStartScene.unity
     guid: 58b528a462c735249909d3163ad5dad4
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/PirateShipUI.unity
     guid: 7c9791f781b736e42815526784134c33
+  - enabled: 1
+    path: Assets/Scenes/PirateShipUINad.unity
+    guid: 48c3cbce42dcedd4baf282c86a374a6c
   m_configObjects: {}
