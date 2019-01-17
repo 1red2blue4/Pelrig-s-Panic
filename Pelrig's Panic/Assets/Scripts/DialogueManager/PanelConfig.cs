@@ -5,22 +5,13 @@ using UnityEngine.UI;
 public class PanelConfig : MonoBehaviour
 {
     public bool isTalking;
-
     public Image characterImage;
-
     public Image TextBG;
-
     public Text characterName;
-
     public Text dialogue;
-
     private Color maskActiveColor = new Color(103.0f / 255.0f, 101.0f / 255.0f, 101.0f / 255.0f);
-
-
     public static bool isDialogueTextOver;
-
-    private int count = 1;
-
+    private int count = 1; 
     void Start()
     {
         isDialogueTextOver = false;
@@ -40,7 +31,6 @@ public class PanelConfig : MonoBehaviour
         }
     }
 
-
     public void Configure(Dialogue currentDialoue)
     {
         ToggleCharcterMask();
@@ -59,23 +49,28 @@ public class PanelConfig : MonoBehaviour
         }
     }
 
-
     IEnumerator AnimateText(string dialogueText)
     {
         dialogue.text = "";
-       // Debug.Log("Dialogue character length:       "+ dialogueText.Length);
-        foreach(char letter in dialogueText)
-           {            
+        foreach (char letter in dialogueText)
+        {
             dialogue.text += letter;
-            yield return new WaitForSeconds(0.05f);
-            isDialogueTextOver = true;
-            Debug.Log("Letter played:   " + letter);
+            yield return new WaitForSeconds(0.005f);
+
             count++;
-            Debug.Log("count:   " + count);
-            Debug.Log("dialogueText.Length:   " + dialogueText.Length);
             if (dialogueText.Length < count)
             {
-                Debug.Log("Conversation finsihed");
+                count = 1;
+                PanelManager.isPressed = true;
+            }
+            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) && dialogueText.Length < count)
+            {
+                Debug.Log("Count:       "+count);
+                Debug.Log("dialogueText:    "+dialogueText);
+                count = 1;
+                dialogue.text = dialogueText;
+                PanelManager.isPressed = true;
+                break;
             }
         }
     }

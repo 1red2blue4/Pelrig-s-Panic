@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: e5159fd9ebef6ee40a46e9196bd9971f
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: A Pompadour Sample
+  fontNames:
+  - A Pompadour Sample
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 839ab53839d60294ab1dfb3bc6ae7615, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
