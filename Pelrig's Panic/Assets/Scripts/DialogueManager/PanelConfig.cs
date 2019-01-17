@@ -11,37 +11,28 @@ public class PanelConfig : MonoBehaviour
     public Text dialogue;
     private Color maskActiveColor = new Color(103.0f / 255.0f, 101.0f / 255.0f, 101.0f / 255.0f);
     public static bool isDialogueTextOver;
-    private int count = 1; 
+    private int count = 1;
+    public Font[] characterFont;
     void Start()
     {
         isDialogueTextOver = false;
     }
 
-    public void ToggleCharcterMask()
+    public void Configure(Dialogue currentDialogue)
     {
-        if(isTalking)
-        {
-            characterImage.color = Color.white;
-            TextBG.color = Color.white;
-        }
-        else
-        {
-            characterImage.color = maskActiveColor;
-            TextBG.color = maskActiveColor;
-        }
-    }
+        characterImage.sprite = DialogueManager.atlasManager.loadSprite(currentDialogue.CharacterImage);
 
-    public void Configure(Dialogue currentDialoue)
-    {
-        ToggleCharcterMask();
+        characterName.text = currentDialogue.CharacterName;
 
-        characterImage.sprite = DialogueManager.atlasManager.loadSprite(currentDialoue.CharacterImage);
+        //dialogue.font = Resources.Load<Font>("Fonts/orang juice2.0") as Font;
 
-        characterName.text = currentDialoue.CharacterName;
-       
+        //Debug.Log("dialogue.font :      "+ currentDialogue.FontName);
+
+
+
         if (isTalking)
         {
-            StartCoroutine(AnimateText(currentDialoue.DialogueText));
+            StartCoroutine(AnimateText(currentDialogue.DialogueText));
         }
         else
         {
@@ -54,7 +45,9 @@ public class PanelConfig : MonoBehaviour
         dialogue.text = "";
         foreach (char letter in dialogueText)
         {
+            
             dialogue.text += letter;
+            
             yield return new WaitForSeconds(0.005f);
 
             count++;

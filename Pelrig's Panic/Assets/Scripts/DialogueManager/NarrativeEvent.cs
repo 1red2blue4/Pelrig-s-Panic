@@ -15,6 +15,7 @@ public struct Dialogue
     public string CharacterName;
     public string CharacterImage;
     public string DialogueText;
+    public string FontName;
 }
 
 public enum CharacterType

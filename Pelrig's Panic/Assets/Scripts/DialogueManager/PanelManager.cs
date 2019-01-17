@@ -83,7 +83,6 @@ public class PanelManager : MonoBehaviour, DialogueStateManager
     {
         if(CharacterActive)
         {
-            characterPanel.ToggleCharcterMask();
             characterPanel.Configure(currentEvent.dialogues[stepIndex]);
         }
         else
