@@ -21,6 +21,7 @@ public class PlayerControls : MonoBehaviour
     private bool cameraRotPress;
     private float cameraMovementBetween;
     private bool movingCamera;
+    public static GameObject abilitySelectedUnit;
     public static GameObject selectedUnit;
     public static int theOne;
     int roundCounter = 0;
@@ -553,6 +554,7 @@ public class PlayerControls : MonoBehaviour
                         {
                             theOne = i;
                             selectedUnit = Board.possibleMoveableChars[i].thePiece;
+                            abilitySelectedUnit = Board.possibleMoveableChars[i].thePiece;
 
                             selectedBase = selectedUnit;
                             //look for the image to rotate
