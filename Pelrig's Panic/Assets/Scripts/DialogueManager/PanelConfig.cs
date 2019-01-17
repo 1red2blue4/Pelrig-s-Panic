@@ -35,13 +35,13 @@ public class PanelConfig : MonoBehaviour
     {
         ToggleCharcterMask();
 
-        characterImage.sprite = DialogueManager.atlasManager.loadSprite(currentDialoue.atlasImageName);
+        characterImage.sprite = DialogueManager.atlasManager.loadSprite(currentDialoue.CharacterImage);
 
-        characterName.text = currentDialoue.name;
+        characterName.text = currentDialoue.CharacterName;
        
         if (isTalking)
         {
-            StartCoroutine(AnimateText(currentDialoue.dialogueText));
+            StartCoroutine(AnimateText(currentDialoue.DialogueText));
         }
         else
         {

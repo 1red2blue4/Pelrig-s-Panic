@@ -11,10 +11,10 @@ public class NarrativeEvent
 
 public struct Dialogue
 {
-    public CharacterType characterType;
-    public string name;
-    public string atlasImageName;
-    public string dialogueText;
+    public CharacterType Conversation;
+    public string CharacterName;
+    public string CharacterImage;
+    public string DialogueText;
 }
 
 public enum CharacterType

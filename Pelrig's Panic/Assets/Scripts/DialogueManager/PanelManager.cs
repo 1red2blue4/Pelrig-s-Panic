@@ -25,21 +25,16 @@ public class PanelManager : MonoBehaviour, DialogueStateManager
     }
     public void BootSequence()
     { 
-        characterPanel = GameObject.Find("CharacterPanel").GetComponent<PanelConfig>();
-        
-        
+        characterPanel = GameObject.Find("CharacterPanel").GetComponent<PanelConfig>();        
 
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            currentEvent = JSONAssembly.RunJSONFactoryForScene(1);
-           // Debug.Log("Fantasy world start cut scene");
+            currentEvent = JSONAssembly.RunJSONFactoryForScene(1); 
         }
-        if(SceneManager.GetActiveScene().buildIndex == 2)
+        if (SceneManager.GetActiveScene().buildIndex == 2)
         {
             currentEvent = JSONAssembly.RunJSONFactoryForScene(2);
-            //Debug.Log("Pirateship start cut scene");
         }
-
         InitiziliasePanels();
     }
 

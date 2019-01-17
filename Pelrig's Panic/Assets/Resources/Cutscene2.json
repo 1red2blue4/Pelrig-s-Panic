@@ -1,112 +1,112 @@
 {
 "dialogues":[
   {
-    "characterType": 0,
-    "name": "Hally",
-    "atlasImageName": "Hally",
-    "dialogueText": "Where…. Are we?"
+    "Conversation": 0,
+    "CharacterName": "Hally",
+    "CharacterImage": "Hally",
+    "DialogueText": "Where…. Are we?"
   },
   {
-    "characterType": 1,
-    "name": "Meda",
-    "atlasImageName": "Meda",
-    "dialogueText": "Aghh! Pirates!"
+    "Conversation": 1,
+    "CharacterName": "Meda",
+    "CharacterImage": "Meda",
+    "DialogueText": "Aghh! Pirates!"
   },
   {
-    "characterType": 2,
-    "name": "Kent",
-    "atlasImageName": "Kent",
-    "dialogueText": "What? You’re crazy Meda. There aren’t any pir--"
+    "Conversation": 2,
+    "CharacterName": "Kent",
+    "CharacterImage": "Kent",
+    "DialogueText": "What? You’re crazy Meda. There aren’t any pir--"
   },
   {
-    "characterType": 3,
-    "name": "Kent",
-    "atlasImageName": "Kent",
-    "dialogueText": "…!"
+    "Conversation": 3,
+    "CharacterName": "Kent",
+    "CharacterImage": "Kent",
+    "DialogueText": "…!"
   },
   {
-    "characterType": 4,
-    "name": "Kent",
-    "atlasImageName": "Kent",
-    "dialogueText": "Meda, there are pirates! Why didn’t you tell us before?"
+    "Conversation": 4,
+    "CharacterName": "Kent",
+    "CharacterImage": "Kent",
+    "DialogueText": "Meda, there are pirates! Why didn’t you tell us before?"
   },
   {
-    "characterType": 5,
-    "name": "Meda",
-    "atlasImageName": "Meda",
-    "dialogueText": "We’re on a pirate ship!! A plank on the port side, cannons on the starboard.There’s no doubt about it!"
+    "Conversation": 5,
+    "CharacterName": "Meda",
+    "CharacterImage": "Meda",
+    "DialogueText": "We’re on a pirate ship!! A plank on the port side, cannons on the starboard.There’s no doubt about it!"
   },
   {
-    "characterType": 6,
-    "name": "Hally",
-    "atlasImageName": "Hally",
-    "dialogueText": "Star…. Board?"
+    "Conversation": 6,
+    "CharacterName": "Hally",
+    "CharacterImage": "Hally",
+    "DialogueText": "Star…. Board?"
   },
   {
-    "characterType": 7,
-    "name": "Meda",
-    "atlasImageName": "Meda",
-    "dialogueText": "*sigh* The right side of the ship. What are we going to do?"
+    "Conversation": 7,
+    "CharacterName": "Meda",
+    "CharacterImage": "Meda",
+    "DialogueText": "*sigh* The right side of the ship. What are we going to do?"
   },
   {
-    "characterType": 8,
-    "name": "Kent",
-    "atlasImageName": "Kent",
-    "dialogueText": "Awww! Looks like the babies are playing their baby games again. Heh… I suppose I’ll play along with your “Pirate Ship.”"
+    "Conversation": 8,
+    "CharacterName": "Kent",
+    "CharacterImage": "Kent",
+    "DialogueText": "Awww! Looks like the babies are playing their baby games again. Heh… I suppose I’ll play along with your “Pirate Ship.”"
   },
   {
-    "characterType": 9,
-    "name": "Jade",
-    "atlasImageName": "Jade",
-    "dialogueText": "Well, I’m excited to fight some pirates!"
+    "Conversation": 9,
+    "CharacterName": "Jade",
+    "CharacterImage": "Jade",
+    "DialogueText": "Well, I’m excited to fight some pirates!"
   },
   {
-    "characterType": 10,
-    "name": "Meda",
-    "atlasImageName": "Meda",
-    "dialogueText": "All I know is that this means we’re somewhere in the Caribbean sea."
+    "Conversation": 10,
+    "CharacterName": "Meda",
+    "CharacterImage": "Meda",
+    "DialogueText": "All I know is that this means we’re somewhere in the Caribbean sea."
   },
   {
-    "characterType": 11,
-    "name": "Kent",
-    "atlasImageName": "Kent",
-    "dialogueText": "And how exactly would you know that?"
+    "Conversation": 11,
+    "CharacterName": "Kent",
+    "CharacterImage": "Kent",
+    "DialogueText": "And how exactly would you know that?"
   },
   {
-    "characterType": 12,
-    "name": "Meda",
-    "atlasImageName": "Meda",
-    "dialogueText": "Because when you are busy being a jerk to Ed, I read. And one of my books was about the seven seas."
+    "Conversation": 12,
+    "CharacterName": "Meda",
+    "CharacterImage": "Meda",
+    "DialogueText": "Because when you are busy being a jerk to Ed, I read. And one of my books was about the seven seas."
   },
   {
-    "characterType": 13,
-    "name": "Kent",
-    "atlasImageName": "Kent",
-    "dialogueText": "…"
+    "Conversation": 13,
+    "CharacterName": "Kent",
+    "CharacterImage": "Kent",
+    "DialogueText": "…"
   },
   {
-    "characterType": 14,
-    "name": "Ed",
-    "atlasImageName": "Ed",
-    "dialogueText": "Meda is right. We are on a pirate ship."
+    "Conversation": 14,
+    "CharacterName": "Ed",
+    "CharacterImage": "Ed",
+    "DialogueText": "Meda is right. We are on a pirate ship."
   },
   {
-    "characterType": 15,
-    "name": "Kent",
-    "atlasImageName": "Kent",
-    "dialogueText": "Well well well! Look who decided to speak up. So, how about that lunch money?"
+    "Conversation": 15,
+    "CharacterName": "Kent",
+    "CharacterImage": "Kent",
+    "DialogueText": "Well well well! Look who decided to speak up. So, how about that lunch money?"
   },
   {
-    "characterType": 16,
-    "name": "Jade",
-    "atlasImageName": "Jade",
-    "dialogueText": "Hush Kent. Now’s not the time. Ed, how do you know all this is real?"
+    "Conversation": 16,
+    "CharacterName": "Jade",
+    "CharacterImage": "Jade",
+    "DialogueText": "Hush Kent. Now’s not the time. Ed, how do you know all this is real?"
   },
   {
-    "characterType": 17,
-    "name": "Ed",
-    "atlasImageName": "Ed",
-    "dialogueText": "See for yourselves."
+    "Conversation": 17,
+    "CharacterName": "Ed",
+    "CharacterImage": "Ed",
+    "DialogueText": "See for yourselves."
   }
 ]
 }
