@@ -33,8 +33,6 @@ public class PanelManager : MonoBehaviour, DialogueStateManager
 
     void Update()
     {
-        
-        // Debug.Log("countDialogueLength  :       " + countDialogueLength);
         if (Input.GetMouseButtonDown(0) && isPressed == true)
         {
             isPressed = false; 
@@ -42,13 +40,10 @@ public class PanelManager : MonoBehaviour, DialogueStateManager
             {               
                 UpdatePanelState(); 
             }
-            Debug.Log("countDialogueLength  :       "+ countDialogueLength);
-            BootSequence();      
-            
+            BootSequence();                
         }
         if (countDialogueLength >= 18)
         {
-            Debug.Log("Enter here");
             dialoguePanel.SetActive(false);
         }
         if (SceneManager.GetActiveScene().buildIndex == 1 && (Input.GetKey(KeyCode.P) || countDialogueLength >= 16))
@@ -75,22 +70,7 @@ public class PanelManager : MonoBehaviour, DialogueStateManager
         countDialogueLength++;
         characterPanel.Configure(currentEvent.dialogues[stepIndex]);
         CharacterActive = !CharacterActive;
-       // Debug.Log("currentEvent.dialogues[stepIndex]:   " + currentEvent.dialogues[stepIndex]);
-       /* if (currentCharacter < textSets[currentTextSet].Length)
-        {
-            //currentCharacter = textSets[currentTextSet].Length - 1;
-            // This is for automatic dialogue box appears in the interval 0f 10secs.
-            //if (endConversation)
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
-            {
-                currentCharacter = textSets[currentTextSet].Length - 1;
-                wentToEndOfText = true;
-                //endConversation = false;               
-            }
-        }*/
     }
-
-
     private void ConfigurePanels()
     {
         if(CharacterActive)
@@ -103,7 +83,6 @@ public class PanelManager : MonoBehaviour, DialogueStateManager
             
         }
     }
-
     void UpdatePanelState()
     {
         if(stepIndex < currentEvent.dialogues.Count)
@@ -112,8 +91,7 @@ public class PanelManager : MonoBehaviour, DialogueStateManager
 
             CharacterActive = !CharacterActive;
 
-            stepIndex++;
-             
+            stepIndex++;             
         }
         else
         {

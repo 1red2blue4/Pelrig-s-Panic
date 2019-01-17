@@ -65,8 +65,6 @@ public class PanelConfig : MonoBehaviour
             }
             if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) && dialogueText.Length < count)
             {
-                Debug.Log("Count:       "+count);
-                Debug.Log("dialogueText:    "+dialogueText);
                 count = 1;
                 dialogue.text = dialogueText;
                 PanelManager.isPressed = true;
