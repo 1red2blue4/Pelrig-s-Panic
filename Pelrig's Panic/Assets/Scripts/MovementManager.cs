@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class MovementManager {
     
@@ -76,13 +77,14 @@ public static class MovementManager {
                 }
             }
 
-            if (Board.pirateBoss.colPosition == character.colPosition && Board.pirateBoss.rowPosition == character.rowPosition - 1)
+            if (SceneManager.GetActiveScene().buildIndex == 2 && Board.pirateBoss.colPosition == character.colPosition && Board.pirateBoss.rowPosition == character.rowPosition - 1)
             {
                 inWay = true;
             }
 
             if (!inWay && ExperimentalResources.ModifyResource(cost))
-            {                
+            {
+                //Debug.Log("Up direction");
                 character.SetRowAndCol(character.rowPosition - 1, character.colPosition);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + character.colPosition).transform.position;
                 PlayerControls.UnoccupiedSpaceEnable(character);
@@ -142,13 +144,14 @@ public static class MovementManager {
                     //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
-            if (Board.pirateBoss.colPosition == character.colPosition + 1 && Board.pirateBoss.rowPosition == character.rowPosition)
+            if (SceneManager.GetActiveScene().buildIndex == 2 && Board.pirateBoss.colPosition == character.colPosition + 1 && Board.pirateBoss.rowPosition == character.rowPosition)
             {
                 inWay = true;
             }
 
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
+                //Debug.Log("Right direction");
                 character.SetRowAndCol(character.rowPosition, character.colPosition + 1);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 PlayerControls.UnoccupiedSpaceEnable(character);
@@ -209,13 +212,14 @@ public static class MovementManager {
                     //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
-            if (Board.pirateBoss.colPosition == character.colPosition && Board.pirateBoss.rowPosition == character.rowPosition + 1)
+            if (SceneManager.GetActiveScene().buildIndex == 2 && Board.pirateBoss.colPosition == character.colPosition && Board.pirateBoss.rowPosition == character.rowPosition + 1)
             {
                 inWay = true;
             }
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
-               // PlayerControls.isDown = false;
+                //Debug.Log("Down direction");
+                // PlayerControls.isDown = false;
                 character.SetRowAndCol(character.rowPosition + 1, character.colPosition);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 PlayerControls.UnoccupiedSpaceEnable(character);
@@ -275,12 +279,13 @@ public static class MovementManager {
                     //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
-            if (Board.pirateBoss.colPosition == character.colPosition - 1 && Board.pirateBoss.rowPosition == character.rowPosition)
+            if (SceneManager.GetActiveScene().buildIndex == 2 && Board.pirateBoss.colPosition == character.colPosition - 1 && Board.pirateBoss.rowPosition == character.rowPosition)
             {
                 inWay = true;
             }
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
+              //  Debug.Log("Left direction");
                 character.SetRowAndCol(character.rowPosition, character.colPosition - 1);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 PlayerControls.UnoccupiedSpaceEnable(character);

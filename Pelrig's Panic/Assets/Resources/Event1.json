@@ -2,120 +2,102 @@
 "dialogues":[
   {
     "characterType": 0,
-    "name": "Ed",
-    "atlasImageName": "Ed",
-    "dialogueText": "I wonder where we are…"
+    "name": "Hally",
+    "atlasImageName": "Hally",
+    "dialogueText": "Oh look! We're on a Pirate Ship! Can I be the captain?"
   },
   {
     "characterType": 1,
-    "name": "Hally",
-    "atlasImageName": "Hally",
-    "dialogueText": "Oh look! A Pirate Ship!"
-  },
-  {
-    "characterType": 2,
-    "name": "Kent",
-    "atlasImageName": "Kent",
-    "dialogueText": "Wha- pirates? What are you talking about now, Hally?"
-  },
-  {
-    "characterType": 3,
     "name": "Jade",
     "atlasImageName": "Jade",
     "dialogueText": "Pirates!? I wanna fight pirates! Lemme at ‘em!"
   },
   {
-    "characterType": 4,
+    "characterType": 2,
     "name": "Meda",
     "atlasImageName": "Meda",
-    "dialogueText": "(laughs gently) That could be fun.I read some books about the Caribbean Sea and how pirates have caused problems in the past. Perhaps we could fight them off and save the sea!How do we defeat them though?"
+    "dialogueText": "That could be interesting. I read about how pirates have caused troubles in the past. Perhaps we could fight them off and save the sea!"
+  },
+  {
+    "characterType": 3,
+    "name": "Meda",
+    "atlasImageName": "Meda",
+    "dialogueText": "How do we defeat them most effectively though?"
+  },
+  {
+    "characterType": 4,
+    "name": "Jade",
+    "atlasImageName": "Jade",
+    "dialogueText": "We attack them! We surround them!"
   },
   {
     "characterType": 5,
-    "name": "Ed",
-    "atlasImageName": "Ed",
-    "dialogueText": "...We can Surround them."
+    "name": "Meda",
+    "atlasImageName": "Meda",
+    "dialogueText": "Excellent idea! If three of us surround one of them, they will be much weaker. Looks like there are some canons and generators to help us fight them too."
   },
   {
     "characterType": 6,
-    "name": "Kent",
-    "atlasImageName": "Kent",
-    "dialogueText": "Heh, you don’t talk much, but you have some good ideas, Ed."
-  },
-  {
-    "characterType": 7,
-    "name": "Meda",
-    "atlasImageName": "Meda",
-    "dialogueText": "Awesome! Looks like there are some canons and generators to help us fight them too."
-  },
-  {
-    "characterType": 8,
     "name": "Jade",
     "atlasImageName": "Jade",
     "dialogueText": "Canons! Now we’re talking!"
   },
   {
-    "characterType": 9,
+    "characterType": 7,
     "name": "Hally",
     "atlasImageName": "Hally",
-    "dialogueText": "I see the captain of the ship! His beard is on fire! He looks like a meanie. (giggles)"
+    "dialogueText": "I see the captain of the ship! His beard is on fire! He looks like a meanie!"
   },
   {
-    "characterType": 10,
+    "characterType": 8,
     "name": "Meda",
     "atlasImageName": "Meda",
     "dialogueText": "That’s Blackbeard."
   },
   {
-    "characterType": 11,
-    "name": "Jade",
-    "atlasImageName": "Jade",
-    "dialogueText": " He looks tough. I’m gonna defeat him all by myself!"
-  },
-  {
-    "characterType": 12,
+    "characterType": 9,
     "name": "Hally",
     "atlasImageName": "Hally",
-    "dialogueText": "(giggles) You can’t surround someone by yourself, Jade. I really want to be captain of the ship"
+    "dialogueText": "I still want to be captain of the ship."
   },
   {
-    "characterType": 13,
+    "characterType": 10,
     "name": "Ed",
-    "atlasImageName": "Ed",
-    "dialogueText": "...Maybe, stand next to the Wheel."
+    "atlasImageName": "Kent",
+    "dialogueText": "Stand next to the wheel and you could pretend you are... I guess."
   },
   {
-    "characterType": 14,
+    "characterType": 11,
     "name": "Hally",
     "atlasImageName": "Hally",
     "dialogueText": "Yay! Then I can sail it to outer space!"
   },
   {
-    "characterType": 15,
+    "characterType": 12,
     "name": "Meda",
     "atlasImageName": "Meda",
-    "dialogueText": "Is everybody ready?"
+    "dialogueText": "Is everybody ready? Let's get to the bow of the ship!"
   },
   {
-    "characterType": 16,
+    "characterType": 13,
     "name": "Ed",
     "atlasImageName": "Ed",
     "dialogueText": "…"
   },
   {
-    "characterType": 17,
+    "characterType": 14,
     "name": "Jade",
     "atlasImageName": "Jade",
-    "dialogueText": " I’ll race you to the ship!"
+    "dialogueText": " I’ll race you to the front of the ship!"
   },
   {
-    "characterType": 18,
+    "characterType": 15,
     "name": "Hally",
     "atlasImageName": "Hally",
     "dialogueText": "...and make a lot of alien friends..."
   },
   {
-    "characterType": 19,
+    "characterType": 16,
     "name": "Kent",
     "atlasImageName": "Kent",
     "dialogueText": "Heh, this is silly. But I guess it could be fun. Let’s GO!"

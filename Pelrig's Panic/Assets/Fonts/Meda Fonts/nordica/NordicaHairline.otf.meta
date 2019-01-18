@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: bbf7389bba0bdac478b8bd729892b11e
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Nordica
+  fontNames:
+  - Nordica
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 2cb9481061529574a9179289ac2f1d2d, type: 3}
+  - {fileID: 12800000, guid: 7d68a9d86eaf0ee4798c2eb48ac8ef94, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -113,17 +113,15 @@ public static class TextManager {
             }*/
         }
         //TODO: organize buildIndex documentation
-        if (SceneManager.GetActiveScene().buildIndex == 3 && (Input.GetKey(KeyCode.P) || countDialogueLength >= 18))
+        if (SceneManager.GetActiveScene().buildIndex == 1 && (Input.GetKey(KeyCode.P) || countDialogueLength >= 18))
         {
+            Debug.Log("Textmanagers script is loaded");
             countDialogueLength = 0;
             playerControlsLocked = true;
-            SceneManager.LoadScene("PirateShipUI");
+            SceneManager.LoadScene("PirateShipUINad");
         }
-        Debug.Log(playerControlsLocked);
-        Debug.Log(SceneManager.GetActiveScene().buildIndex);
-        if (SceneManager.GetActiveScene().buildIndex == 4 && countDialogueLength < 9)
-        {
-            Debug.Log("Controls should be locked!");
+        if (SceneManager.GetActiveScene().buildIndex == 2 && countDialogueLength < 9)
+        { 
             playerControlsLocked = true;
         }
         else

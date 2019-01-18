@@ -26,7 +26,8 @@ GameObject:
   - component: {fileID: 114631356412396332}
   - component: {fileID: 114350409428396070}
   - component: {fileID: 114522333533611592}
-  m_Layer: 0
+  - component: {fileID: 114583979770667266}
+  m_Layer: 9
   m_Name: '#Pirate_Captain'
   m_TagString: PirateBoss
   m_Icon: {fileID: 0}
@@ -44,7 +45,7 @@ GameObject:
   - component: {fileID: 23244998542019996}
   - component: {fileID: 102133676880972512}
   - component: {fileID: 114399699199793386}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Value
   m_TagString: Presence
   m_Icon: {fileID: 0}
@@ -62,7 +63,7 @@ GameObject:
   - component: {fileID: 23173973273883674}
   - component: {fileID: 102711501736299518}
   - component: {fileID: 114866007449440352}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Value
   m_TagString: Resist
   m_Icon: {fileID: 0}
@@ -78,7 +79,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4647657188452828}
   - component: {fileID: 114211235391938312}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GridRotater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +95,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4430064132968326}
   - component: {fileID: 212267192747034162}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: EnemyUI_Presence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4176133193451276}
   - component: {fileID: 212082371290022500}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: EnemyUI_Resist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +128,7 @@ GameObject:
   - component: {fileID: 4636372988984184}
   - component: {fileID: 212459477593566118}
   - component: {fileID: 114906465727337962}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pirate Captain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +146,7 @@ GameObject:
   - component: {fileID: 33619991238010308}
   - component: {fileID: 23035040082014478}
   - component: {fileID: 136959680557231354}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,8 +160,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1517314737506494}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 0.6, y: 0, z: -1.5}
-  m_LocalScale: {x: 0.4, y: 0.40000024, z: 0.40000024}
+  m_LocalPosition: {x: -0.6, y: 0, z: -1.5}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children:
   - {fileID: 4258163306882406}
   m_Father: {fileID: 4647657188452828}
@@ -189,7 +190,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1327967462865806}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.02, y: -1.16, z: -0.10000001}
+  m_LocalPosition: {x: -0.02, y: -0.4, z: -0.10000001}
   m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
   m_Children: []
   m_Father: {fileID: 4176133193451276}
@@ -202,8 +203,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1445835187418588}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: -0.6, y: 0, z: -1.5}
-  m_LocalScale: {x: 0.4, y: 0.40000024, z: 0.40000024}
+  m_LocalPosition: {x: 0.6, y: 0, z: -1.5}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children:
   - {fileID: 4446987348908440}
   m_Father: {fileID: 4647657188452828}
@@ -216,7 +217,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1181089732719746}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.02, y: -1.16, z: -0.1}
+  m_LocalPosition: {x: -0.02, y: -0.4, z: -0.1}
   m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
   m_Children: []
   m_Father: {fileID: 4430064132968326}
@@ -438,18 +439,18 @@ TextMesh:
   m_GameObject: {fileID: 1181089732719746}
   m_Text: Test
   m_OffsetZ: 0
-  m_CharacterSize: 1
+  m_CharacterSize: 3
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
   m_TabSize: 4
-  m_FontSize: 200
+  m_FontSize: 500
   m_FontStyle: 1
   m_RichText: 1
   m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4294967295
 --- !u!102 &102711501736299518
 TextMesh:
   serializedVersion: 3
@@ -459,18 +460,18 @@ TextMesh:
   m_GameObject: {fileID: 1327967462865806}
   m_Text: Test
   m_OffsetZ: 0
-  m_CharacterSize: 1
+  m_CharacterSize: 3
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
   m_TabSize: 4
-  m_FontSize: 200
+  m_FontSize: 500
   m_FontStyle: 1
   m_RichText: 1
   m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4294967295
 --- !u!114 &114211235391938312
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -500,6 +501,8 @@ MonoBehaviour:
   isTurnActive: 0
   presenceObj: {fileID: 1181089732719746}
   resistanceObj: {fileID: 1327967462865806}
+  stats: {fileID: 0}
+  mouseTarget: {fileID: 2800000, guid: 98bad250e8887ac4688bbd00e4bbb89d, type: 3}
 --- !u!114 &114399699199793386
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -529,6 +532,20 @@ MonoBehaviour:
   objToBubbleResist: {fileID: 1517314737506494}
   bubblesUpOnAction: 1
   valueChanged: 0
+--- !u!114 &114583979770667266
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1177191238569498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbaf077f31704f740a16da574dcd7d0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 12
+  damage: 3
+  canAttack: 0
 --- !u!114 &114595948062343702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -548,6 +565,8 @@ MonoBehaviour:
   resistanceValue: 0
   initialPresenceValue: 1
   initialResistanceValue: 3
+  health: 0
+  attack: 0
   thePiece: {fileID: 1177191238569498}
 --- !u!114 &114631356412396332
 MonoBehaviour:
@@ -640,7 +659,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 2b19416e0f3f8944d92be5da1f159f63, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e40994ddd549a0b4f8242b3d52a13c7e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -686,7 +705,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: b8051ec49a3939644a0c6610f793d4ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: de0c91c12bf80ed4191b3af1ca1f2b19, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

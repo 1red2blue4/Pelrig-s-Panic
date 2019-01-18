@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Generator : MonoBehaviour
 {
-    bool isOn  = false;
+    bool isOn = false;
     public Piece generator;
     [SerializeField] private GameObject[] onImages;
     [SerializeField] private GameObject offImage;
@@ -14,10 +14,11 @@ public class Generator : MonoBehaviour
     private int numCharsToSurround;
     Text generatorPopupText;
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         generator = GetComponent<Piece>();
         numCharsToSurround = 3;
+        
         //generatorPopupText = textHolder.GetComponent<TextMesh>;
         //gameObject.GetComponent<TextMesh>().text = null;
 
@@ -37,21 +38,21 @@ public class Generator : MonoBehaviour
         int playersAround = 0;
         foreach (var playerObjects in Board.possibleMoveableChars)
         {
-            if (playerObjects.rowPosition <= generator.rowPosition + 1 && 
+            if (playerObjects.rowPosition <= generator.rowPosition + 1 &&
                 playerObjects.rowPosition >= generator.rowPosition - 1 &&
-                playerObjects.colPosition <= generator.colPosition + 1 && 
+                playerObjects.colPosition <= generator.colPosition + 1 &&
                 playerObjects.colPosition >= generator.colPosition - 1)
             {
                 playersAround++;
-               
+
             }
         }
 
         //generatorPopupText.text = "Temp:" + displayNumber;
         //gameObject.GetComponent<TextMesh>().text = displayNumber.ToString();
-       // var displayNumber = 3 - playersAround;
+        // var displayNumber = 3 - playersAround;
 
-        if (playersAround >= 1 && playersAround < numCharsToSurround)
+        if (playersAround >= 0 && playersAround < numCharsToSurround)
         {
             uiImage.SetActive(true);
             if (uiImage.transform.GetChild(0) != null && uiImage.transform.GetChild(0).GetComponent<TextMesh>() != null)
@@ -64,13 +65,12 @@ public class Generator : MonoBehaviour
         {
             uiImage.SetActive(false);
         }
-       
+
 
 
         if (playersAround >= numCharsToSurround)
         {
             ExperimentalResources.generatorsActive++;
-            int temp = ExperimentalResources.generatorsActive++;
             for (int i = 0; i < onImages.Length; i++)
             {
                 onImages[i].SetActive(true);

@@ -13,6 +13,9 @@ public class Piece : MonoBehaviour
     public int resistanceValue;
     public int initialPresenceValue;
     public int initialResistanceValue;
+    public int health;
+    public int attack;
+
     private PieceType type;
     [SerializeField] public GameObject thePiece;
     float timer = 0.0f;
@@ -21,6 +24,11 @@ public class Piece : MonoBehaviour
     {
         presenceValue = initialPresenceValue;
         resistanceValue = initialResistanceValue;
+    }
+
+    public void TakeDamage(int hit)
+    {
+
     }
 
     public void SetRowAndCol(int row, int col)
@@ -46,33 +54,6 @@ public class Piece : MonoBehaviour
 
     private void Update()
     {
-        if (transform.tag == "Player")
-        {
-            bool isColumnRight = false;
-            bool isRowRight = false;
-            for (int i = 7; i < 10; i++)
-            {
-                if (rowPosition == i)
-                    isRowRight = true;
-            }
-            for (int i = 3; i < 7; i++)
-            {
-                if (colPosition == i)
-                    isColumnRight = true;
-            }
 
-            if (isColumnRight && isRowRight)
-            {
-                timer += Time.deltaTime;
-                if (timer >= 30.0f)
-                {
-                    GameObject.Find("WinScreen").GetComponentInChildren<YouWin>().youWon = true;
-                }
-            }
-            else
-            {
-                timer = 0.0f;
-            }
-        }
     }
 }

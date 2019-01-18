@@ -7,7 +7,7 @@ public class GridPositioner : MonoBehaviour {
     public Vector3 startPos;
     public float difference;
     public float speed;
-    public GameObject mainCamera;
+    [SerializeField] public GameObject mainCamera;
 
     public void CheckWhatsBeneath()
     {

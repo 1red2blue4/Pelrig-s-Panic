@@ -26,7 +26,8 @@ GameObject:
   - component: {fileID: 114736645835019562}
   - component: {fileID: 114076583329912802}
   - component: {fileID: 114984084154924024}
-  m_Layer: 0
+  - component: {fileID: 114226140492780138}
+  m_Layer: 9
   m_Name: '#Pirate_Crew'
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -42,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4233151753110470}
   - component: {fileID: 212947661469635534}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: EnemyUI_Presence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +59,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4279635986432890}
   - component: {fileID: 212561856497206498}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: EnemyUI_Resist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +75,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4156610778925950}
   - component: {fileID: 114382239792649188}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GridRotater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +92,7 @@ GameObject:
   - component: {fileID: 4841692776942334}
   - component: {fileID: 212433389234409134}
   - component: {fileID: 114139862181361960}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pirate Crew
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +110,7 @@ GameObject:
   - component: {fileID: 23116984816897058}
   - component: {fileID: 102639950482770328}
   - component: {fileID: 114539802489224718}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Value
   m_TagString: Presence
   m_Icon: {fileID: 0}
@@ -127,7 +128,7 @@ GameObject:
   - component: {fileID: 33311683659046690}
   - component: {fileID: 23275873018990814}
   - component: {fileID: 136546542106618600}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +146,7 @@ GameObject:
   - component: {fileID: 23063992051689548}
   - component: {fileID: 102495451176927698}
   - component: {fileID: 114683196758997568}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Value
   m_TagString: Resist
   m_Icon: {fileID: 0}
@@ -174,8 +175,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1149869578562094}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: -0.6, y: 0, z: -1.5}
-  m_LocalScale: {x: 0.4, y: 0.40000024, z: 0.40000024}
+  m_LocalPosition: {x: 0.6, y: 0, z: -1.5}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children:
   - {fileID: 4406308278732470}
   m_Father: {fileID: 4156610778925950}
@@ -188,8 +189,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1236825801563786}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 0.6, y: 0, z: -1.5}
-  m_LocalScale: {x: 0.4, y: 0.40000024, z: 0.40000024}
+  m_LocalPosition: {x: -0.6, y: 0, z: -1.5}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children:
   - {fileID: 4980381792115218}
   m_Father: {fileID: 4156610778925950}
@@ -202,7 +203,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1590191265046264}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.02, y: -1.16, z: -0.1}
+  m_LocalPosition: {x: -0.02, y: -0.4, z: -0.1}
   m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
   m_Children: []
   m_Father: {fileID: 4233151753110470}
@@ -257,7 +258,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1978429140124236}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.02, y: -1.16, z: -0.10000001}
+  m_LocalPosition: {x: -0.02, y: -0.4, z: -0.10000001}
   m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
   m_Children: []
   m_Father: {fileID: 4279635986432890}
@@ -438,18 +439,18 @@ TextMesh:
   m_GameObject: {fileID: 1978429140124236}
   m_Text: Test
   m_OffsetZ: 0
-  m_CharacterSize: 1
+  m_CharacterSize: 3
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
   m_TabSize: 4
-  m_FontSize: 200
+  m_FontSize: 500
   m_FontStyle: 1
   m_RichText: 1
   m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4294967295
 --- !u!102 &102639950482770328
 TextMesh:
   serializedVersion: 3
@@ -459,18 +460,18 @@ TextMesh:
   m_GameObject: {fileID: 1590191265046264}
   m_Text: Test
   m_OffsetZ: 0
-  m_CharacterSize: 1
+  m_CharacterSize: 3
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
   m_TabSize: 4
-  m_FontSize: 200
+  m_FontSize: 500
   m_FontStyle: 1
   m_RichText: 1
   m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4294967295
 --- !u!114 &114076583329912802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -520,7 +521,23 @@ MonoBehaviour:
   resistanceValue: 0
   initialPresenceValue: 2
   initialResistanceValue: 4
+  health: 0
+  attack: 0
   thePiece: {fileID: 1005522361513020}
+--- !u!114 &114226140492780138
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1005522361513020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbaf077f31704f740a16da574dcd7d0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 6
+  damage: 2
+  canAttack: 0
 --- !u!114 &114382239792649188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -576,6 +593,9 @@ MonoBehaviour:
   isTurnActive: 0
   presenceObj: {fileID: 1590191265046264}
   resistanceObj: {fileID: 1978429140124236}
+  stats: {fileID: 0}
+  cursorChanged: 0
+  mouseTarget: {fileID: 2800000, guid: 98bad250e8887ac4688bbd00e4bbb89d, type: 3}
 --- !u!114 &114984084154924024
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -686,7 +706,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 2b19416e0f3f8944d92be5da1f159f63, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e40994ddd549a0b4f8242b3d52a13c7e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -732,7 +752,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: b8051ec49a3939644a0c6610f793d4ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: de0c91c12bf80ed4191b3af1ca1f2b19, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

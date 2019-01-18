@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 136731682684400072}
   - component: {fileID: 114998191945290220}
   - component: {fileID: 114585698612063230}
+  - component: {fileID: 114568373457942962}
   m_Layer: 0
   m_Name: '#Hally_Fantasy_Realm_temp 1'
   m_TagString: Player
@@ -224,7 +225,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1103372154033702}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.513, y: 2.383, z: 0}
+  m_LocalPosition: {x: 0.75, y: 2.383, z: 0}
   m_LocalScale: {x: 0.14652, y: 0.14652, z: 0.14652}
   m_Children:
   - {fileID: 4545191334074960}
@@ -266,7 +267,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1099632027117354}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.91, y: -3.29, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4377800052193984}
@@ -283,7 +284,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1539324171489462}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.82, y: 2.383, z: 0}
+  m_LocalPosition: {x: -0.513, y: 2.383, z: 0}
   m_LocalScale: {x: 0.14652, y: 0.14652, z: 0.14652}
   m_Children:
   - {fileID: 4217887088823792}
@@ -472,6 +473,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialValue: 4
   gridPositioner: {fileID: 0}
+--- !u!114 &114568373457942962
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1099632027117354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbaf077f31704f740a16da574dcd7d0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 8
+  damage: 2
+  canAttack: 0
 --- !u!114 &114585698612063230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -604,7 +619,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: de0c91c12bf80ed4191b3af1ca1f2b19, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e40994ddd549a0b4f8242b3d52a13c7e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -742,7 +757,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: e40994ddd549a0b4f8242b3d52a13c7e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: de0c91c12bf80ed4191b3af1ca1f2b19, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

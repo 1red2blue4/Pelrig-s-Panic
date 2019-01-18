@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerControls : MonoBehaviour
 {
@@ -10,20 +11,29 @@ public class PlayerControls : MonoBehaviour
     private float cameraScrollSpeed;
     [SerializeField] private float cameraMaxZoom;
     [SerializeField] private float cameraMinZoom;
+    [SerializeField] private Transform WindSprite;
     private GameObject columnHighlight;
     //0: bottom left; 1: straight on; 2: bottom right
+    private int turnCount;
     private int cameraRotPosition;
     private int prevCameraRotPosition;
     private int numCameraRotPositions;
     private bool cameraRotPress;
     private float cameraMovementBetween;
     private bool movingCamera;
-    GameObject selectedUnit;
-    int theOne;
+    public static GameObject selectedUnit;
+    public static int theOne;
     int roundCounter = 0;
 
     private float cameraChangeVertical;
     private float cameraChangeHorizontal;
+    private float[] xLowerLimit = {-10.0f, -10.0f, -10.0f, -65.0f };
+    private float[] xHigherLimit = { 10.0f, 10.0f, 10.0f, -45.0f };
+    private float[] yLowerLimit = { -55.0f, -55.0f, -5.0f, -55.0f };
+    private float[] yHigherLimit = { -45.0f, -45.0f, 5.0f, -35.0f };
+    private float[] zSetView = { -50.0f, -50.0f, -70.0f, -40.0f };
+
+    private float cameraLimit = 20.0f;
 
     public static int[] moveValues;
 
@@ -33,9 +43,11 @@ public class PlayerControls : MonoBehaviour
 
     GameObject panelUnderCharacter;
 
+
     public static bool isWalk;
     void Start()
-    {        
+    {
+        turnCount = 1;
         cameraChangeHorizontal = 0.0f;
         cameraChangeVertical = 0.0f;
         movingCamera = false;
@@ -64,7 +76,77 @@ public class PlayerControls : MonoBehaviour
 
     public void GiveNumbers()
     {
-        //Left - 0, up - 1, right - 2, down - 3
+        //Left - 0, up - 1, right - 2, down - 3 (Also wind direction)
+
+        int windDirection = 4; //Default no wind
+
+        //First 2 turns no wind
+        if (turnCount == 2)
+        {
+            //Wind always agains you in the 3rd round
+            windDirection = 0;
+        }
+        else if(turnCount > 2)
+        { 
+            //Wind becomes random after round 3
+            //I could be wrong, but The 0 - 16 range and then divide by 4 makes it more evenly distributed
+            windDirection = (int)(Random.Range(0.0f, 20.00f) / 4);
+        }
+
+        if (windDirection == 0) //left
+        {
+            moveValues[0] = 2; //left
+            moveValues[1] = 3; //up
+            moveValues[2] = 4; //right
+            moveValues[3] = 3; //down
+
+            WindSprite.gameObject.SetActive(true);
+            WindSprite.rotation = Quaternion.Euler(0, 0, 180);
+        }
+        else if (windDirection == 1) //up
+        {
+            moveValues[0] = 3; //left
+            moveValues[1] = 2; //up
+            moveValues[2] = 3; //right
+            moveValues[3] = 4; //down
+
+            WindSprite.gameObject.SetActive(true);
+            WindSprite.rotation = Quaternion.Euler(0, 0, 90);
+        }
+        else if (windDirection == 2) //right
+        {
+            moveValues[0] = 4; //left
+            moveValues[1] = 3; //up
+            moveValues[2] = 2; //right
+            moveValues[3] = 3; //down
+
+            WindSprite.gameObject.SetActive(true);
+            WindSprite.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (windDirection == 3) //down
+        {
+            moveValues[0] = 3; //left
+            moveValues[1] = 4; //up
+            moveValues[2] = 3; //right
+            moveValues[3] = 2; //down
+
+            WindSprite.gameObject.SetActive(true);
+            WindSprite.rotation = Quaternion.Euler(0, 0, -90);
+        }
+        else if (windDirection == 4) //No wind
+        {
+            moveValues[0] = 3; //left
+            moveValues[1] = 3; //up
+            moveValues[2] = 3; //right
+            moveValues[3] = 3; //down
+
+            WindSprite.gameObject.SetActive(false);
+            WindSprite.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        //Debug.Log("Turn Count:   " + turnCount);
+        //Debug.Log("Wind Dir:   " + windDirection);
+
+        /* Old mechanic
         for (int i = 0; i < 4; i++)
         {
             int randomNumber = (int)Random.Range(0.0f, 13.99f);
@@ -94,6 +176,17 @@ public class PlayerControls : MonoBehaviour
             }
             //Debug.Log("moveValues[i]:   "+ moveValues[i]);
         }
+        */
+    }
+
+    void AttackEnemy(Stats playerStats)
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        LayerMask layerMask = LayerMask.GetMask("Enemy");
+
+
     }
 
     // Update is called once per frame
@@ -101,12 +194,16 @@ public class PlayerControls : MonoBehaviour
     {
         MoveCamera();
         CheckRotateCamera();
+
+        //LimitMoveCamera();
+
         if (movingCamera)
         {
             RepositionCamera(cameraRotPosition, prevCameraRotPosition, cameraMovementBetween);
         }
 
-        if (!TextManager.playerControlsLocked)
+       // if (!TextManager.playerControlsLocked && !TutorialCards.isTutorialRunning)
+        if (!PanelManager.playerControlsLocked && !TutorialCards.isTutorialRunning)
         {
             CheckClick();
             CheckPlayer();
@@ -116,7 +213,6 @@ public class PlayerControls : MonoBehaviour
                 if (selectedUnit != null)
                 {
                     MovePlayer();
-
                 }
                 if (Input.GetKeyDown(KeyCode.Space) || EndTurnButtonScript.isButtonPressed)// || Input.GetMouseButtonDown(0))
                 {
@@ -140,16 +236,33 @@ public class PlayerControls : MonoBehaviour
             }
             else if (EnemyMovesDone())
             {
+                turnCount++;
                 isPlayerTurn = true;
                 //  GameObject.Find("EndTurn").transform.GetComponent<Button>().transition = Navigation.None;
                 ExperimentalResources.ReInitializeResources();
                 // GameObject.Find("EndTurn").transform.GetComponent<EndButtonToggle>().isVisible = false;
+
+                foreach (var item in Board.spawnedEnemies)
+                {
+                    item.GetComponent<EnemyAI>().stats.canAttack = false;
+                }
+
+                foreach (var item in Board.possibleMoveableChars)
+                {
+                    if (item.thePiece != null)
+                    {
+                        item.thePiece.GetComponent<Stats>().canAttack = true;
+                    }
+                }
+
+                EndButtonToggle.DisableEndTurn();
             }
         }
     }
 
     public static void EnemyTurnsActivate()
     {
+        EndButtonToggle.EnableEndTurn();
         bool countRound = false;
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
@@ -183,13 +296,23 @@ public class PlayerControls : MonoBehaviour
         for (int i = 0; i < Board.spawnedEnemies.Count; i++)
         {
             Board.spawnedEnemies[i].GetComponent<EnemyAI>().isTurnActive = true;
+            Board.spawnedEnemies[i].GetComponent<Stats>().canAttack = true;
         }
         Board.pirateBoss.GetComponent<PirateCaptainAI>().isTurnActive = true;
+        Board.pirateBoss.GetComponent<Stats>().canAttack = true;
+
+        foreach (var item in Board.possibleMoveableChars)
+        {
+            if (item != null)
+            {
+                item.thePiece.GetComponent<Stats>().canAttack = false;
+            }
+        }
     }
 
     bool EnemyMovesDone()
     {
-        if (Board.pirateBoss.GetComponent<PirateCaptainAI>().isTurnActive == true)
+        if (SceneManager.GetActiveScene().buildIndex == 2 && Board.pirateBoss.GetComponent<PirateCaptainAI>().isTurnActive == true)
         {
             return false;
         }
@@ -244,69 +367,83 @@ public class PlayerControls : MonoBehaviour
         int count = 0;
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
-            if (Board.possibleMoveableChars[i].rowPosition == 1000)
+            if (Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().health <= 0)
             {
-                count++;                
-                continue;
-            }
-            int enemiesAround = 0;
-            for (int j = 0; j < Board.spawnedEnemies.Count; j++)
-            {
-                if (Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition - 1 ||
-                    Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition ||
-                    Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition + 1)
-                {
-                }
-                else
-                {
-                    continue;
-                }
-                if (Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition - 1 ||
-                    Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition ||
-                    Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition + 1)
-                {
-                }
-                else
-                {
-                    continue;
-                }
-
-                enemiesAround += 1;
-            }
-            if (Board.pirateBoss != null)
-            {
-                if (Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition - 1 ||
-                    Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition ||
-                    Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition + 1)
-                {
-                    if (Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition - 1 ||
-                        Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition ||
-                        Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition + 1)
+                    if (selectedUnit == Board.possibleMoveableChars[i].GetPiece())
                     {
-                        enemiesAround += 2;
+                        selectedUnit = null;
                     }
-                }
+                    Board.possibleMoveableChars[i].SetRowAndCol(1000, 1000);
+                    Board.possibleMoveableChars[i].GetPiece().transform.position = new Vector3(10000, 10000, 0);
             }
+            //if (Board.possibleMoveableChars[i].rowPosition == 1000)
+            //{
+            //    count++;
+            //    continue;
+            //}
+            //int enemiesAround = 0;
+            //for (int j = 0; j < Board.spawnedEnemies.Count; j++)
+            //{
+            //    if (Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition - 1 ||
+            //        Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition ||
+            //        Board.possibleMoveableChars[i].rowPosition == Board.spawnedEnemies[j].rowPosition + 1)
+            //    {
+            //    }
+            //    else
+            //    {
+            //        continue;
+            //    }
+            //    if (Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition - 1 ||
+            //        Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition ||
+            //        Board.possibleMoveableChars[i].colPosition == Board.spawnedEnemies[j].colPosition + 1)
+            //    {
+            //    }
+            //    else
+            //    {
+            //        continue;
+            //    }
+            //
+            //    enemiesAround += 1;
+            //}
+            //if (Board.pirateBoss != null)
+            //{
+            //    if (Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition - 1 ||
+            //        Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition ||
+            //        Board.possibleMoveableChars[i].rowPosition == Board.pirateBoss.rowPosition + 1)
+            //    {
+            //        if (Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition - 1 ||
+            //            Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition ||
+            //            Board.possibleMoveableChars[i].colPosition == Board.pirateBoss.colPosition + 1)
+            //        {
+            //            enemiesAround += 2;
+            //        }
+            //    }
+            //}
+            //
+            //if (enemiesAround >= 4)
+            //{
+            //    if (selectedUnit == Board.possibleMoveableChars[i].GetPiece())
+            //    {
+            //        selectedUnit = null;
+            //    }
+            //    Board.possibleMoveableChars[i].SetRowAndCol(1000, 1000);
+            //    Board.possibleMoveableChars[i].GetPiece().transform.position = new Vector3(10000, 10000, 0);
+            //}
 
-            if (enemiesAround >= 4)
-            {
-                if (selectedUnit == Board.possibleMoveableChars[i].GetPiece())
-                {
-                    selectedUnit = null;
-                }
-                Board.possibleMoveableChars[i].SetRowAndCol(1000, 1000);
-                Board.possibleMoveableChars[i].GetPiece().transform.position = new Vector3(10000, 10000, 0);
-            }
-            
             UIValues resistance = Board.possibleMoveableChars[i].thePiece.GetComponent<ValueHolder>().resistanceObj.GetComponent<UIValues>();
-            resistance.SetValue(resistance.initialValue - enemiesAround);
-            Board.possibleMoveableChars[i].resistanceValue = resistance.initialValue - enemiesAround;
+            resistance.SetValue(Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().health);
+
+            UIValues health = Board.possibleMoveableChars[i].thePiece.GetComponent<ValueHolder>().presenceObj.GetComponent<UIValues>();
+            health.SetValue(Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().damage);
+
+            //resistance.SetValue(resistance.initialValue - enemiesAround);
+            //Board.possibleMoveableChars[i].resistanceValue = resistance.initialValue - enemiesAround;
         }
 
-        
+
         if (count >= 2 && !Board.first)
         {
-            GameObject.Find("WinScreen").GetComponentInChildren<YouWin>().youLose = true;
+            //GameObject.Find("WinScreen").GetComponentInChildren<YouWin>().youLose = true;
         }
     }
     public void CheckClick()
@@ -328,13 +465,13 @@ public class PlayerControls : MonoBehaviour
             GameObject.Find("#Hally_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
             GameObject.Find("#Ed_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
             GameObject.Find("#Jade_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
-           
 
-                UnoccupiedSpaceEnable(Board.possibleMoveableChars[theOne]);
-            }
+
+            UnoccupiedSpaceEnable(Board.possibleMoveableChars[theOne]);
+        }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-           // ClearAllGrids();
+            // ClearAllGrids();
             GameObject.Find("#Kent_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
             GameObject.Find("#Meda_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = true;
             GameObject.Find("#Hally_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
@@ -344,7 +481,7 @@ public class PlayerControls : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-           // ClearAllGrids();
+            // ClearAllGrids();
             GameObject.Find("#Kent_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
             GameObject.Find("#Meda_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
             GameObject.Find("#Hally_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = true;
@@ -354,7 +491,7 @@ public class PlayerControls : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-           // ClearAllGrids();
+            // ClearAllGrids();
             GameObject.Find("#Kent_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
             GameObject.Find("#Meda_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
             GameObject.Find("#Hally_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
@@ -372,24 +509,21 @@ public class PlayerControls : MonoBehaviour
             GameObject.Find("#Jade_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = true;
             UnoccupiedSpaceEnable(Board.possibleMoveableChars[theOne]);
         }
+
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             GameObject selectedBase;
-            
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1)) 
-            {
 
-                if(hit.collider.tag == "BlankSpace")
-                {
-                    Debug.Log("Cleared all highlights when player switched using Alpha keys");
-                    ClearAllGrids();
-                }
+            LayerMask layerMask = LayerMask.GetMask("MainCharacter") + LayerMask.GetMask("Interactables") + LayerMask.GetMask("Enemy");
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+            {
                 if (hit.collider.tag == "Player")
                 {
                     //Debug.Log("Clear cannon popup");
-                    
+
                     //GameObject.Find("#Kent_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
                     //GameObject.Find("#Meda_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
                     //GameObject.Find("#Hally_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
@@ -404,7 +538,7 @@ public class PlayerControls : MonoBehaviour
                             if (selectedUnit.transform.GetChild(i).GetComponent<MeshRenderer>() != null)
                             {
                                 selectedBase = selectedUnit.transform.GetChild(i).gameObject;
-                              
+
                             }
                         }
 
@@ -412,7 +546,7 @@ public class PlayerControls : MonoBehaviour
                         DisablePanelUnderCharacter(selectedUnit);
                         selectedBase.GetComponent<MeshRenderer>().material = normalMaterial;
                         selectedUnit = null;
-                    }                    
+                    }
 
                     for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
                     {
@@ -427,56 +561,62 @@ public class PlayerControls : MonoBehaviour
                             {
                                 if (selectedUnit.transform.GetChild(j).GetComponent<MeshRenderer>() != null)
                                 {
-                                    selectedBase = selectedUnit.transform.GetChild(j).gameObject; 
+                                    selectedBase = selectedUnit.transform.GetChild(j).gameObject;
                                 }
                             }
                             normalMaterial = selectedBase.GetComponent<MeshRenderer>().material;
-                            glowingMaterial.color = normalMaterial.color; 
+                            glowingMaterial.color = normalMaterial.color;
                             glowingMaterial.mainTexture = normalMaterial.mainTexture;
                             selectedBase.GetComponent<MeshRenderer>().material = glowingMaterial;
-                            
-                            GameObject panelUnderCharacter = null; 
+
+                            GameObject panelUnderCharacter = null;
                             for (int j = 0; j < selectedUnit.transform.childCount; j++)
                             {
                                 if (selectedUnit.transform.GetChild(j).GetComponent<PanelUnderCharacter>() != null)
                                 {
                                     panelUnderCharacter = selectedUnit.transform.GetChild(j).GetComponent<PanelUnderCharacter>().gameObject;
-                                }                                 
+                                }
                             }
                             if (panelUnderCharacter != null)
                             {
-                               
+
                                 panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = true;
                                 UnoccupiedSpaceEnable(Board.possibleMoveableChars[theOne]);
                             }
-                            break;                            
+                            break;
                         }
                     }
                 }
-                else
+                else if (hit.collider.tag == "Enemy" && selectedUnit)
                 {
-                    if (selectedUnit != null)
+                    hit.transform.GetComponent<Stats>().TakeDamage(selectedUnit.GetComponent<Stats>().damage);
+                    selectedUnit.GetComponent<Stats>().canAttack = false;
+                }
+            }
+            else if (!CannonCrossbarController.isCannonSelected)
+            {
+                if (selectedUnit != null)
+                {
+                    //selectedUnit.GetComponent<MeshRenderer>().material = normalMaterial;
+                    GameObject panelUnderCharacter = null;
+                    for (int i = 0; i < selectedUnit.transform.childCount; i++)
                     {
-                        //selectedUnit.GetComponent<MeshRenderer>().material = normalMaterial;
-                        GameObject panelUnderCharacter = null;
-                        for (int i = 0; i < selectedUnit.transform.childCount; i++)
+                        if (selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>() != null)
                         {
-                            if (selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>() != null)
-                            {
-                                panelUnderCharacter = selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>().gameObject; 
-                            }
+                            panelUnderCharacter = selectedUnit.transform.GetChild(i).GetComponent<PanelUnderCharacter>().gameObject;
                         }
-                        if (panelUnderCharacter != null)
-                        {
-                            panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
-                            ClearAllGrids();
-                        }
-                        selectedUnit = null;
                     }
+                    if (panelUnderCharacter != null)
+                    {
+                        panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
+                    }
+                    selectedUnit = null;
+                    ClearAllGrids();
                 }
             }
         }
     }
+    
 
     public void DisablePanelUnderCharacter(GameObject selected)
     {
@@ -495,25 +635,43 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
+    
+    public void LimitMoveCamera()
+    {
+        float xAxisValue = Input.GetAxis("Horizontal");
+        float yAxisValue = Input.GetAxis("Vertical");
+
+        
+        for (int i = 0; i < numCameraRotPositions; i++)
+        {
+            allCameras[i].transform.Translate(new Vector3(xAxisValue, yAxisValue, 0.0f));
+            allCameras[i].transform.position = new Vector3(
+                Mathf.Clamp(allCameras[i].transform.position.x, xLowerLimit[i], xHigherLimit[i]),
+                Mathf.Clamp(allCameras[i].transform.position.y, yLowerLimit[i], yHigherLimit[i]),
+                zSetView[i]);
+        }
+    }
+
     public void MoveCamera()
     {
-        if (Input.GetAxis("Horizontal") > 0 && cameraChangeHorizontal < 200.0f)
+
+        if (Input.GetAxis("Horizontal") > 0 && cameraChangeHorizontal < cameraLimit)
         {
             for (int i = 0; i < numCameraRotPositions; i++)
-            {
+            {   
                 allCameras[i].transform.position += new Vector3(cameraSpeed, 0.0f, 0.0f) * Time.deltaTime;
-                cameraChangeHorizontal -= cameraSpeed * Time.deltaTime;
+                cameraChangeHorizontal += cameraSpeed * Time.deltaTime;
             }
         }
-        else if (Input.GetAxis("Horizontal") < 0 && cameraChangeHorizontal > -200.0f)
+        else if (Input.GetAxis("Horizontal") < 0 && cameraChangeHorizontal > -cameraLimit)
         {
             for (int i = 0; i < numCameraRotPositions; i++)
             {
                 allCameras[i].transform.position -= new Vector3(cameraSpeed, 0.0f, 0.0f) * Time.deltaTime;
-                cameraChangeHorizontal += cameraSpeed * Time.deltaTime;
+                cameraChangeHorizontal -= cameraSpeed * Time.deltaTime;
             }
         }
-        if (Input.GetAxis("Vertical") > 0 && cameraChangeVertical < 200.0f)
+        if (Input.GetAxis("Vertical") > 0 && cameraChangeVertical < cameraLimit)
         {
             for (int i = 0; i < numCameraRotPositions; i++)
             {
@@ -521,7 +679,7 @@ public class PlayerControls : MonoBehaviour
                 cameraChangeVertical += cameraSpeed * Time.deltaTime;
             }
         }
-        else if (Input.GetAxis("Vertical") < 0 && cameraChangeVertical > -200.0f)
+        else if (Input.GetAxis("Vertical") < 0 && cameraChangeVertical > -cameraLimit)
         {
             for (int i = 0; i < numCameraRotPositions; i++)
             {
@@ -640,11 +798,10 @@ public class PlayerControls : MonoBehaviour
    
     public static void UnoccupiedSpaceEnable(Piece character)
     {
-        bool isUp  = true;
+        bool isUp = true;
         bool isRight = true;
         bool isDown = true;
         bool isLeft = true;
-
         for (int i = 0; i < Board.numDeadSpaces; i++)
         {
             if (Board.deadPoints[i].x == character.colPosition && Board.deadPoints[i].y == character.rowPosition - 1)
@@ -765,7 +922,7 @@ public class PlayerControls : MonoBehaviour
             }
             if (Board.possibleMoveableChars[i].rowPosition == character.rowPosition && Board.possibleMoveableChars[i].colPosition == character.colPosition - 1)
             {
-                isLeft = true;                
+                isLeft = true; 
             }
         }
         for (int i = 0; i < Board.spawnedEnemies.Count; i++)
@@ -775,6 +932,17 @@ public class PlayerControls : MonoBehaviour
                 isLeft = true;
             }
         }
+        Debug.Log("isLeft:      " + isLeft);
+        //right
+        
+
+        //up
+
+
+        //down
+
+
+
         if (isLeft)
         {
             if (GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition - 1)) != null)

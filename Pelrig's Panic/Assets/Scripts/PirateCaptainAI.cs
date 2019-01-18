@@ -9,10 +9,16 @@ public class PirateCaptainAI : MonoBehaviour {
     public bool isTurnActive;
     [SerializeField] private GameObject presenceObj;
     [SerializeField] private GameObject resistanceObj;
+    bool isEncumbered;
+    bool cursorChanged = false;
+    public Stats stats;
+    public Texture2D mouseTarget;
 
     // Use this for initialization
     void Start()
     {
+        stats = GetComponent<Stats>();
+        isEncumbered = false;
         isTurnActive = false;
         time = 0.0f;
         presenceObj.GetComponent<MeshRenderer>().sortingOrder = 3;
@@ -30,10 +36,11 @@ public class PirateCaptainAI : MonoBehaviour {
                 if (time >= 1.5f)
                 {
                     time = 0.0f;
-                    MoveAndCheckUnitCollision();
+                    MoveAndCheckUnitCollision(false);
                     countMove++;
                     if (countMove >= 5)
                     {
+                        MoveAndCheckUnitCollision(true);
                         isTurnActive = false;
                         countMove = 0;
                         time = 0.0f;
@@ -44,6 +51,15 @@ public class PirateCaptainAI : MonoBehaviour {
 
             }
         }
+        else
+        {
+            if (stats.health <= 0)
+            {
+                Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                Destroy(gameObject);
+            }
+        }
+
         CheckPlayer();
     }
 
@@ -74,14 +90,18 @@ public class PirateCaptainAI : MonoBehaviour {
             }
         }
 
-        UIValues resistance = resistanceObj.GetComponent<UIValues>();
-        resistance.SetValue(resistance.initialValue - playersAround);
-
-        if (playersAround >= 4)
+        if (!isEncumbered && playersAround >= 4)
         {
-            GameObject.Find("WinScreen").GetComponentInChildren<YouWin>().youWon = true;
-            Destroy(gameObject);
+            stats.damage /= 2;
+            stats.health /= 3;
+            isEncumbered = true;
         }
+
+        UIValues resistance = resistanceObj.GetComponent<UIValues>();
+        resistance.SetValue(stats.health);
+
+        UIValues attack = presenceObj.GetComponent<UIValues>();
+        attack.SetValue(stats.damage);
     }
     //To verify
     private void CheckCoinDestroy()
@@ -106,7 +126,56 @@ public class PirateCaptainAI : MonoBehaviour {
         }
     }
 
-    private void MoveAndCheckUnitCollision()
+    private void OnMouseEnter()
+    {
+        if (!cursorChanged && !CannonCrossbarController.isCannonSelected && CheckIfAPlayerAround())
+        {
+            cursorChanged = true;
+            Cursor.SetCursor(mouseTarget, Vector2.zero, CursorMode.Auto);
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        if (cursorChanged)
+        {
+            cursorChanged = false;
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        }
+
+    }
+
+    bool CheckIfAPlayerAround()
+    {
+        //if (PlayerControls.selectedUnit)
+        //{
+            if (PlayerControls.selectedUnit.GetComponent<Stats>().canAttack)
+            {
+                Piece unit = Board.possibleMoveableChars[PlayerControls.theOne];
+                bool a = false;
+                bool b = false;
+                if (transform.GetComponent<Piece>().rowPosition == unit.rowPosition - 1 ||
+                     transform.GetComponent<Piece>().rowPosition == unit.rowPosition + 1 ||
+                     transform.GetComponent<Piece>().rowPosition == unit.rowPosition)
+                {
+                    a = true;
+                }
+                if (transform.GetComponent<Piece>().colPosition == unit.colPosition - 1 ||
+                    transform.GetComponent<Piece>().colPosition == unit.colPosition + 1 ||
+                    transform.GetComponent<Piece>().colPosition == unit.colPosition)
+                {
+                    b = true;
+                }
+                if (a && b)
+                {
+                    return true;
+                }
+            }
+       // }
+        return false;
+    }
+
+    private void MoveAndCheckUnitCollision(bool onlyAttack)
     {
         int random = (int)Random.Range(0.0f, 1.99f);
         int shortestDistance = 15;
@@ -145,10 +214,14 @@ public class PirateCaptainAI : MonoBehaviour {
         }
         if (shortestDistance == 1)
         {
-            //Attack();
+            if (stats.canAttack)
+            {
+                Board.possibleMoveableChars[targetPlayer].thePiece.GetComponent<Stats>().TakeDamage(stats.damage);
+                stats.canAttack = false;
+            }
         }
         //Move. Terrible system, must find a better way for later
-        else
+        else if ( !onlyAttack)
         {
             bool canMoveLeft = true;
             bool canMoveRight = true;

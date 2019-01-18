@@ -23,6 +23,8 @@ GameObject:
   - component: {fileID: 124357239068521034}
   - component: {fileID: 81389973598103706}
   - component: {fileID: 114747334948682146}
+  - component: {fileID: 114187690146866412}
+  - component: {fileID: 114521077435570436}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -36,13 +38,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1318571736379378}
-  m_LocalRotation: {x: -0.46193978, y: 0.19134173, z: -0.19134173, w: 0.84462327}
-  m_LocalPosition: {x: -50, y: -70, z: -50}
+  m_LocalRotation: {x: -0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: -1.95, y: -50, z: -50}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -45, y: 45, z: -45}
+  m_LocalEulerAnglesHint: {x: -45, y: 0, z: 0}
 --- !u!20 &20078618193238412
 Camera:
   m_ObjectHideFlags: 1
@@ -90,6 +92,30 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1318571736379378}
   m_Enabled: 1
+--- !u!114 &114187690146866412
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1318571736379378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eab1dba90a181e94584cd35e5b6b1afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlDisplay: {fileID: 0}
+--- !u!114 &114521077435570436
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1318571736379378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369049f094a5dc44dbea91d8d816aa3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aTexture: {fileID: 0}
 --- !u!114 &114747334948682146
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,6 +134,8 @@ MonoBehaviour:
   - {fileID: 0}
   cameraMaxZoom: 20
   cameraMinZoom: 5
+  WindSprite: {fileID: 0}
+  glowingMaterial: {fileID: 2100000, guid: e3156b97c04fff74cb57c8f4ed045b20, type: 2}
 --- !u!124 &124357239068521034
 Behaviour:
   m_ObjectHideFlags: 1

@@ -10,16 +10,74 @@ public class EnemyAI : MonoBehaviour {
     [SerializeField] private GameObject presenceObj;
     [SerializeField] private GameObject resistanceObj;
 
-	// Use this for initialization
-	void Start () {
+    int resist = 3;
+    bool isEncumbered = false;
+    public Stats stats;
+    public bool cursorChanged;
+    public Texture2D mouseTarget;
+
+    // Use this for initialization
+    void Start () {
+
+        cursorChanged = false;
+        stats = GetComponent<Stats>();
         time = 0.0f;
         isTurnActive = false;
         presenceObj.GetComponent<MeshRenderer>().sortingOrder = 3;
         resistanceObj.GetComponent<MeshRenderer>().sortingOrder = 3;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void OnMouseEnter()
+    {
+        if (!CannonCrossbarController.isCannonSelected && CheckIfAPlayerAround())
+        {
+            cursorChanged = true;
+            Cursor.SetCursor(mouseTarget, Vector2.zero, CursorMode.Auto);
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        if (cursorChanged)
+        {
+            cursorChanged = false;
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        }
+    }
+
+    bool CheckIfAPlayerAround()
+    {
+        //if (PlayerControls.selectedUnit)
+        //{
+            if (PlayerControls.selectedUnit.GetComponent<Stats>().canAttack)
+            {
+                Piece unit = Board.possibleMoveableChars[PlayerControls.theOne];
+                bool a = false;
+                bool b = false;
+                if (transform.GetComponent<Piece>().rowPosition == unit.rowPosition - 1 ||
+                     transform.GetComponent<Piece>().rowPosition == unit.rowPosition + 1 ||
+                     transform.GetComponent<Piece>().rowPosition == unit.rowPosition)
+                {
+                    a = true;
+                }
+                if (transform.GetComponent<Piece>().colPosition == unit.colPosition - 1 ||
+                    transform.GetComponent<Piece>().colPosition == unit.colPosition + 1 ||
+                    transform.GetComponent<Piece>().colPosition == unit.colPosition)
+                {
+                    b = true;
+                }
+                if (a && b)
+                {
+                    return true;
+                }
+            }
+       // }
+        return false;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (transform.GetComponent<Piece>().rowPosition != 1000 && !PlayerControls.isPlayerTurn)
         {
             if (isTurnActive)
@@ -28,11 +86,11 @@ public class EnemyAI : MonoBehaviour {
                 if (time >= 1.5f)
                 {
                     time = 0.0f;
-                    MoveAndCheckUnitCollision();
+                    MoveAndCheckUnitCollision(false);
                     countMove++;
                     if (countMove >= 3)
                     {
-
+                        MoveAndCheckUnitCollision(true);
                         isTurnActive = false;
                         countMove = 0;
                         time = 0.0f;
@@ -40,7 +98,14 @@ public class EnemyAI : MonoBehaviour {
                 }
                 //For now, heuristic movement to closest unit
                 //CheckCoinDestroy();
-
+            }
+        }
+        else
+        {
+            if (stats.health <= 0)
+            {
+                Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                Destroy(gameObject);
             }
         }
         CheckPlayer();
@@ -73,14 +138,22 @@ public class EnemyAI : MonoBehaviour {
             }
         }
 
-        UIValues resistance = resistanceObj.GetComponent<UIValues>();
-        resistance.SetValue(resistance.initialValue - playersAround);
-        gameObject.GetComponent<Piece>().resistanceValue = resistance.initialValue - playersAround;
+        
 
-        if (playersAround >= 3)
+        if (!isEncumbered && playersAround >= 3)
         {
-            Destroy(gameObject);
+            isEncumbered = true;
+            stats.health /= 3;
+
+            if (stats.damage > 1)
+                stats.damage /= 2;
         }
+
+        UIValues resistance = resistanceObj.GetComponent<UIValues>();
+        resistance.SetValue(stats.health);
+
+        UIValues attack = presenceObj.GetComponent<UIValues>();
+        attack.SetValue(stats.damage);
     }
     //To verify
     private void CheckCoinDestroy()
@@ -105,7 +178,7 @@ public class EnemyAI : MonoBehaviour {
         }
     }
 
-    private void MoveAndCheckUnitCollision()
+    private void MoveAndCheckUnitCollision(bool onlyAttack)
     {
         int shortestDistance = 10000;
         int targetRowPosition = 0;
@@ -130,10 +203,14 @@ public class EnemyAI : MonoBehaviour {
         //Attack
         if (shortestDistance == 1)
         {
-            //Attack()
+            if (stats.canAttack)
+            {
+                Board.possibleMoveableChars[targetPlayer].thePiece.GetComponent<Stats>().TakeDamage(stats.damage);
+                stats.canAttack = false;
+            }
         }
         //Move. Terrible system, must find a better way for later
-        else
+        else if (!onlyAttack)
         {
             bool canMoveLeft = true;
             bool canMoveRight = true;
