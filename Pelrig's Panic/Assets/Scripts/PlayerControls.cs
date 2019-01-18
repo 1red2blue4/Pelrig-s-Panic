@@ -276,10 +276,8 @@ public class PlayerControls : MonoBehaviour
 
     public void PlayMinigame()
     {
-        Debug.Log("Playing minigame!");
         if (currentMinigame != null && currentMinigame.GetComponent<Minigame>().gameConditionSet == true)
         {
-            Debug.Log("Minigame over!");
             if (currentMinigame.GetComponent<Minigame>().gameWon)
             {
                 DealMoreDamage(2, damageTarget);
@@ -621,14 +619,12 @@ public class PlayerControls : MonoBehaviour
                         }
                     }
                 }
-                else if (hit.collider.tag == "Enemy" && selectedUnit && selectedUnit.GetComponent<Stats>().canAttack == true)
+                else if (hit.collider.tag == "Enemy" && selectedUnit && selectedUnit.GetComponent<Stats>().canAttack == true /* && TODO: check if character is next to enemy*/)
                 {
                     if (selectedUnit.GetComponent<Stats>() != null)
                     {
-                        Debug.Log("selectedUnit:   " + selectedUnit);
                         if (selectedUnit.GetComponent<Stats>().characterName == "Ed")
                         {
-                            Debug.Log("Ed attacked!");
                             currentMinigame = Instantiate(edsMinigame, gameObject.transform.position + 5.0f * gameObject.transform.forward, gameObject.transform.rotation);
                             frozenForMinigame = true;
                             damageTarget = hit.collider.gameObject;
