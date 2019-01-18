@@ -25,8 +25,16 @@ public class PanelManager : MonoBehaviour, DialogueStateManager
     }
     public void BootSequence()
     { 
-        characterPanel = GameObject.Find("CharacterPanel").GetComponent<PanelConfig>();
-        currentEvent = JSONAssembly.RunJSONFactoryForScene(1);
+        characterPanel = GameObject.Find("CharacterPanel").GetComponent<PanelConfig>();        
+
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            currentEvent = JSONAssembly.RunJSONFactoryForScene(1); 
+        }
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            currentEvent = JSONAssembly.RunJSONFactoryForScene(2);
+        }
         InitiziliasePanels();
     }
 
@@ -51,7 +59,7 @@ public class PanelManager : MonoBehaviour, DialogueStateManager
             countDialogueLength = 0;
             stepIndex = 0;
             playerControlsLocked = true;
-            SceneManager.LoadScene("PirateShipUINad");
+            SceneManager.LoadScene("PirateshipScene");
         }
         if (SceneManager.GetActiveScene().buildIndex == 2 && countDialogueLength <= 17)
         {           
@@ -75,7 +83,6 @@ public class PanelManager : MonoBehaviour, DialogueStateManager
     {
         if(CharacterActive)
         {
-            characterPanel.ToggleCharcterMask();
             characterPanel.Configure(currentEvent.dialogues[stepIndex]);
         }
         else

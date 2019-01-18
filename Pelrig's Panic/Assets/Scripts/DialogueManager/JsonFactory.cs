@@ -9,11 +9,12 @@ namespace JSONFactory
 {
     class JSONAssembly
     {
-        private static Dictionary<int, string> _resourceList = new Dictionary<int, string> {
-        {1, "/Resources/Event1.json"}
+        //Add the json scripts here for the cut scenes.
+        private static Dictionary<int, string> _resourceList = new Dictionary<int, string>
+        {
+        {1, "/Resources/Cutscene1.json"},
+        {2, "/Resources/Cutscene2.json"}
         };
-
-
         public static NarrativeEvent RunJSONFactoryForScene(int sceneNumber)
         {
             string resourcePath = PathForScene(sceneNumber);

@@ -1,0 +1,107 @@
+{
+"dialogues":[
+  {
+    "Conversation": 0,
+    "CharacterName": "Hally",
+    "CharacterImage": "Hally",
+    "DialogueText": "Oh look! We're on a Pirate Ship! Can I be the captain?",
+	"FontName": "ComicaRegular"
+  },
+  {
+    "Conversation": 1,
+    "CharacterName": "Jade",
+    "CharacterImage": "Jade",
+    "DialogueText": "Pirates!? I wanna fight pirates! Lemme at ‘em!"
+  },
+  {
+    "Conversation": 2,
+    "CharacterName": "Meda",
+    "CharacterImage": "Meda",
+    "DialogueText": "That could be interesting. I read about how pirates have caused troubles in the past. Perhaps we could fight them off and save the sea!"
+  },
+  {
+    "Conversation": 3,
+    "CharacterName": "Meda",
+    "CharacterImage": "Meda",
+    "DialogueText": "How do we defeat them most effectively though?"
+  },
+  {
+    "Conversation": 4,
+    "CharacterName": "Jade",
+    "CharacterImage": "Jade",
+    "DialogueText": "We attack them! We surround them!"
+  },
+  {
+    "Conversation": 5,
+    "CharacterName": "Meda",
+    "CharacterImage": "Meda",
+    "DialogueText": "Excellent idea! If three of us surround one of them, they will be much weaker. Looks like there are some canons and generators to help us fight them too."
+  },
+  {
+    "Conversation": 6,
+    "CharacterName": "Jade",
+    "CharacterImage": "Jade",
+    "DialogueText": "Canons! Now we’re talking!"
+  },
+  {
+    "Conversation": 7,
+    "CharacterName": "Hally",
+    "CharacterImage": "Hally",
+    "DialogueText": "I see the captain of the ship! His beard is on fire! He looks like a meanie!"
+  },
+  {
+    "Conversation": 8,
+    "CharacterName": "Meda",
+    "CharacterImage": "Meda",
+    "DialogueText": "That’s Blackbeard."
+  },
+  {
+    "Conversation": 9,
+    "CharacterName": "Hally",
+    "CharacterImage": "Hally",
+    "DialogueText": "I still want to be captain of the ship."
+  },
+  {
+    "Conversation": 10,
+    "CharacterName": "Ed",
+    "CharacterImage": "Kent",
+    "DialogueText": "Stand next to the wheel and you could pretend you are... I guess."
+  },
+  {
+    "Conversation": 11,
+    "CharacterName": "Hally",
+    "CharacterImage": "Hally",
+    "DialogueText": "Yay! Then I can sail it to outer space!"
+  },
+  {
+    "Conversation": 12,
+    "CharacterName": "Meda",
+    "CharacterImage": "Meda",
+    "DialogueText": "Is everybody ready? Let's get to the bow of the ship!"
+  },
+  {
+    "Conversation": 13,
+    "CharacterName": "Ed",
+    "CharacterImage": "Ed",
+    "DialogueText": "…"
+  },
+  {
+    "Conversation": 14,
+    "CharacterName": "Jade",
+    "CharacterImage": "Jade",
+    "DialogueText": " I’ll race you to the front of the ship!"
+  },
+  {
+    "Conversation": 15,
+    "CharacterName": "Hally",
+    "CharacterImage": "Hally",
+    "DialogueText": "...and make a lot of alien friends..."
+  },
+  {
+    "Conversation": 16,
+    "CharacterName": "Kent",
+    "CharacterImage": "Kent",
+    "DialogueText": "Heh, this is silly. But I guess it could be fun. Let’s GO!"
+  }
+]
+}
