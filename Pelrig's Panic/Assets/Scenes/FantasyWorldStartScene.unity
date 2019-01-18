@@ -513,6 +513,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &462796660 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3294217279798870303, guid: 50b5f17d8abe9fa4eb030858e9f12635,
+    type: 3}
+  m_PrefabInstance: {fileID: 1990273586}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &511342514
 GameObject:
   m_ObjectHideFlags: 0
@@ -1891,7 +1897,7 @@ PrefabInstance:
         type: 3}
       propertyPath: dialoguePanel
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 462796660}
     - target: {fileID: 3294217279619299533, guid: 50b5f17d8abe9fa4eb030858e9f12635,
         type: 3}
       propertyPath: m_RootOrder

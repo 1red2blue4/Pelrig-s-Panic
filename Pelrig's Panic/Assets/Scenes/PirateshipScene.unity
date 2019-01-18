@@ -1013,6 +1013,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f390b5df77a259d4da467173cd8e1b3d, type: 3}
+--- !u!1 &867971647 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3294217279798870303, guid: 50b5f17d8abe9fa4eb030858e9f12635,
+    type: 3}
+  m_PrefabInstance: {fileID: 1528877805}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1043132348 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224239737564771378, guid: de15da0aacba8c54680c9d03f1cc5c9d,
@@ -1549,7 +1555,7 @@ PrefabInstance:
         type: 3}
       propertyPath: dialoguePanel
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 867971647}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50b5f17d8abe9fa4eb030858e9f12635, type: 3}
 --- !u!4 &1528877806 stripped
@@ -1622,16 +1628,16 @@ PrefabInstance:
       propertyPath: m_TargetDisplay
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114747334948682146, guid: 16e446cc3cf4e5642bb7a186bd7697ce,
-        type: 3}
-      propertyPath: glowingMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: e3156b97c04fff74cb57c8f4ed045b20, type: 2}
     - target: {fileID: 124357239068521034, guid: 16e446cc3cf4e5642bb7a186bd7697ce,
         type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114747334948682146, guid: 16e446cc3cf4e5642bb7a186bd7697ce,
+        type: 3}
+      propertyPath: glowingMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: e3156b97c04fff74cb57c8f4ed045b20, type: 2}
     m_RemovedComponents:
     - {fileID: 114747334948682146, guid: 16e446cc3cf4e5642bb7a186bd7697ce, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 16e446cc3cf4e5642bb7a186bd7697ce, type: 3}

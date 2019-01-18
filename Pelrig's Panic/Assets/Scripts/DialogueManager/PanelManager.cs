@@ -59,7 +59,7 @@ public class PanelManager : MonoBehaviour, DialogueStateManager
             countDialogueLength = 0;
             stepIndex = 0;
             playerControlsLocked = true;
-            SceneManager.LoadScene("PirateShipUI");
+            SceneManager.LoadScene("PirateshipScene");
         }
         if (SceneManager.GetActiveScene().buildIndex == 2 && countDialogueLength <= 17)
         {           
