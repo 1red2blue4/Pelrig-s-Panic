@@ -296,7 +296,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 120
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &8607409714723680635
 GameObject:
@@ -449,6 +449,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeAvailable: 2.3
   miniGamePlayer: {fileID: 8607409714496507909}
+  gameWon: 0
+  gameConditionSet: 0
   timerText: {fileID: 4260422127630706987}
 --- !u!1 &8607409714805366796
 GameObject:

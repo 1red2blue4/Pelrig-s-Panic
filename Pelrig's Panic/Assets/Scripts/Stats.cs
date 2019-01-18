@@ -7,6 +7,7 @@ public class Stats : MonoBehaviour {
     public int health;
     public int damage;
     public bool canAttack = false;
+    [SerializeField] public string characterName;
 
     public void TakeDamage(int hit)
     {
