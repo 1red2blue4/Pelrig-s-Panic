@@ -6,7 +6,10 @@ using UnityEngine.EventSystems;
 
 public class EndButtonToggle : MonoBehaviour
 {
-    public static bool isEnable; 
+    public static bool isEnable;
+
+    [SerializeField]
+    private GameObject endButton;
     // Use this for initialization
     void Start ()
     {
@@ -16,7 +19,14 @@ public class EndButtonToggle : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-       
+       if(!PanelManager.playerControlsLocked && !TutorialCards.isTutorialRunning)
+        {
+            endButton.SetActive(true);
+        }
+       else
+        {
+            endButton.SetActive(false);
+        }
 	}
 
     public static void EnableEndTurn()
@@ -26,6 +36,7 @@ public class EndButtonToggle : MonoBehaviour
             EndTurnButtonScript.isButtonPressed = true;
             isEnable = true;
         }       
+
     }
 
     public static void DisableEndTurn()

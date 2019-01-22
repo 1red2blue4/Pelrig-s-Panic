@@ -61,6 +61,7 @@ public class TutorialCards : MonoBehaviour {
                 if (iterator >= cards.Count)
                 {
                     lastTutorial = true;
+                    HUDEnable.isVisible = true;
                     transform.GetChild(2).GetChild(0).GetComponent<Text>().text = "Lets Play!";
                 }
 

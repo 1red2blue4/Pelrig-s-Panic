@@ -227,8 +227,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 318, y: 110}
-  m_SizeDelta: {x: 141.20001, y: 46}
+  m_AnchoredPosition: {x: 880, y: 478.2}
+  m_SizeDelta: {x: 51.2, y: 51.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &87308887
 MonoBehaviour:
@@ -314,7 +314,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: a4bf1520211a2a54ebb406ccc48ed14a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 626be2b9f6afa5d419b38b9cc92da61d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -994,7 +994,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 347.8, y: -174.5}
+  m_AnchoredPosition: {x: 412, y: -210}
   m_SizeDelta: {x: 93.54, y: 93.54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &934705412
@@ -1403,7 +1403,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 318, y: 180}
+  m_AnchoredPosition: {x: 108, y: 147}
   m_SizeDelta: {x: 141.20001, y: 46}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1327153619
@@ -2178,7 +2178,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 93fc33be9a0c0824e9a3850cf55bccc8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e95a3d36859451647af778640cf05505, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2514,7 +2514,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 318, y: 40}
+  m_AnchoredPosition: {x: 108.00003, y: 69}
   m_SizeDelta: {x: 141.20001, y: 46}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2061239090
@@ -2635,7 +2635,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2122957622
 RectTransform:
   m_ObjectHideFlags: 0
