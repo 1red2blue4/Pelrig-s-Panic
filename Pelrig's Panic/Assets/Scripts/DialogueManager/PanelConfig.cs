@@ -13,6 +13,17 @@ public class PanelConfig : MonoBehaviour
     public static bool isDialogueTextOver;
     private int count = 1;
     public Font[] characterFont;
+
+
+    [SerializeField] private Font edsFont;
+    [SerializeField] private Font medasFont;
+    [SerializeField] private Font kentsFont;
+    [SerializeField] private Font jadesFont;
+    [SerializeField] private Font hallysFont;
+
+    [SerializeField] private Font universalFancyFont;
+
+
     void Start()
     {
         isDialogueTextOver = false;
@@ -23,12 +34,8 @@ public class PanelConfig : MonoBehaviour
         characterImage.sprite = DialogueManager.atlasManager.loadSprite(currentDialogue.CharacterImage);
 
         characterName.text = currentDialogue.CharacterName;
-
-        //dialogue.font = Resources.Load<Font>("Fonts/orang juice2.0") as Font;
-
-        //Debug.Log("dialogue.font :      "+ currentDialogue.FontName);
-
-
+        
+        SetFont(characterName, true, characterName.text);
 
         if (isTalking)
         {
@@ -43,12 +50,13 @@ public class PanelConfig : MonoBehaviour
     IEnumerator AnimateText(string dialogueText)
     {
         dialogue.text = "";
+        SetFont(dialogue, false, characterName.text);
         foreach (char letter in dialogueText)
         {
             
             dialogue.text += letter;
             
-            yield return new WaitForSeconds(0.005f);
+            yield return new WaitForSeconds(0.004f);
 
             count++;
             if (dialogueText.Length < count)
@@ -62,6 +70,38 @@ public class PanelConfig : MonoBehaviour
                 dialogue.text = dialogueText;
                 PanelManager.isPressed = true;
                 break;
+            }
+        }
+        
+    }
+
+    public void SetFont(Text text, bool fancy, string name)
+    {
+        if (fancy)
+        {
+            text.font = universalFancyFont;
+        }
+        else
+        {
+            if (name == "hally" || name == "Hally")
+            {
+                text.font = hallysFont;
+            }
+            else if (name == "meda" || name == "Meda")
+            {
+                text.font = medasFont;
+            }
+            else if (name == "kent" || name == "Kent")
+            {
+                text.font = kentsFont;
+            }
+            else if (name == "jade" || name == "Jade")
+            {
+                text.font = jadesFont;
+            }
+            else if (name == "ed" || name == "Ed")
+            {
+                text.font = edsFont;
             }
         }
     }

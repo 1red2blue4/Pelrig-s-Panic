@@ -5,7 +5,7 @@
     "CharacterName": "Hally",
     "CharacterImage": "Hally",
     "DialogueText": "Oh look! We're on a Pirate Ship! Can I be the captain?",
-	"FontName": "ComicaRegular"
+	  "FontName": "ComicaRegular"
   },
   {
     "Conversation": 1,
