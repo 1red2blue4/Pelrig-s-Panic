@@ -43,10 +43,18 @@ public class PlayerControls : MonoBehaviour
 
     GameObject panelUnderCharacter;
 
+    public GameObject currentMinigame;
+    public bool frozenForMinigame;
+    [SerializeField] public GameObject edsMinigame;
+
+    public GameObject damageTarget;
+
 
     public static bool isWalk;
     void Start()
     {
+        damageTarget = null;
+        frozenForMinigame = false;
         turnCount = 1;
         cameraChangeHorizontal = 0.0f;
         cameraChangeVertical = 0.0f;
@@ -192,18 +200,19 @@ public class PlayerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveCamera();
-        CheckRotateCamera();
-
-        //LimitMoveCamera();
-
+        if (!frozenForMinigame)
+        {
+            MoveCamera();
+            CheckRotateCamera();
+        }
+        
         if (movingCamera)
         {
             RepositionCamera(cameraRotPosition, prevCameraRotPosition, cameraMovementBetween);
         }
 
        // if (!TextManager.playerControlsLocked && !TutorialCards.isTutorialRunning)
-        if (!PanelManager.playerControlsLocked && !TutorialCards.isTutorialRunning)
+        if (!PanelManager.playerControlsLocked && !TutorialCards.isTutorialRunning && !frozenForMinigame)
         {
             CheckClick();
             CheckPlayer();
@@ -258,6 +267,29 @@ public class PlayerControls : MonoBehaviour
                 EndButtonToggle.DisableEndTurn();
             }
         }
+
+        if (frozenForMinigame)
+        {
+            PlayMinigame();
+        }
+    }
+
+    public void PlayMinigame()
+    {
+        if (currentMinigame != null && currentMinigame.GetComponent<Minigame>().gameConditionSet == true)
+        {
+            if (currentMinigame.GetComponent<Minigame>().gameWon)
+            {
+                DealMoreDamage(2, damageTarget);
+            }
+            frozenForMinigame = false;
+            GameObject.Destroy(currentMinigame);
+        }
+    }
+
+    public void DealMoreDamage(int damage, GameObject target)
+    {
+        target.transform.GetComponent<Stats>().TakeDamage(damage);
     }
 
     public static void EnemyTurnsActivate()
@@ -587,8 +619,17 @@ public class PlayerControls : MonoBehaviour
                         }
                     }
                 }
-                else if (hit.collider.tag == "Enemy" && selectedUnit)
+                else if (hit.collider.tag == "Enemy" && selectedUnit && selectedUnit.GetComponent<Stats>().canAttack == true /* && TODO: check if character is next to enemy*/)
                 {
+                    if (selectedUnit.GetComponent<Stats>() != null)
+                    {
+                        if (selectedUnit.GetComponent<Stats>().characterName == "Ed")
+                        {
+                            currentMinigame = Instantiate(edsMinigame, gameObject.transform.position + 5.0f * gameObject.transform.forward, gameObject.transform.rotation);
+                            frozenForMinigame = true;
+                            damageTarget = hit.collider.gameObject;
+                        }
+                    }
                     hit.transform.GetComponent<Stats>().TakeDamage(selectedUnit.GetComponent<Stats>().damage);
                     selectedUnit.GetComponent<Stats>().canAttack = false;
                 }
@@ -932,7 +973,6 @@ public class PlayerControls : MonoBehaviour
                 isLeft = true;
             }
         }
-        Debug.Log("isLeft:      " + isLeft);
         //right
         
 
