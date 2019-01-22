@@ -27,7 +27,7 @@ public class PlayerControls : MonoBehaviour
 
     private float cameraChangeVertical;
     private float cameraChangeHorizontal;
-    private float[] xLowerLimit = {-10.0f, -10.0f, -10.0f, -65.0f };
+    private float[] xLowerLimit = { -10.0f, -10.0f, -10.0f, -65.0f };
     private float[] xHigherLimit = { 10.0f, 10.0f, 10.0f, -45.0f };
     private float[] yLowerLimit = { -55.0f, -55.0f, -5.0f, -55.0f };
     private float[] yHigherLimit = { -45.0f, -45.0f, 5.0f, -35.0f };
@@ -94,8 +94,8 @@ public class PlayerControls : MonoBehaviour
             //Wind always agains you in the 3rd round
             windDirection = 0;
         }
-        else if(turnCount > 2)
-        { 
+        else if (turnCount > 2)
+        {
             //Wind becomes random after round 3
             //I could be wrong, but The 0 - 16 range and then divide by 4 makes it more evenly distributed
             windDirection = (int)(Random.Range(0.0f, 20.00f) / 4);
@@ -205,13 +205,13 @@ public class PlayerControls : MonoBehaviour
             MoveCamera();
             CheckRotateCamera();
         }
-        
+
         if (movingCamera)
         {
             RepositionCamera(cameraRotPosition, prevCameraRotPosition, cameraMovementBetween);
         }
 
-       // if (!TextManager.playerControlsLocked && !TutorialCards.isTutorialRunning)
+        // if (!TextManager.playerControlsLocked && !TutorialCards.isTutorialRunning)
         if (!PanelManager.playerControlsLocked && !TutorialCards.isTutorialRunning && !frozenForMinigame)
         {
             CheckClick();
@@ -401,12 +401,12 @@ public class PlayerControls : MonoBehaviour
         {
             if (Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().health <= 0)
             {
-                    if (selectedUnit == Board.possibleMoveableChars[i].GetPiece())
-                    {
-                        selectedUnit = null;
-                    }
-                    Board.possibleMoveableChars[i].SetRowAndCol(1000, 1000);
-                    Board.possibleMoveableChars[i].GetPiece().transform.position = new Vector3(10000, 10000, 0);
+                if (selectedUnit == Board.possibleMoveableChars[i].GetPiece())
+                {
+                    selectedUnit = null;
+                }
+                Board.possibleMoveableChars[i].SetRowAndCol(1000, 1000);
+                Board.possibleMoveableChars[i].GetPiece().transform.position = new Vector3(10000, 10000, 0);
             }
             //if (Board.possibleMoveableChars[i].rowPosition == 1000)
             //{
@@ -619,7 +619,7 @@ public class PlayerControls : MonoBehaviour
                         }
                     }
                 }
-                else if (hit.collider.tag == "Enemy" && selectedUnit && selectedUnit.GetComponent<Stats>().canAttack == true /* && TODO: check if character is next to enemy*/)
+                else if (hit.collider.tag == "Enemy" && selectedUnit && selectedUnit.GetComponent<Stats>().canAttack == true && isPlayerNextToEnemy(hit.collider.gameObject))
                 {
                     if (selectedUnit.GetComponent<Stats>() != null)
                     {
@@ -657,7 +657,7 @@ public class PlayerControls : MonoBehaviour
             }
         }
     }
-    
+
 
     public void DisablePanelUnderCharacter(GameObject selected)
     {
@@ -676,6 +676,22 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
+    bool isPlayerNextToEnemy(GameObject enemy)
+    {
+        if (enemy.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[theOne].rowPosition - 1 ||
+                enemy.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[theOne].rowPosition + 1 ||
+                enemy.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[theOne].rowPosition)
+        {
+
+            if (enemy.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[theOne].colPosition - 1 ||
+                enemy.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[theOne].colPosition + 1 ||
+                enemy.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[theOne].colPosition)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     
     public void LimitMoveCamera()
     {
