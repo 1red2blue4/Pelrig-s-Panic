@@ -1,0 +1,107 @@
+{
+  "dialogues": [
+    {
+      "Conversation": 0,
+      "CharacterName": "Hally",
+      "CharacterImage": "Hally",
+      "DialogueText": "Ooooo, I love pirates! Can I be the captain?"
+      /*"FontName": "ComicaRegular"*/
+    },
+    {
+      "Conversation": 1,
+      "CharacterName": "Jade",
+      "CharacterImage": "Jade",
+      "DialogueText": "Lemme at ‘em!"
+    },
+    {
+      "Conversation": 2,
+      "CharacterName": "Meda",
+      "CharacterImage": "Meda",
+      "DialogueText": "That could be interesting. I read about how pirates have caused troubles in the past. Perhaps we could fight them off and save the sea!"
+    },
+    {
+      "Conversation": 3,
+      "CharacterName": "Jade",
+      "CharacterImage": "Jade",
+      "DialogueText": "We attack them! We surround them!"
+    },
+    {
+      "Conversation": 4,
+      "CharacterName": "Meda",
+      "CharacterImage": "Meda",
+      "DialogueText": "Excellent idea! If three of us surround one of them, it will be much weaker. Looks like there are some canons and generators to help us too."
+    },
+    {
+      "Conversation": 5,
+      "CharacterName": "Jade",
+      "CharacterImage": "Jade",
+      "DialogueText": "Canons! Now we’re talking!"
+    },
+    {
+      "Conversation": 6,
+      "CharacterName": "Hally",
+      "CharacterImage": "Hally",
+      "DialogueText": "I see the captain of the ship! His beard is on fire! He looks like a meanie!"
+    },
+    {
+      "Conversation": 7,
+      "CharacterName": "Meda",
+      "CharacterImage": "Meda",
+      "DialogueText": "That’s Blackbeard. You're right, Hally. Blackbeard is a meanie. At least, from what I know."
+    },
+    {
+      "Conversation": 8,
+      "CharacterName": "Hally",
+      "CharacterImage": "Hally",
+      "DialogueText": "I still want to be captain of the ship."
+    },
+    {
+      "Conversation": 9,
+      "CharacterName": "Ed",
+      "CharacterImage": "Kent",
+      "DialogueText": "Stand next to the wheel and you could pretend you are... I guess."
+    },
+    {
+      "Conversation": 10,
+      "CharacterName": "Hally",
+      "CharacterImage": "Hally",
+      "DialogueText": "Yay! Then I can sail it to outer space!"
+    },
+    {
+      "Conversation": 11,
+      "CharacterName": "Meda",
+      "CharacterImage": "Meda",
+      "DialogueText": "Is everybody ready? Let's get to the bow of the ship!"
+    },
+    {
+      "Conversation": 12,
+      "CharacterName": "Ed",
+      "CharacterImage": "Ed",
+      "DialogueText": "…"
+    },
+    {
+      "Conversation": 13,
+      "CharacterName": "Jade",
+      "CharacterImage": "Jade",
+      "DialogueText": " I’ll race you to the front of the ship!"
+    },
+    {
+      "Conversation": 14,
+      "CharacterName": "Hally",
+      "CharacterImage": "Hally",
+      "DialogueText": "...and make a lot of alien friends..."
+    },
+    {
+      "Conversation": 15,
+      "CharacterName": "Kent",
+      "CharacterImage": "Kent",
+      "DialogueText": "Heh, this is silly. But I guess it could be fun. Let’s GO!"
+    },
+    {
+      "Conversation": 16,
+      "CharacterName": "Kent",
+      "CharacterImage": "Kent",
+      "DialogueText": "."
+    }
+  ]
+}

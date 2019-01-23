@@ -8,8 +8,8 @@ public class Minigame : MonoBehaviour
     private float timer;
     [SerializeField] private float timeAvailable;
     [SerializeField] private MinigamePlayer miniGamePlayer;
-    private bool gameWon;
-    private bool gameConditionSet;
+    public bool gameWon;
+    public bool gameConditionSet;
     [SerializeField] private TextMesh timerText;
 
     // Start is called before the first frame update

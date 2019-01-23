@@ -49,7 +49,7 @@ public class EnemyAI : MonoBehaviour {
     {
         //if (PlayerControls.selectedUnit)
         //{
-            if (PlayerControls.selectedUnit.GetComponent<Stats>().canAttack)
+            if (PlayerControls.selectedUnit && PlayerControls.selectedUnit.GetComponent<Stats>().canAttack)
             {
                 Piece unit = Board.possibleMoveableChars[PlayerControls.theOne];
                 bool a = false;

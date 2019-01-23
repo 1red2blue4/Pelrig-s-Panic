@@ -28,7 +28,7 @@ public class PlayerControls : MonoBehaviour
 
     private float cameraChangeVertical;
     private float cameraChangeHorizontal;
-    private float[] xLowerLimit = {-10.0f, -10.0f, -10.0f, -65.0f };
+    private float[] xLowerLimit = { -10.0f, -10.0f, -10.0f, -65.0f };
     private float[] xHigherLimit = { 10.0f, 10.0f, 10.0f, -45.0f };
     private float[] yLowerLimit = { -55.0f, -55.0f, -5.0f, -55.0f };
     private float[] yHigherLimit = { -45.0f, -45.0f, 5.0f, -35.0f };
@@ -44,10 +44,18 @@ public class PlayerControls : MonoBehaviour
 
     GameObject panelUnderCharacter;
 
+    public GameObject currentMinigame;
+    public bool frozenForMinigame;
+    [SerializeField] public GameObject edsMinigame;
+
+    public GameObject damageTarget;
+
 
     public static bool isWalk;
     void Start()
     {
+        damageTarget = null;
+        frozenForMinigame = false;
         turnCount = 1;
         cameraChangeHorizontal = 0.0f;
         cameraChangeVertical = 0.0f;
@@ -87,8 +95,8 @@ public class PlayerControls : MonoBehaviour
             //Wind always agains you in the 3rd round
             windDirection = 0;
         }
-        else if(turnCount > 2)
-        { 
+        else if (turnCount > 2)
+        {
             //Wind becomes random after round 3
             //I could be wrong, but The 0 - 16 range and then divide by 4 makes it more evenly distributed
             windDirection = (int)(Random.Range(0.0f, 20.00f) / 4);
@@ -193,18 +201,21 @@ public class PlayerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveCamera();
-        CheckRotateCamera();
-
-        //LimitMoveCamera();
+        if (!frozenForMinigame)
+        {
+            MoveCamera();
+            CheckRotateCamera();
+        }
 
         if (movingCamera)
         {
             RepositionCamera(cameraRotPosition, prevCameraRotPosition, cameraMovementBetween);
         }
 
-       // if (!TextManager.playerControlsLocked && !TutorialCards.isTutorialRunning)
-        if (!PanelManager.playerControlsLocked && !TutorialCards.isTutorialRunning)
+        Debug.Log(PanelManager.playerControlsLocked);
+
+        // if (!TextManager.playerControlsLocked && !TutorialCards.isTutorialRunning)
+        if (!PanelManager.playerControlsLocked && !TutorialCards.isTutorialRunning && !frozenForMinigame)
         {
             CheckClick();
             CheckPlayer();
@@ -259,6 +270,29 @@ public class PlayerControls : MonoBehaviour
                 EndButtonToggle.DisableEndTurn();
             }
         }
+
+        if (frozenForMinigame)
+        {
+            PlayMinigame();
+        }
+    }
+
+    public void PlayMinigame()
+    {
+        if (currentMinigame != null && currentMinigame.GetComponent<Minigame>().gameConditionSet == true)
+        {
+            if (currentMinigame.GetComponent<Minigame>().gameWon)
+            {
+                DealMoreDamage(2, damageTarget);
+            }
+            frozenForMinigame = false;
+            GameObject.Destroy(currentMinigame);
+        }
+    }
+
+    public void DealMoreDamage(int damage, GameObject target)
+    {
+        target.transform.GetComponent<Stats>().TakeDamage(damage);
     }
 
     public static void EnemyTurnsActivate()
@@ -370,12 +404,12 @@ public class PlayerControls : MonoBehaviour
         {
             if (Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().health <= 0)
             {
-                    if (selectedUnit == Board.possibleMoveableChars[i].GetPiece())
-                    {
-                        selectedUnit = null;
-                    }
-                    Board.possibleMoveableChars[i].SetRowAndCol(1000, 1000);
-                    Board.possibleMoveableChars[i].GetPiece().transform.position = new Vector3(10000, 10000, 0);
+                if (selectedUnit == Board.possibleMoveableChars[i].GetPiece())
+                {
+                    selectedUnit = null;
+                }
+                Board.possibleMoveableChars[i].SetRowAndCol(1000, 1000);
+                Board.possibleMoveableChars[i].GetPiece().transform.position = new Vector3(10000, 10000, 0);
             }
             //if (Board.possibleMoveableChars[i].rowPosition == 1000)
             //{
@@ -589,8 +623,17 @@ public class PlayerControls : MonoBehaviour
                         }
                     }
                 }
-                else if (hit.collider.tag == "Enemy" && selectedUnit)
+                else if (hit.collider.tag == "Enemy" && selectedUnit && selectedUnit.GetComponent<Stats>().canAttack == true && isPlayerNextToEnemy(hit.collider.gameObject))
                 {
+                    if (selectedUnit.GetComponent<Stats>() != null)
+                    {
+                        if (selectedUnit.GetComponent<Stats>().characterName == "Ed")
+                        {
+                            currentMinigame = Instantiate(edsMinigame, gameObject.transform.position + 5.0f * gameObject.transform.forward, gameObject.transform.rotation);
+                            frozenForMinigame = true;
+                            damageTarget = hit.collider.gameObject;
+                        }
+                    }
                     hit.transform.GetComponent<Stats>().TakeDamage(selectedUnit.GetComponent<Stats>().damage);
                     selectedUnit.GetComponent<Stats>().canAttack = false;
                 }
@@ -618,7 +661,7 @@ public class PlayerControls : MonoBehaviour
             }
         }
     }
-    
+
 
     public void DisablePanelUnderCharacter(GameObject selected)
     {
@@ -637,6 +680,22 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
+    bool isPlayerNextToEnemy(GameObject enemy)
+    {
+        if (enemy.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[theOne].rowPosition - 1 ||
+                enemy.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[theOne].rowPosition + 1 ||
+                enemy.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[theOne].rowPosition)
+        {
+
+            if (enemy.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[theOne].colPosition - 1 ||
+                enemy.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[theOne].colPosition + 1 ||
+                enemy.GetComponent<Piece>().colPosition == Board.possibleMoveableChars[theOne].colPosition)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     
     public void LimitMoveCamera()
     {
@@ -934,7 +993,6 @@ public class PlayerControls : MonoBehaviour
                 isLeft = true;
             }
         }
-        Debug.Log("isLeft:      " + isLeft);
         //right
         
 
