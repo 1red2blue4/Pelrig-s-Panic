@@ -136,7 +136,6 @@ public class DisplayOnHover : MonoBehaviour {
         bubObj.transform.localScale = new Vector3(startScale.x + amountBloat, startScale.y + amountBloat, startScale.z + amountBloat);
         amountBloat += bloatRate * Time.deltaTime;
         distBetweenBubbling += bubblingRate * Time.deltaTime;
-        Debug.Log(bubObj);
 
         if (distBetweenBubbling >= 1.0f)
         {

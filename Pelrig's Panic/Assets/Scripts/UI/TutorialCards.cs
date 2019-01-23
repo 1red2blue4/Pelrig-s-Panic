@@ -13,6 +13,7 @@ public class TutorialCards : MonoBehaviour {
     bool isEnabled;
     float timer;
     bool lastTutorial;
+    [SerializeField] float bubbleSpeed;
 
 	// Use this for initialization
 	void Start () {
@@ -35,8 +36,7 @@ public class TutorialCards : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-      //  Debug.Log("PanelManager.playerControlsLocked:       "+ PanelManager.playerControlsLocked);
-        if (!isEnabled && !PanelManager.playerControlsLocked)//!TextManager.playerControlsLocked)
+        if (!isEnabled && !PanelManager.playerControlsLocked)
         {
             isTutorialRunning = true;
             isEnabled = true;
@@ -64,7 +64,7 @@ public class TutorialCards : MonoBehaviour {
                     transform.GetChild(2).GetChild(0).GetComponent<Text>().text = "Lets Play!";
                 }
 
-                float timeIncrement = Time.deltaTime * 1.6f;
+                float timeIncrement = Time.deltaTime * bubbleSpeed;
                 transform.GetChild(0).localScale += new Vector3(timeIncrement, timeIncrement, timeIncrement);
                 transform.GetChild(1).localScale += new Vector3(timeIncrement, timeIncrement, timeIncrement);
 

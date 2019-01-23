@@ -19,7 +19,6 @@ public class DialoguePortrait : MonoBehaviour {
         }
         Sprite resultingSprite = Sprite.Create(talkingCharacter.characterPortrait, new Rect(0.0f, 0.0f, 284.0f, 284.0f), new Vector2(0.0f, 0.0f));
         uiCharacterImage.sprite = resultingSprite;
-        Debug.Log(talkingCharacter.name);
         nameBox.text = talkingCharacter.name;
     }
 }

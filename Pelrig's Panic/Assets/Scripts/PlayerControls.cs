@@ -211,8 +211,6 @@ public class PlayerControls : MonoBehaviour
             RepositionCamera(cameraRotPosition, prevCameraRotPosition, cameraMovementBetween);
         }
 
-        Debug.Log(PanelManager.playerControlsLocked);
-
         // if (!TextManager.playerControlsLocked && !TutorialCards.isTutorialRunning)
         if (!PanelManager.playerControlsLocked && !TutorialCards.isTutorialRunning && !frozenForMinigame)
         {

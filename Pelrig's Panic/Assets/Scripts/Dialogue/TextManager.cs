@@ -115,7 +115,6 @@ public static class TextManager {
         //TODO: organize buildIndex documentation
         if (SceneManager.GetActiveScene().buildIndex == 1 && (Input.GetKey(KeyCode.P) || countDialogueLength >= 18))
         {
-            Debug.Log("Textmanagers script is loaded");
             countDialogueLength = 0;
             playerControlsLocked = true;
             SceneManager.LoadScene("PirateShipUINad");

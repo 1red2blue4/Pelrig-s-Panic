@@ -32,7 +32,6 @@ public class CannonRadius : MonoBehaviour {
                 tempCol = col + j;
                 if (GameObject.Find("gridRow"+ tempRow + "Column"+ tempCol))
                 {
-                   // Debug.Log(GameObject.Find("gridRow" + tempRow + "Column" + tempCol).transform.childCount);
                     gridsToHighlight.Add(GameObject.Find("gridRow" + tempRow + "Column" + tempCol).transform.GetChild(2));
                 }
             }

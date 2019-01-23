@@ -27,8 +27,6 @@ public static class MovementManager {
         {
             bool inWay = false;
             PlayerControls.ClearAllGrids();
-           // PlayerControls.CharacterHUDDisable();
-            //PlayerControls.EndButtonEnable();
             //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
             {
@@ -84,11 +82,10 @@ public static class MovementManager {
 
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
-                //Debug.Log("Up direction");
+                character.prevPos = character.thePiece.transform.position;
                 character.SetRowAndCol(character.rowPosition - 1, character.colPosition);
-                character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + character.colPosition).transform.position;
                 PlayerControls.UnoccupiedSpaceEnable(character);
-               // PlayerControls.CharacterHUDEnable();
+                character.currPos = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 return true;
             }
         }
@@ -96,8 +93,6 @@ public static class MovementManager {
         else if (direction == 2)
         {
             PlayerControls.ClearAllGrids();
-           // PlayerControls.CharacterHUDDisable();
-            // PlayerControls.EndButtonEnable();
             bool inWay = false;
             //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
@@ -151,11 +146,10 @@ public static class MovementManager {
 
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
-                //Debug.Log("Right direction");
+                character.prevPos = character.thePiece.transform.position;
                 character.SetRowAndCol(character.rowPosition, character.colPosition + 1);
-                character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 PlayerControls.UnoccupiedSpaceEnable(character);
-                //PlayerControls.CharacterHUDEnable();
+                character.currPos = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 return true;
             }
            
@@ -165,8 +159,6 @@ public static class MovementManager {
         {            
             bool inWay = false;
             PlayerControls.ClearAllGrids();
-           // PlayerControls.CharacterHUDDisable();
-            //PlayerControls.EndButtonEnable();
             //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
             {                
@@ -200,7 +192,6 @@ public static class MovementManager {
                 if (Board.allCannons[i].cannon.rowPosition == character.rowPosition + 1 && Board.allCannons[i].cannon.colPosition == character.colPosition)
                 {
                     inWay = true;
-                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
             //check for generators in the way
@@ -209,7 +200,6 @@ public static class MovementManager {
                 if (Board.generators[i].generator.rowPosition == character.rowPosition + 1 && Board.generators[i].generator.colPosition == character.colPosition)
                 {
                     inWay = true;
-                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
             if (SceneManager.GetActiveScene().buildIndex == 2 && Board.pirateBoss.colPosition == character.colPosition && Board.pirateBoss.rowPosition == character.rowPosition + 1)
@@ -218,12 +208,10 @@ public static class MovementManager {
             }
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
-                //Debug.Log("Down direction");
-                // PlayerControls.isDown = false;
+                character.prevPos = character.thePiece.transform.position;
                 character.SetRowAndCol(character.rowPosition + 1, character.colPosition);
-                character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 PlayerControls.UnoccupiedSpaceEnable(character);
-               // PlayerControls.CharacterHUDEnable();
+                character.currPos = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 return true;
             }
         }
@@ -232,8 +220,6 @@ public static class MovementManager {
         {
             bool inWay = false;
             PlayerControls.ClearAllGrids();
-            //PlayerControls.CharacterHUDDisable();
-            // PlayerControls.EndButtonEnable();
             //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
             {                
@@ -267,7 +253,6 @@ public static class MovementManager {
                 if (Board.allCannons[i].cannon.colPosition == character.colPosition - 1 && Board.allCannons[i].cannon.rowPosition == character.rowPosition)
                 {
                     inWay = true;
-                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
             //check for generators in the way
@@ -276,7 +261,6 @@ public static class MovementManager {
                 if (Board.generators[i].generator.rowPosition == character.rowPosition && Board.generators[i].generator.colPosition == character.colPosition - 1)
                 {
                     inWay = true;
-                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
             if (SceneManager.GetActiveScene().buildIndex == 2 && Board.pirateBoss.colPosition == character.colPosition - 1 && Board.pirateBoss.rowPosition == character.rowPosition)
@@ -285,11 +269,10 @@ public static class MovementManager {
             }
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
-              //  Debug.Log("Left direction");
+                character.prevPos = character.thePiece.transform.position;
                 character.SetRowAndCol(character.rowPosition, character.colPosition - 1);
-                character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 PlayerControls.UnoccupiedSpaceEnable(character);
-               // PlayerControls.CharacterHUDEnable();
+                character.currPos = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 return true;
             }
         }

@@ -184,6 +184,13 @@ MonoBehaviour:
   TextBG: {fileID: 429560189}
   characterName: {fileID: 1893091936}
   dialogue: {fileID: 2071250717}
+  characterFont: []
+  edsFont: {fileID: 0}
+  medasFont: {fileID: 0}
+  kentsFont: {fileID: 0}
+  jadesFont: {fileID: 0}
+  hallysFont: {fileID: 0}
+  universalFancyFont: {fileID: 0}
 --- !u!1 &1893091934
 GameObject:
   m_ObjectHideFlags: 0

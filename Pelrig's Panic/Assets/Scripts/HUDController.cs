@@ -12,14 +12,12 @@ public class HUDController : MonoBehaviour
         if(panel != null)
         {
             animator = panel.GetComponent<Animator>();
-
-            Debug.Log("Button clicked");
+            
             if (animator != null)
             {
                bool isOpen = animator.GetBool("Open");
                 
                 animator.SetBool("Open", !isOpen);
-                Debug.Log("isOpen:      " + isOpen);
             }
         }        
     }
