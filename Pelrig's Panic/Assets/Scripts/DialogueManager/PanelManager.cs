@@ -14,6 +14,7 @@ public class PanelManager : MonoBehaviour, DialogueStateManager
     public static bool isPressed;
     public static bool playerControlsLocked;
     public static int countDialogueLength;
+    [SerializeField] private int maxCountDialogueLength;
 
     [SerializeField]
     private GameObject dialoguePanel;
@@ -50,25 +51,29 @@ public class PanelManager : MonoBehaviour, DialogueStateManager
             }
             BootSequence();                
         }
-        if (countDialogueLength >= 18)
+        if (Input.GetKey(KeyCode.P) || countDialogueLength >= currentEvent.dialogues.Count)
         {
-            dialoguePanel.SetActive(false);
+            if (SceneManager.GetActiveScene().buildIndex == 1)
+            {
+                dialoguePanel.SetActive(false);
+                countDialogueLength = 0;
+                stepIndex = 0;
+                playerControlsLocked = false;
+                SceneManager.LoadScene("PirateshipScene");
+            }
+
+            if (SceneManager.GetActiveScene().buildIndex == 2)
+            {
+                dialoguePanel.SetActive(false);
+                playerControlsLocked = false;
+                countDialogueLength = currentEvent.dialogues.Count;
+            }
         }
-        if (SceneManager.GetActiveScene().buildIndex == 1 && (Input.GetKey(KeyCode.P) || countDialogueLength >= 16))
-        { 
-            countDialogueLength = 0;
-            stepIndex = 0;
+        else if (countDialogueLength < currentEvent.dialogues.Count)
+        {
             playerControlsLocked = true;
-            SceneManager.LoadScene("PirateshipScene");
         }
-        if (SceneManager.GetActiveScene().buildIndex == 2 && countDialogueLength <= 17)
-        {           
-            playerControlsLocked = true;
-        }
-        else
-        { 
-            playerControlsLocked = false;
-        }
+        
     }
 
     private void InitiziliasePanels()
