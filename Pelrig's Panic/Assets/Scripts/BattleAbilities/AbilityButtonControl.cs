@@ -9,7 +9,7 @@ public class AbilityButtonControl : MonoBehaviour
 
     public void checkAbilityUnit()
     {
-        if (!PlayerControls.abilitySelectedUnit )
+        if (!PlayerControls.abilitySelectedUnit)
         {
             return;
         }
