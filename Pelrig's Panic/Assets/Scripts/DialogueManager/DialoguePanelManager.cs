@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using JSONFactory;
+using JSONText;
 using UnityEngine.SceneManagement;
 
-public class PanelManager : MonoBehaviour, DialogueStateManager
+public class DialoguePanelManager : MonoBehaviour, DialogueStateManager
 {
     public ManagerState currentState { get; private set; }
-    private PanelConfig characterPanel;
+    private DialoguePanelConfig characterPanel;
     private NarrativeEvent currentEvent;
     private bool CharacterActive = true;
     private int stepIndex = -1;
@@ -26,7 +26,7 @@ public class PanelManager : MonoBehaviour, DialogueStateManager
     }
     public void BootSequence()
     { 
-        characterPanel = GameObject.Find("CharacterPanel").GetComponent<PanelConfig>();        
+        characterPanel = GameObject.Find("CharacterPanel").GetComponent<DialoguePanelConfig>();        
 
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
@@ -38,14 +38,12 @@ public class PanelManager : MonoBehaviour, DialogueStateManager
         }
         InitiziliasePanels();
     }
-
-
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && isPressed == true)
         {
             isPressed = false; 
-            if(PanelConfig.isDialogueTextOver)
+            if(DialoguePanelConfig.isDialogueTextOver)
             {               
                 UpdatePanelState(); 
             }
@@ -61,7 +59,6 @@ public class PanelManager : MonoBehaviour, DialogueStateManager
                 playerControlsLocked = false;
                 SceneManager.LoadScene("PirateshipScene");
             }
-
             if (SceneManager.GetActiveScene().buildIndex == 2)
             {
                 dialoguePanel.SetActive(false);
@@ -72,10 +69,8 @@ public class PanelManager : MonoBehaviour, DialogueStateManager
         else if (countDialogueLength < currentEvent.dialogues.Count)
         {
             playerControlsLocked = true;
-        }
-        
+        }        
     }
-
     private void InitiziliasePanels()
     { 
         characterPanel.isTalking = true;        

@@ -43,7 +43,7 @@ public class HUDTextScript : MonoBehaviour
             }
         }
 
-        if(!PanelManager.playerControlsLocked && !TutorialCards.isTutorialRunning)
+        if(!DialoguePanelManager.playerControlsLocked && !TutorialCards.isTutorialRunning)
         {
             for(int i = 0; i < characterPortrait.Length; i++)
             {

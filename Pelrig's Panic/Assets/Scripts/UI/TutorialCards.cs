@@ -35,8 +35,7 @@ public class TutorialCards : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-      //  Debug.Log("PanelManager.playerControlsLocked:       "+ PanelManager.playerControlsLocked);
-        if (!isEnabled && !PanelManager.playerControlsLocked)//!TextManager.playerControlsLocked)
+        if (!isEnabled && !DialoguePanelManager.playerControlsLocked)//!TextManager.playerControlsLocked)
         {
             isTutorialRunning = true;
             isEnabled = true;

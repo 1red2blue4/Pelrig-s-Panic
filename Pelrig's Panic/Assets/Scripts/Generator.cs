@@ -54,7 +54,16 @@ public class Generator : MonoBehaviour
 
         if (playersAround >= 0 && playersAround < numCharsToSurround)
         {
+            //float timeIncrement = Time.deltaTime * 1.6f;
+            
+
+           
             uiImage.SetActive(true);
+           /* uiImage.transform.localScale += new Vector3(timeIncrement, timeIncrement, timeIncrement);
+            if (uiImage.transform.localScale.x >= 2.0f)
+            {
+                uiImage.transform.localScale += new Vector3(timeIncrement, timeIncrement, timeIncrement);
+            }*/
             if (uiImage.transform.GetChild(0) != null && uiImage.transform.GetChild(0).GetComponent<TextMesh>() != null)
             {
                 uiImage.transform.GetChild(0).GetComponent<TextMesh>().text = (numCharsToSurround - playersAround).ToString();

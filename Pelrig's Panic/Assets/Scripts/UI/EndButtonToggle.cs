@@ -19,7 +19,7 @@ public class EndButtonToggle : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-       if(!PanelManager.playerControlsLocked && !TutorialCards.isTutorialRunning)
+       if(!DialoguePanelManager.playerControlsLocked && !TutorialCards.isTutorialRunning)
         {
             endButton.SetActive(true);
         }
@@ -50,7 +50,7 @@ public class EndButtonToggle : MonoBehaviour
 
     public void LocalEnableEndTurn()
     {
-        if (!isEnable && !PanelManager.playerControlsLocked)
+        if (!isEnable && !DialoguePanelManager.playerControlsLocked)
         {
             EndTurnButtonScript.isButtonPressed = true;
             isEnable = true;

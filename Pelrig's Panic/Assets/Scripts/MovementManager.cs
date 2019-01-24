@@ -27,8 +27,6 @@ public static class MovementManager {
         {
             bool inWay = false;
             PlayerControls.ClearAllGrids();
-           // PlayerControls.CharacterHUDDisable();
-            //PlayerControls.EndButtonEnable();
             //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
             {
@@ -84,11 +82,9 @@ public static class MovementManager {
 
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
-                //Debug.Log("Up direction");
                 character.SetRowAndCol(character.rowPosition - 1, character.colPosition);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + character.colPosition).transform.position;
                 PlayerControls.UnoccupiedSpaceEnable(character);
-               // PlayerControls.CharacterHUDEnable();
                 return true;
             }
         }
@@ -96,8 +92,6 @@ public static class MovementManager {
         else if (direction == 2)
         {
             PlayerControls.ClearAllGrids();
-           // PlayerControls.CharacterHUDDisable();
-            // PlayerControls.EndButtonEnable();
             bool inWay = false;
             //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
@@ -151,11 +145,9 @@ public static class MovementManager {
 
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
-                //Debug.Log("Right direction");
                 character.SetRowAndCol(character.rowPosition, character.colPosition + 1);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 PlayerControls.UnoccupiedSpaceEnable(character);
-                //PlayerControls.CharacterHUDEnable();
                 return true;
             }
            
@@ -165,8 +157,6 @@ public static class MovementManager {
         {            
             bool inWay = false;
             PlayerControls.ClearAllGrids();
-           // PlayerControls.CharacterHUDDisable();
-            //PlayerControls.EndButtonEnable();
             //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
             {                
@@ -218,23 +208,17 @@ public static class MovementManager {
             }
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
-                //Debug.Log("Down direction");
-                // PlayerControls.isDown = false;
                 character.SetRowAndCol(character.rowPosition + 1, character.colPosition);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 PlayerControls.UnoccupiedSpaceEnable(character);
-               // PlayerControls.CharacterHUDEnable();
                 return true;
             }
         }
         //left
-        else
+        else 
         {
             bool inWay = false;
             PlayerControls.ClearAllGrids();
-            //PlayerControls.CharacterHUDDisable();
-            // PlayerControls.EndButtonEnable();
-            //check for other characters in the way
             for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
             {                
                 if (Board.possibleMoveableChars[i] == character)
@@ -285,11 +269,9 @@ public static class MovementManager {
             }
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
-              //  Debug.Log("Left direction");
                 character.SetRowAndCol(character.rowPosition, character.colPosition - 1);
                 character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 PlayerControls.UnoccupiedSpaceEnable(character);
-               // PlayerControls.CharacterHUDEnable();
                 return true;
             }
         }
@@ -328,7 +310,6 @@ public static class MovementManager {
             }
         }
     }
-
     public static void FillOneSpotInLineup()
     {
         //set the lineup of directions

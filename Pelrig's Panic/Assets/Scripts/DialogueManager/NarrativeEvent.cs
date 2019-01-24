@@ -8,7 +8,6 @@ public class NarrativeEvent
     public List<Dialogue> dialogues;
 
 }
-
 public struct Dialogue
 {
     public CharacterType Conversation;
@@ -17,7 +16,6 @@ public struct Dialogue
     public string DialogueText;
     public string FontName;
 }
-
 public enum CharacterType
 {
     Ed, Hally, Kent, Jade, Meda

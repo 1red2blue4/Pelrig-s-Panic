@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class PanelConfig : MonoBehaviour
+public class DialoguePanelConfig : MonoBehaviour
 {
     public bool isTalking;
     public Image characterImage;
@@ -14,15 +14,12 @@ public class PanelConfig : MonoBehaviour
     private int count = 1;
     public Font[] characterFont;
 
-
     [SerializeField] private Font edsFont;
     [SerializeField] private Font medasFont;
     [SerializeField] private Font kentsFont;
     [SerializeField] private Font jadesFont;
     [SerializeField] private Font hallysFont;
-
     [SerializeField] private Font universalFancyFont;
-
 
     void Start()
     {
@@ -32,9 +29,7 @@ public class PanelConfig : MonoBehaviour
     public void Configure(Dialogue currentDialogue)
     {
         characterImage.sprite = DialogueManager.atlasManager.loadSprite(currentDialogue.CharacterImage);
-
-        characterName.text = currentDialogue.CharacterName;
-        
+        characterName.text = currentDialogue.CharacterName;        
         SetFont(characterName, true, characterName.text);
 
         if (isTalking)
@@ -52,27 +47,24 @@ public class PanelConfig : MonoBehaviour
         dialogue.text = "";
         SetFont(dialogue, false, characterName.text);
         foreach (char letter in dialogueText)
-        {
-            
-            dialogue.text += letter;
-            
+        {            
+            dialogue.text += letter;            
             yield return new WaitForSeconds(0.004f);
 
             count++;
             if (dialogueText.Length < count)
             {
                 count = 1;
-                PanelManager.isPressed = true;
+                DialoguePanelManager.isPressed = true;
             }
             if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) && dialogueText.Length < count)
             {
                 count = 1;
                 dialogue.text = dialogueText;
-                PanelManager.isPressed = true;
+                DialoguePanelManager.isPressed = true;
                 break;
             }
-        }
-        
+        }        
     }
 
     public void SetFont(Text text, bool fancy, string name)
