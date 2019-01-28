@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnergyTextEnable : MonoBehaviour
+public class ObjEnableDisable : MonoBehaviour
 {
     [SerializeField]
     private GameObject energyText;
 
     [SerializeField]
     private GameObject controlButton;
+
+    [SerializeField]
+    private GameObject hudClose;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,11 +24,13 @@ public class EnergyTextEnable : MonoBehaviour
         {
             energyText.SetActive(true);
             controlButton.SetActive(true);
+            hudClose.SetActive(true);
         }
         else
         {
             energyText.SetActive(false);
             controlButton.SetActive(false);
+            hudClose.SetActive(false);
         }
     }
 }
