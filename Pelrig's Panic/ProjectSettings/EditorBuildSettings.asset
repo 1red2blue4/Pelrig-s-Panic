@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/MainMenu/MainMenu.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: fdec4529b5e8c4f4f92c6791d7fbe80f
   - enabled: 1
     path: Assets/Scenes/FantasyWorldStartScene.unity

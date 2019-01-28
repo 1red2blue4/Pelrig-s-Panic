@@ -22,12 +22,12 @@ public class DialoguePanelManager : MonoBehaviour, DialogueStateManager
     void Start()
     {
         // isPressed = true;
-        //playerControlsLocked = false;
+        //playerControlsLocked = false; 
     }
     public void BootSequence()
     { 
-        characterPanel = GameObject.Find("CharacterPanel").GetComponent<DialoguePanelConfig>();        
-
+        characterPanel = GameObject.Find("CharacterPanel").GetComponent<DialoguePanelConfig>();
+        Debug.Log("SceneManager.GetActiveScene().buildIndex:        "+ SceneManager.GetActiveScene().buildIndex);
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             currentEvent = JSONAssembly.RunJSONFactoryForScene(1); 
@@ -68,6 +68,7 @@ public class DialoguePanelManager : MonoBehaviour, DialogueStateManager
         }
         else if (countDialogueLength < currentEvent.dialogues.Count)
         {
+            //Debug.Log("playerControlsLocked");
             playerControlsLocked = true;
         }        
     }
