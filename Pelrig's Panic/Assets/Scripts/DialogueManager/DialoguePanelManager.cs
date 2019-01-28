@@ -27,7 +27,7 @@ public class DialoguePanelManager : MonoBehaviour, DialogueStateManager
     public void BootSequence()
     { 
         characterPanel = GameObject.Find("CharacterPanel").GetComponent<DialoguePanelConfig>();
-        Debug.Log("SceneManager.GetActiveScene().buildIndex:        "+ SceneManager.GetActiveScene().buildIndex);
+       // Debug.Log("SceneManager.GetActiveScene().buildIndex:        "+ SceneManager.GetActiveScene().buildIndex);
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             currentEvent = JSONAssembly.RunJSONFactoryForScene(1); 

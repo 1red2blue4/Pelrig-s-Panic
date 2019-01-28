@@ -8,7 +8,7 @@ public class DialoguePortrait : MonoBehaviour {
     public CharacterData talkingCharacter;
     public Image uiCharacterImage;
     [SerializeField] private Image dummyUICharImage;
-    [SerializeField] private SceneOfDialogueRealWorld sceneOfDialogue;
+   // [SerializeField] private SceneOfDialogueRealWorld sceneOfDialogue;
     [SerializeField] private Text nameBox;
 
     public void UpdatePortrait()

@@ -41,7 +41,7 @@ public class RealWorldCharacterSelectionAndMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (TextManager.textViewEmptied)
+        if (DialoguePanelManager.playerControlsLocked)
         {
             //Select the character to lock on to, movement and camera
             if (Input.GetMouseButtonDown(0))
