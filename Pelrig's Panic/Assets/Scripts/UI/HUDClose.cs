@@ -5,20 +5,33 @@ using UnityEngine;
 public class HUDClose : MonoBehaviour
 {
     [SerializeField]
-    private GameObject hud;
-    // Start is called before the first frame update
+    GameObject hudPanel;
+    // Start is called before the first frame update    
+
+    private bool onoff; 
+
     void Start()
     {
-        
+        onoff = false;
     }
-
-    // Update is called once per frame
     void Update()
     {
-        
-    }
-    public void OnClose()
-    {
        
+    }
+
+    public void OpenHudPanel()
+    {       
+        onoff = !onoff; // toggles onoff at each click
+        Debug.Log("onoff:       "+ onoff);
+        if (onoff)
+        {
+            // hudPanel.SetActive(true);
+            hudPanel.SetActive(false);
+        }
+        else
+        {
+            //hudPanel.SetActive(false);
+            hudPanel.SetActive(true);
+        }
     }
 }
