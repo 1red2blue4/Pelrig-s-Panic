@@ -82,9 +82,10 @@ public static class MovementManager {
 
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
+                character.prevPos = character.thePiece.transform.position;
                 character.SetRowAndCol(character.rowPosition - 1, character.colPosition);
-                character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + character.colPosition).transform.position;
                 PlayerControls.UnoccupiedSpaceEnable(character);
+                character.currPos = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 return true;
             }
         }
@@ -145,9 +146,10 @@ public static class MovementManager {
 
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
+                character.prevPos = character.thePiece.transform.position;
                 character.SetRowAndCol(character.rowPosition, character.colPosition + 1);
-                character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 PlayerControls.UnoccupiedSpaceEnable(character);
+                character.currPos = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 return true;
             }
            
@@ -208,9 +210,10 @@ public static class MovementManager {
             }
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
+                character.prevPos = character.thePiece.transform.position;
                 character.SetRowAndCol(character.rowPosition + 1, character.colPosition);
-                character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 PlayerControls.UnoccupiedSpaceEnable(character);
+                character.currPos = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 return true;
             }
         }
@@ -269,9 +272,10 @@ public static class MovementManager {
             }
             if (!inWay && ExperimentalResources.ModifyResource(cost))
             {
+                character.prevPos = character.thePiece.transform.position;
                 character.SetRowAndCol(character.rowPosition, character.colPosition - 1);
-                character.GetPiece().transform.position = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 PlayerControls.UnoccupiedSpaceEnable(character);
+                character.currPos = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
                 return true;
             }
         }

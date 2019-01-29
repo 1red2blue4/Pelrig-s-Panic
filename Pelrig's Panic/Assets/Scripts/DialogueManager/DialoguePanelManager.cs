@@ -25,8 +25,11 @@ public class DialoguePanelManager : MonoBehaviour, DialogueStateManager
         //playerControlsLocked = false; 
     }
     public void BootSequence()
-    { 
-        characterPanel = GameObject.Find("CharacterPanel").GetComponent<DialoguePanelConfig>();
+    {
+        if (GameObject.Find("CharacterPanel") != null)
+        {
+            characterPanel = GameObject.Find("CharacterPanel").GetComponent<DialoguePanelConfig>();
+        }
        // Debug.Log("SceneManager.GetActiveScene().buildIndex:        "+ SceneManager.GetActiveScene().buildIndex);
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {

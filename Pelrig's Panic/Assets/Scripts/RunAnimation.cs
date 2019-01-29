@@ -26,7 +26,14 @@ public class RunAnimation : MonoBehaviour
     private void Animate()
     {
         currentImage = images[currentTime];
-        gameObject.GetComponent<SpriteRenderer>().sprite = currentImage;
+        if (gameObject.GetComponent<SpriteRenderer>() != null)
+        {
+            gameObject.GetComponent<SpriteRenderer>().sprite = currentImage;
+        }
+        else if (gameObject.GetComponent<Image>() != null)
+        {
+            gameObject.GetComponent<Image>().sprite = currentImage;
+        }
 
         if (timer >= times[currentTime])
         {
