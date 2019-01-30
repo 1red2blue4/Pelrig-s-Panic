@@ -9,39 +9,16 @@ public class PlaygroundController : MonoBehaviour, IPointerEnterHandler, IPointe
    // [SerializeField]
    // private Button[] buttonSize;
     public static bool isMouseover;
-     
+    public Sprite onSprite; 
+    public Sprite offSprite;
+
+    [SerializeField]
+    private string buttonText;
     // Start is called before the first frame update
     void Start()
     {
         isMouseover = false;
     }
-    
-    /*public void OnPointerEnter(PointerEventData eventData)
-    {
-        Debug.Log("OnPointerEnter" + name); //This is never logging
-       for(int i = 0; i < buttonSize.Length; i++)
-        {
-          // if(buttonSize[i].tag == "Player")
-                //Debug.Log("Index of :   "+buttonSize[i].name);
-          // else if (buttonSize[i].tag == "Finish")
-             //   Debug.Log("Index of :   Atlantis");
-
-      if(buttonSize[i].name == "Pirateship")
-            {
-                Debug.Log("Index of : Start ");
-                buttonSize[0].GetComponent<Image>().color = Color.red;
-            }
-            else if (buttonSize[i].name == "Atlantis")
-            {
-                Debug.Log("Index of :  Credits ");
-                buttonSize[1].GetComponent<Image>().color = Color.red;
-            }
-            //buttonSize[i].GetComponent<Image>().color = Color.red;
-
-        }
-        
-    }*/
-
     
    // GameObject currentHover;
 
@@ -52,11 +29,9 @@ public class PlaygroundController : MonoBehaviour, IPointerEnterHandler, IPointe
             Debug.Log("Mouse Over: " + eventData.pointerCurrentRaycast.gameObject.name);
             currentHover = eventData.pointerCurrentRaycast.gameObject;
         }*/
-        isMouseover = true;
-        if(isMouseover)
-        {
-            transform.GetComponent<Image>().color = Color.red;
-        }
+        //transform.GetComponent<Image>().color = Color.red;
+        transform.GetComponent<Image>().sprite = onSprite;
+        transform.GetChild(0).GetComponent<Text>().text = "";
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -66,13 +41,12 @@ public class PlaygroundController : MonoBehaviour, IPointerEnterHandler, IPointe
          {
              buttonSize[i].GetComponent<Image>().color = Color.white;
          }
-         currentHover = null;
-         */
-        isMouseover = false;
-        if (!isMouseover)
-        {
-            transform.GetComponent<Image>().color = Color.white;
-        }
+         currentHover = null;*/
+        //transform.GetComponent<Image>().color = Color.white;
+        transform.GetComponent<Image>().sprite = offSprite;
+        transform.GetChild(0).GetComponent<Text>().text = buttonText;
+
+
     }
 
     void Update()
