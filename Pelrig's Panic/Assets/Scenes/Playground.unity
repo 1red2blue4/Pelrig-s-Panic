@@ -488,14 +488,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2924528, g: 0.1972677, b: 0.1972677, a: 1}
+  m_Color: {r: 0.8207547, g: 0.53039336, b: 0.53039336, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: f7c27a2e83eb6d84d97d41aadb0f3e80, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7cf0283421253a540bfe7f4e10643db8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -970,8 +970,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 250, y: 362}
-  m_SizeDelta: {x: 141.20001, y: 46}
+  m_AnchoredPosition: {x: 254.0999, y: 377.7}
+  m_SizeDelta: {x: 172.5, y: 77.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1327153619
 MonoBehaviour:
@@ -1046,7 +1046,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: a4bf1520211a2a54ebb406ccc48ed14a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ac89173d0c77ce841b7c7df48c8412d2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1094,8 +1094,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70be366aff61c564cb9b6067b5c2212c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onSprite: {fileID: 21300000, guid: ac89173d0c77ce841b7c7df48c8412d2, type: 3}
-  offSprite: {fileID: 21300000, guid: a4bf1520211a2a54ebb406ccc48ed14a, type: 3}
+  onSprite: {fileID: 21300000, guid: 192eac00075dfa942ba025ada5b21786, type: 3}
+  offSprite: {fileID: 21300000, guid: ac89173d0c77ce841b7c7df48c8412d2, type: 3}
   buttonText: Pirateship
 --- !u!1 &1439010266
 GameObject:
@@ -1167,7 +1167,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Pirateship
+  m_Text: 
 --- !u!222 &1439010269
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1446,7 +1446,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1718091127
 RectTransform:
   m_ObjectHideFlags: 0
