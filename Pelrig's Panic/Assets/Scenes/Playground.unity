@@ -1046,7 +1046,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ac89173d0c77ce841b7c7df48c8412d2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d598ddd1fbbe03948a55659e67f038d9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1094,8 +1094,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70be366aff61c564cb9b6067b5c2212c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onSprite: {fileID: 21300000, guid: b82647e8c9df5044fb82a61c0c18f1c4, type: 3}
-  offSprite: {fileID: 21300000, guid: ac89173d0c77ce841b7c7df48c8412d2, type: 3}
+  onSprite: {fileID: 21300000, guid: 5b31ab1cd3a14ff4dadd20b345b354a3, type: 3}
+  offSprite: {fileID: 21300000, guid: d598ddd1fbbe03948a55659e67f038d9, type: 3}
   buttonText: Pirateship
 --- !u!1 &1439010266
 GameObject:
