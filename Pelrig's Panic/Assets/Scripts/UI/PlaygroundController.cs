@@ -44,7 +44,7 @@ public class PlaygroundController : MonoBehaviour, IPointerEnterHandler, IPointe
          currentHover = null;*/
         //transform.GetComponent<Image>().color = Color.white;
         transform.GetComponent<Image>().sprite = offSprite;
-        transform.GetChild(0).GetComponent<Text>().text = buttonText;
+        //transform.GetChild(0).GetComponent<Text>().text = buttonText;
 
 
     }

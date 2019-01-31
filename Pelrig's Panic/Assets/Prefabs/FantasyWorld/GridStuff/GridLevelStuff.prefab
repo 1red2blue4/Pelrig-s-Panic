@@ -1325,6 +1325,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 027bb78275087104fb05caf5d87346f8, type: 3}
   - {fileID: 21300000, guid: 29125dc52136dd547a7cb3613e5e01b3, type: 3}
   - {fileID: 21300000, guid: a6b9b3bb57cc00b4e9c293b89158171a, type: 3}
+  bloatSpeed: 2.5
 --- !u!1 &1382715128496360
 GameObject:
   m_ObjectHideFlags: 0
@@ -2536,6 +2537,9 @@ MonoBehaviour:
   initialResistanceValue: 0
   health: 0
   attack: 0
+  currPos: {x: 0, y: 0, z: 0}
+  prevPos: {x: 0, y: 0, z: 0}
+  scootSpeed: 15
   thePiece: {fileID: 1673096372370608, guid: f5a593e929a6cab45bd1a7d0f7f363d7, type: 3}
 --- !u!114 &114857861947281174
 MonoBehaviour:
@@ -2559,6 +2563,9 @@ MonoBehaviour:
   initialResistanceValue: 0
   health: 0
   attack: 0
+  currPos: {x: 0, y: 0, z: 0}
+  prevPos: {x: 0, y: 0, z: 0}
+  scootSpeed: 15
   thePiece: {fileID: 1004241752199634, guid: 798008a55497158438cad3898bdce197, type: 3}
 --- !u!114 &114831346879264154
 MonoBehaviour:
@@ -2582,6 +2589,9 @@ MonoBehaviour:
   initialResistanceValue: 0
   health: 0
   attack: 0
+  currPos: {x: 0, y: 0, z: 0}
+  prevPos: {x: 0, y: 0, z: 0}
+  scootSpeed: 15
   thePiece: {fileID: 1445851507171124, guid: c0940d55018df204c85b65ada65dc631, type: 3}
 --- !u!114 &114579616431020350
 MonoBehaviour:
@@ -2605,6 +2615,9 @@ MonoBehaviour:
   initialResistanceValue: 0
   health: 0
   attack: 0
+  currPos: {x: 0, y: 0, z: 0}
+  prevPos: {x: 0, y: 0, z: 0}
+  scootSpeed: 15
   thePiece: {fileID: 1099632027117354, guid: 3da84a7cd1d90a64d919fd58f4ebae9c, type: 3}
 --- !u!114 &114507549897539042
 MonoBehaviour:
@@ -2628,6 +2641,9 @@ MonoBehaviour:
   initialResistanceValue: 0
   health: 0
   attack: 0
+  currPos: {x: 0, y: 0, z: 0}
+  prevPos: {x: 0, y: 0, z: 0}
+  scootSpeed: 15
   thePiece: {fileID: 1158910450287922, guid: 19101d5d09914f54baa4ef266e8c01bd, type: 3}
 --- !u!1 &1743331873933798
 GameObject:

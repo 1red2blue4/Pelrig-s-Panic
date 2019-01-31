@@ -1,0 +1,70 @@
+{
+  "dialogues": [
+    {
+      "Conversation": 0,
+      "CharacterName": "Hally",
+      "CharacterImage": "Hally",
+      "DialogueText": "Where…. Are we?"
+    },
+    {
+      "Conversation": 1,
+      "CharacterName": "Meda",
+      "CharacterImage": "Meda",
+      "DialogueText": "Aghh! Pirates!"
+    },
+    {
+      "Conversation": 2,
+      "CharacterName": "Kent",
+      "CharacterImage": "Kent",
+      "DialogueText": "What? You’re crazy Meda. There aren’t any pir--"
+    },
+    {
+      "Conversation": 3,
+      "CharacterName": "Kent",
+      "CharacterImage": "Kent",
+      "DialogueText": "…!"
+    },
+    {
+      "Conversation": 4,
+      "CharacterName": "Kent",
+      "CharacterImage": "Kent",
+      "DialogueText": "Meda, there are pirates! Why didn’t you tell us before?"
+    },
+    {
+      "Conversation": 5,
+      "CharacterName": "Meda",
+      "CharacterImage": "Meda",
+      "DialogueText": "We’re on a pirate ship!! A plank on the port side, cannons on the starboard.There’s no doubt about it!"
+    },
+    {
+      "Conversation": 6,
+      "CharacterName": "Hally",
+      "CharacterImage": "Hally",
+      "DialogueText": "Star…. Board?"
+    },
+    {
+      "Conversation": 7,
+      "CharacterName": "Meda",
+      "CharacterImage": "Meda",
+      "DialogueText": "*sigh* The right side of the ship. What are we going to do?"
+    },
+    {
+      "Conversation": 8,
+      "CharacterName": "Kent",
+      "CharacterImage": "Kent",
+      "DialogueText": "Awww! Looks like the babies are playing their baby games again. Heh… I suppose I’ll play along with your “Pirate Ship.”"
+    },
+    {
+      "Conversation": 9,
+      "CharacterName": "Jade",
+      "CharacterImage": "Jade",
+      "DialogueText": "Well, I’m excited to fight some pirates!"
+    },
+    {
+      "Conversation": 10,
+      "CharacterName": "Hally",
+      "CharacterImage": "Hally",
+      "DialogueText": "."
+    }
+  ]
+}
