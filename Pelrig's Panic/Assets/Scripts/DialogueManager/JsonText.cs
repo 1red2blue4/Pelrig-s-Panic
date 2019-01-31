@@ -21,7 +21,7 @@ namespace JSONText
 
             if(IsValidJSON(resourcePath) == true)
             {
-                string jsonString = File.ReadAllText(Application.dataPath + resourcePath);
+                string jsonString = File.ReadAllText(Application.streamingAssetsPath + resourcePath);
                 NarrativeEvent narrativeEvent = JsonMapper.ToObject<NarrativeEvent>(jsonString);
 
                 return narrativeEvent;
