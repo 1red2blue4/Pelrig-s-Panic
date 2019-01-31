@@ -13,11 +13,13 @@ public class SceneTransition : MonoBehaviour
 
     public void TurnOn(GameObject on)
     {
+        Debug.Log("Turn on");
         on.SetActive(true);
     }
 
     public void TurnOff(GameObject off)
     {
+        Debug.Log("Turn off");
         off.SetActive(false);
     }
 
