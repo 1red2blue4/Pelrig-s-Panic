@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PirateshipScene.unity
     guid: 48c3cbce42dcedd4baf282c86a374a6c
+  - enabled: 1
+    path: Assets/Scenes/Playground.unity
+    guid: 7ee242d15161eef4da0523fef2b44df9
   m_configObjects: {}

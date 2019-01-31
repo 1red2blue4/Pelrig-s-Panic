@@ -18,6 +18,7 @@ public class DialoguePanelManager : MonoBehaviour, DialogueStateManager
 
     [SerializeField]
     private GameObject dialoguePanel;
+    private bool isCharacterPanelDisabled;
 
     void Start()
     {
@@ -25,9 +26,11 @@ public class DialoguePanelManager : MonoBehaviour, DialogueStateManager
         //playerControlsLocked = false; 
     }
     public void BootSequence()
-    { 
-        characterPanel = GameObject.Find("CharacterPanel").GetComponent<DialoguePanelConfig>();
-       // Debug.Log("SceneManager.GetActiveScene().buildIndex:        "+ SceneManager.GetActiveScene().buildIndex);
+    {
+        if (GameObject.Find("CharacterPanel") != null)
+        {
+            characterPanel = GameObject.Find("CharacterPanel").GetComponent<DialoguePanelConfig>();
+        } 
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             currentEvent = JSONAssembly.RunJSONFactoryForScene(1); 
@@ -63,22 +66,26 @@ public class DialoguePanelManager : MonoBehaviour, DialogueStateManager
             {
                 dialoguePanel.SetActive(false);
                 playerControlsLocked = false;
+                isCharacterPanelDisabled = true;
                 countDialogueLength = currentEvent.dialogues.Count;
             }
         }
         else if (countDialogueLength < currentEvent.dialogues.Count)
         {
-            //Debug.Log("playerControlsLocked");
+            characterPanel.isTalking = false;
             playerControlsLocked = true;
         }        
     }
     private void InitiziliasePanels()
-    { 
-        characterPanel.isTalking = true;        
-        stepIndex++;
-        countDialogueLength++;
-        characterPanel.Configure(currentEvent.dialogues[stepIndex]);
-        CharacterActive = !CharacterActive;
+    {
+        if (!isCharacterPanelDisabled)
+        {
+            characterPanel.isTalking = true;
+            stepIndex++;
+            countDialogueLength++;
+            characterPanel.Configure(currentEvent.dialogues[stepIndex]);
+            CharacterActive = !CharacterActive;
+        }
     }
     private void ConfigurePanels()
     {
