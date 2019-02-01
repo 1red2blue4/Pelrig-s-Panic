@@ -151,9 +151,13 @@ public class Board : MonoBehaviour {
             }
             RotateCharacterPosition(generatorPieces, generatorPieces.Length, 2);
 
-            GridPositioner childPositionerBoss = pirateBoss.thePiece.transform.GetChild(0).GetComponent<GridPositioner>();
-            childPositionerBoss.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-            childPositionerBoss.AdjustToCamera();
+            if (pirateBoss)
+            {
+                GridPositioner childPositionerBoss = pirateBoss.thePiece.transform.GetChild(0).GetComponent<GridPositioner>();
+
+                childPositionerBoss.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                childPositionerBoss.AdjustToCamera();
+            }
 
             timer += Time.deltaTime;
             coinResetTimer += Time.deltaTime;
@@ -722,8 +726,8 @@ public class Board : MonoBehaviour {
                     bringDown.CheckWhatsBeneath();
                 }
                 //Put the pirate boss here
-                int bossCol = 25;
-                int bossRow = 6;
+                int bossCol = 25; //25
+                int bossRow = 6; //6
                 float halfWidth1 = (float)universalTileWidth / 2.0f;
                 float halfHeight1 = (float)universalTileHeight / 2.0f;
                 float finalXPos1 = -halfWidth1 + bossCol * pieceDistance + midBoardX;

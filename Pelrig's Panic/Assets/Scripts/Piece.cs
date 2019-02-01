@@ -15,6 +15,9 @@ public class Piece : MonoBehaviour
     public int initialResistanceValue;
     public int health;
     public int attack;
+    public Vector3 currPos;
+    public Vector3 prevPos;
+    [SerializeField] private float scootSpeed;
 
     private PieceType type;
     [SerializeField] public GameObject thePiece;
@@ -54,6 +57,25 @@ public class Piece : MonoBehaviour
 
     private void Update()
     {
+        if (prevPos != currPos)
+        {
+            MoveToNewPos();
+        }
+    }
 
+    private void MoveToNewPos()
+    {
+        Vector3 moveDirection = currPos - prevPos;
+        moveDirection.Normalize();
+        thePiece.transform.position += moveDirection * Time.deltaTime * scootSpeed;
+        prevPos = thePiece.transform.position;
+        Vector3 newMoveDirection = currPos - prevPos;
+        newMoveDirection.Normalize();
+        //you've gone too far
+        if (newMoveDirection != moveDirection)
+        {
+            thePiece.transform.position = currPos;
+            prevPos = currPos;
+        }
     }
 }

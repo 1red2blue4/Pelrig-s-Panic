@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -110,7 +110,7 @@ public static class TextManager {
             {
                 currentCharacter = 0;
                 textViewEmptied = true;
-            }*/
+            }
         }
         //TODO: organize buildIndex documentation
         if (SceneManager.GetActiveScene().buildIndex == 1 && (Input.GetKey(KeyCode.P) || countDialogueLength >= 18))
@@ -130,3 +130,4 @@ public static class TextManager {
         }
     }
 }
+*/

@@ -147,8 +147,8 @@ public class PirateCaptainAI : MonoBehaviour {
 
     bool CheckIfAPlayerAround()
     {
-        //if (PlayerControls.selectedUnit)
-        //{
+        if (PlayerControls.selectedUnit)
+        {
             if (PlayerControls.selectedUnit.GetComponent<Stats>().canAttack)
             {
                 Piece unit = Board.possibleMoveableChars[PlayerControls.theOne];
@@ -171,7 +171,7 @@ public class PirateCaptainAI : MonoBehaviour {
                     return true;
                 }
             }
-       // }
+        }
         return false;
     }
 
@@ -185,7 +185,7 @@ public class PirateCaptainAI : MonoBehaviour {
         int currentRowPosition = transform.GetComponent<Piece>().rowPosition;
         int currentColumnPosition = transform.GetComponent<Piece>().colPosition;
         int targetPlayer = 0;
-
+        
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
             int distance = Mathf.Abs(Board.possibleMoveableChars[i].rowPosition - currentRowPosition) +

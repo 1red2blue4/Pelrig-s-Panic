@@ -3,20 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AtlasManager))]
-[RequireComponent(typeof(PanelManager))]
-
+[RequireComponent(typeof(DialoguePanelManager))]
 
 public class DialogueManager : MonoBehaviour
 {
     private List<DialogueStateManager> managerList = new List<DialogueStateManager>();
-
     public static AtlasManager atlasManager { get; private set; }
-
-    public static PanelManager panelManeger { get; private set; }
+    public static DialoguePanelManager panelManeger { get; private set; }
     void Awake()
     {
         atlasManager = GetComponent<AtlasManager>();
-        panelManeger = GetComponent<PanelManager>();
+        panelManeger = GetComponent<DialoguePanelManager>();
 
         managerList.Add(atlasManager);
         managerList.Add(panelManeger);

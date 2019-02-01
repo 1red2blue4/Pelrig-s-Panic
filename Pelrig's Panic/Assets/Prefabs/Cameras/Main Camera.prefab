@@ -119,7 +119,15 @@ MonoBehaviour:
   frozenForMinigame: 0
   edsMinigame: {fileID: 2448377143885912203, guid: 8927db630c3ed014e81a70bb532d590e,
     type: 3}
-  damageTarget: {fileID: 0}
+  hallysMinigame: {fileID: 7468867396065048131, guid: 49f15ec9e4ec8c441ba5ab87666b6082,
+    type: 3}
+  jadesMinigame: {fileID: 6072017780084780178, guid: 444b790c69f72f945b7cec088fcc1f3d,
+    type: 3}
+  medasMinigame: {fileID: 8607409714729926552, guid: 79eb6eddb0993024c958af0a7c3d5bbb,
+    type: 3}
+  kentsMinigame: {fileID: 618926607218309290, guid: 95a560a024b431a44a62e8e118f8c0ed,
+    type: 3}
+  isTutorialrunning: 0
 --- !u!114 &114187690146866412
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -184,6 +184,13 @@ MonoBehaviour:
   TextBG: {fileID: 429560189}
   characterName: {fileID: 1893091936}
   dialogue: {fileID: 2071250717}
+  characterFont: []
+  edsFont: {fileID: 12800000, guid: 1a481558c376b144d95ca66383290ff8, type: 3}
+  medasFont: {fileID: 12800000, guid: b7fec2c248fa782438db1b0cff4847b2, type: 3}
+  kentsFont: {fileID: 12800000, guid: 9521fab11b7ffc04ca4883b9fd1f96bd, type: 3}
+  jadesFont: {fileID: 12800000, guid: 182dbdf1027a3e542a895c7a960b0aab, type: 3}
+  hallysFont: {fileID: 12800000, guid: 9ec516a5aeee0624b9479aded6b7cbc8, type: 3}
+  universalFancyFont: {fileID: 12800000, guid: fbdeaf08bb5a0be458af27c9567b12e6, type: 3}
 --- !u!1 &1893091934
 GameObject:
   m_ObjectHideFlags: 0

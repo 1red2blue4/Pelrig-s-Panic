@@ -47,11 +47,16 @@ public class PlayerControls : MonoBehaviour
     public GameObject currentMinigame;
     public bool frozenForMinigame;
     [SerializeField] public GameObject edsMinigame;
+    [SerializeField] public GameObject hallysMinigame;
+    [SerializeField] public GameObject jadesMinigame;
+    [SerializeField] public GameObject medasMinigame;
+    [SerializeField] public GameObject kentsMinigame;
 
-    public GameObject damageTarget;
-
-
+    private GameObject damageTarget;
     public static bool isWalk;
+
+    public bool isTutorialrunning;
+
     void Start()
     {
         damageTarget = null;
@@ -81,111 +86,119 @@ public class PlayerControls : MonoBehaviour
         isPlayerTurn = true;
         panelUnderCharacter = null;
         isWalk = false;
+        isTutorialrunning = false;
     }
 
     public void GiveNumbers()
     {
+        if(SceneManager.GetActiveScene().buildIndex == 1)
+        {
+
+        }
         //Left - 0, up - 1, right - 2, down - 3 (Also wind direction)
+        if (!isTutorialrunning)
 
-        int windDirection = 4; //Default no wind
-
-        //First 2 turns no wind
-        if (turnCount == 2)
         {
-            //Wind always agains you in the 3rd round
-            windDirection = 0;
-        }
-        else if (turnCount > 2)
-        {
-            //Wind becomes random after round 3
-            //I could be wrong, but The 0 - 16 range and then divide by 4 makes it more evenly distributed
-            windDirection = (int)(Random.Range(0.0f, 20.00f) / 4);
-        }
+            int windDirection = 4; //Default no wind
 
-        if (windDirection == 0) //left
-        {
-            moveValues[0] = 2; //left
-            moveValues[1] = 3; //up
-            moveValues[2] = 4; //right
-            moveValues[3] = 3; //down
-
-            WindSprite.gameObject.SetActive(true);
-            WindSprite.rotation = Quaternion.Euler(0, 0, 180);
-        }
-        else if (windDirection == 1) //up
-        {
-            moveValues[0] = 3; //left
-            moveValues[1] = 2; //up
-            moveValues[2] = 3; //right
-            moveValues[3] = 4; //down
-
-            WindSprite.gameObject.SetActive(true);
-            WindSprite.rotation = Quaternion.Euler(0, 0, 90);
-        }
-        else if (windDirection == 2) //right
-        {
-            moveValues[0] = 4; //left
-            moveValues[1] = 3; //up
-            moveValues[2] = 2; //right
-            moveValues[3] = 3; //down
-
-            WindSprite.gameObject.SetActive(true);
-            WindSprite.rotation = Quaternion.Euler(0, 0, 0);
-        }
-        else if (windDirection == 3) //down
-        {
-            moveValues[0] = 3; //left
-            moveValues[1] = 4; //up
-            moveValues[2] = 3; //right
-            moveValues[3] = 2; //down
-
-            WindSprite.gameObject.SetActive(true);
-            WindSprite.rotation = Quaternion.Euler(0, 0, -90);
-        }
-        else if (windDirection == 4) //No wind
-        {
-            moveValues[0] = 3; //left
-            moveValues[1] = 3; //up
-            moveValues[2] = 3; //right
-            moveValues[3] = 3; //down
-
-            WindSprite.gameObject.SetActive(false);
-            WindSprite.rotation = Quaternion.Euler(0, 0, 0);
-        }
-        //Debug.Log("Turn Count:   " + turnCount);
-        //Debug.Log("Wind Dir:   " + windDirection);
-
-        /* Old mechanic
-        for (int i = 0; i < 4; i++)
-        {
-            int randomNumber = (int)Random.Range(0.0f, 13.99f);
-            if (randomNumber < 1)
+            //First 2 turns no wind
+            if (turnCount == 2)
             {
-                moveValues[i] = 1;
+                //Wind always agains you in the 3rd round
+                windDirection = 0;
             }
-            else if (randomNumber < 4)
+            else if (turnCount > 2)
             {
-                moveValues[i] = 2;
+                //Wind becomes random after round 3
+                //I could be wrong, but The 0 - 16 range and then divide by 4 makes it more evenly distributed
+                windDirection = (int)(Random.Range(0.0f, 20.00f) / 4);
             }
-            else if (randomNumber < 7)
+
+            if (windDirection == 0) //left
             {
-                moveValues[i] = 3;
+                moveValues[0] = 2; //left
+                moveValues[1] = 3; //up
+                moveValues[2] = 4; //right
+                moveValues[3] = 3; //down
+
+                WindSprite.gameObject.SetActive(true);
+                WindSprite.rotation = Quaternion.Euler(0, 0, 180);
             }
-            else if (randomNumber < 10)
+            else if (windDirection == 1) //up
             {
-                moveValues[i] = 4;
+                moveValues[0] = 3; //left
+                moveValues[1] = 2; //up
+                moveValues[2] = 3; //right
+                moveValues[3] = 4; //down
+
+                WindSprite.gameObject.SetActive(true);
+                WindSprite.rotation = Quaternion.Euler(0, 0, 90);
             }
-            else if (randomNumber < 12)
+            else if (windDirection == 2) //right
             {
-                moveValues[i] = 5;
+                moveValues[0] = 4; //left
+                moveValues[1] = 3; //up
+                moveValues[2] = 2; //right
+                moveValues[3] = 3; //down
+
+                WindSprite.gameObject.SetActive(true);
+                WindSprite.rotation = Quaternion.Euler(0, 0, 0);
             }
-            else
+            else if (windDirection == 3) //down
             {
-                moveValues[i] = 6;
+                moveValues[0] = 3; //left
+                moveValues[1] = 4; //up
+                moveValues[2] = 3; //right
+                moveValues[3] = 2; //down
+
+                WindSprite.gameObject.SetActive(true);
+                WindSprite.rotation = Quaternion.Euler(0, 0, -90);
             }
-            //Debug.Log("moveValues[i]:   "+ moveValues[i]);
+            else if (windDirection == 4) //No wind
+            {
+                moveValues[0] = 3; //left
+                moveValues[1] = 3; //up
+                moveValues[2] = 3; //right
+                moveValues[3] = 3; //down
+
+                WindSprite.gameObject.SetActive(false);
+                WindSprite.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            //Debug.Log("Turn Count:   " + turnCount);
+            //Debug.Log("Wind Dir:   " + windDirection);
+
+            /* Old mechanic
+            for (int i = 0; i < 4; i++)
+            {
+                int randomNumber = (int)Random.Range(0.0f, 13.99f);
+                if (randomNumber < 1)
+                {
+                    moveValues[i] = 1;
+                }
+                else if (randomNumber < 4)
+                {
+                    moveValues[i] = 2;
+                }
+                else if (randomNumber < 7)
+                {
+                    moveValues[i] = 3;
+                }
+                else if (randomNumber < 10)
+                {
+                    moveValues[i] = 4;
+                }
+                else if (randomNumber < 12)
+                {
+                    moveValues[i] = 5;
+                }
+                else
+                {
+                    moveValues[i] = 6;
+                }
+                //Debug.Log("moveValues[i]:   "+ moveValues[i]);
+            }
+            */
         }
-        */
     }
 
     void AttackEnemy(Stats playerStats)
@@ -211,11 +224,9 @@ public class PlayerControls : MonoBehaviour
         {
             RepositionCamera(cameraRotPosition, prevCameraRotPosition, cameraMovementBetween);
         }
-
-        Debug.Log(PanelManager.playerControlsLocked);
-
+        
         // if (!TextManager.playerControlsLocked && !TutorialCards.isTutorialRunning)
-        if (!PanelManager.playerControlsLocked && !TutorialCards.isTutorialRunning && !frozenForMinigame)
+        if (!DialoguePanelManager.playerControlsLocked && !TutorialCards.isTutorialRunning && !frozenForMinigame)
         {
             CheckClick();
             CheckPlayer();
@@ -235,6 +246,7 @@ public class PlayerControls : MonoBehaviour
                         DisablePanelUnderCharacter(selectedUnit);
                     selectedUnit = null;
                     EndTurnButtonScript.isButtonPressed = false;
+                    TestButton.isEnable = true;
                     GiveNumbers();
                     isPlayerTurn = false;
                     roundCounter++;
@@ -250,6 +262,7 @@ public class PlayerControls : MonoBehaviour
             {
                 turnCount++;
                 isPlayerTurn = true;
+                TestButton.isEnable = false;
                 //  GameObject.Find("EndTurn").transform.GetComponent<Button>().transition = Navigation.None;
                 ExperimentalResources.ReInitializeResources();
                 // GameObject.Find("EndTurn").transform.GetComponent<EndButtonToggle>().isVisible = false;
@@ -298,6 +311,7 @@ public class PlayerControls : MonoBehaviour
     public static void EnemyTurnsActivate()
     {
         EndButtonToggle.EnableEndTurn();
+        TestButton.isEnable = true;
         bool countRound = false;
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
@@ -344,7 +358,6 @@ public class PlayerControls : MonoBehaviour
             }
         }
     }
-
     bool EnemyMovesDone()
     {
         if (SceneManager.GetActiveScene().buildIndex == 2 && Board.pirateBoss.GetComponent<PirateCaptainAI>().isTurnActive == true)
@@ -360,7 +373,6 @@ public class PlayerControls : MonoBehaviour
         }
         return true;
     }
-
     void MovePlayer()
     {
         int direction = -1;
@@ -369,25 +381,21 @@ public class PlayerControls : MonoBehaviour
             isWalk = true;
             direction = 1;
         }
-
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             isWalk = true;
             direction = 3;
         }
-
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             isWalk = true;
             direction = 0;
         }
-
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             isWalk = true;
             direction = 2;
         }
-
         if (direction != -1)
         {
             if (MovementManager.Move(Board.possibleMoveableChars[theOne], direction, moveValues[direction]))
@@ -396,7 +404,6 @@ public class PlayerControls : MonoBehaviour
             }
         }
     }
-
     void CheckPlayer()
     {
         int count = 0;
@@ -474,8 +481,6 @@ public class PlayerControls : MonoBehaviour
             //resistance.SetValue(resistance.initialValue - enemiesAround);
             //Board.possibleMoveableChars[i].resistanceValue = resistance.initialValue - enemiesAround;
         }
-
-
         if (count >= 2 && !Board.first)
         {
             //GameObject.Find("WinScreen").GetComponentInChildren<YouWin>().youLose = true;
@@ -494,7 +499,6 @@ public class PlayerControls : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            //ClearAllGrids();
             GameObject.Find("#Kent_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = true;
             GameObject.Find("#Meda_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
             GameObject.Find("#Hally_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
@@ -557,13 +561,6 @@ public class PlayerControls : MonoBehaviour
             {
                 if (hit.collider.tag == "Player")
                 {
-                    //Debug.Log("Clear cannon popup");
-
-                    //GameObject.Find("#Kent_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
-                    //GameObject.Find("#Meda_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
-                    //GameObject.Find("#Hally_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
-                    //GameObject.Find("#Ed_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
-                    //GameObject.Find("#Jade_Fantasy_Realm_temp").transform.GetChild(0).GetComponent<PanelUnderCharacter>().visible = false;
                     if (selectedUnit != null)
                     {
                         selectedBase = selectedUnit;
@@ -576,13 +573,10 @@ public class PlayerControls : MonoBehaviour
 
                             }
                         }
-
-
                         DisablePanelUnderCharacter(selectedUnit);
                         selectedBase.GetComponent<MeshRenderer>().material = normalMaterial;
                         selectedUnit = null;
                     }
-
                     for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
                     {
                         if (hit.transform == Board.possibleMoveableChars[i].thePiece.transform)
@@ -633,6 +627,31 @@ public class PlayerControls : MonoBehaviour
                             frozenForMinigame = true;
                             damageTarget = hit.collider.gameObject;
                         }
+                        else if (selectedUnit.GetComponent<Stats>().characterName == "Meda")
+                        {
+                            currentMinigame = Instantiate(medasMinigame, gameObject.transform.position + 5.0f * gameObject.transform.forward, gameObject.transform.rotation);
+                            frozenForMinigame = true;
+                            damageTarget = hit.collider.gameObject;
+                        }
+                        else if (selectedUnit.GetComponent<Stats>().characterName == "Hally")
+                        {
+                            currentMinigame = Instantiate(hallysMinigame, gameObject.transform.position + 5.0f * gameObject.transform.forward, gameObject.transform.rotation);
+                            frozenForMinigame = true;
+                            damageTarget = hit.collider.gameObject;
+                        }
+                        else if (selectedUnit.GetComponent<Stats>().characterName == "Jade")
+                        {
+                            currentMinigame = Instantiate(jadesMinigame, gameObject.transform.position + 5.0f * gameObject.transform.forward, gameObject.transform.rotation);
+                            frozenForMinigame = true;
+                            damageTarget = hit.collider.gameObject;
+                        }
+                        else if (selectedUnit.GetComponent<Stats>().characterName == "Kent")
+                        {
+                            currentMinigame = Instantiate(kentsMinigame, gameObject.transform.position + 5.0f * gameObject.transform.forward, gameObject.transform.rotation);
+                            frozenForMinigame = true;
+                            damageTarget = hit.collider.gameObject;
+                        }
+
                     }
                     hit.transform.GetComponent<Stats>().TakeDamage(selectedUnit.GetComponent<Stats>().damage);
                     selectedUnit.GetComponent<Stats>().canAttack = false;
@@ -642,7 +661,6 @@ public class PlayerControls : MonoBehaviour
             {
                 if (selectedUnit != null)
                 {
-                    //selectedUnit.GetComponent<MeshRenderer>().material = normalMaterial;
                     GameObject panelUnderCharacter = null;
                     for (int i = 0; i < selectedUnit.transform.childCount; i++)
                     {
@@ -661,8 +679,6 @@ public class PlayerControls : MonoBehaviour
             }
         }
     }
-
-
     public void DisablePanelUnderCharacter(GameObject selected)
     {
         for (int i = 0; i < selectedUnit.transform.childCount; i++)
@@ -672,14 +688,12 @@ public class PlayerControls : MonoBehaviour
                 panelUnderCharacter = selected.transform.GetChild(i).GetComponent<PanelUnderCharacter>().gameObject;
             }
         }
-
         if (panelUnderCharacter != null)
         {
             ClearAllGrids();
             panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
         }
     }
-
     bool isPlayerNextToEnemy(GameObject enemy)
     {
         if (enemy.GetComponent<Piece>().rowPosition == Board.possibleMoveableChars[theOne].rowPosition - 1 ||
@@ -701,7 +715,6 @@ public class PlayerControls : MonoBehaviour
     {
         float xAxisValue = Input.GetAxis("Horizontal");
         float yAxisValue = Input.GetAxis("Vertical");
-
         
         for (int i = 0; i < numCameraRotPositions; i++)
         {
@@ -715,7 +728,6 @@ public class PlayerControls : MonoBehaviour
 
     public void MoveCamera()
     {
-
         if (Input.GetAxis("Horizontal") > 0 && cameraChangeHorizontal < cameraLimit)
         {
             for (int i = 0; i < numCameraRotPositions; i++)
@@ -794,16 +806,13 @@ public class PlayerControls : MonoBehaviour
             cameraRotPress = false;
         }
     }
-
     private void SetCamera()
     {
         cameraMovementBetween = 0.0f;
         movingCamera = true;
     }
-
     private void RepositionCamera(int camPos, int prevPos, float timeToMove)
-    {
-        
+    {        
         transform.position = Vector3.Lerp(allCameras[prevPos].transform.position, allCameras[camPos].transform.position, timeToMove);
         transform.rotation = Quaternion.Lerp(allCameras[prevPos].transform.rotation, allCameras[camPos].transform.rotation, timeToMove);
         if (cameraMovementBetween < 1.0f)
@@ -816,7 +825,6 @@ public class PlayerControls : MonoBehaviour
             movingCamera = false;
         }
     }
-
     private void CheckCoinCollect()
     {
         //for all the heroes and coins...
@@ -843,7 +851,6 @@ public class PlayerControls : MonoBehaviour
             }
         }
     }
-
     private void CheckForLineupSwap()
     {
         if (Input.GetKeyDown(KeyCode.Q))
@@ -854,9 +861,7 @@ public class PlayerControls : MonoBehaviour
         {
             MovementManager.SwitchDirectionLineup(MovementManager.Direction.Right, columnHighlight);
         }
-    }
-
-   
+    }   
     public static void UnoccupiedSpaceEnable(Piece character)
     {
         bool isUp = true;
@@ -974,35 +979,6 @@ public class PlayerControls : MonoBehaviour
         {
             isLeft = false;
         }
-        //Left
-        for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
-        {            
-            if (Board.possibleMoveableChars[i] == character)
-            {
-                continue;
-            }
-            if (Board.possibleMoveableChars[i].rowPosition == character.rowPosition && Board.possibleMoveableChars[i].colPosition == character.colPosition - 1)
-            {
-                isLeft = true; 
-            }
-        }
-        for (int i = 0; i < Board.spawnedEnemies.Count; i++)
-        {
-            if (Board.spawnedEnemies[i].colPosition == character.colPosition - 1 && Board.spawnedEnemies[i].rowPosition == character.rowPosition)
-            {
-                isLeft = true;
-            }
-        }
-        //right
-        
-
-        //up
-
-
-        //down
-
-
-
         if (isLeft)
         {
             if (GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition - 1)) != null)
@@ -1036,7 +1012,6 @@ public class PlayerControls : MonoBehaviour
             }
         }
     }
-
     public static void ClearAllGrids()
     {
         for (int i = 0; i < Board.allTiles.Length; i++)
@@ -1048,7 +1023,6 @@ public class PlayerControls : MonoBehaviour
             }
         }
     }
-
     public static void EndButtonEnable()
     { 
         for(int i = 0; i < moveValues.Length; i++)
