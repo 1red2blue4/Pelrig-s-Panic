@@ -32,7 +32,9 @@ public class EndButtonToggle : MonoBehaviour
     public static void EnableEndTurn()
     { 
         if(!isEnable)
-        { 
+        {
+            Debug.Log("enable end turn");
+            GameObject.Find("EndTurn").GetComponent<Image>().enabled = true;
             EndTurnButtonScript.isButtonPressed = true;
             isEnable = true;
         }       
@@ -43,8 +45,10 @@ public class EndButtonToggle : MonoBehaviour
     {
         if (isEnable)
         {
+            Debug.Log("Disable end turn");
             EndTurnButtonScript.isButtonPressed = false;
             isEnable = false;
+            GameObject.Find("EndTurn").GetComponent<Image>().enabled = false;
         }
     }
 
@@ -52,6 +56,7 @@ public class EndButtonToggle : MonoBehaviour
     {
         if (!isEnable && !DialoguePanelManager.playerControlsLocked)
         {
+            Debug.Log("Enable end turn onclicked");
             EndTurnButtonScript.isButtonPressed = true;
             isEnable = true;
         }

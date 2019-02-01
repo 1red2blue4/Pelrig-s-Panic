@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EndturnButton : MonoBehaviour
 {
@@ -42,6 +43,7 @@ public class EndturnButton : MonoBehaviour
         {
             EndTurnButtonScript.isButtonPressed = true;
             isEnable = true;
+            GameObject.Find("EndTurn").GetComponent<Image>().enabled = true;
         }
 
     }
@@ -52,6 +54,7 @@ public class EndturnButton : MonoBehaviour
         {
             EndTurnButtonScript.isButtonPressed = false;
             isEnable = false;
+            GameObject.Find("EndTurn").GetComponent<Image>().enabled = false;
         }
     }
 }
