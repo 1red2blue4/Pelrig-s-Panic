@@ -405,13 +405,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 224481651234792416, guid: de15da0aacba8c54680c9d03f1cc5c9d,
         type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -446
-      objectReference: {fileID: 0}
-    - target: {fileID: 224481651234792416, guid: de15da0aacba8c54680c9d03f1cc5c9d,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 180.47
+      propertyPath: m_AnchoredPosition.x
+      value: -582
       objectReference: {fileID: 0}
     - target: {fileID: 224457572317446728, guid: de15da0aacba8c54680c9d03f1cc5c9d,
         type: 3}
@@ -657,6 +652,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OpenHudPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8984968177549908179, guid: de15da0aacba8c54680c9d03f1cc5c9d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -582
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114122582762057566, guid: de15da0aacba8c54680c9d03f1cc5c9d, type: 3}
@@ -1515,16 +1515,16 @@ PrefabInstance:
       propertyPath: m_TargetDisplay
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 124357239068521034, guid: 16e446cc3cf4e5642bb7a186bd7697ce,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 114747334948682146, guid: 16e446cc3cf4e5642bb7a186bd7697ce,
         type: 3}
       propertyPath: glowingMaterial
       value: 
       objectReference: {fileID: 2100000, guid: e3156b97c04fff74cb57c8f4ed045b20, type: 2}
+    - target: {fileID: 124357239068521034, guid: 16e446cc3cf4e5642bb7a186bd7697ce,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114747334948682146, guid: 16e446cc3cf4e5642bb7a186bd7697ce, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 16e446cc3cf4e5642bb7a186bd7697ce, type: 3}

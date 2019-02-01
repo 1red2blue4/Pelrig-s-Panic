@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -347,12 +347,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   images:
   - {fileID: 21300000, guid: 19ef804ff1087574895e8ce3a8e9bacd, type: 3}
+  - {fileID: 21300000, guid: 8a103012861737e4cabd51f442172de7, type: 3}
   - {fileID: 21300000, guid: 3be61ce1931f2374d9036d1530f2eaba, type: 3}
+  - {fileID: 21300000, guid: 30b7469bfb81cc941b6d96f3c230cacb, type: 3}
   - {fileID: 21300000, guid: 4fdfd0fbf0f8cf84ab288e5b84498749, type: 3}
   times:
-  - 1
-  - 0.4
+  - 0.85
+  - 0.3
   - 0.2
+  - 0.15
+  - 0.1
 --- !u!1001 &5079445061640115308
 PrefabInstance:
   m_ObjectHideFlags: 0

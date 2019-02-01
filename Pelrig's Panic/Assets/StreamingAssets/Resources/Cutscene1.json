@@ -4,7 +4,7 @@
       "Conversation": 0,
       "CharacterName": "Hally",
       "CharacterImage": "Hally",
-      "DialogueText": "Where…. Are we?"
+      "DialogueText": "Where... Are we?"
     },
     {
       "Conversation": 1,
@@ -22,7 +22,7 @@
       "Conversation": 3,
       "CharacterName": "Kent",
       "CharacterImage": "Kent",
-      "DialogueText": "…!"
+      "DialogueText": "...!"
     },
     {
       "Conversation": 4,
@@ -40,7 +40,7 @@
       "Conversation": 6,
       "CharacterName": "Hally",
       "CharacterImage": "Hally",
-      "DialogueText": "Star…. Board?"
+      "DialogueText": "Star... Board?"
     },
     {
       "Conversation": 7,
