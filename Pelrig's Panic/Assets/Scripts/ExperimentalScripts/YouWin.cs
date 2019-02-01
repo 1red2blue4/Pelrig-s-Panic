@@ -33,7 +33,7 @@ public class YouWin : MonoBehaviour {
             child.SetActive(true);
             gameObject.GetComponentInChildren<TextMesh>().text = "YOU LOSE";
         }
-		else if (youWon || roundCount >= 2)
+		else if (youWon)
         {
             child.SetActive(true);
         }
