@@ -245,6 +245,7 @@ public class PlayerControls : MonoBehaviour
                         DisablePanelUnderCharacter(selectedUnit);
                     selectedUnit = null;
                     EndTurnButtonScript.isButtonPressed = false;
+                    TestButton.isEnable = true;
                     GiveNumbers();
                     isPlayerTurn = false;
                     roundCounter++;
@@ -260,6 +261,7 @@ public class PlayerControls : MonoBehaviour
             {
                 turnCount++;
                 isPlayerTurn = true;
+                TestButton.isEnable = false;
                 //  GameObject.Find("EndTurn").transform.GetComponent<Button>().transition = Navigation.None;
                 ExperimentalResources.ReInitializeResources();
                 // GameObject.Find("EndTurn").transform.GetComponent<EndButtonToggle>().isVisible = false;
@@ -308,6 +310,7 @@ public class PlayerControls : MonoBehaviour
     public static void EnemyTurnsActivate()
     {
         EndButtonToggle.EnableEndTurn();
+        TestButton.isEnable = true;
         bool countRound = false;
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
