@@ -2,10 +2,10 @@ version: 2
 importPivots: 1
 tpsheetFileNames:
 - Assets/codeandweb.com/Example/SpriteSheet/sprites.tpsheet
-- Assets/StreamingAssets/Resources/EventAtlas.tpsheet
+- Assets/Resources/EventAtlas.tpsheet
 textureFileNames:
 - Assets/codeandweb.com/Example/SpriteSheet/sprites.png
-- Assets/StreamingAssets/Resources/EventAtlas.png
+- Assets/Resources/EventAtlas.png
 normalmapFileNames:
 - Assets/codeandweb.com/Example/SpriteSheet/sprites_n.png
 - 
