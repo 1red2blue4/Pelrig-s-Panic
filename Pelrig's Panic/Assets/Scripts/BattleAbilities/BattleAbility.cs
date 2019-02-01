@@ -4,52 +4,36 @@ using UnityEngine;
 
 public class BattleAbility
 {
-    private string name;
-    private string description;
-    private Sprite icon;
+    private BasicObjectInformation objectInfo;
     private List<AbilityBehaviors> behaviors;
     private bool requiresTarget;
     private bool canCastOnSelf;
     private int turnCooldown;
     //private GameObject particleEffect;        for another time. We will need to assign this when we create the ability
 
-    public BattleAbility(string aname, Sprite aicon, List<AbilityBehaviors> abehaviors)
+    public BattleAbility(BasicObjectInformation aBasicInfo, List<AbilityBehaviors> abehaviors)
     {
-        name = aname;
-        icon = aicon;
+        objectInfo = aBasicInfo;
         behaviors = new List<AbilityBehaviors>();
         behaviors = abehaviors;
         turnCooldown = 0;
         requiresTarget = false;
         canCastOnSelf = false;
-        description = "Default";
     }
 
-    public BattleAbility(string aname, Sprite aicon, List<AbilityBehaviors> abehaviors, bool thereIsATarget, int acooldown)
+    public BattleAbility(BasicObjectInformation aBasicInfo, List<AbilityBehaviors> abehaviors, bool thereIsATarget, int acooldown)
     {
-        name = aname;
-        icon = aicon;
+        objectInfo = aBasicInfo;
         behaviors = new List<AbilityBehaviors>();
         behaviors = abehaviors;
         turnCooldown = acooldown;
         requiresTarget = thereIsATarget;
         canCastOnSelf = false;
-        description = "Default";
     }
 
-    public string getAbilityName
+    public BasicObjectInformation AbilityInfo
     {
-        get { return name; }
-    }
-
-    public string getAbilityDescription
-    {
-        get { return description; }
-    }
-
-    public Sprite getAbilityIcon
-    {
-        get { return icon; }
+        get { return objectInfo; }
     }
 
     public int getAbilityTurnCooldown

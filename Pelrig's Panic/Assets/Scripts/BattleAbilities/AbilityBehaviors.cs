@@ -2,17 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbilityBehaviors : MonoBehaviour
+public class AbilityBehaviors
 {
-    // Start is called before the first frame update
-    void Start()
+    private BasicObjectInformation objectInfo;
+    private BehaviorStartTimes startTime;
+
+    public AbilityBehaviors(BasicObjectInformation basicInfo, BehaviorStartTimes sTime)
     {
-        
+        objectInfo = basicInfo;
+        startTime = sTime;
     }
 
-    // Update is called once per frame
-    void Update()
+    public enum BehaviorStartTimes
     {
-        
+        Beginning,
+        Middle,
+        End
+    }
+
+    public virtual void PerformBehavior()
+    {
+
+    }
+
+    public BasicObjectInformation AbilityBehaviorInfo
+    {
+        get { return objectInfo; }
+    }
+
+    public BehaviorStartTimes AbilityBehaviorStartTime
+    {
+        get { return startTime; }
     }
 }
