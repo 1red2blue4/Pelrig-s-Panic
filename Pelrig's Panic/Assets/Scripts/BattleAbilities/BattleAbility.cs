@@ -10,6 +10,16 @@ public class BattleAbility
     private bool canCastOnSelf;
     private int turnCooldown;
     //private GameObject particleEffect;        for another time. We will need to assign this when we create the ability
+    private AbilityType type;
+
+    public enum AbilityType
+    {
+        SelfBuff,
+        BuffTarget,
+        DebuffEnemyTarget,
+        DamageEnemyTarget,
+        AreaOfEffect
+    }
 
     public BattleAbility(BasicObjectInformation aBasicInfo, List<AbilityBehaviors> abehaviors)
     {

@@ -17,7 +17,7 @@ public class ChangePresenceValue : AbilityBehaviors
 
     }
 
-    public int presnceChangeValue
+    public int PresenceChangeValue
     {
         get { return presenceChangeValue; }
     }
