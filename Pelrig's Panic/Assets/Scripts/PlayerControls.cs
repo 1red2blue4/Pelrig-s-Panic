@@ -983,6 +983,7 @@ public class PlayerControls : MonoBehaviour
             {
                 GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition - 1)).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
                 GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition - 1)).transform.GetChild(1).GetComponent<FreeSpaceHighlightAnim>().isVisible = true;
+                GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition - 1)).transform.GetChild(3).GetComponent<TextMesh>().text = moveValues[0].ToString();
             }
         }
         if (isRight)
@@ -991,6 +992,7 @@ public class PlayerControls : MonoBehaviour
             {
                 GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition + 1)).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
                 GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition + 1)).transform.GetChild(1).GetComponent<FreeSpaceHighlightAnim>().isVisible = true;
+                GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition + 1)).transform.GetChild(3).GetComponent<TextMesh>().text = moveValues[1].ToString();
             }
         }
         if (isUp)
@@ -999,6 +1001,7 @@ public class PlayerControls : MonoBehaviour
             {
                 GameObject.Find("gridRow" + (character.rowPosition - 1) + "Column" + (character.colPosition)).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
                 GameObject.Find("gridRow" + (character.rowPosition - 1) + "Column" + (character.colPosition)).transform.GetChild(1).GetComponent<FreeSpaceHighlightAnim>().isVisible = true;
+                GameObject.Find("gridRow" + (character.rowPosition - 1) + "Column" + (character.colPosition)).transform.GetChild(3).GetComponent<TextMesh>().text = moveValues[2].ToString();
             }
         }
         if (isDown)
@@ -1007,6 +1010,7 @@ public class PlayerControls : MonoBehaviour
             {
                 GameObject.Find("gridRow" + (character.rowPosition + 1) + "Column" + (character.colPosition)).transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = true;
                 GameObject.Find("gridRow" + (character.rowPosition + 1) + "Column" + (character.colPosition)).transform.GetChild(1).GetComponent<FreeSpaceHighlightAnim>().isVisible = true;
+                GameObject.Find("gridRow" + (character.rowPosition + 1) + "Column" + (character.colPosition)).transform.GetChild(3).GetComponent<TextMesh>().text = moveValues[3].ToString();
             }
         }
     }
@@ -1017,7 +1021,8 @@ public class PlayerControls : MonoBehaviour
             if (Board.allTiles[i].tag == "BlankSpace")
             {
                 Board.allTiles[i].transform.GetChild(0).GetComponent<FreeSpaceHighlight>().isVisible = false;                
-                Board.allTiles[i].transform.GetChild(1).GetComponent<FreeSpaceHighlightAnim>().isVisible = false;                
+                Board.allTiles[i].transform.GetChild(1).GetComponent<FreeSpaceHighlightAnim>().isVisible = false;
+                Board.allTiles[i].transform.GetChild(3).GetComponent<TextMesh>().text = "";
             }
         }
     }
