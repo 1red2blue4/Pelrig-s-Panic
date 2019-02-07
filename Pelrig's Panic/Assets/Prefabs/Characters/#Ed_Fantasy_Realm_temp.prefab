@@ -194,7 +194,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 8
   damage: 2
+  meterUnitsFilled: 2
   canAttack: 0
+  maxMeter: 5
   characterName: Ed
 --- !u!1 &1192767384648214
 GameObject:

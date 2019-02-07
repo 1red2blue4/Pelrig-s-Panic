@@ -616,7 +616,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 8
   damage: 2
+  meterUnitsFilled: 5
   canAttack: 0
+  maxMeter: 5
   characterName: Kent
 --- !u!1 &1698528830530476
 GameObject:

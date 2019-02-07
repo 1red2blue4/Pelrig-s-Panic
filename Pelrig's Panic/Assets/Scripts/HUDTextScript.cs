@@ -8,6 +8,11 @@ public class HUDTextScript : MonoBehaviour
     [SerializeField] Text[] presenceTextArr;
     [SerializeField] Text[] resistTextArr;
 
+    [SerializeField] RectTransform[] dreamMeterBarArr;
+
+    private float startingWidth;
+
+    private int meterValue;
     private int healthValue;
     private int attackValue;
     private bool temp;
@@ -20,27 +25,33 @@ public class HUDTextScript : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-       
+        if (dreamMeterBarArr[0] != null)
+        {
+            startingWidth = dreamMeterBarArr[0].rect.width;
+        }
+
+        for (int i = 0; i < dreamMeterBarArr.Length; i++)
+        {
+            dreamMeterBarArr[i].sizeDelta = new Vector2(0.0f, dreamMeterBarArr[i].rect.height);
+         }
     }
 	
 	// Update is called once per frame
 	void Update ()
     {       
-        UpdateText();        
+        UpdateText();
+        UpdateMeter();
     }
 
     void UpdateText()
     {       
-        foreach (var item in Board.possibleMoveableChars)
+        for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
-            for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
-            {
-                healthValue = Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().health;
-                presenceTextArr[i].text = healthValue.ToString();
+            attackValue = Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().damage;
+            presenceTextArr[i].text = attackValue.ToString();
 
-                attackValue = Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().damage;
-                resistTextArr[i].text = attackValue.ToString();                   
-            }
+            healthValue = Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().health;
+            resistTextArr[i].text = healthValue.ToString();                   
         }
 
         if(!DialoguePanelManager.playerControlsLocked && !TutorialCards.isTutorialRunning)
@@ -56,6 +67,15 @@ public class HUDTextScript : MonoBehaviour
             {
                 characterPortrait[i].SetActive(false);
             }
+        }
+    }
+
+    void UpdateMeter()
+    {
+        for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
+        {
+            meterValue = Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().meterUnitsFilled;
+            dreamMeterBarArr[i].sizeDelta = new Vector2(startingWidth * meterValue / Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().maxMeter, dreamMeterBarArr[i].rect.height);
         }
     }
 }

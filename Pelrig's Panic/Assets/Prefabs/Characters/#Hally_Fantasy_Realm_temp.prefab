@@ -114,7 +114,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 8
   damage: 2
+  meterUnitsFilled: 3
   canAttack: 0
+  maxMeter: 5
   characterName: Hally
 --- !u!1 &1103372154033702
 GameObject:
