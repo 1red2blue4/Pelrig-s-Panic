@@ -295,7 +295,8 @@ public class PlayerControls : MonoBehaviour
         {
             if (currentMinigame.GetComponent<Minigame>().gameWon)
             {
-                DealMoreDamage(2, damageTarget);
+                if (damageTarget != null)
+                    DealMoreDamage(2, damageTarget);
             }
             frozenForMinigame = false;
             GameObject.Destroy(currentMinigame);
