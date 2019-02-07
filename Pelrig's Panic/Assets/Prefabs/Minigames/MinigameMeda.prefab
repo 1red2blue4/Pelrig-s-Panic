@@ -447,7 +447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea62f95acb92b3845ab90b8c458b2119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeAvailable: 2.3
+  timeAvailable: 3.3
   miniGamePlayer: {fileID: 8607409714496507909}
   gameWon: 0
   gameConditionSet: 0
