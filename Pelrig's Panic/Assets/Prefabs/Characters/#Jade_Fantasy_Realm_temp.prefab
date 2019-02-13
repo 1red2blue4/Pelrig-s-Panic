@@ -114,7 +114,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 8
   damage: 2
+  meterUnitsFilled: 1
   canAttack: 0
+  maxMeter: 5
   characterName: Jade
 --- !u!1 &1064420892271248
 GameObject:

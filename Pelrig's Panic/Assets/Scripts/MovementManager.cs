@@ -62,7 +62,6 @@ public static class MovementManager {
                 if (Board.allCannons[i].cannon.rowPosition == character.rowPosition - 1 && Board.allCannons[i].cannon.colPosition == character.colPosition)
                 {
                     inWay = true;
-                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
             //check for generators in the way
@@ -71,7 +70,6 @@ public static class MovementManager {
                 if (Board.generators[i].generator.rowPosition == character.rowPosition - 1 && Board.generators[i].generator.colPosition == character.colPosition)
                 {                    
                     inWay = true;
-                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
 
@@ -86,6 +84,7 @@ public static class MovementManager {
                 character.SetRowAndCol(character.rowPosition - 1, character.colPosition);
                 PlayerControls.UnoccupiedSpaceEnable(character);
                 character.currPos = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
+                character.thePiece.GetComponent<Stats>().GainMeter(1);
                 return true;
             }
         }
@@ -127,7 +126,6 @@ public static class MovementManager {
                 if (Board.allCannons[i].cannon.colPosition == character.colPosition + 1 && Board.allCannons[i].cannon.rowPosition == character.rowPosition)
                 {
                     inWay = true;
-                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
             //check for generators in the way
@@ -136,7 +134,6 @@ public static class MovementManager {
                 if (Board.generators[i].generator.rowPosition == character.rowPosition && Board.generators[i].generator.colPosition == character.colPosition + 1)
                 {
                     inWay = true;
-                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
             if (SceneManager.GetActiveScene().buildIndex == 2 && Board.pirateBoss.colPosition == character.colPosition + 1 && Board.pirateBoss.rowPosition == character.rowPosition)
@@ -150,6 +147,7 @@ public static class MovementManager {
                 character.SetRowAndCol(character.rowPosition, character.colPosition + 1);
                 PlayerControls.UnoccupiedSpaceEnable(character);
                 character.currPos = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
+                character.thePiece.GetComponent<Stats>().GainMeter(1);
                 return true;
             }
            
@@ -192,7 +190,6 @@ public static class MovementManager {
                 if (Board.allCannons[i].cannon.rowPosition == character.rowPosition + 1 && Board.allCannons[i].cannon.colPosition == character.colPosition)
                 {
                     inWay = true;
-                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
             //check for generators in the way
@@ -201,7 +198,6 @@ public static class MovementManager {
                 if (Board.generators[i].generator.rowPosition == character.rowPosition + 1 && Board.generators[i].generator.colPosition == character.colPosition)
                 {
                     inWay = true;
-                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
             if (SceneManager.GetActiveScene().buildIndex == 2 && Board.pirateBoss.colPosition == character.colPosition && Board.pirateBoss.rowPosition == character.rowPosition + 1)
@@ -214,6 +210,7 @@ public static class MovementManager {
                 character.SetRowAndCol(character.rowPosition + 1, character.colPosition);
                 PlayerControls.UnoccupiedSpaceEnable(character);
                 character.currPos = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
+                character.thePiece.GetComponent<Stats>().GainMeter(1);
                 return true;
             }
         }
@@ -254,7 +251,6 @@ public static class MovementManager {
                 if (Board.allCannons[i].cannon.colPosition == character.colPosition - 1 && Board.allCannons[i].cannon.rowPosition == character.rowPosition)
                 {
                     inWay = true;
-                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
             //check for generators in the way
@@ -263,7 +259,6 @@ public static class MovementManager {
                 if (Board.generators[i].generator.rowPosition == character.rowPosition && Board.generators[i].generator.colPosition == character.colPosition - 1)
                 {
                     inWay = true;
-                    //Board.allCannons[i].UseCannon(Board.spawnedEnemies, 5);
                 }
             }
             if (SceneManager.GetActiveScene().buildIndex == 2 && Board.pirateBoss.colPosition == character.colPosition - 1 && Board.pirateBoss.rowPosition == character.rowPosition)
@@ -276,6 +271,7 @@ public static class MovementManager {
                 character.SetRowAndCol(character.rowPosition, character.colPosition - 1);
                 PlayerControls.UnoccupiedSpaceEnable(character);
                 character.currPos = GameObject.Find("gridRow" + (character.rowPosition) + "Column" + (character.colPosition)).transform.position;
+                character.thePiece.GetComponent<Stats>().GainMeter(1);
                 return true;
             }
         }
