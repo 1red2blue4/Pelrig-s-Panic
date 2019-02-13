@@ -76,6 +76,7 @@ public class HUDTextScript : MonoBehaviour
         {
             meterValue = Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().meterUnitsFilled;
             dreamMeterBarArr[i].sizeDelta = new Vector2(startingWidth * meterValue / Board.possibleMoveableChars[i].thePiece.GetComponent<Stats>().maxMeter, dreamMeterBarArr[i].rect.height);
+            dreamMeterBarArr[i].GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 2, dreamMeterBarArr[i].rect.width);
         }
     }
 }

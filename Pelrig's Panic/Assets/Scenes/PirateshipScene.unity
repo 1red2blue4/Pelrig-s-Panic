@@ -339,11 +339,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GridLevelStuff
       objectReference: {fileID: 0}
-    - target: {fileID: 7070484762629140664, guid: de15da0aacba8c54680c9d03f1cc5c9d,
-        type: 3}
-      propertyPath: m_Name
-      value: EnergyBackground
-      objectReference: {fileID: 0}
     - target: {fileID: 4871593531809050, guid: de15da0aacba8c54680c9d03f1cc5c9d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -408,21 +403,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1647816097}
-    - target: {fileID: 3354099138837981524, guid: de15da0aacba8c54680c9d03f1cc5c9d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7108300477609101491, guid: de15da0aacba8c54680c9d03f1cc5c9d,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3003750367686001001, guid: de15da0aacba8c54680c9d03f1cc5c9d,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1804451005844436, guid: de15da0aacba8c54680c9d03f1cc5c9d, type: 3}
       propertyPath: m_Name
       value: meda_ui_info
@@ -442,6 +422,31 @@ PrefabInstance:
     - target: {fileID: 1694316707754498, guid: de15da0aacba8c54680c9d03f1cc5c9d, type: 3}
       propertyPath: m_Name
       value: jade_ui_info
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354099138837981524, guid: de15da0aacba8c54680c9d03f1cc5c9d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7108300477609101491, guid: de15da0aacba8c54680c9d03f1cc5c9d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070484762629140664, guid: de15da0aacba8c54680c9d03f1cc5c9d,
+        type: 3}
+      propertyPath: m_Name
+      value: EnergyBackground
+      objectReference: {fileID: 0}
+    - target: {fileID: 4907728338929271216, guid: de15da0aacba8c54680c9d03f1cc5c9d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3003750367686001001, guid: de15da0aacba8c54680c9d03f1cc5c9d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de15da0aacba8c54680c9d03f1cc5c9d, type: 3}
@@ -1206,6 +1211,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4772804795493217389, guid: 692ab70cacc5d904f9a8117f300f1882,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -540
+      objectReference: {fileID: 0}
     - target: {fileID: 5079445061415689804, guid: 692ab70cacc5d904f9a8117f300f1882,
         type: 3}
       propertyPath: m_Color.r
@@ -1220,11 +1230,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4772804795493217389, guid: 692ab70cacc5d904f9a8117f300f1882,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -540
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 692ab70cacc5d904f9a8117f300f1882, type: 3}
