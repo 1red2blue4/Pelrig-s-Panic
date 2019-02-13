@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class EndturnController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     public static bool isInteractable;
+    int cost;
 
     // Start is called before the first frame update
     void Start()
@@ -15,7 +16,11 @@ public class EndturnController : MonoBehaviour, IPointerEnterHandler, IPointerEx
     }
     void Update()
     {
-
+        if(ExperimentalResources.resources <= 1)
+        {
+            isInteractable = true;
+            transform.GetComponent<Image>().enabled = true;
+        }
     } 
     public void OnClick()
     {

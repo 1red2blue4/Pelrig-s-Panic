@@ -16,8 +16,7 @@ public class ExperimentalResources : MonoBehaviour {
     {
         if (resources - amount >= 0)
         {
-            resources -= amount;
-            //Debug.Log("PlayerControls.moveValues[theNumber].ToString()):        " + resources);
+            resources -= amount; 
             return true;
         }
         
