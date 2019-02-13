@@ -28,7 +28,6 @@ public class PlaygroundController : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("Mouse exit"); 
         transform.GetComponent<Image>().sprite = offSprite; 
     }      
 }

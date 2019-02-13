@@ -236,16 +236,18 @@ public class PlayerControls : MonoBehaviour
                 {
                     MovePlayer();
                 }
-                if (Input.GetKeyDown(KeyCode.Space) || EndTurnButtonScript.isButtonPressed)// || Input.GetMouseButtonDown(0))
-                {
+                if (Input.GetKeyDown(KeyCode.Space) || EndturnController.isInteractable)// || Input.GetMouseButtonDown(0))    EndTurnButtonScript.isButtonPressed ||
+                {                    
                     //Clearing all highlighted possible moves and selected character.
                     ClearAllGrids();
-                    // panelUnderCharacter.GetComponent<PanelUnderCharacter>().visible = false;
+                     
                     if (selectedUnit)
                         DisablePanelUnderCharacter(selectedUnit);
                     selectedUnit = null;
-                    EndTurnButtonScript.isButtonPressed = false;
-                    TestButton.isEnable = true;
+                    //EndTurnButtonScript.isButtonPressed = false;
+                    EndturnController.isInteractable = false;
+                   // 
+
                     GiveNumbers();
                     isPlayerTurn = false;
                     roundCounter++;
@@ -261,7 +263,7 @@ public class PlayerControls : MonoBehaviour
             {
                 turnCount++;
                 isPlayerTurn = true;
-                TestButton.isEnable = false;
+                
                 //  GameObject.Find("EndTurn").transform.GetComponent<Button>().transition = Navigation.None;
                 ExperimentalResources.ReInitializeResources();
                 // GameObject.Find("EndTurn").transform.GetComponent<EndButtonToggle>().isVisible = false;
@@ -276,10 +278,11 @@ public class PlayerControls : MonoBehaviour
                     if (item.thePiece != null)
                     {
                         item.thePiece.GetComponent<Stats>().canAttack = true;
+                        GameObject.Find("Endturn").transform.GetComponent<Image>().enabled = false;
                     }
                 }
 
-                EndButtonToggle.DisableEndTurn();
+                //EndButtonToggle.DisableEndTurn();
             }
         }
 
@@ -310,8 +313,8 @@ public class PlayerControls : MonoBehaviour
 
     public static void EnemyTurnsActivate()
     {
-        EndButtonToggle.EnableEndTurn();
-        TestButton.isEnable = true;
+        //EndButtonToggle.EnableEndTurn();
+        //TestButton.isEnable = true;
         bool countRound = false;
         for (int i = 0; i < Board.possibleMoveableChars.Length; i++)
         {
@@ -371,6 +374,7 @@ public class PlayerControls : MonoBehaviour
                 return false;
             }
         }
+        
         return true;
     }
     void MovePlayer()
